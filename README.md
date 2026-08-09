@@ -1,0 +1,168 @@
+# QUASAR
+
+**Quantum algorithms for mutation–selection dynamics: formulation, methods, and an honest
+assessment of the quantum–classical boundary.**
+
+QUASAR studies whether quantum algorithms help compute the quasispecies distribution of
+molecular evolution, and where the boundary against the best classical methods actually
+falls. It rests on a proven correspondence: the Crow–Kimura and Eigen mutation–selection
+models are exactly transverse-field Ising spin chains evolving in imaginary time. Mutation
+rate is the transverse field, per-site fitness is the longitudinal field, epistasis is the
+ZZ coupling, the quasispecies is the Perron eigenvector, and the error catastrophe is a
+localisation–delocalisation phase transition.
+
+---
+
+## What this is, and what it is not
+
+**This is.**
+
+- A formal quantum-algorithmic characterisation of the mutation–selection operator: Perron
+  structure, spectral gap, conditioning, resource scaling. That characterisation does not
+  exist in the literature.
+- Two quantum routes compared head to head on the same biological problem. Route A is
+  heuristic near-term imaginary-time evolution. Route B is QSVT Perron-vector extraction,
+  which connects to provable-complexity results rather than heuristics.
+- A biology-specific quantum–classical boundary map, benchmarked against three classical
+  baselines, one of which is a computational-biology result that physics benchmarks do not
+  include.
+
+**This is not.**
+
+- A claim of quantum advantage. None is made, and the current literature argues against one
+  for this problem class at accessible scales.
+- A claim of superiority over tensor networks in general. The comparison is scoped to a
+  standard, well-tuned MPS implementation at the system sizes actually tested, and the
+  manuscript says so.
+- A claim of clinical or therapeutic utility. Biological applications are outlook, not
+  results.
+- A simulator of whole genomes. That would be quantum-washing.
+
+The correspondence this project implements is over twenty-five years old, and classical
+methods already solve the standard cases efficiently, including in closed form and in
+polynomial time for structured landscapes. Those facts lead the introduction rather than
+being buried. The open question is narrower and real: whether quantum methods offer anything
+in the regime the classical guarantees do not cover, which is rugged, broken-symmetry,
+strong-epistasis landscapes near the error threshold. A null answer is a publishable result
+and is pre-registered as such.
+
+---
+
+## Status
+
+Rebuilding Phases 1–3 (work package WP-R). See `GATES.md` section 3 for the registered
+thresholds and `DECISIONS.md` ADR-0001 for why the rebuild is happening.
+
+| Work package | Content | Status |
+|---|---|---|
+| WP0 | Pre-registration and prior-art dossier | in progress |
+| WP-R | Rebuild and re-validate Phases 1–3 | in progress |
+| WP1 | Spectral and structural analysis | not started |
+| WP2 | Route B, QSVT Perron-vector extraction | not started |
+| WP3 | Landscape families | not started |
+| WP4 | Baseline A, Wright–Fisher | not started |
+| WP5 | Baseline B, Dixit–Srivastava–Vishnoi | not started |
+| WP6 | Baseline C, tensor-network imaginary time | not started |
+| WP7 | Grid sweep and boundary map | not started |
+| WP8 | Live QPU execution | not started |
+| WP9 | Manuscript and red-team | not started |
+
+No results table appears here yet, because no gate in this repository has produced an
+artefact yet. Numbers reported in the planning documents belong to an earlier
+implementation that was lost and are registered as targets in `GATES.md`, not carried over
+as results.
+
+---
+
+## Quickstart
+
+Everything that produces a result record runs inside the pinned Docker image. Nothing is
+installed onto a host.
+
+```bash
+git clone https://github.com/ahmedanees-m/quasar.git
+cd quasar
+make docker
+make gates
+```
+
+For development on a machine without Docker, or to run the fast test suite only:
+
+```bash
+make setup
+make test
+```
+
+---
+
+## Repository map
+
+```
+quasarstack/        the package
+  analytic/         the ruler: closed-form Crow-Kimura oracle, brute-force exact diag
+  hamiltonian/      biology to qubit Pauli operator
+  spectral/         WP1: spectral gap, conditioning, Perron structure
+  circuit/          Trotterised imaginary-time circuit (modules M, S, E)
+  ite/              Route A: varQITE and Motta-QITE
+  qsvt/             Route B: block encoding, phase factors, eigenvalue transform
+  classical/        landscapes and the three classical baselines, plus the budget protocol
+  backends/         noise models, execution pipeline, live QPU submission
+  scoring/          cosine, total variation, bootstrap confidence intervals
+  io/               result schema, provenance capture, bitstring conventions
+experiments/        one directory per work package; scripts read as protocols
+tests/              unit, integration, gates, regression
+scripts/            run_all_gates, sweep_runner, make_figures, check_claims
+infra/              VM and archive sync over SFTP; no credentials in the repository
+docs/               theory, methods, baselines, validation, reproduction
+```
+
+---
+
+## The documents that carry scientific weight
+
+| File | Role |
+|---|---|
+| `GATES.md` | Pre-registration. Append-only. Every threshold, the full grid, seeds, the compute-budget protocol, and the decision rule, all fixed before the runs they judge. |
+| `PRIOR_ART.md` | The four-literature dossier. Nothing is cited in the manuscript while still marked to-verify. |
+| `CLAIMS.md` | The claims ledger. Every manuscript claim maps to an artefact and a script. `make claims` verifies each one resolves. |
+| `DECISIONS.md` | Why things are the way they are. Conventions, storage policy, the rebuild decision. |
+
+---
+
+## Reproducibility
+
+A clean clone plus one command reproduces every gate, or the project is not done. Every
+stochastic component takes an explicit seed; every result record carries its seeds, its git
+commit, and its image tag. Figures are script-generated only, never hand-edited.
+
+**No external datasets are required.** Every input is analytic, exactly computed, or
+seeded-synthetic. There is no licensing question, no provenance risk, and no ethics
+approval to obtain.
+
+---
+
+## Compute layout
+
+- **Laptop.** Authoring, git, fast tests, figure scripts over computed JSON, manuscript.
+- **VM.** All Docker containers, all inference, all sweeps. Nothing installed on the host.
+- **Drive archive.** Complete result set, figures, image tarballs, versioned backups.
+
+Code moves between machines by git. Data moves by SFTP. See `DECISIONS.md` ADR-0006 through
+ADR-0008.
+
+---
+
+## Licence and citation
+
+Apache-2.0. See `LICENSE`. Citation metadata is in `CITATION.cff`; a Zenodo DOI is minted at
+release.
+
+---
+
+## Author
+
+Anees Ahmed Mahaboob Ali, Gene Therapy Laboratory, VIT Vellore.
+
+In collaboration with Dr Delhibabu Radhakrishnan (School of Computer Science and
+Engineering) and Dr Everette Jacob Remington Nelson (School of Bio Sciences and Technology),
+VIT Vellore.

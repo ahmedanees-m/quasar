@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "QUASAR: quantum algorithms for mutation-selection dynamics"
+abstract: >-
+  A quantum-algorithmic treatment of mutation-selection dynamics. Formalises the
+  Crow-Kimura and Eigen generator as a target for quantum eigenvector extraction, compares
+  a heuristic near-term imaginary-time route against a QSVT Perron-vector route, and maps
+  the quantum-classical boundary against three classical baselines including the
+  Dixit-Srivastava-Vishnoi polynomial-time algorithm. No quantum advantage is claimed.
+type: software
+authors:
+  - family-names: "Mahaboob Ali"
+    given-names: "Anees Ahmed"
+    email: ahmedaneesm@gmail.com
+    affiliation: "Gene Therapy Laboratory, Vellore Institute of Technology, Vellore, India"
+repository-code: "https://github.com/ahmedanees-m/quasar"
+license: Apache-2.0
+version: 0.1.0
+keywords:
+  - quantum computing
+  - quantum algorithms
+  - quantum singular value transformation
+  - imaginary time evolution
+  - population genetics
+  - quasispecies
+  - error threshold
+  - tensor networks
+  - reproducible research

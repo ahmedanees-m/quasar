@@ -1,0 +1,14 @@
+# The compute VM is Linux and the laptop is Windows. Normalise to LF in the repository and
+# in both working trees, so a Makefile or shell script checked out on Windows and executed
+# in a Linux container does not fail on carriage returns.
+* text=auto eol=lf
+
+# Never touched by line-ending normalisation.
+*.png binary
+*.jpg binary
+*.pdf binary
+*.npy binary
+*.npz binary
+*.parquet binary
+*.tar binary
+*.gz binary

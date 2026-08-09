@@ -1,0 +1,35 @@
+name: nightly
+
+on:
+  schedule:
+    - cron: "0 20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  slow-and-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,mps,fast]"
+
+      - name: Slow tests and pre-registered gates
+        run: pytest -m "slow or gate" --durations=20
+
+      - name: Regression against golden outputs
+        run: pytest -m fast tests/regression --durations=20
+
+# A gate regression is a scientific event, not a flaky build. When this job fails, open a
+# validation_failure issue. The threshold is never lowered.

@@ -1,0 +1,99 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quasarstack"
+version = "0.1.0.dev0"
+description = "Quantum algorithms for mutation-selection dynamics: formulation, methods, and the quantum-classical boundary."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Anees Ahmed Mahaboob Ali", email = "ahmedaneesm@gmail.com" }]
+keywords = [
+    "quantum-computing",
+    "quantum-algorithms",
+    "qsvt",
+    "imaginary-time-evolution",
+    "population-genetics",
+    "quasispecies",
+    "tensor-networks",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.14",
+    "qiskit>=2.0",
+    "qiskit-aer>=0.16",
+    "pandas>=2.2",
+    "pyarrow>=17.0",
+    "matplotlib>=3.9",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+mps = ["quimb>=1.8", "autoray>=0.6", "opt_einsum>=3.3"]
+qsvt = ["pyqsp>=0.1.6"]
+fast = ["numba>=0.60"]
+qpu = ["qiskit-ibm-runtime>=0.30"]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "hypothesis>=6.100",
+    "black>=24.0",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "pre-commit>=3.8",
+]
+
+[project.urls]
+Repository = "https://github.com/ahmedanees-m/quasar"
+
+[tool.setuptools.packages.find]
+include = ["quasarstack*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "NPY"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+files = ["quasarstack"]
+warn_unused_configs = true
+disallow_untyped_defs = true
+warn_return_any = true
+ignore_missing_imports = true
+# mypy is required on quasarstack/ and advisory on experiments/. The `files` key above is
+# what enforces that: experiment scripts orchestrate, they do not carry physics, and holding
+# them to the same bar would push people to put logic in the package just to satisfy the
+# type checker, which is the wrong incentive.
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "fast: sub-second, runs on every push",
+    "slow: under five minutes, runs nightly",
+    "gate: pre-registered acceptance gate, runs nightly and at release",
+    "hardware: needs live QPU credentials, manual only",
+]
+addopts = "-q --strict-markers"
+
+[tool.coverage.run]
+source = ["quasarstack"]
+branch = true
