@@ -20,6 +20,16 @@
 - Pull request into `main` with CI green and the template completed. Squash-merge, so
   `main` reads cleanly and the branch keeps the detail.
 
+## Do not use `git stash` on the Drive-mounted clone
+
+`git stash pop` has failed silently there twice: it reports the files as restored, leaves
+the stash entry in place, and writes nothing. Both times the work was recovered with
+`git show 'stash@{0}:<file>'`, but the failure looks exactly like success until you check
+the content.
+
+Commit before pulling instead, then `git pull --rebase`. Avoid `--autostash` as well, since
+it uses the same machinery. The compute VM clone is on a normal filesystem and is unaffected.
+
 ## Commit messages
 
 Conventional Commits with project-specific types:

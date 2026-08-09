@@ -8,6 +8,7 @@ claims to mean.
 from __future__ import annotations
 
 import json
+import re
 
 import pytest
 
@@ -128,3 +129,31 @@ def test_write_gate_record_round_trips(monkeypatch, tmp_path) -> None:
     assert record["n_cases"] == 1
     assert record["threshold"]["value"] == 1e-9
     assert "timestamp" in record and "env" in record
+
+
+def test_make_gates_runs_the_container_so_that_records_count_as_evidence() -> None:
+    """`make gates` must produce evidence, not gitignored local records.
+
+    `store.write_gate_record` files a run under ``results/_local`` unless ``QUASAR_IMAGE``
+    is set, and a gate script cannot import ``quasarstack`` unless ``PYTHONPATH`` points at
+    the mounted working tree. Neither was in the Makefile: every gate that has passed so
+    far was run with both supplied by hand, so the documented one-command reproduction
+    would have written nothing committable and said so only in a line of console output
+    nobody reads twice. This test is the reason that cannot recur silently. See ADR-0014.
+    """
+    makefile = (store.REPO_ROOT / "Makefile").read_text(encoding="utf-8")
+    # Fold escaped line continuations so the DOCKER definition reads as one string.
+    # Line endings are normalised first: the working tree sits on a Windows-mounted
+    # drive, so the raw text carries CRLF and a join on backslash-newline would match
+    # nothing and quietly pass a broken Makefile.
+    joined = re.sub(r"\\\n\s*", " ", makefile.replace("\r\n", "\n"))
+    docker_line = next(
+        (line for line in joined.splitlines() if line.startswith("DOCKER")), None
+    )
+    assert docker_line is not None, "Makefile no longer defines DOCKER"
+    assert "-e QUASAR_IMAGE=" in docker_line, (
+        "make gates would write every record to results/_local and produce no evidence"
+    )
+    assert "-e PYTHONPATH=/work" in docker_line, (
+        "gate scripts cannot import quasarstack without PYTHONPATH; make gates would fail"
+    )

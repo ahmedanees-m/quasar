@@ -1,0 +1,464 @@
+{
+  "gate": "G-R.8",
+  "work_package": "wp_r",
+  "passed": true,
+  "threshold": {
+    "statistic": "cosine between the mitigated, decoded distribution and the analytic quasispecies",
+    "value": 0.98,
+    "registered_in": "GATES.md section 3, configurations in Amendment 10"
+  },
+  "measured": {
+    "simulated_noise_only": true,
+    "n_cases": 12,
+    "min_mitigated_cosine": 0.9911719384629185,
+    "min_raw_cosine": 0.9867009462865839,
+    "max_mitigated_tv": 0.14599446464106663,
+    "max_raw_tv": 0.172207054105158,
+    "n_cases_mitigation_helped": 12,
+    "min_mitigated_against_ideal_sampling": 0.9996224806949573,
+    "by_device": {
+      "superconducting_heron_like": {
+        "min_mitigated_cosine": 0.9911719384629185,
+        "max_mitigated_tv": 0.14599446464106663,
+        "max_two_qubit_gates": 18,
+        "max_depth": 57
+      },
+      "trapped_ion_like": {
+        "min_mitigated_cosine": 0.9962551494399006,
+        "max_mitigated_tv": 0.10032617268521231,
+        "max_two_qubit_gates": 18,
+        "max_depth": 40
+      }
+    },
+    "worst_case": {
+      "landscape": "additive_random",
+      "L": 4,
+      "mu": 0.2,
+      "device": "superconducting_heron_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 57,
+        "two_qubit_gates": 18,
+        "total_gates": 159
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999561250625373,
+        "tv": 0.008570875370406817
+      },
+      "decoded_raw": {
+        "cosine": 0.9867009462865839,
+        "tv": 0.172207054105158
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9911719384629185,
+        "tv": 0.14599446464106663
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9996395369234695,
+        "tv": 0.05207982480735718
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.9418
+    },
+    "seconds": 75.71
+  },
+  "n_cases": 12,
+  "cases": [
+    {
+      "landscape": "additive_random",
+      "L": 2,
+      "mu": 0.2,
+      "device": "superconducting_heron_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 24,
+        "two_qubit_gates": 4,
+        "total_gates": 42
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999914591985698,
+        "tv": 0.004146557121505875
+      },
+      "decoded_raw": {
+        "cosine": 0.9946677695655137,
+        "tv": 0.10778810639296221
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9977402192266773,
+        "tv": 0.06920938755623643
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9999554876898483,
+        "tv": 0.014998681954528265
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.9694
+    },
+    {
+      "landscape": "additive_random",
+      "L": 2,
+      "mu": 0.2,
+      "device": "trapped_ion_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 13,
+        "two_qubit_gates": 4,
+        "total_gates": 22
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999914591985698,
+        "tv": 0.004146557121505875
+      },
+      "decoded_raw": {
+        "cosine": 0.9986298043925079,
+        "tv": 0.05593093131570539
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9989455807587191,
+        "tv": 0.04682882605039167
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9999883133838341,
+        "tv": 0.007867018906732762
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.995925
+    },
+    {
+      "landscape": "single_peak",
+      "L": 2,
+      "mu": 0.2,
+      "device": "superconducting_heron_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 24,
+        "two_qubit_gates": 4,
+        "total_gates": 42
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999885024074011,
+        "tv": 0.002672023625599141
+      },
+      "decoded_raw": {
+        "cosine": 0.9984010196989785,
+        "tv": 0.046175217423615814
+      },
+      "decoded_mitigated": {
+        "cosine": 0.999414818217093,
+        "tv": 0.026290943106801853
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9999429205425889,
+        "tv": 0.015388227120505643
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.9694
+    },
+    {
+      "landscape": "single_peak",
+      "L": 2,
+      "mu": 0.2,
+      "device": "trapped_ion_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 13,
+        "two_qubit_gates": 4,
+        "total_gates": 22
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999885024074011,
+        "tv": 0.002672023625599141
+      },
+      "decoded_raw": {
+        "cosine": 0.9997011628285819,
+        "tv": 0.019543224187468955
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9997821948784527,
+        "tv": 0.015434782963057916
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9999822173224161,
+        "tv": 0.008667495473216769
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.995925
+    },
+    {
+      "landscape": "additive_random",
+      "L": 3,
+      "mu": 0.2,
+      "device": "superconducting_heron_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 45,
+        "two_qubit_gates": 10,
+        "total_gates": 90
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999641323324453,
+        "tv": 0.008608745142362805
+      },
+      "decoded_raw": {
+        "cosine": 0.9902713414518425,
+        "tv": 0.15083792339572794
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9940531249354637,
+        "tv": 0.12208711721836271
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9998558352458469,
+        "tv": 0.03310795655390612
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.957675
+    },
+    {
+      "landscape": "additive_random",
+      "L": 3,
+      "mu": 0.2,
+      "device": "trapped_ion_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 31,
+        "two_qubit_gates": 10,
+        "total_gates": 53
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999641323324453,
+        "tv": 0.008608745142362805
+      },
+      "decoded_raw": {
+        "cosine": 0.9970857853101588,
+        "tv": 0.08971077693161617
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9975343615684613,
+        "tv": 0.08158276162634612
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9999509224230686,
+        "tv": 0.018808205484934514
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.993425
+    },
+    {
+      "landscape": "single_peak",
+      "L": 3,
+      "mu": 0.2,
+      "device": "superconducting_heron_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 45,
+        "two_qubit_gates": 10,
+        "total_gates": 90
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999750862442065,
+        "tv": 0.004314303327164709
+      },
+      "decoded_raw": {
+        "cosine": 0.9966100176426743,
+        "tv": 0.06065219360887057
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9980777735818086,
+        "tv": 0.0486116972106069
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9998549489509067,
+        "tv": 0.03139205132232217
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.957675
+    },
+    {
+      "landscape": "single_peak",
+      "L": 3,
+      "mu": 0.2,
+      "device": "trapped_ion_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 31,
+        "two_qubit_gates": 10,
+        "total_gates": 53
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999750862442065,
+        "tv": 0.004314303327164709
+      },
+      "decoded_raw": {
+        "cosine": 0.9991320405371784,
+        "tv": 0.031282650482573116
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9992893830656796,
+        "tv": 0.029475574410896876
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9999421838661979,
+        "tv": 0.019849844534551676
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.993425
+    },
+    {
+      "landscape": "additive_random",
+      "L": 4,
+      "mu": 0.2,
+      "device": "superconducting_heron_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 57,
+        "two_qubit_gates": 18,
+        "total_gates": 159
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999561250625373,
+        "tv": 0.008570875370406817
+      },
+      "decoded_raw": {
+        "cosine": 0.9867009462865839,
+        "tv": 0.172207054105158
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9911719384629185,
+        "tv": 0.14599446464106663
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9996395369234695,
+        "tv": 0.05207982480735718
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.9418
+    },
+    {
+      "landscape": "additive_random",
+      "L": 4,
+      "mu": 0.2,
+      "device": "trapped_ion_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 40,
+        "two_qubit_gates": 18,
+        "total_gates": 94
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999561250625373,
+        "tv": 0.008570875370406817
+      },
+      "decoded_raw": {
+        "cosine": 0.995708080491662,
+        "tv": 0.1079109091681609
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9962551494399006,
+        "tv": 0.10032617268521231
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9998969438872487,
+        "tv": 0.02847834733630359
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.991025
+    },
+    {
+      "landscape": "single_peak",
+      "L": 4,
+      "mu": 0.2,
+      "device": "superconducting_heron_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 57,
+        "two_qubit_gates": 18,
+        "total_gates": 152
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999660832747422,
+        "tv": 0.005265672158025515
+      },
+      "decoded_raw": {
+        "cosine": 0.9931732877044183,
+        "tv": 0.06851196316548591
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9946715055353019,
+        "tv": 0.06950713212473503
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9996224806949573,
+        "tv": 0.05149240806277258
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.9418
+    },
+    {
+      "landscape": "single_peak",
+      "L": 4,
+      "mu": 0.2,
+      "device": "trapped_ion_like",
+      "simulated": true,
+      "provenance": "representative of the device class, not a calibration snapshot",
+      "shots": 40000,
+      "resources": {
+        "depth": 40,
+        "two_qubit_gates": 18,
+        "total_gates": 94
+      },
+      "decoded_noiseless": {
+        "cosine": 0.9999660832747422,
+        "tv": 0.005265672158025515
+      },
+      "decoded_raw": {
+        "cosine": 0.9976691223106467,
+        "tv": 0.04729903766971934
+      },
+      "decoded_mitigated": {
+        "cosine": 0.9978130385683888,
+        "tv": 0.04762894647006345
+      },
+      "mitigated_against_ideal_sampling": {
+        "cosine": 0.9998805649772813,
+        "tv": 0.029172874055624312
+      },
+      "mitigation_improved_cosine": true,
+      "assignment_diagonal_min": 0.991025
+    }
+  ],
+  "notes": "SIMULATED NOISE ONLY. Nothing here ran on hardware; the live run is WP8. Scoring is done in the decoded domain against the analytic quasispecies, because the circuit holds the distribution in its amplitudes and a computational-basis measurement returns it squared. Total variation is reported beside cosine throughout, and it is much the less flattering of the two here, because the square-root decode amplifies the noise floor in the tail.",
+  "env": {
+    "git_sha": "b1414620468a420f24dd705c6a96fe33c42ba49a",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "4ad8fd25fb3d65da8e39369e44c90f9b81daa72f71d1872cf29410867704147e"
+  },
+  "timestamp": "2026-08-09T20:05:13.547172+00:00"
+}

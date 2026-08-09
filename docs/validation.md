@@ -135,6 +135,45 @@ and the exponent varied overall selection strength instead of epistasis. And a p
 coupling held at fixed strength across sizes made the total interaction grow as L squared,
 which reversed the apparent direction of the epistasis effect between L = 6 and L = 8.
 
+### G-R.6, varQITE at constant depth
+
+Accuracy alone would be satisfied by any competent solver. What makes varQITE a near-term
+method is that the circuit never changes: only its parameters move, so evolving ten times
+longer costs no extra depth. That is the registered criterion, and the run measures it by
+evolving each configuration twice and comparing the circuits, before and after
+transpilation. Comparing only the written circuit would be the weaker check, because a run
+that left an angle near zero could have that rotation optimised away.
+
+**Two design choices that are easy to get wrong.**
+
+*Convergence is judged on the state, not the parameters.* The ansatz has gauge directions,
+combinations of parameters that move without changing the state at all, so the parameter
+update norm keeps fluctuating long after the state has settled. Measured on a rugged L = 4
+instance: at step 400 the state was already at cosine 0.99991 against its reference while
+the largest parameter update was still 5.1e-2. A parameter-space criterion would trigger at
+an arbitrary moment determined by where the gauge drift happened to be, or never trigger.
+
+*The ansatz depth was chosen by a scan, and the scan is disclosed.* varQITE holds a fixed
+circuit, so its accuracy is capped by what that circuit can represent. An ansatz too shallow
+to hold the answer fails for reasons unrelated to the method. Depth is a method parameter
+rather than an acceptance threshold, so choosing it adequately is legitimate; choosing it
+invisibly is not. The numbers are in `GATES.md` Amendment 6.
+
+**What the scan found, which is more interesting than the rule it produced.** The ansatz
+depth needed grows faster than the system does. At L = 6, reps = L reaches only 0.998137 on
+K = 2 instances and reps = L + 2 is required. The gate keeps that as a diagnostic, measuring
+accuracy at reps 4, 6 and 8, rather than letting it vanish into a configuration constant. It
+prefigures the barren-plateau ceiling that G-R.9 measures and is directly relevant to how far
+Route A can be pushed.
+
+**The check that licenses the word "hardware-faithful".** varQITE is computed here by
+differentiating a state vector, which no quantum computer can do. That is only a legitimate
+stand-in because the same two objects come from circuit measurements: the McLachlan force is
+the energy gradient via parameter shift, and the metric is the Fubini-Study tensor via
+fidelity shift. `verify_hardware_route` recomputes both that way, touching no derivative
+state, and the gate records the comparison. Without it, the claim would rest on the
+literature rather than on this code.
+
 ## What reproduction actually showed
 
 Both gates were run more than once, at different commits, inside the same image. Every

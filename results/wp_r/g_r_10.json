@@ -1,0 +1,145 @@
+{
+  "gate": "G-R.10",
+  "work_package": "wp_r",
+  "passed": true,
+  "threshold": {
+    "statistic": "ratio of Pauli terms, single-peak projector against the sparse additive-plus-epistasis form, at L = 12",
+    "value": 50.0,
+    "registered_in": "GATES.md section 3, families in Amendment 9"
+  },
+  "measured": {
+    "gate_size": 12,
+    "sparse_terms_at_gate_size": 27,
+    "projector_terms_at_gate_size": 4108,
+    "ratio_at_gate_size": 152.14814814814815,
+    "ratio_by_size": {
+      "4": 1.8181818181818181,
+      "6": 4.666666666666667,
+      "8": 13.894736842105264,
+      "10": 44.95652173913044,
+      "12": 152.14814814814815
+    },
+    "nk_term_counts": [
+      {
+        "L": 4,
+        "K": 0,
+        "terms": 9,
+        "fraction_of_projector": 0.45
+      },
+      {
+        "L": 4,
+        "K": 1,
+        "terms": 13,
+        "fraction_of_projector": 0.65
+      },
+      {
+        "L": 4,
+        "K": 2,
+        "terms": 19,
+        "fraction_of_projector": 0.95
+      },
+      {
+        "L": 6,
+        "K": 0,
+        "terms": 13,
+        "fraction_of_projector": 0.18571428571428572
+      },
+      {
+        "L": 6,
+        "K": 1,
+        "terms": 19,
+        "fraction_of_projector": 0.2714285714285714
+      },
+      {
+        "L": 6,
+        "K": 2,
+        "terms": 31,
+        "fraction_of_projector": 0.44285714285714284
+      },
+      {
+        "L": 6,
+        "K": 4,
+        "terms": 69,
+        "fraction_of_projector": 0.9857142857142858
+      },
+      {
+        "L": 8,
+        "K": 0,
+        "terms": 17,
+        "fraction_of_projector": 0.06439393939393939
+      },
+      {
+        "L": 8,
+        "K": 1,
+        "terms": 25,
+        "fraction_of_projector": 0.0946969696969697
+      },
+      {
+        "L": 8,
+        "K": 2,
+        "terms": 41,
+        "fraction_of_projector": 0.1553030303030303
+      },
+      {
+        "L": 8,
+        "K": 4,
+        "terms": 133,
+        "fraction_of_projector": 0.5037878787878788
+      }
+    ],
+    "seconds": 0.07
+  },
+  "n_cases": 5,
+  "cases": [
+    {
+      "L": 4,
+      "mu": 0.2,
+      "sparse_terms": 11,
+      "projector_terms": 20,
+      "ratio": 1.8181818181818181,
+      "projector_count_verified_by_construction": true
+    },
+    {
+      "L": 6,
+      "mu": 0.2,
+      "sparse_terms": 15,
+      "projector_terms": 70,
+      "ratio": 4.666666666666667,
+      "projector_count_verified_by_construction": true
+    },
+    {
+      "L": 8,
+      "mu": 0.2,
+      "sparse_terms": 19,
+      "projector_terms": 264,
+      "ratio": 13.894736842105264,
+      "projector_count_verified_by_construction": true
+    },
+    {
+      "L": 10,
+      "mu": 0.2,
+      "sparse_terms": 23,
+      "projector_terms": 1034,
+      "ratio": 44.95652173913044,
+      "projector_count_verified_by_construction": false
+    },
+    {
+      "L": 12,
+      "mu": 0.2,
+      "sparse_terms": 27,
+      "projector_terms": 4108,
+      "ratio": 152.14814814814815,
+      "projector_count_verified_by_construction": false
+    }
+  ],
+  "notes": "The two forms describe different landscapes rather than two encodings of one. The projector has no structure and needs every Z subset; the sparse form is what a real biological landscape looks like. The claim is that the realistic case is exponentially cheaper than the textbook one. The NK diagnostic shows what happens as structure is removed, which is the honest counterweight.",
+  "env": {
+    "git_sha": "b1414620468a420f24dd705c6a96fe33c42ba49a",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "4ad8fd25fb3d65da8e39369e44c90f9b81daa72f71d1872cf29410867704147e"
+  },
+  "timestamp": "2026-08-09T20:03:53.792310+00:00"
+}

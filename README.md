@@ -56,7 +56,7 @@ thresholds and `DECISIONS.md` ADR-0001 for why the rebuild is happening.
 | Work package | Content | Status |
 |---|---|---|
 | WP0 | Pre-registration and prior-art dossier | `GATES.md` and `CLAIMS.md` done; entry IV.4 verified with a finding that changes WP2; 19 entries still to verify |
-| WP-R | Rebuild and re-validate Phases 1–3 | G-R.1 to G-R.5 passed; G-R.6 next |
+| WP-R | Rebuild and re-validate Phases 1–3 | 9 of 10 passed; G-R.9 outstanding |
 | WP1 | Spectral and structural analysis | not started |
 | WP2 | Route B, QSVT Perron-vector extraction | not started |
 | WP3 | Landscape families | not started |
@@ -80,6 +80,10 @@ in `GATES.md`, not carried over as results.
 | G-R.3 | The Trotterised imaginary-time propagator converges, and its splitting error is second order | cosine ≥ 0.999; exponent in [1.8, 2.2] at R² ≥ 0.99 | **1.0000000**; **1.995 to 2.000** at R² = **1.00000** | `results/wp_r/g_r_3.json` |
 | G-R.4 | The error threshold on the qubit representation matches the analytic prediction, over a 300-point sweep at L = 4, 6, 8 | max abs Δm < 1e-3 | **1.9e-15** | `results/wp_r/g_r_4.json` |
 | G-R.5 | Rugged NK landscapes reproduce brute-force exact diagonalisation, 100 instances at L = 6 to 10 and K = 1 to 7 | cosine ≥ 0.99999, every instance | **1.000000**, 0 failing | `results/wp_r/g_r_5.json` |
+| G-R.6 | varQITE reaches the quasispecies at circuit depth constant in imaginary time, 14 configurations at L = 3 to 6 | cosine ≥ 0.999; depth identical at τ = 2.5 and τ = 20 | **0.9999722**; **identical** on all 14 | `results/wp_r/g_r_6.json` |
+| G-R.7 | Motta-QITE reaches the quasispecies with the energy descending on every step, 14 configurations at L = 3 to 6 | cosine ≥ 0.95; no energy rise beyond 1e-10 | **0.9989051**; **zero rises** | `results/wp_r/g_r_7.json` |
+| G-R.8 | Feasibility under **simulated** device noise with readout mitigation, 12 cases at L = 2 to 4 on two device classes | mitigated cosine ≥ 0.98 | **0.991172**, mitigation helped 12 of 12 | `results/wp_r/g_r_8.json` |
+| G-R.10 | The sparse landscape form costs far fewer Pauli terms than the single-peak projector at L = 12 | ratio ≥ 50 | **152.1** (27 against 4108) | `results/wp_r/g_r_10.json` |
 
 **G-R.1.** Two independent analytic routes and one structure-blind reference agree: the
 closed-form product state for additive fitness, the Hamming-class tridiagonal reduction for
@@ -110,6 +114,57 @@ Pauli decomposition saturates at 2^L + L terms and the two routes still agree to
 precision. Ruggedness is monotone in K, with mean local optima rising 2.8 to 29.1 and
 fitness autocorrelation falling 0.659 to −0.021 at L = 8. The Trotterised route ran
 alongside as a diagnostic and found something the gate was not asking about.
+
+**G-R.6.** Depth grows with system size, 34 with 10 two-qubit gates at L = 3 up to 55 with
+40 at L = 6, and never with imaginary time. Two things beyond the registered criteria are
+worth knowing.
+
+The McLachlan quantities were recomputed the way hardware would obtain them, the force by
+parameter shift on the energy and the metric by fidelity shift, touching no derivative
+state. They agree to **7e-16**. Without that, describing the method as hardware-faithful
+would rest on the literature rather than on this code.
+
+The ansatz depth needed **grows faster than the system**. At L = 6 a depth of reps = 4
+fails to clear 0.999 on every seed while reps = 6 clears it, and the spread between the best
+and worst seed at reps = 4 is a factor of eighty in the error. This is the cost curve for
+Route A and it prefigures the barren-plateau ceiling G-R.9 measures.
+
+**G-R.7.** This gate **failed its first execution** and the failure is in the record, not
+absorbed into the pass. One step raised the energy by 2.281e-03 against a 1e-10 bound. The
+cause was not truncation or discretisation but a numerically singular linear solve: the Gram
+matrix reaches a condition number of **2.95e+32**, so an absolute ridge was choosing
+arbitrarily inside a null space, which is why the failure appeared and vanished
+non-monotonically along every axis. A relative singular-value cutoff discards those
+directions instead. `GATES.md` Amendment 8 carries the failure, the diagnosis and the fix.
+
+The parity demonstration holds on every configuration: even-Y Pauli strings contribute
+**exactly zero**, which is the mechanism of the failure the planning documents record for
+this method, kept as evidence rather than as an assertion.
+
+### The circuit stores the quasispecies in its amplitudes, not its probabilities
+
+Building the noise gate turned up something the planning documents do not mention, and it
+changes what any hardware result can claim.
+
+The Perron vector of the generator is the quasispecies, and the ground state of the
+stoquastic Hamiltonian is that vector, so **the circuit holds the distribution in its
+amplitudes**. A computational-basis measurement returns the square.
+
+| | cosine vs oracle | total variation |
+|---|---|---|
+| amplitudes, what the circuit holds | 0.9999998 | 4.96e-04 |
+| squared, what a measurement returns | 0.9865108 | **2.24e-01** |
+
+The squared distribution is non-negative, normalised, and peaked on the right genotype, and
+it scores 0.987 on cosine. It would pass an eyeball check and most thresholds while being
+the wrong object. Only total variation exposes it, which is why this project reports both
+metrics everywhere and why `GATES.md` section 11.4 lets total variation decide.
+
+`decode_from_measurement` takes the element-wise square root and inverts the encoding
+exactly. A consequence that is reported rather than buried: the same square root **amplifies
+the noise floor in the tail**, since a spurious probability of 1e-4 becomes an amplitude of
+1e-2. The encoding that makes the ground state the quasispecies also makes readout noise
+worse after decoding.
 
 ### A budget problem that would have biased the boundary map
 

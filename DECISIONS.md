@@ -414,3 +414,51 @@ L = 12 limit in `GATES.md` section 1. A dense 4096 by 4096 solve that takes seco
 multi-threaded laptop takes minutes in the image, and forty of them takes an hour. Code that
 only needs a few extreme eigenvalues should ask for the sparse path explicitly rather than
 inherit the default.
+
+---
+
+## ADR-0014 — The one-command reproduction did not actually reproduce anything
+
+**Status.** Accepted. **Date.** 10 August 2026.
+
+**Context.** `README.md` and `CONTRIBUTING.md` both point a reader at `make gates` as the way
+to reproduce every pre-registered gate from a clean checkout. `Makefile` built its container
+invocation as
+
+    docker run --rm -v "$(CURDIR)":/work -w /work -u $(UID):$(GID) quasar:v1
+
+which sets neither `QUASAR_IMAGE` nor `PYTHONPATH`.
+
+Two separate consequences, both silent:
+
+1. `quasarstack.io.store.environment()` reads `QUASAR_IMAGE` to decide whether a run counts
+   as evidence. Unset, every record produced by `make gates` would be filed under the
+   gitignored `results/_local/` with a console note, and the tree would gain nothing
+   committable. ADR-0012 built that redirection deliberately to stop laptop runs
+   masquerading as evidence; the same mechanism silently disarmed the official entry point.
+2. `quasarstack` is mounted at `/work`, not installed into the image, and running
+   `python experiments/.../g_r_9_barren.py` puts the *script's* directory on `sys.path`
+   rather than the working tree. Without `PYTHONPATH=/work` the import fails outright.
+
+**How it went unnoticed.** Every gate that has passed so far was launched with both variables
+supplied by hand on the command line, so the gates are sound and their artefacts are real.
+What was never exercised is the path the documentation tells everyone else to use. The two
+failure modes also mask each other in a reader's mind: the import error is loud enough to
+look like the only problem, and fixing it by hand hides the quiet one behind it.
+
+**Decision.** Set both in the Makefile's `DOCKER` variable, so every target that produces
+records inherits them. Add `tests/unit/test_store.py::test_make_gates_runs_the_container_so_that_records_count_as_evidence`,
+which parses the Makefile and fails if either is dropped.
+
+**Consequences.** The project's first engineering principle is that every claim maps to a
+re-runnable artefact. A reproduction command that has never been run end to end does not
+satisfy it, whatever the artefacts say. `make gates` is therefore run in full immediately
+after this change, and the resulting records are compared field by field against the
+committed ones under the ADR-0009 rule: a rerun differing only in provenance is discarded, a
+rerun that changes any scientific field is a finding.
+
+**A note on where the test lives.** Asserting on the contents of a Makefile from a unit test
+is ugly, and the alternative considered was to move the two settings into the image itself.
+That was rejected because `QUASAR_IMAGE` baked into the image can no longer distinguish which
+image a record came from, which is the entire question ADR-0012 asks. The ugliness is the
+cheaper of the two.

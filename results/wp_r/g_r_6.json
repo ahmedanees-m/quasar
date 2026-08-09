@@ -1,0 +1,663 @@
+{
+  "gate": "G-R.6",
+  "work_package": "wp_r",
+  "passed": true,
+  "threshold": {
+    "accuracy": {
+      "statistic": "cosine against the reference",
+      "value": 0.999
+    },
+    "depth": {
+      "statistic": "circuit depth and two-qubit count identical at tau = 2.5 and tau = 20, before and after transpilation",
+      "value": "identical"
+    },
+    "registered_in": "GATES.md section 3, ansatz rule and configurations in Amendment 6"
+  },
+  "measured": {
+    "n_configurations": 14,
+    "min_cosine": 0.9999721518951983,
+    "n_below_threshold": 0,
+    "max_tv": 0.005050587440403155,
+    "all_depths_unchanged": true,
+    "n_strictly_monotone": 7,
+    "largest_energy_rise_relative_to_span": 0.8491842812386852,
+    "descent_refinement": [
+      {
+        "dtau": 0.05,
+        "n_rises": 1,
+        "n_steps": 224,
+        "largest_rise": 0.17192136997909513,
+        "largest_rise_relative_to_span": 0.14791593499257555,
+        "first_rise_at_step": 1,
+        "strictly_monotone": false
+      },
+      {
+        "dtau": 0.02,
+        "n_rises": 0,
+        "n_steps": 554,
+        "largest_rise": 0.0,
+        "largest_rise_relative_to_span": 0.0,
+        "first_rise_at_step": -1,
+        "strictly_monotone": true
+      },
+      {
+        "dtau": 0.01,
+        "n_rises": 0,
+        "n_steps": 1092,
+        "largest_rise": 0.0,
+        "largest_rise_relative_to_span": 0.0,
+        "first_rise_at_step": -1,
+        "strictly_monotone": true
+      },
+      {
+        "dtau": 0.005,
+        "n_rises": 0,
+        "n_steps": 2137,
+        "largest_rise": 0.0,
+        "largest_rise_relative_to_span": 0.0,
+        "first_rise_at_step": -1,
+        "strictly_monotone": true
+      }
+    ],
+    "energy_rise_shrinks_with_step": true,
+    "all_converged": true,
+    "max_tau_used": 29.650000000000002,
+    "min_tau_used": 7.9,
+    "hardware_route_max_force_error": 3.6852031842782296e-16,
+    "hardware_route_max_tensor_error": 3.608224830031759e-16,
+    "expressibility_scan": [
+      {
+        "reps": 4,
+        "n_parameters": 30,
+        "worst_cosine": 0.9967817075476225,
+        "best_cosine": 0.9999603299153239,
+        "clears_threshold_on_every_seed": false,
+        "max_tau_used": 37.95
+      },
+      {
+        "reps": 6,
+        "n_parameters": 42,
+        "worst_cosine": 0.9996942689952933,
+        "best_cosine": 0.9999931128489992,
+        "clears_threshold_on_every_seed": true,
+        "max_tau_used": 27.25
+      },
+      {
+        "reps": 8,
+        "n_parameters": 54,
+        "worst_cosine": 0.9999792682007461,
+        "best_cosine": 0.9999986416123599,
+        "clears_threshold_on_every_seed": true,
+        "max_tau_used": 24.700000000000003
+      }
+    ],
+    "worst_case": {
+      "landscape": "single_peak",
+      "L": 6,
+      "mu": 0.2,
+      "reps": 8,
+      "n_parameters": 54,
+      "cosine": 0.9999721518951983,
+      "tv": 0.0035849455149758293,
+      "tau_used": 23.8,
+      "converged": true,
+      "final_state_change": 1.2317911135539816e-09,
+      "final_parameter_change": 5.5465731035431176e-05,
+      "descent": {
+        "n_rises": 2,
+        "n_steps": 476,
+        "largest_rise": 0.04349979054099992,
+        "largest_rise_relative_to_span": 0.4403076447476502,
+        "first_rise_at_step": 1,
+        "strictly_monotone": false
+      },
+      "shape_at_short_tau": {
+        "depth": 28,
+        "two_qubit_gates": 40,
+        "transpiled_depth": 55,
+        "transpiled_two_qubit_gates": 40
+      },
+      "shape_at_long_tau": {
+        "depth": 28,
+        "two_qubit_gates": 40,
+        "transpiled_depth": 55,
+        "transpiled_two_qubit_gates": 40
+      },
+      "depth_unchanged": true
+    },
+    "seconds": 1294.51
+  },
+  "n_cases": 14,
+  "cases": [
+    {
+      "landscape": "additive_random",
+      "L": 3,
+      "mu": 0.2,
+      "reps": 5,
+      "n_parameters": 18,
+      "cosine": 0.9999992191617694,
+      "tv": 0.0008172886495967331,
+      "tau_used": 7.9,
+      "converged": true,
+      "final_state_change": 1.210442523991162e-09,
+      "final_parameter_change": 2.915682519111229e-05,
+      "descent": {
+        "n_rises": 0,
+        "n_steps": 158,
+        "largest_rise": 0.0,
+        "largest_rise_relative_to_span": 0.0,
+        "first_rise_at_step": -1,
+        "strictly_monotone": true
+      },
+      "shape_at_short_tau": {
+        "depth": 16,
+        "two_qubit_gates": 10,
+        "transpiled_depth": 34,
+        "transpiled_two_qubit_gates": 10
+      },
+      "shape_at_long_tau": {
+        "depth": 16,
+        "two_qubit_gates": 10,
+        "transpiled_depth": 34,
+        "transpiled_two_qubit_gates": 10
+      },
+      "depth_unchanged": true,
+      "hardware_route": {
+        "force_max_abs_error": 3.6852031842782296e-16,
+        "tensor_max_abs_error": 3.3306690738754696e-16,
+        "force_scale": 0.00047337910609799916,
+        "tensor_scale": 0.2500000000000001
+      }
+    },
+    {
+      "landscape": "single_peak",
+      "L": 3,
+      "mu": 0.2,
+      "reps": 5,
+      "n_parameters": 18,
+      "cosine": 0.9999989175058267,
+      "tv": 0.0011689737564695938,
+      "tau_used": 10.25,
+      "converged": true,
+      "final_state_change": 1.2082534972535086e-09,
+      "final_parameter_change": 2.1499056442719766e-05,
+      "descent": {
+        "n_rises": 0,
+        "n_steps": 205,
+        "largest_rise": 0.0,
+        "largest_rise_relative_to_span": 0.0,
+        "first_rise_at_step": -1,
+        "strictly_monotone": true
+      },
+      "shape_at_short_tau": {
+        "depth": 16,
+        "two_qubit_gates": 10,
+        "transpiled_depth": 34,
+        "transpiled_two_qubit_gates": 10
+      },
+      "shape_at_long_tau": {
+        "depth": 16,
+        "two_qubit_gates": 10,
+        "transpiled_depth": 34,
+        "transpiled_two_qubit_gates": 10
+      },
+      "depth_unchanged": true,
+      "hardware_route": {
+        "force_max_abs_error": 7.979727989493313e-17,
+        "tensor_max_abs_error": 2.7755575615628914e-16,
+        "force_scale": 0.0003852719175953187,
+        "tensor_scale": 0.25000000000000017
+      }
+    },
+    {
+      "landscape": "nkK2",
+      "L": 3,
+      "mu": 0.2,
+      "reps": 5,
+      "n_parameters": 18,
+      "cosine": 0.9999983030524936,
+      "tv": 0.0008727652362399748,
+      "tau_used": 9.8,
+      "converged": true,
+      "final_state_change": 1.217560163802034e-09,
+      "final_parameter_change": 3.4355968907356926e-05,
+      "descent": {
+        "n_rises": 0,
+        "n_steps": 196,
+        "largest_rise": 0.0,
+        "largest_rise_relative_to_span": 0.0,
+        "first_rise_at_step": -1,
+        "strictly_monotone": true
+      },
+      "shape_at_short_tau": {
+        "depth": 16,
+        "two_qubit_gates": 10,
+        "transpiled_depth": 34,
+        "transpiled_two_qubit_gates": 10
+      },
+      "shape_at_long_tau": {
+        "depth": 16,
+        "two_qubit_gates": 10,
+        "transpiled_depth": 34,
+        "transpiled_two_qubit_gates": 10
+      },
+      "depth_unchanged": true,
+      "hardware_route": {
+        "force_max_abs_error": 1.6653345369377348e-16,
+        "tensor_max_abs_error": 1.942890293094024e-16,
+        "force_scale": 0.00042320725767971967,
+        "tensor_scale": 0.2500000000000001
+      }
+    },
+    {
+      "landscape": "additive_random",
+      "L": 4,
+      "mu": 0.2,
+      "reps": 6,
+      "n_parameters": 28,
+      "cosine": 0.9999990723633745,
+      "tv": 0.0009146558501338454,
+      "tau_used": 8.700000000000001,
+      "converged": true,
+      "final_state_change": 1.2368885915492456e-09,
+      "final_parameter_change": 8.417358692347499e-05,
+      "descent": {
+        "n_rises": 0,
+        "n_steps": 174,
+        "largest_rise": 0.0,
+        "largest_rise_relative_to_span": 0.0,
+        "first_rise_at_step": -1,
+        "strictly_monotone": true
+      },
+      "shape_at_short_tau": {
+        "depth": 20,
+        "two_qubit_gates": 18,
+        "transpiled_depth": 41,
+        "transpiled_two_qubit_gates": 18
+      },
+      "shape_at_long_tau": {
+        "depth": 20,
+        "two_qubit_gates": 18,
+        "transpiled_depth": 41,
+        "transpiled_two_qubit_gates": 18
+      },
+      "depth_unchanged": true,
+      "hardware_route": {
+        "force_max_abs_error": 2.5939536976715694e-16,
+        "tensor_max_abs_error": 1.6653345369377348e-16,
+        "force_scale": 0.0004063208539197666,
+        "tensor_scale": 0.2500000000000001
+      }
+    },
+    {
+      "landscape": "single_peak",
+      "L": 4,
+      "mu": 0.2,
+      "reps": 6,
+      "n_parameters": 28,
+      "cosine": 0.9999978849500706,
+      "tv": 0.0017756363605668356,
+      "tau_used": 13.3,
+      "converged": true,
+      "final_state_change": 1.2395424686673095e-09,
+      "final_parameter_change": 5.307587631953048e-05,
+      "descent": {
+        "n_rises": 1,
+        "n_steps": 266,
+        "largest_rise": 0.030703520798340142,
+        "largest_rise_relative_to_span": 0.09856151004669429,
+        "first_rise_at_step": 1,
+        "strictly_monotone": false
+      },
+      "shape_at_short_tau": {
+        "depth": 20,
+        "two_qubit_gates": 18,
+        "transpiled_depth": 41,
+        "transpiled_two_qubit_gates": 18
+      },
+      "shape_at_long_tau": {
+        "depth": 20,
+        "two_qubit_gates": 18,
+        "transpiled_depth": 41,
+        "transpiled_two_qubit_gates": 18
+      },
+      "depth_unchanged": true,
+      "hardware_route": {
+        "force_max_abs_error": 9.39732233001811e-17,
+        "tensor_max_abs_error": 1.942890293094024e-16,
+        "force_scale": 0.0003706600446266445,
+        "tensor_scale": 0.2500000000000002
+      }
+    },
+    {
+      "landscape": "nkK2",
+      "L": 4,
+      "mu": 0.2,
+      "reps": 6,
+      "n_parameters": 28,
+      "cosine": 0.999998718491511,
+      "tv": 0.0012960493559842953,
+      "tau_used": 11.200000000000001,
+      "converged": true,
+      "final_state_change": 1.2397480819714701e-09,
+      "final_parameter_change": 8.56114660947177e-05,
+      "descent": {
+        "n_rises": 1,
+        "n_steps": 224,
+        "largest_rise": 0.17192136997909513,
+        "largest_rise_relative_to_span": 0.14791593499257555,
+        "first_rise_at_step": 1,
+        "strictly_monotone": false
+      },
+      "shape_at_short_tau": {
+        "depth": 20,
+        "two_qubit_gates": 18,
+        "transpiled_depth": 41,
+        "transpiled_two_qubit_gates": 18
+      },
+      "shape_at_long_tau": {
+        "depth": 20,
+        "two_qubit_gates": 18,
+        "transpiled_depth": 41,
+        "transpiled_two_qubit_gates": 18
+      },
+      "depth_unchanged": true,
+      "hardware_route": {
+        "force_max_abs_error": 3.0184188481996443e-16,
+        "tensor_max_abs_error": 3.608224830031759e-16,
+        "force_scale": 0.00032459598494726725,
+        "tensor_scale": 0.24999999999999997
+      }
+    },
+    {
+      "landscape": "additive_random",
+      "L": 5,
+      "mu": 0.2,
+      "reps": 7,
+      "n_parameters": 40,
+      "cosine": 0.9999990743475108,
+      "tv": 0.0009140003356068159,
+      "tau_used": 8.700000000000001,
+      "converged": true,
+      "final_state_change": 1.2345408029190708e-09,
+      "final_parameter_change": 3.0447682804080056e-05,
+      "descent": {
+        "n_rises": 0,
+        "n_steps": 174,
+        "largest_rise": 0.0,
+        "largest_rise_relative_to_span": 0.0,
+        "first_rise_at_step": -1,
+        "strictly_monotone": true
+      },
+      "shape_at_short_tau": {
+        "depth": 24,
+        "two_qubit_gates": 28,
+        "transpiled_depth": 48,
+        "transpiled_two_qubit_gates": 28
+      },
+      "shape_at_long_tau": {
+        "depth": 24,
+        "two_qubit_gates": 28,
+        "transpiled_depth": 48,
+        "transpiled_two_qubit_gates": 28
+      },
+      "depth_unchanged": true,
+      "hardware_route": null
+    },
+    {
+      "landscape": "single_peak",
+      "L": 5,
+      "mu": 0.2,
+      "reps": 7,
+      "n_parameters": 40,
+      "cosine": 0.9999954545428702,
+      "tv": 0.0020603812280672474,
+      "tau_used": 18.05,
+      "converged": true,
+      "final_state_change": 1.2309609997984694e-09,
+      "final_parameter_change": 5.869264611636088e-05,
+      "descent": {
+        "n_rises": 1,
+        "n_steps": 361,
+        "largest_rise": 0.17177874122432865,
+        "largest_rise_relative_to_span": 0.8491842812386852,
+        "first_rise_at_step": 1,
+        "strictly_monotone": false
+      },
+      "shape_at_short_tau": {
+        "depth": 24,
+        "two_qubit_gates": 28,
+        "transpiled_depth": 48,
+        "transpiled_two_qubit_gates": 28
+      },
+      "shape_at_long_tau": {
+        "depth": 24,
+        "two_qubit_gates": 28,
+        "transpiled_depth": 48,
+        "transpiled_two_qubit_gates": 28
+      },
+      "depth_unchanged": true,
+      "hardware_route": null
+    },
+    {
+      "landscape": "nkK2",
+      "L": 5,
+      "mu": 0.2,
+      "reps": 7,
+      "n_parameters": 40,
+      "cosine": 0.9999971172027395,
+      "tv": 0.001194413268754288,
+      "tau_used": 12.25,
+      "converged": true,
+      "final_state_change": 1.245744729594378e-09,
+      "final_parameter_change": 5.585258263261783e-05,
+      "descent": {
+        "n_rises": 1,
+        "n_steps": 245,
+        "largest_rise": 0.6001808044401206,
+        "largest_rise_relative_to_span": 0.4923860778748525,
+        "first_rise_at_step": 1,
+        "strictly_monotone": false
+      },
+      "shape_at_short_tau": {
+        "depth": 24,
+        "two_qubit_gates": 28,
+        "transpiled_depth": 48,
+        "transpiled_two_qubit_gates": 28
+      },
+      "shape_at_long_tau": {
+        "depth": 24,
+        "two_qubit_gates": 28,
+        "transpiled_depth": 48,
+        "transpiled_two_qubit_gates": 28
+      },
+      "depth_unchanged": true,
+      "hardware_route": null
+    },
+    {
+      "landscape": "nkK4",
+      "L": 5,
+      "mu": 0.2,
+      "reps": 7,
+      "n_parameters": 40,
+      "cosine": 0.9999888943537533,
+      "tv": 0.005050587440403155,
+      "tau_used": 29.650000000000002,
+      "converged": true,
+      "final_state_change": 1.2339518296045071e-09,
+      "final_parameter_change": 0.001989395648813841,
+      "descent": {
+        "n_rises": 0,
+        "n_steps": 593,
+        "largest_rise": 0.0,
+        "largest_rise_relative_to_span": 0.0,
+        "first_rise_at_step": -1,
+        "strictly_monotone": true
+      },
+      "shape_at_short_tau": {
+        "depth": 24,
+        "two_qubit_gates": 28,
+        "transpiled_depth": 48,
+        "transpiled_two_qubit_gates": 28
+      },
+      "shape_at_long_tau": {
+        "depth": 24,
+        "two_qubit_gates": 28,
+        "transpiled_depth": 48,
+        "transpiled_two_qubit_gates": 28
+      },
+      "depth_unchanged": true,
+      "hardware_route": null
+    },
+    {
+      "landscape": "additive_random",
+      "L": 6,
+      "mu": 0.2,
+      "reps": 8,
+      "n_parameters": 54,
+      "cosine": 0.9999990706512263,
+      "tv": 0.0009158610827098569,
+      "tau_used": 8.700000000000001,
+      "converged": true,
+      "final_state_change": 1.239501057348491e-09,
+      "final_parameter_change": 3.917952854759488e-05,
+      "descent": {
+        "n_rises": 0,
+        "n_steps": 174,
+        "largest_rise": 0.0,
+        "largest_rise_relative_to_span": 0.0,
+        "first_rise_at_step": -1,
+        "strictly_monotone": true
+      },
+      "shape_at_short_tau": {
+        "depth": 28,
+        "two_qubit_gates": 40,
+        "transpiled_depth": 55,
+        "transpiled_two_qubit_gates": 40
+      },
+      "shape_at_long_tau": {
+        "depth": 28,
+        "two_qubit_gates": 40,
+        "transpiled_depth": 55,
+        "transpiled_two_qubit_gates": 40
+      },
+      "depth_unchanged": true,
+      "hardware_route": null
+    },
+    {
+      "landscape": "single_peak",
+      "L": 6,
+      "mu": 0.2,
+      "reps": 8,
+      "n_parameters": 54,
+      "cosine": 0.9999721518951983,
+      "tv": 0.0035849455149758293,
+      "tau_used": 23.8,
+      "converged": true,
+      "final_state_change": 1.2317911135539816e-09,
+      "final_parameter_change": 5.5465731035431176e-05,
+      "descent": {
+        "n_rises": 2,
+        "n_steps": 476,
+        "largest_rise": 0.04349979054099992,
+        "largest_rise_relative_to_span": 0.4403076447476502,
+        "first_rise_at_step": 1,
+        "strictly_monotone": false
+      },
+      "shape_at_short_tau": {
+        "depth": 28,
+        "two_qubit_gates": 40,
+        "transpiled_depth": 55,
+        "transpiled_two_qubit_gates": 40
+      },
+      "shape_at_long_tau": {
+        "depth": 28,
+        "two_qubit_gates": 40,
+        "transpiled_depth": 55,
+        "transpiled_two_qubit_gates": 40
+      },
+      "depth_unchanged": true,
+      "hardware_route": null
+    },
+    {
+      "landscape": "nkK2",
+      "L": 6,
+      "mu": 0.2,
+      "reps": 8,
+      "n_parameters": 54,
+      "cosine": 0.9999986416123599,
+      "tv": 0.0016329535417978506,
+      "tau_used": 12.200000000000001,
+      "converged": true,
+      "final_state_change": 1.2122489678745296e-09,
+      "final_parameter_change": 0.0010684530690423522,
+      "descent": {
+        "n_rises": 2,
+        "n_steps": 244,
+        "largest_rise": 0.22355541150082336,
+        "largest_rise_relative_to_span": 0.163005051079792,
+        "first_rise_at_step": 1,
+        "strictly_monotone": false
+      },
+      "shape_at_short_tau": {
+        "depth": 28,
+        "two_qubit_gates": 40,
+        "transpiled_depth": 55,
+        "transpiled_two_qubit_gates": 40
+      },
+      "shape_at_long_tau": {
+        "depth": 28,
+        "two_qubit_gates": 40,
+        "transpiled_depth": 55,
+        "transpiled_two_qubit_gates": 40
+      },
+      "depth_unchanged": true,
+      "hardware_route": null
+    },
+    {
+      "landscape": "nkK4",
+      "L": 6,
+      "mu": 0.2,
+      "reps": 8,
+      "n_parameters": 54,
+      "cosine": 0.9999968898876954,
+      "tv": 0.002357098769563826,
+      "tau_used": 17.650000000000002,
+      "converged": true,
+      "final_state_change": 1.2451223385667731e-09,
+      "final_parameter_change": 0.0036906717849277404,
+      "descent": {
+        "n_rises": 6,
+        "n_steps": 353,
+        "largest_rise": 0.7699197100756684,
+        "largest_rise_relative_to_span": 0.5031332066915177,
+        "first_rise_at_step": 1,
+        "strictly_monotone": false
+      },
+      "shape_at_short_tau": {
+        "depth": 28,
+        "two_qubit_gates": 40,
+        "transpiled_depth": 55,
+        "transpiled_two_qubit_gates": 40
+      },
+      "shape_at_long_tau": {
+        "depth": 28,
+        "two_qubit_gates": 40,
+        "transpiled_depth": 55,
+        "transpiled_two_qubit_gates": 40
+      },
+      "depth_unchanged": true,
+      "hardware_route": null
+    }
+  ],
+  "notes": "The ansatz depth rule reps = L + 2 was chosen by a pre-run scan, disclosed in Amendment 6 with its numbers, because an ansatz too shallow to hold the answer fails for reasons unrelated to the method. Convergence is judged on the state rather than the parameters: the ansatz has gauge directions, so parameters drift long after the state has settled. tau_used is reported per configuration as the budget-needed-for-accuracy half of ADR-0013.",
+  "env": {
+    "git_sha": "526ac4cccf268a8d07ff339b45330f1f21dd404c",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "5ea16d8e7e4ddda40fe35db72ed003ce12c8f1d3e7bf92b03f4a6444545d5178"
+  },
+  "timestamp": "2026-08-09T20:00:31.512988+00:00"
+}

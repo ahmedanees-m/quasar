@@ -61,6 +61,12 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
   decomposition saturates at 2^L + L terms. Ruggedness is monotone in K. The Trotterised
   diagnostic exposed the budget fairness problem recorded in ADR-0013.
 
+- **G-R.6**, varQITE: cosine 0.9999741 against a 0.999 threshold across 14 configurations,
+  with circuit depth identical at τ = 2.5 and τ = 20 on every one. The McLachlan quantities
+  agree with their parameter-shift and fidelity-shift equivalents to 7e-16, which is what
+  licenses calling the method hardware-faithful. Adds `quasarstack/ite/varqite.py` and
+  `quasarstack/ite/qite_motta.py`.
+
 ### Claim withdrawn
 
 - "Antagonistic epistasis lowers the error threshold", from the planning documents, is not

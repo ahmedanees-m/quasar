@@ -153,6 +153,56 @@ def normalise_l1(vector: NDArray[np.float64]) -> NDArray[np.float64]:
     return normalised
 
 
+def decode_from_measurement(
+    frequencies: NDArray[np.float64], floor: float = 0.0
+) -> NDArray[np.float64]:
+    """Recover the quasispecies from measured frequencies, by taking the square root.
+
+    **This step is not optional and its absence is silent.** The Perron vector of the
+    mutation-selection generator *is* the quasispecies, and the ground state of the
+    stoquastic Hamiltonian *is* that vector, so the circuit holds the distribution in its
+    **amplitudes**. A computational-basis measurement returns ``|psi|^2``. Those are
+    different distributions, and the difference is not small: measured at L = 3 on an
+    additive landscape, the squared distribution sits at total-variation distance **0.224**
+    from the quasispecies.
+
+    It is also exactly the kind of error this project is built to catch, because the wrong
+    answer looks right. The squared distribution is non-negative, normalised, and peaked on
+    the same genotype, and its cosine similarity to the quasispecies is 0.987, which passes
+    an eyeball check and most thresholds. Total variation is what exposes it, which is why
+    `quasarstack.scoring.metrics` reports both and why `GATES.md` section 11.4 lets total
+    variation decide.
+
+    Taking the square root inverts it exactly in the infinite-shot limit, and improves the
+    statistics rather than degrading them: a relative error ``eps`` on a frequency becomes
+    ``eps / 2`` on its square root. The one hazard is a bin that received no counts, which
+    returns exactly zero and asserts a genotype is impossible on finite evidence; ``floor``
+    exists to soften that when the caller wants it to.
+
+    Parameters
+    ----------
+    frequencies
+        Measured relative frequencies over the ``2**L`` computational basis states.
+    floor
+        Optional value substituted for empty bins before taking the root.
+
+    Returns
+    -------
+    ndarray
+        The L1-normalised quasispecies distribution.
+    """
+    frequencies = np.asarray(frequencies, dtype=np.float64)
+    if np.any(frequencies < 0.0):
+        raise ValueError("measured frequencies cannot be negative")
+    working = np.where(frequencies <= 0.0, floor, frequencies)
+    amplitudes = np.sqrt(working)
+    total = float(amplitudes.sum())
+    if total <= 0.0:
+        raise ValueError("every bin was empty; there is nothing to decode")
+    decoded: NDArray[np.float64] = amplitudes / total
+    return decoded
+
+
 def assert_dense_allowed(n_sites: int, limit: int = 12) -> None:
     """Guard against building a dense 2^L by 2^L operator at a size that will not fit.
 

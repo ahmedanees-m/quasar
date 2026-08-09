@@ -6,7 +6,15 @@
 IMAGE   ?= quasar:v1
 UID     := $(shell id -u 2>/dev/null || echo 1000)
 GID     := $(shell id -g 2>/dev/null || echo 1000)
-DOCKER  := docker run --rm -v "$(CURDIR)":/work -w /work -u $(UID):$(GID) $(IMAGE)
+
+# QUASAR_IMAGE is what `quasarstack.io.store` reads to decide whether a run counts as
+# evidence; PYTHONPATH is what lets a gate script import quasarstack, which is mounted at
+# /work rather than installed into the image. Both were previously supplied by hand on each
+# invocation, which meant `make gates` - the documented one-command reproduction - wrote
+# every record to the gitignored results/_local and produced no evidence at all. See
+# DECISIONS.md ADR-0014.
+DOCKER  := docker run --rm -v "$(CURDIR)":/work -w /work -u $(UID):$(GID) \
+             -e QUASAR_IMAGE=$(IMAGE) -e PYTHONPATH=/work $(IMAGE)
 
 .PHONY: help setup test test-all gates figures claims lint format docker shell lock sweep disk sync-up sync-down
 
@@ -27,7 +35,8 @@ lock:  ## copy the resolved environment out of the image and commit it
 	@echo "wrote environment.lock.txt"
 
 shell:  ## interactive shell inside the image
-	docker run --rm -it -v "$(CURDIR)":/work -w /work -u $(UID):$(GID) $(IMAGE) bash
+	docker run --rm -it -v "$(CURDIR)":/work -w /work -u $(UID):$(GID) \
+	  -e QUASAR_IMAGE=$(IMAGE) -e PYTHONPATH=/work $(IMAGE) bash
 
 test:  ## fast tests, runs anywhere
 	pytest -m fast
