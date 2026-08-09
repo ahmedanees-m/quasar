@@ -344,3 +344,136 @@ def uniform_additive_classes(n_sites: int, a: float) -> NDArray[np.float64]:
     _check_sites(n_sites)
     d = np.arange(n_sites + 1, dtype=np.float64)
     return a * (n_sites - 2.0 * d)
+
+
+def spin_glass_fitness(
+    n_sites: int, seed: int, amplitude: float = 1.0, field: float = 0.0
+) -> NDArray[np.float64]:
+    """Sherrington-Kirkpatrick spin glass, ``f = sum_{i<j} J_ij z_i z_j + h sum_i z_i``.
+
+    The fourth family WP3 task T3.1 asks for, and the one that is already written in the
+    project's own convention: the couplings *are* the ``b_ij Z_i Z_j`` terms the Hamiltonian
+    compiler builds, so the Pauli expansion is exactly ``L(L-1)/2`` weight-two terms plus
+    ``L`` weight-one terms, with no dependence on the seed. That makes it the family where
+    ruggedness is high and the compilation cost is still polynomial, which is the opposite
+    corner from the single peak and worth having.
+
+    Parameters
+    ----------
+    field
+        Uniform longitudinal field. Zero gives the standard SK model, whose ground state sits
+        at a random genotype and whose optimum is degenerate under global spin flip: every
+        configuration and its complement have the same fitness. A non-zero field breaks that
+        symmetry. `ruggedness_statistics` reports where the optimum lands either way, which
+        ADR-0011 requires of every family.
+
+    Notes
+    -----
+    Couplings are ``+/- 1`` rather than Gaussian, which is the discrete SK convention and
+    keeps the coefficient one-norm exactly ``L(L-1)/2`` before standardisation. Standardised
+    to standard deviation ``amplitude`` for the same reason `nk_fitness` is: otherwise the
+    spread grows with L and a sweep would vary selection strength alongside structure.
+    """
+    _check_sites(n_sites)
+    rng = np.random.default_rng(seed)
+    spins = spin_matrix(n_sites).astype(np.float64)
+
+    total = np.zeros(1 << n_sites, dtype=np.float64)
+    for i in range(n_sites):
+        for j in range(i + 1, n_sites):
+            total += rng.choice([-1.0, 1.0]) * spins[i] * spins[j]
+    if field:
+        total += field * spins.sum(axis=0)
+
+    spread = float(total.std())
+    if spread == 0.0:
+        return total
+    return amplitude * (total - total.mean()) / spread
+
+
+def house_of_cards_fitness(n_sites: int, seed: int, amplitude: float = 1.0) -> NDArray[np.float64]:
+    """Every genotype's fitness drawn independently. The maximally rugged reference.
+
+    One of the standard models WP3 task T3.2 asks for, so results are comparable with the
+    population-genetics literature. It is the ``K = L - 1`` limit of NK and it is the case
+    where no compilation structure exists at all: the Pauli expansion is dense, all ``2**L``
+    subsets, which makes it the honest worst case for the resource-scaling analysis.
+    """
+    _check_sites(n_sites)
+    rng = np.random.default_rng(seed)
+    draws = rng.normal(size=1 << n_sites)
+    return amplitude * (draws - draws.mean()) / float(draws.std())
+
+
+def rough_mount_fuji_fitness(
+    n_sites: int, seed: int, slope: float = 1.0, roughness: float = 0.5
+) -> NDArray[np.float64]:
+    """Additive gradient plus independent noise: ``f = -slope * d + roughness * eta``.
+
+    The Rough Mount Fuji model, and the family WP3 should prefer for the ruggedness axis,
+    because it is the one that varies ruggedness **without moving the optimum**, which is
+    exactly what ADR-0011 was written about. The additive part points at the all-wild-type
+    genotype at every roughness, so the master sequence stays where the error threshold is
+    defined relative to, and only the amount of local structure changes.
+
+    Contrast NK, where the optimum sits at a random genotype whose Hamming weight was
+    measured at 3.4 to 4.4 out of 8, and where error-threshold statements therefore do not
+    carry over unchanged.
+
+    Parameters
+    ----------
+    slope
+        Fitness lost per mutation, the deterministic gradient.
+    roughness
+        Standard deviation of the independent noise, in the same units. ``0`` is exactly
+        additive; large values approach house-of-cards.
+
+    Notes
+    -----
+    Not standardised, unlike `nk_fitness` and `spin_glass_fitness`. Here the two components
+    are the axis: ``roughness / slope`` is the ruggedness parameter and rescaling the total
+    would destroy it. The caller sets the overall scale through ``slope``.
+    """
+    _check_sites(n_sites)
+    if slope < 0.0 or roughness < 0.0:
+        raise ValueError(f"slope and roughness must be non-negative, got {slope}, {roughness}")
+
+    rng = np.random.default_rng(seed)
+    weights = np.bitwise_count(np.arange(1 << n_sites, dtype=np.uint64)).astype(np.float64)
+    noise = rng.normal(size=1 << n_sites)
+    return -slope * weights + roughness * noise
+
+
+def block_fitness(
+    n_sites: int, block_size: int, seed: int, amplitude: float = 1.0
+) -> NDArray[np.float64]:
+    """Genome split into independent blocks, each contributing an arbitrary function.
+
+    The block model from WP3 task T3.2. Ruggedness is tuned by ``block_size``: size 1 is
+    additive, size L is house-of-cards, and in between the landscape is rugged within blocks
+    and additive across them. It separates cleanly from NK in one respect worth having, that
+    epistasis here is *bounded in range* rather than spread over a neighbourhood, so the
+    Pauli expansion is dense within a block and empty across blocks: at most
+    ``ceil(L / b) * 2**b`` terms rather than ``2**L``.
+
+    The last block is short when ``block_size`` does not divide ``n_sites``, which is
+    recorded rather than padded, because padding would silently make one block less rugged
+    than the rest.
+    """
+    _check_sites(n_sites)
+    if not 1 <= block_size <= n_sites:
+        raise ValueError(f"block_size must be between 1 and {n_sites}, got {block_size}")
+
+    rng = np.random.default_rng(seed)
+    index = np.arange(1 << n_sites, dtype=np.int64)
+    total = np.zeros(1 << n_sites, dtype=np.float64)
+
+    for start in range(0, n_sites, block_size):
+        width = min(block_size, n_sites - start)
+        table = rng.normal(size=1 << width)
+        total += table[(index >> start) & ((1 << width) - 1)]
+
+    spread = float(total.std())
+    if spread == 0.0:
+        return total
+    return amplitude * (total - total.mean()) / spread

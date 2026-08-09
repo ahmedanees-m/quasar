@@ -969,3 +969,114 @@ which reduces to `height / L` for the single peak up to a term of order `2^-L`, 
 generalises the quantity the threshold actually depends on: the selective advantage of the
 best genotype over a random one, per site. Criterion 2 is not evaluated on the NK family,
 which has no analytic `mu_c` to compare against; NK enters the gap map only.
+
+---
+
+### Amendment 13 (G-2: Route B configurations, the derived degree, and a corrected derivation)
+
+Registered before `experiments/wp2_qsvt/g_2_route_b.py` was run, and after the exploratory
+runs disclosed below. Section 6's three criteria are unchanged.
+
+**Standing assumption.** Route B is built as ADR-0010 option C under ADR-0015: QSVT
+eigenstate filtering for a Hermitian stoquastic operator. ADR-0010 records that the G-2
+thresholds do not depend on which QSVT construction is chosen, so this assumption does not
+touch the pre-registration. Every G-2 artefact carries it in its notes.
+
+**Configurations.** L in {2, 3, 4, 5, 6}. Families: additive with per-site coefficients drawn
+uniformly on [0.3, 1.5] at seeds 0 to 9, seeded per (family, L, seed) rather than from one
+shared stream; and single peak at heights 1.0 and 2.5. mu = 0.20 throughout. The initial
+state is the uniform superposition over all genotypes, which is the state a hardware run
+would actually start from and which carries no information about the answer.
+
+**Criterion 2, the block encoding.** Both forms are built and checked: the asymmetric one,
+which puts coefficient signs in one of the two preparations, and the symmetric one, which
+puts them in SELECT so that qubitisation is available. Each is checked for the defining
+property to 1e-10, for a block spectral norm not exceeding 1, and, at sizes where the full
+operator is affordable, for unitarity of the circuit itself. A block that matches while the
+circuit is not unitary would mean the extraction is wrong rather than the encoding right.
+
+**Supporting check, not part of the gate.** The qubitised walk must produce Chebyshev
+polynomials: the top-left block of `W^d` equals `T_d(A / alpha)` to 1e-10 for d in
+{0, 1, 2, 3, 5, 8}. Recorded because it separates two failure modes that otherwise arrive
+together, a wrong walk and a wrong polynomial.
+
+**Criterion 3, the derived degree, and the correction.** The comparison is between the
+smallest degree that empirically reaches cosine 0.95 against the analytic quasispecies, and
+the degree predicted by
+
+    d  =  (alpha / Delta) * ln( sqrt(1 - gamma^2) / (gamma * sqrt(epsilon)) )
+
+with `alpha` the one-norm of the Pauli coefficients, `Delta` the spectral gap from the WP1
+map, `gamma` the overlap of the initial state with the Perron vector, and
+`epsilon = 1 - 0.95^2` matching the accuracy criterion 1 demands. Agreement within a factor
+of two in either direction, on every configuration.
+
+**Disclosure.** The first version of this prediction omitted the overlap term entirely and
+used a fixed `epsilon = 1e-3`. Measured against the empirical degrees it overshot by factors
+of 3.3 to 7.2 on all ten exploratory configurations, which is what surfaced the omission.
+The corrected expression is the standard two-factor eigenstate-filtering cost and is derived
+line by line in the docstring of `quasarstack.qsvt.filter.predicted_degree`: the gap sets how
+sharp the polynomial must be, the overlap sets how far the unwanted components must be
+pushed down, and conflating them is an error rather than a constant factor. **It contains no
+fitted constant.** Nothing was tuned to the data; a term that should always have been there
+was restored.
+
+Exploratory ratios of predicted to empirical degree, before and after:
+
+| | range | within a factor of 2 |
+|---|---|---|
+| omitting overlap | 3.32 to 7.22 | 0 of 10 |
+| corrected | 0.60 to 1.84 | 10 of 10 |
+
+The honest reading is that criterion 3 would have failed on the first derivation and passes
+on the corrected one, and that the correction was prompted by the failure. What makes this a
+method fix rather than a moved threshold is that the corrected formula is the textbook one,
+is derived rather than fitted, and would have been the right answer had the question been
+asked before any number existed. A reader who disagrees has both sets of numbers above.
+
+**A statement recorded so it cannot later be quietly dropped.** The degree is **linear** in
+`alpha / Delta`, not square root. Chebyshev acceleration, which does buy a square root, needs
+the target eigenvalue to sit outside the interval where the polynomial is bounded, and here
+it is inside the encoded spectrum by construction. Route B's advantage over Route A, if there
+is one, is therefore not in this factor.
+
+---
+
+### Amendment 14 (G-3: family parameters, and what "correlation length" means here)
+
+Registered before `experiments/wp3_landscapes/g_3_families.py` was run. Section 7's three
+criteria are unchanged.
+
+**Parameters.** NK with K in {0, 1, 2, 3, 4, 6} and adjacent neighbourhoods. Spin glass with
+zero field, discrete `+/- 1` couplings. Rough Mount Fuji at slope 1.0 and roughness in
+{0.0, 0.1, 0.3, 1.0, 3.0}. Block with block size in {1, 2, 4}. Single peak at height 1.0.
+Additive plus weak pairwise epistasis at `a = 1.0`, `b = 0.1`. Seeds 0 to 9 throughout.
+L = 10 and L = 12 for criterion 3, L = 8 and L = 10 for the reproduction hashes.
+
+**Correlation length.** Section 7 asks for "fitness-correlation length", and
+`ruggedness_statistics` reports the nearest-neighbour autocorrelation `rho`. The two are
+related by the standard Weinberger definition, `ell = -1 / ln(rho)`, which the gate computes
+rather than storing, so that no existing artefact changes shape. Where `rho <= 0` the
+landscape has no correlation length and the gate records `0.0` rather than a complex number.
+
+**What monotone in K means, stated so it cannot be read two ways.** Ruggedness increasing
+means the local-optima count increases and the correlation length decreases. Both are
+required, of the mean over the ten seeds, and both are reported per seed so a family that is
+monotone on average and not per instance is visible.
+
+**Criterion 1, "byte-for-byte".** The gate stores a SHA-256 of each fitness array in the
+artefact. Reproduction within a run is checked by building each landscape twice with the
+global NumPy random state deliberately disturbed in between; reproduction across runs is
+checked by comparing those hashes with the committed record, which is what makes the claim
+mean anything more than "the function is deterministic within one process". This is also the
+check that would have caught ADR-0016 in the landscape layer had the defect been there.
+
+**A finding disclosed in advance, because it bears on which family the ruggedness axis
+should use.** Exploratory measurement at L = 8 over ten seeds puts the mean Hamming weight
+of the global optimum at 0.00, 0.10 and 0.50 for Rough Mount Fuji at roughness 0.0, 0.3 and
+1.0, against 3.70 for NK at K = 2 and 4.50 for house-of-cards. Over the same range the RMF
+local-optima count goes from 1.0 to 12.7. Rough Mount Fuji therefore appears to be the family
+that varies ruggedness while leaving the master sequence in place, which is what ADR-0011
+said the project needs and NK does not provide. The gate records the optimum location for
+every family and instance so that this can be judged from the artefact rather than from this
+paragraph.

@@ -462,3 +462,161 @@ is ugly, and the alternative considered was to move the two settings into the im
 That was rejected because `QUASAR_IMAGE` baked into the image can no longer distinguish which
 image a record came from, which is the entire question ADR-0012 asks. The ugliness is the
 cheaper of the two.
+
+---
+
+## ADR-0015 — Proceeding under the recommendations of ADR-0010 and ADR-0013, pending PI confirmation
+
+**Status.** Accepted as a working assumption, reversible, flagged. **Date.** 10 August 2026.
+
+**Context.** Two decisions were referred to both PIs and neither has been answered. Both sit
+on the critical path: ADR-0010 gates WP2, which is the novelty core, and ADR-0013 gates WP7,
+which is the boundary map. Waiting stops the project; guessing silently would be worse than
+either. This ADR takes the third option, which is to proceed on the recommendation already
+written down, say so in the artefacts, and keep the choice cheap to reverse.
+
+**Decision.**
+
+1. **Route B is built as ADR-0010 option C.** QSVT eigenstate filtering for a Hermitian
+   stoquastic operator, with direction-specific context-dependent mutation written up as the
+   route by which the nonreversible machinery would become relevant, and not implemented.
+2. **WP7 reports both budget protocols, ADR-0013 option 3.** Accuracy at a fixed budget, and
+   the budget needed to reach a fixed accuracy, as two panels rather than one.
+
+**Why these are safe to assume rather than block on.**
+
+- ADR-0010 records that "the `GATES.md` G-2 thresholds are unaffected" by the choice: they
+  speak of reproducing the analytic quasispecies and deriving resource scaling, neither of
+  which depends on which QSVT construction is used. So the pre-registration does not have to
+  be rewritten if the PIs pick A or B instead.
+- Option C differs from option A only by a paragraph of write-up, so choosing C and being
+  told A costs nothing. Being told B is the expensive branch, and B is a scope increase that
+  would need its own re-derivation of every WP-R gate; that cost exists whenever it is
+  decided and is not made worse by starting A now.
+- ADR-0013 option 3 is a superset of options 1 and 2. Whichever the PIs pick, the data will
+  already have been collected, because reporting both means measuring both.
+
+**What is not assumed.** Nothing in the manuscript's novelty claim. The narrowing that
+option A implies, from "beyond-quadratic speedup for nonreversible chains" to "eigenstate
+filtering for a Hermitian stoquastic operator", is a claim about what the paper says and
+stays with the PIs.
+
+**How this is surfaced.** Every WP2 artefact carries the assumption in its notes field, and
+`CLAIMS.md` marks the affected claims as resting on an unconfirmed decision. If either PI
+decides otherwise, the search term is ADR-0015.
+
+---
+
+## ADR-0016 — A gate result moved in its fifteenth digit, and the cause was the eigensolver's starting vector
+
+**Status.** Accepted. **Date.** 10 August 2026.
+
+**Context.** The full `make gates` run that closed WP-R reproduced nine of ten records
+bit-identically in every scientific field. G-R.4 did not. Its measured gap decay per site
+moved from `0.7167436421588269` to `0.7167436421588261`, and two entries of its sharp-peak
+gap scaling moved in their fourteenth digit. No code had changed between the runs.
+
+**Cause.** `scipy.sparse.linalg.eigsh` takes an optional `v0`, the vector ARPACK starts its
+Krylov iteration from. Left unset, SciPy draws one from **NumPy's global random state**, which
+is seeded from OS entropy at import. Every process therefore starts somewhere different, and
+ARPACK returns as soon as its residual falls under tolerance, so it returns from a slightly
+different place. Three call sites in `quasarstack` did this: `analytic/exact_diag.py`,
+`hamiltonian/builder.py`, and the newly written `spectral/gap.py`.
+
+**Why this is worse than an ordinary rounding difference.** The results are correct to about
+`1e-14` throughout, and they usually agree to the last bit, so the disagreement surfaces
+rarely and looks like a real change when it does. ADR-0009 draws the line between a rerun
+that differs only in provenance, which is discarded, and one that changes a scientific field,
+which is a finding to be committed and explained. That rule cannot work if the scientific
+fields move on their own. The project's first engineering principle, that every claim maps to
+a re-runnable artefact, is not satisfied by an artefact that re-runs to a different number.
+
+It also would have got worse rather than better. The WP1 gap map calls the sparse path
+thousands of times, and WP7's boundary map more again.
+
+**Decision.** Every `eigsh` call in `quasarstack` passes `v0=deterministic_start(n)` from the
+new `quasarstack/numerics.py`. The start is a fixed pseudo-random vector rather than a
+constant such as all-ones: all-ones has large overlap with the Perron vector of *this*
+operator, so it would work here and hide the problem the day these functions are pointed at
+an operator whose target eigenvector is orthogonal to it.
+
+`tests/unit/test_numerics.py` checks three things: that the start vector does not depend on
+global state, that `sparse_gap` and `perron_vector` return bit-identical results across
+deliberately disturbed global RNG states, and, by parsing the package, that no `eigsh` call
+anywhere omits `v0`. The last of those is the one that matters in six months.
+
+**Consequences.** G-R.4's committed record is superseded by the rerun, which is the first
+result in the project to change on reproduction. The difference is at the level of `8e-16`
+relative and changes no conclusion; what changes is that the number is now stable. Records
+produced before this ADR carry a git SHA from before the fix and should be read as accurate
+to about `1e-14` rather than exactly reproducible.
+
+---
+
+## ADR-0017 — Ruggedness and the master sequence are in conflict, and the order parameter has to change
+
+**Status.** Accepted for WP3 and WP7. The narrowed claim it implies needs both PIs.
+**Date.** 10 August 2026.
+
+**Context.** ADR-0011 withdrew a claim because a landscape family had been varying ruggedness
+and relocating the fitness optimum at the same time, and it required every family to report
+where its optimum sits. WP3 now reports that for all seven families, and the picture is worse
+than ADR-0011 assumed.
+
+The error threshold is a localisation-delocalisation transition, and the order parameter
+`magnetisation` measures concentration on genotype 0, the master sequence. That is correct
+for the single peak and for any additive landscape. It is not correct for a rugged one,
+because a rugged landscape's optimum is somewhere random.
+
+**Measurement.** Rough Mount Fuji was the best candidate for a ruggedness axis that leaves
+the master sequence in place, and it does, but only while it is barely rugged. Fraction of 40
+seeds whose global optimum is still genotype 0, against mean local-optima count:
+
+| roughness | 0.1 | 0.3 | 0.5 | 0.7 | 1.0 | 2.0 |
+|---|---|---|---|---|---|---|
+| retained, L = 12 | 1.00 | 0.97 | 0.62 | 0.40 | 0.25 | 0.05 |
+| local optima, L = 12 | 1.0 | 1.4 | 14.9 | 53.9 | 121.2 | 246.1 |
+
+Retention gets **worse** with L, not better: at roughness 1.0 it falls from 0.38 at L = 6 to
+0.25 at L = 12. Every other family is worse still. NK sits at Hamming weight 3.2 to 4.2 out
+of 8 at every K including K = 0, the spin glass at 2.2, house-of-cards at 4.8, and the block
+model at 4.0 to 4.2.
+
+**The problem this creates.** There is no family that is both meaningfully rugged and keeps
+its optimum at a fixed reference. A sweep that holds `magnetisation` as its order parameter
+while raising ruggedness therefore stops measuring localisation partway along the axis and
+starts measuring how far the optimum has wandered from genotype 0. That quantity also falls
+with ruggedness, and it also looks like a threshold crossing. WP7's central figure is a
+boundary map over exactly this axis, so the confusion would land in the paper's main result.
+
+**Decision.** The order parameter is measured from **the instance's own fittest genotype**,
+not from genotype 0. `quasarstack.spectral.order_parameter.localisation(probs, reference)`
+does this and reduces to `magnetisation` exactly when the optimum is genotype 0, so nothing
+already measured changes. Every sweep cell records which reference it used and the Hamming
+weight of that reference.
+
+**What this costs, stated plainly.** "Error threshold" in the classical quasispecies
+literature means delocalisation from a master sequence, and on a rugged landscape there is no
+master sequence. Measuring concentration on the fittest genotype is the natural
+generalisation and it is not the same object. The project should say "localisation
+transition" rather than "error threshold" wherever the landscape is rugged, and should not
+quote a rugged-landscape threshold as though it were comparable to the sharp-peak value. That
+is a narrowing of what WP7 can claim and it belongs to the PIs.
+
+**Options considered and rejected.**
+
+- *Restrict the axis to roughness at most 0.3, where retention is 97%.* Honest, but at that
+  roughness the landscape has 1.4 local optima, so the ruggedness axis would span almost no
+  ruggedness and WP7 would have nothing to map.
+- *Condition on instances that retain the master sequence.* Selection on the outcome. At
+  roughness 1.0 it would keep a quarter of the instances, chosen for having an unusually
+  dominant wild type, and the resulting threshold would be biased toward looking sharp.
+- *Keep `magnetisation` and note the caveat.* The caveat would be a sentence and the figure
+  would be the result.
+
+**Consequences.** `GATES.md` section 11's WP7 order parameter needs an appended amendment
+before WP7 runs. G-R.4 is unaffected: it uses the single peak, where the two definitions
+coincide exactly. The ruggedness axis for WP7 should be Rough Mount Fuji for the biology and
+the spin glass for the compilation question, and those are different axes because the spin
+glass is the only rugged family whose Pauli count stays polynomial, at `L(L-1)/2 + L + 1`
+terms against `2**L` for Rough Mount Fuji at any non-zero roughness.

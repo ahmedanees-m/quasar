@@ -45,6 +45,33 @@ def magnetisation(probs: NDArray[np.float64], n_sites: int | None = None) -> flo
     return float(np.sum(probs * (1.0 - 2.0 * distance / n_sites)))
 
 
+def localisation(probs: NDArray[np.float64], reference: int, n_sites: int | None = None) -> float:
+    """Surplus measured from an arbitrary reference genotype rather than from all-wild-type.
+
+    `magnetisation` hardcodes the master sequence as genotype 0, which is right for the
+    single peak and for any additive landscape, and wrong for a rugged one. Measurement:
+    Rough Mount Fuji keeps its optimum at genotype 0 in 97% of instances at roughness 0.3,
+    where it has 1.4 local optima, and in 25% at roughness 1.0 at L = 12, where it has 121.
+    Every family that is meaningfully rugged has its optimum at a random genotype. So a
+    ruggedness sweep that keeps measuring from genotype 0 stops measuring localisation and
+    starts measuring how far the optimum has wandered, which is a different quantity that
+    happens to look like a threshold crossing.
+
+    Passing the instance's own fittest genotype as ``reference`` makes the order parameter
+    mean the same thing at every ruggedness: how concentrated the quasispecies is on the
+    fittest sequence. It reduces to `magnetisation` exactly when that sequence is genotype 0.
+    See ADR-0017.
+    """
+    probs = np.asarray(probs, dtype=np.float64)
+    if n_sites is None:
+        n_sites = infer_n_sites(probs)
+    if not 0 <= reference < probs.size:
+        raise ValueError(f"reference must index a genotype, got {reference} for {probs.size}")
+    index = np.arange(probs.size, dtype=np.uint64)
+    distance = np.bitwise_count(index ^ np.uint64(reference)).astype(np.float64)
+    return float(np.sum(probs * (1.0 - 2.0 * distance / n_sites)))
+
+
 def magnetisation_from_classes(class_probs: NDArray[np.float64]) -> float:
     """Surplus from an ``L + 1`` Hamming-class distribution.
 

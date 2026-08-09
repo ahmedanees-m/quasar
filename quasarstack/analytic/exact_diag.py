@@ -26,6 +26,7 @@ from scipy.linalg import eigh
 from scipy.sparse.linalg import eigsh
 
 from quasarstack.io.conventions import assert_dense_allowed
+from quasarstack.numerics import deterministic_start
 
 DENSE_LIMIT = 12
 
@@ -113,7 +114,9 @@ def perron_vector(
         mean_fitness = float(eigenvalues[-1])
         gap = float(eigenvalues[-1] - eigenvalues[-2])
     else:
-        eigenvalues, eigenvectors = eigsh(generator, k=2, which="LA")
+        eigenvalues, eigenvectors = eigsh(
+            generator, k=2, which="LA", v0=deterministic_start(generator.shape[0])
+        )
         order = np.argsort(eigenvalues)[::-1]
         top = eigenvectors[:, order[0]]
         mean_fitness = float(eigenvalues[order[0]])

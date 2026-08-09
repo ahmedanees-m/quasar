@@ -1,1 +1,1 @@
-"""Route B: QSVT Perron-vector extraction. Block encoding, phase factors, eigenvalue transform."""
+"""Route B: QSVT eigenstate filtering for the mutation-selection operator. WP2."""

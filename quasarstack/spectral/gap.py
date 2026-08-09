@@ -159,12 +159,21 @@ def sparse_gap(fitness: NDArray[np.float64], mu: float, tol: float = 0.0) -> flo
     """
     from scipy.sparse.linalg import eigsh
 
+    from quasarstack.numerics import deterministic_start
+
     fitness = np.asarray(fitness, dtype=np.float64)
     operator = mutation_selection_generator(fitness, mu)
     if fitness.size <= 4:  # Lanczos needs k < n - 1; tiny cases go dense.
         values = np.linalg.eigvalsh(operator.toarray())
         return float(values[-1] - values[-2])
-    values = eigsh(operator, k=2, which="LA", tol=tol, return_eigenvectors=False)
+    values = eigsh(
+        operator,
+        k=2,
+        which="LA",
+        tol=tol,
+        return_eigenvectors=False,
+        v0=deterministic_start(operator.shape[0]),
+    )
     return float(abs(values[1] - values[0]))
 
 

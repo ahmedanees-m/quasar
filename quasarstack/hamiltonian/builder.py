@@ -212,6 +212,8 @@ def ground_state(
     from scipy.linalg import eigh
     from scipy.sparse.linalg import eigsh
 
+    from quasarstack.numerics import deterministic_start
+
     n_sites = operator.num_qubits
     if n_sites <= dense_limit:
         assert_dense_allowed(n_sites, limit=dense_limit)
@@ -223,7 +225,9 @@ def ground_state(
         energy = float(eigenvalues[0])
     else:
         sparse = operator.to_matrix(sparse=True).real
-        eigenvalues, eigenvectors = eigsh(sparse, k=1, which="SA")
+        eigenvalues, eigenvectors = eigsh(
+            sparse, k=1, which="SA", v0=deterministic_start(sparse.shape[0])
+        )
         vector = eigenvectors[:, 0]
         energy = float(eigenvalues[0])
 
