@@ -310,3 +310,99 @@ performance. Framing the result as evidence of advantage fails this gate.
 
   **Expected case count.** 9 sizes x 7 mutation rates x (10 + 4 + 3 + 3 + 3) configurations
   = 1449 comparisons, plus 252 closed-form-versus-class cross-checks on family 2.
+
+- 2026-08-09 — **Amendment 2: the G-R.2 configuration set, registered before the run.**
+  Anees Ahmed Mahaboob Ali.
+
+  Section 3 fixed the G-R.2 threshold as cosine >= 0.999999 on 40 out of 40 configurations
+  but did not say which forty. They are fixed here, before the gate is executed. The
+  threshold is unchanged.
+
+  **The forty.** Ten landscape configurations, each at four mutation rates.
+
+  | # | Family | L | Parameters | Compiler route |
+  |---|---|---|---|---|
+  | 1 | additive_random | 2 | seed 0 | structured |
+  | 2 | additive_random | 4 | seed 0 | structured |
+  | 3 | additive_random | 6 | seed 1 | structured |
+  | 4 | additive_random | 8 | seed 2 | structured |
+  | 5 | additive_uniform | 3 | a = 0.5 | structured |
+  | 6 | additive_uniform | 7 | a = 1.5 | structured |
+  | 7 | single_peak | 4 | height = 2.0 | Walsh-Hadamard |
+  | 8 | single_peak | 8 | height = 3.0 | Walsh-Hadamard |
+  | 9 | class_quadratic | 6 | height = 2.0 | Walsh-Hadamard |
+  | 10 | class_exponential | 5 | height = 2.0 | Walsh-Hadamard |
+
+  Mutation rates: mu in {0.10, 0.30, 0.60, 1.00}. Random coefficients are drawn from
+  Uniform(0.25, 2.00) with `default_rng(seed)`, matching Amendment 1.
+
+  **Gate statistic.** The minimum, over all forty, of the cosine similarity between the
+  ground state of the compiled Pauli operator and the analytic quasispecies. Pass requires
+  every one of the forty at or above 0.999999.
+
+  **Diagnostics recorded per configuration, not gating.**
+
+  - Total-variation distance as well as cosine. Cosine is the flattering metric on a
+    concentrated distribution and the threshold is written in it, so the conservative
+    number is recorded alongside rather than left out.
+  - The operator-level maximum absolute difference between the compiled Pauli operator and
+    the negated generator assembled independently in `exact_diag`. This is a stricter check
+    than the eigenvector comparison and is the one that would catch an endianness error
+    that happened to leave the spectrum intact.
+  - Ground-state energy against the analytic mean fitness.
+  - Pauli term count, which feeds gate G-R.10.
+  - For the additive families, the difference between the structured build and the
+    Walsh-Hadamard build of the same operator, since both routes must produce it.
+
+- 2026-08-09 — **Amendment 3: the G-R.3 configuration set and protocol, registered before
+  the run.** Anees Ahmed Mahaboob Ali.
+
+  Section 3 fixed the G-R.3 thresholds as cosine >= 0.999 at dtau = 0.01 and a fitted
+  exponent in [1.8, 2.2] with R^2 >= 0.99. The configurations and the two sub-experiments
+  are fixed here, before execution. The thresholds are unchanged.
+
+  **What is being evolved.** The Trotterised imaginary-time propagator of
+  `quasarstack/circuit/trotter_ite.py`, symmetric second-order splitting
+  S(dtau/2) M(dtau) S(dtau/2), started from the uniform superposition and renormalised each
+  step. This is not a hardware-runnable circuit; imaginary-time evolution is non-unitary,
+  and the hardware-faithful routes are gates G-R.6 and G-R.7.
+
+  **Sub-experiment A, the splitting-error exponent.** Total time tau = 2.0. Step sizes
+  dtau in {0.25, 0.125, 0.0625, 0.03125, 0.015625, 0.0078125}, so the step count runs 8 to
+  256 and every step size divides tau exactly. The error statistic is the maximum absolute
+  difference between the Trotter distribution and `exp(-H tau)` applied to the *same*
+  initial state and computed without splitting, by eigendecomposition.
+
+  Measuring against the un-split propagator rather than against the analytic quasispecies is
+  deliberate. Comparing to the quasispecies would fold in the residual from tau being finite,
+  and that floor would flatten the fitted exponent at small dtau, producing a number that
+  says more about the choice of tau than about the splitting.
+
+  The exponent is the slope of a least-squares fit of log(error) against log(dtau), with
+  R^2 reported. Both must be inside the registered bounds for every configuration.
+
+  **Sub-experiment B, convergence to the quasispecies.** dtau = 0.01, tau = 60.0, so 6000
+  steps. tau is set from the smallest spectral gap observed in G-R.1, which was 0.1197: at
+  tau = 60 the leading contaminating amplitude is suppressed by exp(-7.2), around 7e-4, so
+  the residual is far below the 0.999 cosine threshold and the gate is measuring convergence
+  rather than the choice of tau. Scored by cosine and total variation against the analytic
+  oracle.
+
+  **Configurations.** Six, each run through both sub-experiments.
+
+  | # | Family | L | Parameters |
+  |---|---|---|---|
+  | 1 | additive_random | 3 | seed 0 |
+  | 2 | additive_random | 6 | seed 1 |
+  | 3 | additive_uniform | 4 | a = 1.0 |
+  | 4 | additive_epistatic | 4 | seed 3, couplings from the same generator |
+  | 5 | single_peak | 5 | height = 2.0 |
+  | 6 | class_quadratic | 6 | height = 2.0 |
+
+  Mutation rate mu = 0.30 throughout, which sits inside the range swept in G-R.1.
+
+  **Diagnostics recorded, not gating.** Per-configuration error at each step size; the
+  fitted intercept as well as the slope; total-variation distance alongside cosine; step
+  counts; and, for the additive families, the depth and two-qubit gate count of the
+  structural circuit analogue, labelled as such, since that analogue is unitary and does not
+  itself perform imaginary-time evolution.

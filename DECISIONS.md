@@ -167,3 +167,93 @@ verified by checksum. A pre-run disk check aborts a sweep that would breach the 
 
 **Consequences.** No other project on the VM is affected. The Drive archive, not the VM, is
 where the complete result set lives. Sweeps are resumable from the archive.
+
+---
+
+## ADR-0009 — A gate record is committed at the commit that produced it, and reruns that change nothing scientific are discarded
+
+**Date:** 2026-08-09
+**Status:** accepted
+
+**Context.** Committing a gate record changes the tree, so the next run of the same gate
+records a different `git_sha` and a different timestamp than the record already committed.
+Running `make gates` on a clean checkout therefore always leaves the tree dirty, even when
+the run reproduced the committed result exactly.
+
+Measured on the first two gates: rerunning G-R.1 and G-R.2 at a later commit changed
+`git_sha`, `timestamp`, and the elapsed seconds. Every scientific field was bit-identical.
+
+**Decision.** A record is committed once, at the commit whose code produced it. A rerun
+whose only differences are provenance and timing is discarded with `git checkout --
+results/`. A rerun that changes any scientific field is a finding: it is committed, and the
+change is explained, because a gate that does not reproduce is either non-deterministic or
+newly broken and both need saying out loud.
+
+**Consequences.** `make gates` is a verification step, not a step that produces commits.
+The repository does not accumulate churn from re-verification. The one-command
+reproducibility claim stays checkable, because the check is "did the scientific fields come
+back the same", which is exactly what a reviewer would want to run.
+
+---
+
+## ADR-0010 — Route B cannot rest on the nonreversible-Markov-chain result, and needs a new foundation
+
+**Date:** 2026-08-09
+**Status:** finding accepted; the redesign choice is open and needs both PIs
+
+**Context.** Execution plan v4 exists because Claudon, Piquemal and Monmarche (2025) was
+found, and Route B is the novelty core of the paper. The plan's section 0 argues that the
+quasispecies is the Perron eigenvector of a non-conservative operator and that extracting a
+dominant eigenvector is what QSVT eigenvalue transforms do.
+
+The reference was read and its applicability measured, ahead of schedule, precisely because
+everything in WP2 depends on it. Artefact: `results/wp0/prior_art_iv_4.json`, twenty
+operators. Full write-up in `PRIOR_ART.md` entry IV.4.
+
+**What was found.** The construction does not apply, for two independent reasons.
+
+1. The paper's results are stated for row-stochastic Markov kernels. The mutation-selection
+   generator is not one; that is what non-conservative means. The natural conversion, a
+   Doob h-transform, is built from the Perron vector being computed, so it is circular.
+2. The paper's beyond-quadratic speedup is bought by *non*reversibility. The
+   mutation-selection generator is reversible. With the symmetric mutation this project
+   implements it is outright symmetric, defect exactly zero, symmetrising measure uniform.
+
+Two measurements sharpen the scope. Asymmetric per-site mutation makes the generator
+non-symmetric but leaves it reversible, because independent per-site flips are a product of
+two-state birth-death processes. And selection cannot affect reversibility at all, since
+detailed balance constrains off-diagonal entries and selection is diagonal, so no amount of
+ruggedness changes the answer.
+
+**What this does not mean.** Route B is not dead. Nothing above says QSVT is inapplicable
+to this problem; it says the *nonreversible Markov chain* framing is the wrong justification
+for it.
+
+**Options, in the order they should be considered.**
+
+- **A. Reframe Route B as QSVT eigenstate filtering for a Hermitian stoquastic operator.**
+  This works for any Hermitian operator, which ours is. It connects to the ground-state
+  preparation literature rather than the nonreversible-chain literature, and its cost
+  depends on the spectral gap and the initial overlap, which is exactly what the WP1 gap map
+  produces. Cheapest change, keeps the schedule, and remains unpublished for this problem.
+  The novelty claim becomes narrower and more accurate.
+- **B. Extend the biology to direction-specific context-dependent mutation.** Measured
+  reversibility defect 0.60, so this genuinely enters the paper's class. Biologically
+  faithful, since CpG and APOBEC effects are one-directional. This is a scope increase: it
+  changes the model being simulated, and every analytic result and gate in WP-R would need
+  its counterpart re-derived for the new generator.
+- **C. Both.** Build Route B under option A, and treat option B as the stated route by which
+  the nonreversible machinery would become relevant, without implementing it. Costs a
+  paragraph, buys a defensible answer to the reviewer who asks why the nonreversible
+  literature was cited and then not used.
+
+**Recommendation.** C. Option A is the buildable route on the current schedule, and option B
+written up as an outlook is what makes the prior-art engagement honest rather than
+decorative.
+
+**Consequences either way.** The plan's section 0 wording, which treats non-conservative and
+nonreversible as though one implied the other, must be corrected before drafting. The
+correction is cheap now and would have been expensive after WP2 was built on it. The
+`GATES.md` G-2 thresholds are unaffected: they speak of reproducing the analytic
+quasispecies and deriving resource scaling, neither of which depends on which QSVT
+construction is used.

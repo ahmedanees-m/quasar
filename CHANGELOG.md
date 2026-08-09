@@ -36,7 +36,29 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 - `quasarstack/io/store.py`, which writes result records carrying the commit, the image
   tag, the interpreter, whether the tree was dirty, and the SHA-256 of `GATES.md`, so that
   "the threshold was registered before the run" is checkable rather than asserted.
-- `GATES.md` Amendment 1: the G-R.1 case set, appended before the gate was executed.
+- `quasarstack/hamiltonian/builder.py`, compiling landscapes into Pauli operators by two
+  independent routes, and `quasarstack/scoring/metrics.py` with cosine and total variation
+  always reported together.
+- `GATES.md` Amendments 1 and 2: the G-R.1 case set and the G-R.2 configuration set, each
+  appended before the gate it governs was executed.
+
+### Gates passed
+
+- **G-R.1**, oracle against exact diagonalisation: max absolute error 2.4e-15 against a
+  1e-9 threshold, over 1701 comparisons.
+- **G-R.2**, compiled Hamiltonian against the oracle: cosine 1.000000 on 40 of 40
+  configurations against a 0.999999 threshold, with operator-level agreement to 3.6e-15.
+- **G-R.3**, Trotterised imaginary-time evolution: convergence at cosine 1.0000000 against a
+  0.999 threshold, fitted splitting exponent 1.995 to 2.000 against bounds of [1.8, 2.2],
+  R² = 1.00000 on every configuration.
+
+### Prior art
+
+- Entry IV.4, Claudon, Piquemal and Monmarché (2025), verified ahead of schedule and found
+  **not to apply**. The generator is non-conservative but reversible, while their speedup is
+  bought by nonreversibility and their theorems are stated for row-stochastic kernels. Route
+  B needs a different foundation; options in ADR-0010. Also adds
+  `quasarstack/spectral/perron.py` and its reversibility diagnostics.
 - `docs/validation.md`, mapping each of the three historical failure modes to the
   convention that now locks it out.
 

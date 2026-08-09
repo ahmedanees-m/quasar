@@ -173,17 +173,64 @@ Route B connects to provable-complexity results rather than heuristics.
 - **Relation.** A negative result that constrains what Route B may claim. Cited directly
   against any temptation to overclaim.
 
-### IV.4 Claudon, Piquemal & Monmarche (January 2025) — `to-verify`
+### IV.4 Claudon, Piquemal & Monmarche — "Quantum speedup for nonreversible Markov chains", arXiv:2501.05868, *Nature Communications* 16:10732 (2025) — ✅ `verified` 2026-08-09
 
-- **Establishes.** Quantum eigenvalue and singular-value transforms (QSVT) applied to
-  extracting stationary distributions of nonreversible Markov chains, with claimed
-  beyond-quadratic speedups.
-- **Leaves open.** Not applied to a non-conservative Perron–Frobenius generator arising
-  from mutation–selection.
-- **Relation.** **The technical basis of Route B.** The quasispecies is the Perron
-  eigenvector of a non-conservative linear operator, and extracting a dominant eigenvector is
-  exactly what a QSVT eigenvalue transform does. Determining which construction applies to
-  this generator is task T2.1.
+- **Establishes.** Two quantum methods for sampling the stationary distribution of a
+  **row-stochastic Markov kernel**. A generalised quantum singular value transform of the
+  *curved* discriminant, which generalises the reversible-case technique and needs the time
+  reversal, hence knowledge of the stationary distribution; and a generalised quantum
+  eigenvalue transform of the *flat* discriminant, which does not, and instead requires a
+  weaker property the authors call reversibility on pi-average. Reversibility is defined by
+  detailed balance. **The headline beyond-quadratic, up-to-exponential speedup comes
+  specifically from the chain being nonreversible**; reversible chains get the previously
+  known quadratic acceleration. Complexity scales as the square root of the product of the
+  reversibilisation time and the mixing time, with the pseudo-spectral gap governing mixing.
+
+- **Leaves open.** Everything outside the row-stochastic class. The paper does not treat
+  non-conservative operators.
+
+- **Relation to QUASAR — verified by measurement, and it is not what execution plan v4
+  assumed.** Artefact: `results/wp0/prior_art_iv_4.json`, twenty operators.
+
+  Plan v4 section 0 argues that "the quasispecies is the Perron eigenvector of a
+  non-conservative linear operator" and that extracting a dominant eigenvector "is precisely
+  what QSVT eigenvalue transforms do". The first half is correct. The inference is not, for
+  two independent reasons.
+
+  1. **Class mismatch.** Their theorems are stated for row-stochastic kernels. The
+     mutation-selection generator is not one: its columns sum to the fitness, not to zero or
+     one. Measured, `max_abs_column_sum` is non-zero for every landscape tested. Converting
+     it to a stochastic matrix is possible in principle by a Doob h-transform, but that
+     transform is built from the Perron vector, which is the object being computed. The
+     conversion is circular.
+
+  2. **Property mismatch, and this is the decisive one.** Their speedup is bought by
+     nonreversibility. **The mutation-selection generator is reversible.** With the
+     symmetric mutation the project implements it is not merely reversible but symmetric,
+     with a reversibility defect of exactly zero and a uniform symmetrising measure.
+
+  Two further measured results sharpen the scope:
+
+  - **Asymmetric per-site mutation does not help.** Different forward and backward rates
+    make the generator non-symmetric but leave it reversible, defect 1e-15, because
+    independent per-site flips are a product of two-state birth-death processes and those
+    are reversible whatever the rates.
+  - **Selection cannot create nonreversibility at all.** Detailed balance constrains only
+    off-diagonal entries and selection is diagonal, so the reversibility defect is identical
+    across flat, additive, epistatic and single-peak landscapes. Ruggedness, the project's
+    main axis, is irrelevant to this property.
+
+  **The one route into their class that was found.** Direction-specific context-dependent
+  mutation, where the forward rate at a site depends on a neighbour but the back-mutation
+  rate does not, gives a reversibility defect of 0.60. This is biologically faithful, since
+  CpG hypermutation and APOBEC motif preference raise C to T without raising T to C. The
+  same context factor applied to *both* directions leaves the chain reversible, because the
+  rate then factorises into direction times context and that product cancels out of
+  Kolmogorov's cycle condition. Both were measured; the control is in the artefact.
+
+- **Consequence for Route B.** See `DECISIONS.md` ADR-0010. Route B is not dead, but it
+  cannot be built on this reference as planned, and the plan's framing needs correcting
+  before WP2 starts.
 
 ---
 

@@ -16,8 +16,8 @@ with a reason).
 | # | Claim as it will appear | Gate | Evidence artefact | Script | Status |
 |---|---|---|---|---|---|
 | C1 | The analytic Crow–Kimura oracle agrees with brute-force exact diagonalisation to machine precision, with maximum absolute error 2.4×10⁻¹⁵ over 1701 comparisons | G-R.1 | `results/wp_r/g_r_1.json` | `experiments/wp_r_rebuild/g_r_1_oracle_vs_ed.py` | pass |
-| C2 | The compiled qubit Hamiltonian's ground state is the analytic quasispecies across all tested configurations | G-R.2 | `results/wp_r/g_r_2.json` | `experiments/wp_r_rebuild/g_r_2_hamiltonian_vs_oracle.py` | planned |
-| C3 | The Trotterised circuit converges to the oracle with the expected second-order step-size scaling | G-R.3 | `results/wp_r/g_r_3.json` | `experiments/wp_r_rebuild/g_r_3_trotter_scaling.py` | planned |
+| C2 | The compiled qubit Hamiltonian's ground state is the analytic quasispecies, at cosine 1.000000 on 40 of 40 registered configurations, with the operator matching the independently assembled generator to 3.6×10⁻¹⁵ | G-R.2 | `results/wp_r/g_r_2.json` | `experiments/wp_r_rebuild/g_r_2_hamiltonian_vs_oracle.py` | pass |
+| C3 | The Trotterised imaginary-time propagator converges to the oracle at cosine 1.000000, and its splitting error is second order with a fitted exponent of 1.995 to 2.000 at R² = 1.00000 | G-R.3 | `results/wp_r/g_r_3.json` | `experiments/wp_r_rebuild/g_r_3_trotter_scaling.py` | pass |
 | C4 | The error threshold appears on the circuit as a localisation-delocalisation transition at the analytically predicted mutation rate | G-R.4 | `results/wp_r/g_r_4.json` | `experiments/wp_r_rebuild/g_r_4_error_threshold.py` | planned |
 | C5 | Rugged epistatic landscapes are reproduced against brute-force exact diagonalisation | G-R.5 | `results/wp_r/g_r_5.json` | `experiments/wp_r_rebuild/g_r_5_rugged.py` | planned |
 | C6 | varQITE reproduces the quasispecies at circuit depth constant in imaginary time | G-R.6 | `results/wp_r/g_r_6.json` | `experiments/wp_r_rebuild/g_r_6_varqite.py` | planned |
@@ -34,6 +34,17 @@ test in the rebuilt stack. Any bug the rebuild catches on its own is reported se
 as new.
 
 ---
+
+## WP0 — pre-registration and prior art
+
+| # | Claim | Gate | Artefact | Script | Status |
+|---|---|---|---|---|---|
+| C30 | The mutation–selection generator is non-conservative but reversible, so the nonreversible-Markov-chain speedup of Claudon, Piquemal and Monmarché (2025) does not apply to it; nonreversibility within this problem class requires direction-specific context-dependent mutation | G-0 | `results/wp0/prior_art_iv_4.json` | `experiments/wp0_prior_art/verify_iv_4_claudon.py` | pass |
+| C31 | Reversibility is a property of the mutation operator alone: detailed balance constrains off-diagonal entries and selection is diagonal, so no fitness landscape, however rugged, changes it | G-0 | `results/wp0/prior_art_iv_4.json` | `experiments/wp0_prior_art/verify_iv_4_claudon.py` | pass |
+
+C30 and C31 were not in the original plan. They exist because verification of prior-art
+entry IV.4 was pulled forward ahead of WP1, on the grounds that WP2 is the novelty core and
+rests entirely on that one reference. See `DECISIONS.md` ADR-0010.
 
 ## WP1 — structural and spectral analysis
 

@@ -1,0 +1,242 @@
+{
+  "gate": "G-R.3",
+  "work_package": "wp_r",
+  "passed": true,
+  "threshold": {
+    "convergence": {
+      "statistic": "cosine against the analytic oracle",
+      "value": 0.999
+    },
+    "exponent": {
+      "statistic": "fitted slope of log error against log dtau",
+      "bounds": [
+        1.8,
+        2.2
+      ]
+    },
+    "fit_quality": {
+      "statistic": "R squared of that fit",
+      "value": 0.99
+    },
+    "registered_in": "GATES.md section 3, protocol in Amendment 3"
+  },
+  "measured": {
+    "n_configurations": 6,
+    "min_fitted_exponent": 1.9954461289051009,
+    "max_fitted_exponent": 2.000029777792652,
+    "min_r_squared": 0.9999968613844517,
+    "min_cosine": 0.99999999996404,
+    "max_tv": 9.505126806804963e-06,
+    "exponents_within_bounds": true,
+    "fits_above_r_squared_threshold": true,
+    "all_converged": true,
+    "seconds": 7.37
+  },
+  "n_cases": 6,
+  "cases": [
+    {
+      "family": "additive_random",
+      "L": 3,
+      "seed": 0,
+      "mu": 0.3,
+      "tau_scaling": 2.0,
+      "dtaus": [
+        0.25,
+        0.125,
+        0.0625,
+        0.03125,
+        0.015625,
+        0.0078125
+      ],
+      "splitting_errors": [
+        0.0018013531719225373,
+        0.0004524397146851711,
+        0.00011324215736208121,
+        2.8318817623940173e-05,
+        7.080222018007731e-06,
+        1.7700878600646064e-06
+      ],
+      "fitted_exponent": 1.998518901979872,
+      "fitted_intercept": -3.546416146572756,
+      "r_squared": 0.9999996634340899,
+      "tau_converge": 60.0,
+      "dtau_converge": 0.01,
+      "n_steps_converge": 6000,
+      "cosine": 0.9999999999907927,
+      "tv": 3.7996605356544616e-06,
+      "structural_circuit_depth": 3,
+      "structural_circuit_two_qubit_gates": 0
+    },
+    {
+      "family": "additive_random",
+      "L": 6,
+      "seed": 1,
+      "mu": 0.3,
+      "tau_scaling": 2.0,
+      "dtaus": [
+        0.25,
+        0.125,
+        0.0625,
+        0.03125,
+        0.015625,
+        0.0078125
+      ],
+      "splitting_errors": [
+        0.004370800277847031,
+        0.0011012752015340244,
+        0.0002758616084357346,
+        6.899943629096184e-05,
+        1.725198791358018e-05,
+        4.313130058719583e-06
+      ],
+      "fitted_exponent": 1.9975093330133864,
+      "fitted_intercept": -2.659868999302648,
+      "r_squared": 0.999999049675019,
+      "tau_converge": 60.0,
+      "dtau_converge": 0.01,
+      "n_steps_converge": 6000,
+      "cosine": 0.99999999996404,
+      "tv": 9.505126806804963e-06,
+      "structural_circuit_depth": 3,
+      "structural_circuit_two_qubit_gates": 0
+    },
+    {
+      "family": "additive_uniform",
+      "L": 4,
+      "a": 1.0,
+      "mu": 0.3,
+      "tau_scaling": 2.0,
+      "dtaus": [
+        0.25,
+        0.125,
+        0.0625,
+        0.03125,
+        0.015625,
+        0.0078125
+      ],
+      "splitting_errors": [
+        0.0033137918641428232,
+        0.0008306676706855143,
+        0.00020780558961230877,
+        5.1960063406797374e-05,
+        1.299055746062372e-05,
+        3.247673214912261e-06
+      ],
+      "fitted_exponent": 1.9991506243138448,
+      "fitted_intercept": -2.9369489184296325,
+      "r_squared": 0.9999998889645648,
+      "tau_converge": 60.0,
+      "dtau_converge": 0.01,
+      "n_steps_converge": 6000,
+      "cosine": 0.999999999985351,
+      "tv": 5.576085850437791e-06,
+      "structural_circuit_depth": 3,
+      "structural_circuit_two_qubit_gates": 0
+    },
+    {
+      "family": "additive_epistatic",
+      "L": 4,
+      "seed": 3,
+      "mu": 0.3,
+      "tau_scaling": 2.0,
+      "dtaus": [
+        0.25,
+        0.125,
+        0.0625,
+        0.03125,
+        0.015625,
+        0.0078125
+      ],
+      "splitting_errors": [
+        0.0035584919648331548,
+        0.0009023208410786632,
+        0.00022640527445350056,
+        5.6653401376283163e-05,
+        1.4166613686694696e-05,
+        3.541857509503643e-06
+      ],
+      "fitted_exponent": 1.9954461289051009,
+      "fitted_intercept": -2.8652434771654107,
+      "r_squared": 0.9999968613844517,
+      "tau_converge": 60.0,
+      "dtau_converge": 0.01,
+      "n_steps_converge": 6000,
+      "cosine": 0.9999999999686179,
+      "tv": 7.153860289985412e-06,
+      "structural_circuit_depth": 12,
+      "structural_circuit_two_qubit_gates": 12
+    },
+    {
+      "family": "single_peak",
+      "L": 5,
+      "height": 2.0,
+      "mu": 0.3,
+      "tau_scaling": 2.0,
+      "dtaus": [
+        0.25,
+        0.125,
+        0.0625,
+        0.03125,
+        0.015625,
+        0.0078125
+      ],
+      "splitting_errors": [
+        0.0013658636643645583,
+        0.0003427441023255706,
+        8.576681556332622e-05,
+        2.1446767569904823e-05,
+        5.362008595632961e-06,
+        1.3405219459194928e-06
+      ],
+      "fitted_exponent": 1.9988090712524778,
+      "fitted_intercept": -3.8232122767259447,
+      "r_squared": 0.99999978315412,
+      "tau_converge": 60.0,
+      "dtau_converge": 0.01,
+      "n_steps_converge": 6000,
+      "cosine": 0.9999999999732706,
+      "tv": 4.934249117005728e-06
+    },
+    {
+      "family": "class_quadratic",
+      "L": 6,
+      "height": 2.0,
+      "mu": 0.3,
+      "tau_scaling": 2.0,
+      "dtaus": [
+        0.25,
+        0.125,
+        0.0625,
+        0.03125,
+        0.015625,
+        0.0078125
+      ],
+      "splitting_errors": [
+        0.00020960914542206277,
+        5.2397367998488487e-05,
+        1.3099035734223663e-05,
+        3.2747398099330915e-06,
+        8.186837572449202e-07,
+        2.0467086471465112e-07
+      ],
+      "fitted_exponent": 2.000029777792652,
+      "fitted_intercept": -5.6976816423723955,
+      "r_squared": 0.9999999998635152,
+      "tau_converge": 60.0,
+      "dtau_converge": 0.01,
+      "n_steps_converge": 6000,
+      "cosine": 0.9999999999955927,
+      "tv": 1.1046443292612052e-06
+    }
+  ],
+  "notes": "The exponent is fitted against exp(-H tau) computed without splitting, not against the analytic quasispecies, so that the residual from tau being finite cannot flatten the fit. Circuit depth and two-qubit counts are the unitary real-time analogue of the same interaction pattern and are labelled structural: imaginary-time evolution is non-unitary and this propagator is not a hardware-runnable circuit. The hardware-faithful routes are G-R.6 and G-R.7.",
+  "env": {
+    "git_sha": "81a663e6583e56f83e4ab5bbd24874cebefe2cf3",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "0c5a76a5020b54611bf92f1b9e5a4dd5145454c587104bed2c949e8c8a18b848"
+  },
+  "timestamp": "2026-08-09T13:46:27.740124+00:00"
+}

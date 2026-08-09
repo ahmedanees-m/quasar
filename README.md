@@ -55,8 +55,8 @@ thresholds and `DECISIONS.md` ADR-0001 for why the rebuild is happening.
 
 | Work package | Content | Status |
 |---|---|---|
-| WP0 | Pre-registration and prior-art dossier | `GATES.md` and `CLAIMS.md` done; the 20 prior-art entries still to verify |
-| WP-R | Rebuild and re-validate Phases 1–3 | G-R.1 passed; G-R.2 next |
+| WP0 | Pre-registration and prior-art dossier | `GATES.md` and `CLAIMS.md` done; entry IV.4 verified with a finding that changes WP2; 19 entries still to verify |
+| WP-R | Rebuild and re-validate Phases 1–3 | G-R.1, G-R.2 and G-R.3 passed; G-R.4 next |
 | WP1 | Spectral and structural analysis | not started |
 | WP2 | Route B, QSVT Perron-vector extraction | not started |
 | WP3 | Landscape families | not started |
@@ -76,11 +76,40 @@ in `GATES.md`, not carried over as results.
 | Gate | What it establishes | Threshold | Measured | Artefact |
 |---|---|---|---|---|
 | G-R.1 | The analytic oracle agrees with brute-force exact diagonalisation, over 1701 comparisons spanning L = 2 to 10 and seven mutation rates | max abs error < 1e-9 | **2.4e-15** | `results/wp_r/g_r_1.json` |
+| G-R.2 | The compiled qubit Hamiltonian's ground state is the analytic quasispecies, on 40 registered configurations | cosine ≥ 0.999999, 40 of 40 | **1.000000**, 40 of 40 | `results/wp_r/g_r_2.json` |
+| G-R.3 | The Trotterised imaginary-time propagator converges, and its splitting error is second order | cosine ≥ 0.999; exponent in [1.8, 2.2] at R² ≥ 0.99 | **1.0000000**; **1.995 to 2.000** at R² = **1.00000** | `results/wp_r/g_r_3.json` |
 
-Two independent analytic routes and one structure-blind reference agree: the closed-form
-product state for additive fitness, the Hamming-class tridiagonal reduction for
+**G-R.1.** Two independent analytic routes and one structure-blind reference agree: the
+closed-form product state for additive fitness, the Hamming-class tridiagonal reduction for
 permutation-symmetric fitness, and diagonalisation of the full 2^L generator. On the family
 where both analytic routes apply, all three are compared.
+
+**G-R.2.** Beyond the registered cosine, the compiled Pauli operator was compared entry by
+entry against the generator assembled independently in `analytic/exact_diag.py`, agreeing to
+3.6e-15. That is the stricter check: an endianness error permutes the computational basis
+and leaves the spectrum untouched, so a spectral comparison alone would not see it.
+
+**G-R.3.** The splitting exponent is fitted against `exp(-H tau)` computed without
+splitting, not against the quasispecies, so the residual from a finite `tau` cannot flatten
+it. Convergence is scored separately against the oracle. The propagator is not a
+hardware-runnable circuit, because imaginary-time evolution is non-unitary; the
+hardware-faithful routes are varQITE and Motta-QITE, gates G-R.6 and G-R.7.
+
+### A prior-art finding that changes WP2
+
+Verification of prior-art entry IV.4 was pulled ahead of schedule, because Route B is the
+paper's novelty core and rests on that single reference. The result:
+
+> The mutation–selection generator is **non-conservative but reversible**, so the
+> beyond-quadratic speedup of Claudon, Piquemal and Monmarché (2025), which is bought by
+> *non*reversibility and stated for row-stochastic kernels, does not apply. Reversibility is
+> a property of the mutation operator alone, so no amount of landscape ruggedness changes
+> it. Within this problem class, nonreversibility requires direction-specific
+> context-dependent mutation, which is biologically real but is a model extension.
+
+Route B is not dead; its foundation has to change. Measured across 20 operators in
+`results/wp0/prior_art_iv_4.json`, with options and a recommendation in `DECISIONS.md`
+ADR-0010.
 
 ---
 

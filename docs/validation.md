@@ -67,6 +67,49 @@ which is precisely the regime the error-threshold sweep spends most of its time 
 rationalised to `mu / (sqrt(a^2 + mu^2) + a)` on that branch. The direct form is kept for
 `a < 0`, where both terms of the numerator are positive and it is the stable one.
 
+### G-R.2, the compiled Hamiltonian against the oracle
+
+G-R.1 established that the oracle can be trusted. G-R.2 spends that trust: the
+biology-to-qubit compiler is judged by whether the ground state of the Pauli operator it
+emits is the quasispecies the oracle predicts.
+
+**The registered criterion is not the sharpest check, and the run says so.** Cosine
+similarity between eigenvectors cannot see an endianness error, because permuting the
+computational basis leaves the spectrum untouched and permutes both vectors the same way.
+So the run also compares the compiled operator entry by entry against the generator
+assembled independently in `analytic/exact_diag.py`. That comparison is recorded as a
+diagnostic rather than promoted to the gate, because the threshold was registered in cosine
+and thresholds do not move. It agreed to 3.6e-15.
+
+**Why the identity term is carried.** The compiler emits `H = -W` including the `mu L I`
+term. Dropping it would shift every eigenvalue without touching any eigenvector, so every
+spectral check would still pass and the operator-level comparison above would fail. Keeping
+it is what makes that comparison exact rather than approximate.
+
+**Two compiler routes, cross-checked.** The structured build writes `a_i Z_i` and
+`b_ij Z_i Z_j` directly. The Walsh-Hadamard build recovers the exact Pauli decomposition of
+any diagonal operator from its values alone. On additive landscapes both must produce the
+same operator, and disagreement would localise a bug to one of them. They agree to 1.8e-15.
+
+**An observation from the term counts, not claimed as a result.** The Walsh-Hadamard route
+finds that a class-dependent landscape quadratic in Hamming distance has Pauli support only
+up to weight two, 28 terms at L = 6 rather than the 70 a dense weight-two expansion would
+need, while an exponential class function is dense at all 2^L. Sparsity in Pauli space
+tracks polynomial degree in Hamming distance, not permutation symmetry. That distinction
+belongs in the WP1 resource-scaling analysis, where it can be stated properly.
+
+## What reproduction actually showed
+
+Both gates were run more than once, at different commits, inside the same image. Every
+scientific field came back bit-identical: the same max absolute error to every digit, the
+same cosines, the same term counts. Only `git_sha`, `timestamp`, and the elapsed seconds
+moved.
+
+That is the reproducibility claim in its checkable form, and it is why `make gates` is a
+verification step rather than a step that produces commits. A rerun that changes a
+scientific field is a finding, not noise, and gets committed and explained. See
+`DECISIONS.md` ADR-0009.
+
 ## Running them
 
 ```bash
