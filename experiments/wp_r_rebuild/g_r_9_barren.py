@@ -120,9 +120,7 @@ def run() -> tuple[bool, dict, list[dict]]:
 
     gate_key = f"{GATE_LANDSCAPE}_{GATE_STATISTIC}"
     gate_fit = fits[gate_key]
-    within_bounds = bool(
-        DECAY_BASE_BOUNDS[0] <= gate_fit["base"] <= DECAY_BASE_BOUNDS[1]
-    )
+    within_bounds = bool(DECAY_BASE_BOUNDS[0] <= gate_fit["base"] <= DECAY_BASE_BOUNDS[1])
     fit_good = bool(gate_fit["r_squared"] >= R_SQUARED_THRESHOLD)
 
     elapsed = time.monotonic() - started
@@ -176,7 +174,9 @@ def main() -> int:
         f"  decay base              {measured['decay_base']:.4f}  "
         f"(registered band {DECAY_BASE_BOUNDS})"
     )
-    print(f"  R squared               {measured['r_squared']:.5f}  (threshold {R_SQUARED_THRESHOLD})")
+    print(
+        f"  R squared               {measured['r_squared']:.5f}  (threshold {R_SQUARED_THRESHOLD})"
+    )
     print(f"  decays exponentially    {measured['decays_exponentially']}")
     print(f"  record                  {path.relative_to(path.parents[2])}")
     print(f"  {'PASS' if passed else 'FAIL'}")

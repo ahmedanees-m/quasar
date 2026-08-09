@@ -147,13 +147,11 @@ def test_make_gates_runs_the_container_so_that_records_count_as_evidence() -> No
     # drive, so the raw text carries CRLF and a join on backslash-newline would match
     # nothing and quietly pass a broken Makefile.
     joined = re.sub(r"\\\n\s*", " ", makefile.replace("\r\n", "\n"))
-    docker_line = next(
-        (line for line in joined.splitlines() if line.startswith("DOCKER")), None
-    )
+    docker_line = next((line for line in joined.splitlines() if line.startswith("DOCKER")), None)
     assert docker_line is not None, "Makefile no longer defines DOCKER"
-    assert "-e QUASAR_IMAGE=" in docker_line, (
-        "make gates would write every record to results/_local and produce no evidence"
-    )
-    assert "-e PYTHONPATH=/work" in docker_line, (
-        "gate scripts cannot import quasarstack without PYTHONPATH; make gates would fail"
-    )
+    assert (
+        "-e QUASAR_IMAGE=" in docker_line
+    ), "make gates would write every record to results/_local and produce no evidence"
+    assert (
+        "-e PYTHONPATH=/work" in docker_line
+    ), "gate scripts cannot import quasarstack without PYTHONPATH; make gates would fail"

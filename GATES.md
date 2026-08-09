@@ -883,3 +883,89 @@ reproduced. At L = 12 the two differ by a factor of about 20 in gradient varianc
 rebuilt ansatz plateaus less steeply than whatever the lost implementation used. Its ansatz
 and measured component are unknown and cannot be recovered, so the discrepancy cannot be
 resolved, only recorded.
+
+---
+
+### Amendment 12 (G-1: what "the analytic mu_c" means, the grid, and a disclosure)
+
+Registered before `experiments/wp1_spectral/g_1_gap_map.py` was run, and after the
+exploratory scans whose numbers appear below. Section 5's three criteria are unchanged. This
+amendment fixes only what section 5 left ambiguous, and it makes the ambiguity harder on the
+gate rather than easier.
+
+**The ambiguity.** Criterion 2 asks that the gap minimum lie "within 5% of the analytic
+mu_c". Two readings are defensible and they are different numbers at finite L:
+
+- **Reading A, the asymptotic threshold.** `mu_c = height / L` for the single peak. This is
+  the closed form the model is known for and the one section 11 of this file alludes to when
+  it asks whether `mu_c * L` approaches the peak height.
+- **Reading B, the project's own locator.** `locate_threshold` puts `mu_c` at the peak of the
+  magnetisation susceptibility, computed here from the exact class reduction rather than from
+  simulation, which makes it "analytically located" in the sense criterion 2 uses. G-R.4
+  already validated this locator against the analytic magnetisation.
+
+**Decision: the gate requires both.** Criterion 2 passes only if the gap minimum is within 5%
+of Reading A *and* within 5% of Reading B, at every one of L = 6, 8, 10. This is strictly
+harder than either reading alone, which is the point: having seen the numbers before
+registering, the only choice that cannot be accused of selecting for the answer is the choice
+that can only hurt.
+
+**Criterion 1, and a correction to what it names.** Section 5 says the closed form exists for
+"single-peak, permutation-symmetric". That is not right, and the error is inherited rather
+than introduced here. The single-peak gap has **no** elementary closed form at general `mu`;
+what it has is an exact `(L+1)`-dimensional reduction and two exact limits. The family that
+does have one is the **additive** landscape, where the generator is a sum of commuting
+single-site terms and
+
+    Delta = 2 min_i sqrt(a_i^2 + mu^2)
+
+exactly, independent of L. Criterion 1 is therefore read as "reproduces every closed form
+that exists, to relative error < 1e-6", and three are tested: the additive gap above, the
+pure-mutation gap `2 mu` at zero fitness, and the single-peak saturation to `2 mu` above the
+threshold.
+
+**Configurations.** Families: additive (seeds 0 to 9), single peak at heights 1.0 and 2.5,
+NK with K in {0, 1, 2, 4}, seeds 0 to 9. L in {4, 6, 8, 10, 12} for families needing the
+dense route, extended to L in {16, 24, 32, 48, 64} for the permutation-symmetric families
+through the class reduction. mu on the 41-point grid spanning `[0.2 mu_c, 2.0 mu_c]` that
+section 5 registers, with `mu_c = height / L`. Criterion 2 is evaluated on that grid, whose
+spacing is 4.5% of `mu_c` and therefore quantises the located minimum by up to that much; a
+fine 1500-point grid is reported alongside so the quantisation is separable from the physics.
+
+**Extended precision.** Any gap below `1e-9` is recomputed by Sturm bisection at 60 decimal
+digits and the float64 value is discarded. Two LAPACK routines were observed agreeing with
+each other to `1e-16` while both were wrong, because they share the failure mode, so
+agreement between float64 methods is not accepted as evidence.
+
+**Disclosure of what was already seen.** Exploratory scans were run before this amendment and
+their results are the reason it exists. On the single peak at height 1.0, comparing the gap
+minimum against both readings:
+
+| L | gap min vs Reading B (chi peak) | gap min vs Reading A (h/L) |
+|---|---|---|
+| 6 | 29.3% | 18.2% |
+| 8 | 13.8% | 17.7% |
+| 10 | 7.1% | 14.4% |
+| 12 | 4.1% | 11.6% |
+| 24 | 0.18% | 4.7% |
+| 64 | 0.38% | 1.7% |
+
+**So criterion 2 is expected to fail, and it is being registered anyway rather than
+adjusted.** The two locators agree to within the grid resolution by L = 24 and disagree by
+tens of percent at L = 6, 8, 10, because they are different finite-size locators of a
+crossover that only becomes sharp as L grows. No implementation can make them agree at L = 6;
+the disagreement is a property of the model. The physics criterion 2 was written to test,
+that the gap closes where the population delocalises, is supported. The 5% agreement at
+L = 6, 8, 10 is not reachable. Section 0 rule 1 says the threshold does not move, so it does
+not move, and the failure is reported with the reason.
+
+**Addendum to Amendment 12, registered at the same time.** Section 5's grid is defined
+"per instance" relative to `mu_c`, and the NK family has no peak height for
+`mu_c = height / L` to refer to. For any landscape without a distinguished peak the grid uses
+
+    mu_c  =  ( max_s f(s)  -  mean_s f(s) )  /  L
+
+which reduces to `height / L` for the single peak up to a term of order `2^-L`, and which
+generalises the quantity the threshold actually depends on: the selective advantage of the
+best genotype over a random one, per site. Criterion 2 is not evaluated on the NK family,
+which has no analytic `mu_c` to compare against; NK enters the gap map only.

@@ -92,26 +92,6 @@ def test_two_sided_context_dependence_stays_reversible() -> None:
     assert reversibility_report(generator)["is_reversible"]
 
 
-@pytest.mark.parametrize("context", [0.0, 1.5])
-def test_selection_cannot_change_reversibility(context: float) -> None:
-    """Detailed balance constrains off-diagonal entries only, and selection is diagonal.
-
-    So no fitness landscape, however rugged, can make the generator nonreversible. That
-    matters for scoping: ruggedness is the project's main axis, and it is irrelevant to this
-    property.
-    """
-    mutation = mutation_generator(4, 0.3, context_strength=context)
-    bare = reversibility_report(mutation)
-    rng = np.random.default_rng(0)
-    for _ in range(3):
-        rugged = additive_fitness(rng.uniform(-2.0, 2.0, size=4), rng.normal(size=(4, 4)))
-        with_selection = reversibility_report(mutation + selection_generator(rugged))
-        assert with_selection["is_reversible"] == bare["is_reversible"]
-        assert with_selection["reversibility_defect"] == pytest.approx(
-            bare["reversibility_defect"], abs=1e-12
-        )
-
-
 def test_recovered_measure_satisfies_detailed_balance() -> None:
     generator = mutation_generator(4, 0.4, mu_backward=0.05)
     measure, defect = symmetrising_measure(generator)
@@ -132,3 +112,58 @@ def test_perron_module_agrees_with_the_exact_diag_generator() -> None:
     here = mutation_generator(3, mu) + selection_generator(fitness)
     there = mutation_selection_generator(fitness, mu).toarray()
     assert np.max(np.abs(here - there)) < 1e-12
+
+
+@pytest.mark.parametrize(
+    "landscape",
+    ["flat", "additive", "epistatic", "single_peak", "nk_rugged", "random", "wildly_scaled"],
+)
+@pytest.mark.parametrize("mutation", ["symmetric", "asymmetric", "context_dependent"])
+def test_selection_cannot_change_reversibility(landscape: str, mutation: str) -> None:
+    """Claim S7 of `docs/theory.md`, which was asserted before this test existed.
+
+    Detailed balance constrains only off-diagonal entries, and selection is diagonal.
+    So no landscape, however rugged, however epistatic, however badly scaled, can move
+    the reversibility defect of the generator. This matters because it closes off the
+    tempting repair to ADR-0010: if ruggedness could buy nonreversibility, Route B's
+    stated foundation could be recovered by choosing a harder landscape family. It
+    cannot. The property is fixed entirely by the mutation model.
+
+    The context-dependent case is included because it is the one mutation model that *is*
+    nonreversible; the claim is that selection leaves its defect alone too, not merely
+    that it leaves zero alone.
+    """
+    n_sites = 5
+    size = 1 << n_sites
+    rng = np.random.default_rng(hash((landscape, mutation)) % (2**32))
+
+    if mutation == "symmetric":
+        mutation_part = mutation_generator(n_sites, 0.15)
+    elif mutation == "asymmetric":
+        mutation_part = mutation_generator(n_sites, 0.15, 0.06)
+    else:
+        mutation_part = mutation_generator(n_sites, 0.15, 0.06, context_strength=0.8)
+
+    fitness = {
+        "flat": np.zeros(size),
+        "additive": np.linspace(-1.0, 1.0, size),
+        "epistatic": additive_fitness(
+            rng.uniform(-2.0, 2.0, size=n_sites), rng.normal(size=(n_sites, n_sites))
+        ),
+        "single_peak": np.eye(1, size, 0).ravel() * 3.0,
+        "nk_rugged": rng.normal(size=size),
+        "random": rng.uniform(-5.0, 5.0, size=size),
+        # Deliberately absurd dynamic range: if a diagonal could perturb the answer at all,
+        # entries spanning fifteen orders of magnitude would be where it showed.
+        "wildly_scaled": rng.uniform(-1e7, 1e7, size=size) * 10.0 ** rng.integers(-8, 8, size),
+    }[landscape]
+
+    before = reversibility_report(mutation_part)
+    after = reversibility_report(mutation_part + selection_generator(fitness))
+
+    assert after["is_reversible"] == before["is_reversible"]
+    assert after["reversibility_defect"] == pytest.approx(before["reversibility_defect"], abs=1e-12)
+    # And the two properties really are independent: adding fitness destroys conservation
+    # while leaving reversibility untouched, which is the distinction ADR-0010 turns on.
+    if landscape != "flat":
+        assert not after["is_conservative"]

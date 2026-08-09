@@ -134,6 +134,59 @@ def additive_quasispecies(a: NDArray[np.float64], mu: float) -> NDArray[np.float
     return normalised
 
 
+def class_distribution(
+    f_by_class: NDArray[np.float64], mu: float
+) -> tuple[NDArray[np.float64], float]:
+    """Class probabilities and mean fitness, without ever forming the ``2**L`` vector.
+
+    The point of the Hamming-class reduction is that a permutation-symmetric landscape needs
+    only ``L + 1`` numbers. `class_quasispecies` then expands those back to one entry per
+    genotype, which is what the gates comparing against exact diagonalisation need, and which
+    costs ``2**L`` words. Callers that only want the class distribution or the mean fitness
+    should not pay that: at ``L = 32`` the expansion alone asks for 32 GiB and the reduction
+    it is built on is a 33-dimensional tridiagonal solve.
+
+    Returns ``(class_probs, mean_fitness)``, both as in `class_quasispecies`.
+    """
+    class_probs, _, _, mean_fitness = _class_solve(f_by_class, mu)
+    return class_probs, mean_fitness
+
+
+def _class_solve(
+    f_by_class: NDArray[np.float64], mu: float
+) -> tuple[NDArray[np.float64], NDArray[np.float64], float, float]:
+    """Shared core: ``(class_probs, per_genotype_amplitude, class_total, mean_fitness)``."""
+    f_by_class = np.asarray(f_by_class, dtype=np.float64)
+    if f_by_class.ndim != 1 or f_by_class.size < 2:
+        raise ValueError(
+            f"f_by_class must be one-dimensional of length L+1, got {f_by_class.shape}"
+        )
+    _check_mu(mu)
+
+    n_sites = f_by_class.size - 1
+    d = np.arange(n_sites + 1, dtype=np.float64)
+
+    diagonal = f_by_class - mu * n_sites
+    offdiagonal = mu * np.sqrt((d[:-1] + 1.0) * (n_sites - d[:-1]))
+
+    eigenvalues, eigenvectors = eigh_tridiagonal(diagonal, offdiagonal)
+    mean_fitness = float(eigenvalues[-1])
+    # Perron: the top eigenvector of a symmetric tridiagonal with non-negative off-diagonals
+    # is sign definite, so the modulus recovers it rather than destroying information.
+    top = np.abs(eigenvectors[:, -1])
+
+    # log binom(L, d), used to undo the symmetrising conjugation without overflowing.
+    log_binom = gammaln(n_sites + 1.0) - gammaln(d + 1.0) - gammaln(n_sites - d + 1.0)
+    half = np.exp(0.5 * log_binom)
+
+    class_weight = half * top  # = binom(L, d) * q_d, the unnormalised class total
+    class_total = float(class_weight.sum())
+    if class_total <= 0.0:
+        raise ValueError("degenerate class landscape: the Perron vector has zero total weight")
+
+    return class_weight / class_total, top / half, class_total, mean_fitness
+
+
 def class_quasispecies(
     f_by_class: NDArray[np.float64], mu: float
 ) -> tuple[NDArray[np.float64], NDArray[np.float64], float]:
@@ -163,37 +216,15 @@ def class_quasispecies(
     one. Binomial coefficients are carried through their logarithms so that the conjugating
     factors stay finite at large L, where ``binom(L, L/2)`` overflows well before the
     probabilities themselves do.
+
+    The expansion back to one entry per genotype is the only ``2**L`` step and it is what
+    the gates comparing against exact diagonalisation need. Use `class_distribution` when
+    the class probabilities are enough; beyond L of about 25 the expansion is the thing that
+    stops this working, not the eigenproblem.
     """
-    f_by_class = np.asarray(f_by_class, dtype=np.float64)
-    if f_by_class.ndim != 1 or f_by_class.size < 2:
-        raise ValueError(
-            f"f_by_class must be one-dimensional of length L+1, got {f_by_class.shape}"
-        )
-    _check_mu(mu)
+    class_probs, per_genotype, class_total, mean_fitness = _class_solve(f_by_class, mu)
+    n_sites = class_probs.size - 1
 
-    n_sites = f_by_class.size - 1
-    d = np.arange(n_sites + 1, dtype=np.float64)
-
-    diagonal = f_by_class - mu * n_sites
-    offdiagonal = mu * np.sqrt((d[:-1] + 1.0) * (n_sites - d[:-1]))
-
-    eigenvalues, eigenvectors = eigh_tridiagonal(diagonal, offdiagonal)
-    mean_fitness = float(eigenvalues[-1])
-    # Perron: the top eigenvector of a symmetric tridiagonal with non-negative off-diagonals
-    # is sign definite, so the modulus recovers it rather than destroying information.
-    top = np.abs(eigenvectors[:, -1])
-
-    # log binom(L, d), used to undo the symmetrising conjugation without overflowing.
-    log_binom = gammaln(n_sites + 1.0) - gammaln(d + 1.0) - gammaln(n_sites - d + 1.0)
-    half = np.exp(0.5 * log_binom)
-
-    class_weight = half * top  # = binom(L, d) * q_d, the unnormalised class total
-    class_total = class_weight.sum()
-    if class_total <= 0.0:
-        raise ValueError("degenerate class landscape: the Perron vector has zero total weight")
-    class_probs = class_weight / class_total
-
-    per_genotype = top / half  # = q_d, the amplitude shared by each genotype in class d
     index = np.arange(1 << n_sites, dtype=np.uint64)
     weights = np.bitwise_count(index).astype(np.int64)
     genotype_probs = per_genotype[weights] / class_total
