@@ -86,6 +86,12 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# The repository root on the import path, so `experiments` resolves. Experiment scripts are
+# deliberately not part of the installed package, but the gate tests import them, and
+# without this the suite passes under `python -m pytest`, which puts the working directory
+# on sys.path, and fails under a bare `pytest`, which does not. Pinning it here makes the
+# invocation irrelevant and local behaviour identical to CI.
+pythonpath = ["."]
 markers = [
     "fast: sub-second, runs on every push",
     "slow: under five minutes, runs nightly",

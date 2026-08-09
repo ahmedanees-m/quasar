@@ -162,7 +162,13 @@ def pull(sftp: paramiko.SFTPClient, remote_root: str, local_root: Path) -> int:
         if entry.st_mode is not None and stat.S_ISDIR(entry.st_mode):
             count += pull(sftp, remote, local)
         else:
-            sftp.get(remote, str(local))
+            # getfo rather than get. paramiko's get() stats the local file afterwards and
+            # compares sizes, and the Google Drive mount reports size lazily, so a
+            # correctly transferred file raises "size mismatch" on a stale stat. Writing
+            # through a handle skips that check, and the SHA-256 comparison below is a
+            # stronger one anyway: it catches corruption, not just truncation.
+            with local.open("wb") as handle:
+                sftp.getfo(remote, handle)
             if _sha256(local) != _remote_sha256(sftp, remote):
                 raise SystemExit(f"checksum mismatch after transfer: {remote}")
             count += 1

@@ -55,8 +55,8 @@ thresholds and `DECISIONS.md` ADR-0001 for why the rebuild is happening.
 
 | Work package | Content | Status |
 |---|---|---|
-| WP0 | Pre-registration and prior-art dossier | in progress |
-| WP-R | Rebuild and re-validate Phases 1–3 | in progress |
+| WP0 | Pre-registration and prior-art dossier | `GATES.md` and `CLAIMS.md` done; the 20 prior-art entries still to verify |
+| WP-R | Rebuild and re-validate Phases 1–3 | G-R.1 passed; G-R.2 next |
 | WP1 | Spectral and structural analysis | not started |
 | WP2 | Route B, QSVT Perron-vector extraction | not started |
 | WP3 | Landscape families | not started |
@@ -67,10 +67,20 @@ thresholds and `DECISIONS.md` ADR-0001 for why the rebuild is happening.
 | WP8 | Live QPU execution | not started |
 | WP9 | Manuscript and red-team | not started |
 
-No results table appears here yet, because no gate in this repository has produced an
-artefact yet. Numbers reported in the planning documents belong to an earlier
-implementation that was lost and are registered as targets in `GATES.md`, not carried over
-as results.
+### Gates passed in this repository
+
+Only gates with a committed artefact appear here. Numbers reported in the planning
+documents belong to an earlier implementation that was lost; they are registered as targets
+in `GATES.md`, not carried over as results.
+
+| Gate | What it establishes | Threshold | Measured | Artefact |
+|---|---|---|---|---|
+| G-R.1 | The analytic oracle agrees with brute-force exact diagonalisation, over 1701 comparisons spanning L = 2 to 10 and seven mutation rates | max abs error < 1e-9 | **2.4e-15** | `results/wp_r/g_r_1.json` |
+
+Two independent analytic routes and one structure-blind reference agree: the closed-form
+product state for additive fitness, the Hamming-class tridiagonal reduction for
+permutation-symmetric fitness, and diagonalisation of the full 2^L generator. On the family
+where both analytic routes apply, all three are compared.
 
 ---
 

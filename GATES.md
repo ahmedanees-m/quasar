@@ -269,3 +269,44 @@ performance. Framing the result as evidence of advantage fails this gate.
 *(Append below this line only. Never edit above it.)*
 
 - 2026-08-09 — Initial registration. Anees Ahmed Mahaboob Ali.
+
+- 2026-08-09 — **Amendment 1: the G-R.1 case set, registered before the run.**
+  Anees Ahmed Mahaboob Ali.
+
+  Section 3 fixed the G-R.1 threshold but named the configurations only as "the WP-R set".
+  That set is now fixed, below, before the gate is executed. This amendment adds detail; it
+  does not change the threshold, which remains max absolute error < 1e-9.
+
+  **What is compared.** For every case, the analytic oracle
+  (`quasarstack/analytic/crow_kimura.py`, which never forms the 2^L generator) against
+  brute-force exact diagonalisation (`quasarstack/analytic/exact_diag.py`, which builds the
+  full sparse generator and knows nothing about the structure the oracle exploits). The
+  statistic is the maximum absolute difference between the two L1-normalised genotype
+  distributions, over all 2^L entries. The gate statistic is the maximum of that over every
+  case.
+
+  **Sizes.** L = 2, 3, 4, 5, 6, 7, 8, 9, 10.
+
+  **Mutation rates.** mu in {0.05, 0.10, 0.20, 0.35, 0.50, 0.75, 1.00} for every case.
+
+  **Families.**
+
+  1. `additive_random` — a_i drawn i.i.d. from Uniform(0.25, 2.00) with
+     `default_rng(seed)`, seeds 0 through 9. Solved by the closed-form product route.
+  2. `additive_uniform` — every a_i equal to a, for a in {0.25, 0.50, 1.00, 2.00}. This
+     family is reachable by *both* analytic routes, so it is additionally checked
+     closed-form against Hamming-class reduction, making it a three-way agreement. Both
+     comparisons count toward the gate statistic.
+  3. `single_peak` — fitness `height` on the master sequence and zero elsewhere, for
+     height in {1.0, 2.0, 5.0}. Solved by the class reduction.
+  4. `class_quadratic` — f_d = height * (1 - d/L)^2, height in {1.0, 2.0, 5.0}.
+  5. `class_exponential` — f_d = height * exp(-2d/L), height in {1.0, 2.0, 5.0}.
+
+  **Diagnostics recorded per case.** The spectral gap lambda_1 - lambda_2 from the exact
+  diagonalisation, and the mean-fitness difference between the two routes. The gap is
+  recorded because the Perron eigenvector is only well conditioned while the gap is
+  comfortably non-zero. **No case is excluded on the basis of its gap.** If a small-gap case
+  fails, that is reported as a finding and feeds WP1, not quietly dropped.
+
+  **Expected case count.** 9 sizes x 7 mutation rates x (10 + 4 + 3 + 3 + 3) configurations
+  = 1449 comparisons, plus 252 closed-form-versus-class cross-checks on family 2.

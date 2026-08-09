@@ -15,7 +15,7 @@ with a reason).
 
 | # | Claim as it will appear | Gate | Evidence artefact | Script | Status |
 |---|---|---|---|---|---|
-| C1 | The analytic Crow–Kimura oracle agrees with brute-force exact diagonalisation to machine precision | G-R.1 | `results/wp_r/g_r_1.json` | `experiments/wp_r_rebuild/g_r_1_oracle_vs_ed.py` | planned |
+| C1 | The analytic Crow–Kimura oracle agrees with brute-force exact diagonalisation to machine precision, with maximum absolute error 2.4×10⁻¹⁵ over 1701 comparisons | G-R.1 | `results/wp_r/g_r_1.json` | `experiments/wp_r_rebuild/g_r_1_oracle_vs_ed.py` | pass |
 | C2 | The compiled qubit Hamiltonian's ground state is the analytic quasispecies across all tested configurations | G-R.2 | `results/wp_r/g_r_2.json` | `experiments/wp_r_rebuild/g_r_2_hamiltonian_vs_oracle.py` | planned |
 | C3 | The Trotterised circuit converges to the oracle with the expected second-order step-size scaling | G-R.3 | `results/wp_r/g_r_3.json` | `experiments/wp_r_rebuild/g_r_3_trotter_scaling.py` | planned |
 | C4 | The error threshold appears on the circuit as a localisation-delocalisation transition at the analytically predicted mutation rate | G-R.4 | `results/wp_r/g_r_4.json` | `experiments/wp_r_rebuild/g_r_4_error_threshold.py` | planned |

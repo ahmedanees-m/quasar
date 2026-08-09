@@ -27,9 +27,21 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 - CI on every push: lint, format check, types, fast tests, claims-ledger check, and a
   full-history secrets scan. Nightly runs slow tests, gates, and regression.
 
+- The analytic ruler: `quasarstack/analytic/crow_kimura.py` with two exactly solvable
+  families, neither of which ever forms the 2^L generator, and
+  `quasarstack/analytic/exact_diag.py`, the deliberately structure-blind brute-force
+  reference it is checked against.
+- `quasarstack/classical/landscapes.py` with the WP-R subset of families, in the spin
+  convention only.
+- `quasarstack/io/store.py`, which writes result records carrying the commit, the image
+  tag, the interpreter, whether the tree was dirty, and the SHA-256 of `GATES.md`, so that
+  "the threshold was registered before the run" is checkable rather than asserted.
+- `GATES.md` Amendment 1: the G-R.1 case set, appended before the gate was executed.
+- `docs/validation.md`, mapping each of the three historical failure modes to the
+  convention that now locks it out.
+
 ### Notes
 
-No result artefact exists in this repository yet. Values reported in the planning documents
-belong to an earlier implementation that could not be located, and are registered in
-`GATES.md` section 3 as targets for the rebuild rather than carried over as results. See
-`DECISIONS.md` ADR-0001.
+Values reported in the planning documents belong to an earlier implementation that could not
+be located, and are registered in `GATES.md` section 3 as targets for the rebuild rather
+than carried over as results. See `DECISIONS.md` ADR-0001.
