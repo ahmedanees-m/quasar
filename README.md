@@ -56,7 +56,7 @@ thresholds and `DECISIONS.md` ADR-0001 for why the rebuild is happening.
 | Work package | Content | Status |
 |---|---|---|
 | WP0 | Pre-registration and prior-art dossier | `GATES.md` and `CLAIMS.md` done; entry IV.4 verified with a finding that changes WP2; 19 entries still to verify |
-| WP-R | Rebuild and re-validate Phases 1–3 | G-R.1, G-R.2 and G-R.3 passed; G-R.4 next |
+| WP-R | Rebuild and re-validate Phases 1–3 | G-R.1 to G-R.5 passed; G-R.6 next |
 | WP1 | Spectral and structural analysis | not started |
 | WP2 | Route B, QSVT Perron-vector extraction | not started |
 | WP3 | Landscape families | not started |
@@ -78,6 +78,8 @@ in `GATES.md`, not carried over as results.
 | G-R.1 | The analytic oracle agrees with brute-force exact diagonalisation, over 1701 comparisons spanning L = 2 to 10 and seven mutation rates | max abs error < 1e-9 | **2.4e-15** | `results/wp_r/g_r_1.json` |
 | G-R.2 | The compiled qubit Hamiltonian's ground state is the analytic quasispecies, on 40 registered configurations | cosine ≥ 0.999999, 40 of 40 | **1.000000**, 40 of 40 | `results/wp_r/g_r_2.json` |
 | G-R.3 | The Trotterised imaginary-time propagator converges, and its splitting error is second order | cosine ≥ 0.999; exponent in [1.8, 2.2] at R² ≥ 0.99 | **1.0000000**; **1.995 to 2.000** at R² = **1.00000** | `results/wp_r/g_r_3.json` |
+| G-R.4 | The error threshold on the qubit representation matches the analytic prediction, over a 300-point sweep at L = 4, 6, 8 | max abs Δm < 1e-3 | **1.9e-15** | `results/wp_r/g_r_4.json` |
+| G-R.5 | Rugged NK landscapes reproduce brute-force exact diagonalisation, 100 instances at L = 6 to 10 and K = 1 to 7 | cosine ≥ 0.99999, every instance | **1.000000**, 0 failing | `results/wp_r/g_r_5.json` |
 
 **G-R.1.** Two independent analytic routes and one structure-blind reference agree: the
 closed-form product state for additive fitness, the Hamming-class tridiagonal reduction for
@@ -94,6 +96,53 @@ splitting, not against the quasispecies, so the residual from a finite `tau` can
 it. Convergence is scored separately against the oracle. The propagator is not a
 hardware-runnable circuit, because imaginary-time evolution is non-unitary; the
 hardware-faithful routes are varQITE and Motta-QITE, gates G-R.6 and G-R.7.
+
+**G-R.4.** Three diagnostics came out of it, none of them pass conditions. The sharp-peak
+threshold converges to the infinite-size prediction, with `mu_c × L` reaching 1.000 by
+L = 20 against a peak height of 1.0 while the width collapses from 0.300 to 0.010. The
+spectral gap at that threshold closes exponentially, a fitted decay of **0.717 per site**
+over L = 4 to 12, which is the first measured evidence here for how hard the critical region
+is and feeds WP1 gate G-1.2 directly. And one claim from the planning documents did not
+survive: see below.
+
+**G-R.5.** The first family with no structure for the compiler to exploit: at K = 7 the
+Pauli decomposition saturates at 2^L + L terms and the two routes still agree to machine
+precision. Ruggedness is monotone in K, with mean local optima rising 2.8 to 29.1 and
+fitness autocorrelation falling 0.659 to −0.021 at L = 8. The Trotterised route ran
+alongside as a diagnostic and found something the gate was not asking about.
+
+### A budget problem that would have biased the boundary map
+
+Imaginary-time evolution at a fixed budget failed to reach the gate's accuracy on 3 of 40
+rugged instances, and they were **the three with the smallest spectral gaps**: 0.0276,
+0.0476 and 0.0835. Mean shortfall by connectivity runs 8.6e-12 at K = 1 up to 1.7e-4 at
+K = 7.
+
+That is not a defect in the method. Imaginary time suppresses the leading contaminant as
+`exp(-gap × tau)`, so the budget it needs scales as `1 / gap`. But `GATES.md` section 11.3
+currently gives every method equal wall-clock, and G-R.4 measured the gap at the error
+threshold closing at 0.717 per site. Under that protocol an imaginary-time route would score
+badly in the rugged, small-gap, near-threshold cells **because it was under-budgeted, not
+because the method is unsuited**, and those cells are exactly the candidate quantum-relevant
+regime the boundary map exists to examine.
+
+`DECISIONS.md` ADR-0013 sets out three fairness protocols and recommends reporting both
+accuracy-at-fixed-budget and budget-needed-for-accuracy, so the protocol's effect is visible
+rather than buried. It needs settling before WP7 runs.
+
+### A claim that did not survive measurement
+
+The planning documents state that antagonistic epistasis lowers the error threshold. In the
+uniform pairwise family it does not, and the reason is structural rather than statistical:
+negative uniform coupling moves the fitness optimum **off the master sequence** to Hamming
+class 1, 2 and 2 at L = 4, 6 and 8, with multiplicities up to 28. There is no master
+sequence left to delocalise from, so the question is ill-posed in that family.
+
+The companion claim, that synergistic epistasis raises it, is supported and converges in
+size. The failing case is kept in the record rather than dropped. `DECISIONS.md` ADR-0011
+turns it into a requirement on WP3: any family used as a ruggedness axis must report where
+its fitness optimum sits, because WP7 sweeps ruggedness as its main axis and cells that
+silently change which genotype is optimal are not comparable.
 
 ### A prior-art finding that changes WP2
 

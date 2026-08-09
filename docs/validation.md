@@ -98,6 +98,43 @@ need, while an exponential class function is dense at all 2^L. Sparsity in Pauli
 tracks polynomial degree in Hamming distance, not permutation symmetry. That distinction
 belongs in the WP1 resource-scaling analysis, where it can be stated properly.
 
+### G-R.4, the error threshold
+
+The gate asks whether the qubit route sees the localisation-delocalisation transition where
+the analytic theory puts it. The surplus is computed at every point of a mutation-rate sweep
+from the ground state of the compiled Pauli Hamiltonian and from the analytic Hamming-class
+reduction, and the gate is the maximum disagreement.
+
+**Where the threshold sits is a diagnostic, not a pass condition.** So is the direction in
+which epistasis moves it. The planning documents state an expected direction, and a gate
+that required the expected answer would not be a measurement. That distinction earned its
+keep: one of the two epistasis directions came out disagreeing with the documents, and
+because it was never a pass condition there was no pressure on it.
+
+**Two location measures, because one is not always defined.** The susceptibility peak,
+`chi = -dm/dmu`, is the natural definition and is used wherever the peak is interior to the
+sweep. A landscape additive in the surplus has no interior peak at all: it decays
+monotonically with its steepest slope at zero mutation rate, so the peak sits on the sweep
+boundary and carries no information. `locate_threshold` reports whether the peak was
+interior rather than returning a boundary index as though it were an answer. The
+half-surplus crossover is defined for any monotone decay and is what makes families
+comparable.
+
+**A shortcut, and the guard on it.** The compiled operator is linear in the mutation rate,
+so the sweep compiles the selection and mutation parts once each and assembles per point.
+At L = 8 that is the difference between summing 256 Pauli terms 300 times and doing it
+twice. The assembly is checked against a directly compiled operator at one mutation rate per
+case, and the check is recorded in the artefact; it came back at exactly zero. A speed
+optimisation that quietly stopped matching the thing it stands in for would invalidate the
+gate, so it is verified rather than trusted.
+
+**Two normalisation mistakes, both found before the recorded run and both disclosed in
+`GATES.md` Amendment 4 rather than quietly fixed.** An epistatic family that fixed the total
+fitness range made the per-mutation cost near the master scale as 1/L, so selection vanished
+and the exponent varied overall selection strength instead of epistasis. And a pairwise
+coupling held at fixed strength across sizes made the total interaction grow as L squared,
+which reversed the apparent direction of the epistasis effect between L = 6 and L = 8.
+
 ## What reproduction actually showed
 
 Both gates were run more than once, at different commits, inside the same image. Every

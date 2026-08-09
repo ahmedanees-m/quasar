@@ -406,3 +406,119 @@ performance. Framing the result as evidence of advantage fails this gate.
   counts; and, for the additive families, the depth and two-qubit gate count of the
   structural circuit analogue, labelled as such, since that analogue is unitary and does not
   itself perform imaginary-time evolution.
+
+- 2026-08-09 — **Amendment 4: the G-R.4 sweep, landscapes and order parameter, registered
+  before the run.** Anees Ahmed Mahaboob Ali.
+
+  Section 3 fixed the G-R.4 threshold as max absolute magnetisation difference < 1e-3 at
+  L = 4, 6, 8. The order parameter, the sweep, and the landscape set are fixed here. The
+  threshold is unchanged.
+
+  **Disclosure.** The sweep range and the landscape normalisation below were chosen after an
+  exploratory pass, because a threshold cannot be resolved without knowing roughly where it
+  sits. That pass changed no acceptance criterion. It corrected two normalisation mistakes,
+  both recorded here so the reasoning is auditable rather than invisible:
+
+  1. An epistatic family that fixed the *total* fitness range made the per-mutation cost near
+     the master scale as 1/L, so selection vanished and the exponent varied overall selection
+     strength rather than epistasis.
+  2. A pairwise coupling held at fixed `b` across L made the total interaction grow as L^2,
+     which reversed the apparent direction of the epistasis effect between L = 6 and L = 8.
+     Mean-field scaling `b = B / (L - 1)` holds the coupling per site fixed and removes it.
+
+  **Order parameter.** The surplus, m = sum_sigma p(sigma) (1 - 2 d(sigma) / L), which is 1
+  when the population sits on the master sequence and 0 when it is uniform over sequence
+  space.
+
+  **What is compared for the gate.** The surplus computed from the ground state of the
+  compiled Pauli Hamiltonian, against the surplus computed from the analytic Hamming-class
+  reduction, at every point of the sweep. Statistic: the maximum absolute difference over all
+  points, all landscapes and all sizes.
+
+  **Sweep.** mu from 0.01 to 3.00 in steps of 0.01, 300 points. Sizes L = 4, 6, 8.
+
+  **Landscapes**, all permutation symmetric so the analytic route applies.
+
+  | # | Landscape | Parameters |
+  |---|---|---|
+  | 1 | single_peak | height 1.0 |
+  | 2 | pairwise additive control | a = 0.5, B = 0.0 |
+  | 3 | pairwise synergistic | a = 0.5, B = +1.0 |
+  | 4 | pairwise synergistic | a = 0.5, B = +2.0 |
+  | 5 | pairwise antagonistic | a = 0.5, B = -1.0 |
+
+  with coupling `b = B / (L - 1)`.
+
+  **Threshold location, two measures, and why both.** The susceptibility peak, chi = -dm/dmu,
+  is the natural definition and is used where the peak is interior to the sweep. It is not
+  always defined: a landscape additive in the surplus decays monotonically with its steepest
+  slope at zero mutation rate, so the peak sits on the boundary and carries no information.
+  The half-surplus crossover, the mu at which m first falls to half its initial value, is
+  defined for any monotone decay and is comparable across families. Both are recorded, and
+  whether the susceptibility peak was interior is recorded with them.
+
+  **Diagnostics recorded, not gating.**
+
+  - For the sharp peak, mu_c and the transition width against L, extended to L = 20 through
+    the class reduction alone, testing whether mu_c * L approaches the peak height as the
+    infinite-size analysis predicts.
+  - The measured direction of the epistasis shift, compared against the claim in the
+    planning documents that synergistic epistasis raises the threshold and antagonistic
+    epistasis lowers it. **The direction is reported whichever way it falls.** It is not a
+    pass condition, and no landscape will be dropped from the record for disagreeing.
+  - The minimum spectral gap over the sweep and where it sits relative to the threshold,
+    which is WP1 material and also bears on how hard the later imaginary-time gates will
+    find this region.
+
+  *Appended 2026-08-09, before the recorded run.* The gap diagnostic is extended to
+  L = 4, 6, 8, 10, 12 for the sharp peak, measured by sparse eigensolves in a narrow window
+  around each size's predicted threshold, with a decay rate per site fitted across them.
+  Three sizes was too thin to say anything about how the gap closes. This changes no
+  acceptance criterion and the full gap map across all landscapes remains WP1 gate G-1.2.
+
+- 2026-08-09 — **Amendment 5: the G-R.5 instance set and the NK normalisation, registered
+  before the run.** Anees Ahmed Mahaboob Ali.
+
+  Section 3 fixed the G-R.5 threshold as cosine >= 0.99999 across all 10 seeded NK
+  instances. The seed set, the sizes, the connectivities and the landscape normalisation are
+  fixed here. **The per-instance threshold is unchanged, and every instance must meet it.**
+
+  **On the instance count.** The registered "10 seeded instances" is read as the seed set,
+  seeds 0 through 9. The run sweeps size and connectivity as well, so it tests 100 instances
+  rather than 10. That is deliberately a superset: testing more instances against the same
+  per-instance threshold can only make the gate harder, never easier.
+
+  **What is compared for the gate.** The ground state of the compiled Pauli Hamiltonian
+  against brute-force exact diagonalisation of the generator, per instance. These are
+  independent code paths: the compiler goes through a Walsh-Hadamard decomposition into
+  Pauli terms and back, while the reference assembles the sparse generator directly from the
+  fitness vector. On a rugged landscape the decomposition is dense, which is the case the
+  earlier gates did not exercise.
+
+  **Instances.** L in {6, 8, 10} crossed with K in {1, 2, 4}, plus L = 8 with K = 7, each
+  over seeds 0 through 9. 100 instances. Mutation rate mu = 0.25 throughout.
+
+  **NK normalisation.** Fitness is standardised to zero mean and unit standard deviation.
+  Raw NK fitness is a mean of L uniform draws, so its spread shrinks as 1/sqrt(L) and grows
+  with K; sweeping K on the raw scale would vary selection strength and ruggedness together,
+  and any result would be a mixture. This follows ADR-0011. Neighbourhoods are adjacent and
+  wrap around, which is deterministic given the seed.
+
+  **Diagnostics recorded, not gating.**
+
+  - **Where the optimum sits**, per instance, as ADR-0011 now requires of any ruggedness
+    axis. An NK landscape has **no master sequence**: its global optimum is at a random
+    genotype, near Hamming weight L/2. Statements about the error threshold, which is
+    defined by delocalisation away from a master sequence, therefore do not carry over to
+    this family unchanged, and the record says so rather than leaving it to be assumed.
+  - **Ruggedness statistics** per instance, which is WP3 task T3.3 pulled forward: the
+    number of local optima and the fitness autocorrelation across single-mutation
+    neighbours, with monotonicity in K reported over the seed mean.
+  - **Pauli term count** per instance, which feeds G-R.10 and WP1 task T1.4, and which for
+    this family should grow with K as the decomposition stops being sparse.
+  - **The Trotterised imaginary-time route** on the L = 8 instances, at tau = 60 and
+    dtau = 0.01, scored against the same reference. This is the first test of whether
+    imaginary-time evolution actually converges on rugged landscapes at a fixed budget, and
+    it is explicitly *not* a pass condition: a rugged instance with a small gap may fail to
+    converge, and that would be a finding for G-R.6, G-R.7 and WP7 rather than a defect.
+  - The spectral gap per instance.

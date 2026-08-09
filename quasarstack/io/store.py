@@ -113,9 +113,27 @@ def write_gate_record(
     notes
         Anything a reader of the record needs that the fields do not carry.
     """
-    directory = RESULTS_ROOT / work_package
+    env = environment()
+
+    # A run outside the pinned image writes somewhere gitignored, not into the tree where
+    # committed evidence lives. Twice in one afternoon a laptop run left a record in
+    # results/, and the second time it also blocked a pull by colliding with the real one.
+    # Local runs are useful and stay allowed; what stops is their output sitting where a
+    # `git add -A` can mistake it for evidence. See DECISIONS.md ADR-0012.
+    in_pinned_image = env["image"] != "unknown" and str(env["platform"]).startswith("Linux")
+    directory = RESULTS_ROOT / work_package if in_pinned_image else RESULTS_ROOT / "_local"
     directory.mkdir(parents=True, exist_ok=True)
     path = directory / f"{gate.lower().replace('-', '_').replace('.', '_')}.json"
+    if not in_pinned_image:
+        try:
+            shown = path.relative_to(REPO_ROOT).as_posix()
+        except ValueError:  # results root redirected elsewhere, as tests do
+            shown = str(path)
+        print(
+            f"NOTE: not running in the pinned image, so this record is written to "
+            f"{shown} and is not evidence. "
+            f"Rerun with `make gates` on the compute VM to produce a committable record."
+        )
 
     record = {
         "gate": gate,
@@ -126,7 +144,7 @@ def write_gate_record(
         "n_cases": len(cases),
         "cases": cases,
         "notes": notes,
-        "env": environment(),
+        "env": env,
         "timestamp": datetime.now(UTC).isoformat(),
     }
     path.write_text(json.dumps(record, indent=2, sort_keys=False) + "\n", encoding="utf-8")

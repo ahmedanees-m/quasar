@@ -257,3 +257,160 @@ correction is cheap now and would have been expensive after WP2 was built on it.
 `GATES.md` G-2 thresholds are unaffected: they speak of reproducing the analytic
 quasispecies and deriving resource scaling, neither of which depends on which QSVT
 construction is used.
+
+---
+
+## ADR-0011 — A landscape family must not move the fitness optimum while it varies ruggedness
+
+**Date:** 2026-08-09
+**Status:** accepted
+
+**Context.** Gate G-R.4 swept a uniform pairwise-epistasis family, `f = a sum_i z_i + b
+sum_{i<j} z_i z_j`, to measure how epistasis moves the error threshold. The planning
+documents state that synergistic epistasis raises the threshold and antagonistic epistasis
+lowers it.
+
+Synergistic coupling behaved cleanly and convergently. Antagonistic coupling did not: the
+half-surplus crossover came out at 0.301, 0.704 and 0.424 for L = 4, 6 and 8, which is not
+monotone and disagrees with the stated direction at two of the three sizes.
+
+The cause is not noise, and it is not frustration, which was the first guess. Measured
+directly: with negative uniform coupling the fitness optimum **moves off the master
+sequence** to an interior Hamming class, at d* = 1, 2, 2, 3, 3 for L = 4, 6, 8, 10, 12, with
+multiplicities up to 220. The surplus at zero mutation rate is correspondingly 0.500, 0.333,
+0.500, 0.400 and 0.500 rather than 1, jumping as d* jumps.
+
+So there is no master sequence to delocalise from, and the error-threshold question is not
+merely noisy in that family, it is **ill-posed**. The apparent non-monotonicity is the
+optimum relocating, not a threshold shifting.
+
+**Decision.** Any landscape family used as a ruggedness axis must be checked, and reported,
+for where its fitness optimum sits. A family that silently relocates the optimum is not
+varying ruggedness alone, and comparisons across it are comparisons between different
+problems.
+
+Concretely:
+
+- `experiments` that sweep a landscape parameter record the optimum's Hamming class and its
+  multiplicity alongside the result.
+- WP3 gate G-3 gains this as a requirement on the NK, spin-glass, Rough Mount Fuji,
+  House-of-Cards and Block families: report where the optimum sits across the ruggedness
+  parameter, and state plainly where it moves.
+- G-R.4 keeps the antagonistic case in its record rather than dropping it. It is the
+  evidence for this decision, and dropping the case that disagreed with the expected
+  direction would be exactly the wrong instinct.
+
+**Consequences.** The claim "antagonistic epistasis lowers the error threshold" is not
+supported by this family and is not made. Testing it needs a family that keeps the master
+sequence optimal while varying the curvature of the cost of accumulating mutations. That is
+WP3 work, not a G-R.4 fix.
+
+The wider risk this catches early: the WP7 boundary map sweeps ruggedness as its main axis.
+If ruggedness were confounded with which genotype is optimal, cells of that map would not be
+comparable, and the central figure of the paper would be comparing different problems
+against each other.
+
+---
+
+## ADR-0012 — A committed result must prove it came from the pinned image
+
+**Date:** 2026-08-09
+**Status:** accepted
+
+**Context.** ADR-0006 says every result record is produced inside `quasar:v1` on the compute
+VM. That was policy with nothing enforcing it, and it broke the first time it was tested.
+
+A G-R.4 run on the laptop, outside Docker, wrote a record. A `git add -A` swept it into a
+commit, it was pushed, and the VM pulled it. The record itself said exactly what had
+happened, in the provenance block that exists for this purpose: `image: unknown`,
+`platform: Windows-10`, `git_dirty: true`. The information was there and nothing was reading
+it.
+
+**Decision.** `scripts/check_results_provenance.py` reads it, and CI runs it on every push.
+A committed record must carry a non-placeholder image tag, a Linux platform, a recorded
+commit, and a clean tree. A record failing any of those is rejected as evidence regardless
+of the numbers inside it.
+
+**Consequences.**
+
+- The provenance block stops being decoration and becomes a gate.
+- Running a gate on the laptop for a quick look stays fine. Committing what it produced does
+  not.
+- The rejected record is replaced by a rerun in the image rather than patched, because the
+  problem was never the numbers, it was that nothing could vouch for where they came from.
+
+**Related finding, recorded because it will matter for WP7.** The image pins BLAS and OpenMP
+to a single thread on purpose, so the compute-budget protocol is not undermined by threads
+nobody declared. A consequence is that dense eigendecomposition is far slower inside the
+image than outside it, and the practical dense-to-sparse crossover sits well below the
+L = 12 limit in `GATES.md` section 1. A dense 4096 by 4096 solve that takes seconds on a
+multi-threaded laptop takes minutes in the image, and forty of them takes an hour. Code that
+only needs a few extreme eigenvalues should ask for the sparse path explicitly rather than
+inherit the default.
+
+---
+
+## ADR-0013 — An equal-wall-clock budget systematically disadvantages imaginary time in exactly the regime WP7 is about
+
+**Date:** 2026-08-09
+**Status:** accepted as a finding; the protocol amendment is drafted below and needs both PIs
+
+**Context.** Gate G-R.5 ran the Trotterised imaginary-time route as a diagnostic across 40
+rugged NK instances at a fixed budget of tau = 60 and dtau = 0.01. Three fell below the
+gate's accuracy threshold, and they were the three instances with the smallest spectral
+gaps:
+
+| K | seed | gap | shortfall in cosine | local optima |
+|---|---|---|---|---|
+| 7 | 4 | 0.0276 | 1.5e-3 | 31 |
+| 7 | 3 | 0.0476 | 1.8e-4 | 24 |
+| 4 | 3 | 0.0835 | 1.3e-5 | 15 |
+
+Mean shortfall by connectivity runs 8.6e-12 at K = 1, 2.4e-11 at K = 2, 1.3e-6 at K = 4 and
+1.7e-4 at K = 7. Gate G-R.4 separately measured the gap at the sharp-peak error threshold
+closing at 0.717 per site.
+
+This is not a defect. Imaginary-time evolution suppresses the leading contaminant by roughly
+`exp(-gap * tau)`, so the time it needs scales as `1 / gap`, and a gap that shrinks with
+ruggedness and with system size means a budget that must grow the same way.
+
+**Why it is a problem for the paper.** `GATES.md` section 11.3 gives every method equal
+wall-clock per cell: 300 seconds at L <= 12, 900 seconds at L >= 14. Under that protocol, in
+the rugged small-gap cells, an imaginary-time route would score badly **because it was
+under-budgeted, not because the method is unsuited**. Those cells are not incidental. They
+are the candidate quantum-relevant regime: rugged, near the error threshold, where
+Dixit-Vishnoi does not apply. The boundary map would report a null in precisely the region
+the paper exists to examine, and the null would be an artefact of the protocol.
+
+The mirror risk is just as real. Simply giving imaginary time more time would be handing the
+quantum route a budget nobody else gets, which is the strawman objection in reverse.
+
+**Decision.** The fairness protocol must be stated in terms that are gap-aware and applied
+to *every* method equally, rather than in raw wall-clock. Three candidate forms, to settle
+before WP7 and record as a `GATES.md` amendment:
+
+1. **Accuracy-targeted budget.** Fix a target accuracy and measure the wall-clock each method
+   needs to reach it, reporting time-to-accuracy rather than accuracy-at-fixed-time. Cells
+   where a method never reaches the target within a stated ceiling are reported as such.
+   This is the fairest and the most expensive.
+2. **Gap-scaled budget.** Keep equal wall-clock but scale the per-cell allotment as
+   `1 / gap`, using the WP1 gap map, so every method gets more time in the hard cells. Cheap,
+   and it uses a map the project is producing anyway.
+3. **Report both.** Accuracy at the fixed budget, and the budget needed for accuracy, as two
+   panels of the boundary map.
+
+**Recommendation.** Option 3. It costs one extra column in the sweep and it makes the
+protocol's effect visible instead of buried, which is the difference between a benchmark a
+reviewer trusts and one they interrogate.
+
+**Consequences.** `GATES.md` section 11.3 will need an appended amendment before WP7 runs.
+Gates G-R.6 and G-R.7 should set their imaginary-time budget from the measured gap rather
+than from a constant, and should report the budget used. Nothing already registered is
+lowered by this; the change makes the comparison harder to game in either direction.
+to a single thread on purpose, so the compute-budget protocol is not undermined by threads
+nobody declared. A consequence is that dense eigendecomposition is far slower inside the
+image than outside it, and the practical dense-to-sparse crossover sits well below the
+L = 12 limit in `GATES.md` section 1. A dense 4096 by 4096 solve that takes seconds on a
+multi-threaded laptop takes minutes in the image, and forty of them takes an hour. Code that
+only needs a few extreme eigenvalues should ask for the sparse path explicitly rather than
+inherit the default.

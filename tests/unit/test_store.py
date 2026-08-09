@@ -56,8 +56,62 @@ def test_dirty_flag_ignores_the_results_tree(tmp_path, monkeypatch) -> None:
         stray.rmdir()
 
 
+def test_records_from_outside_the_image_are_redirected_out_of_the_evidence_tree(
+    monkeypatch, tmp_path, capsys
+) -> None:
+    """A run outside the pinned image must not leave a file where committed results live.
+
+    This happened twice in one afternoon: a laptop run wrote into results/, a `git add -A`
+    swept it into a commit, and the second time it also blocked a pull by colliding with the
+    real record. Local runs stay allowed; their output just goes somewhere gitignored and
+    says so.
+    """
+    monkeypatch.setattr(store, "RESULTS_ROOT", tmp_path)
+    monkeypatch.delenv("QUASAR_IMAGE", raising=False)
+
+    path = store.write_gate_record(
+        gate="G-X.9",
+        work_package="wp_probe",
+        threshold={"value": 1.0},
+        measured={"value": 0.0},
+        passed=True,
+        cases=[{}],
+    )
+    assert path.parent.name == "_local", f"expected redirection, got {path}"
+    assert not (tmp_path / "wp_probe").exists(), "the evidence tree must stay untouched"
+    assert "not evidence" in capsys.readouterr().out
+
+
+def test_records_from_inside_the_image_land_in_the_evidence_tree(monkeypatch, tmp_path) -> None:
+    monkeypatch.setattr(store, "RESULTS_ROOT", tmp_path)
+    monkeypatch.setenv("QUASAR_IMAGE", "quasar:v1")
+    monkeypatch.setattr(store, "environment", lambda: {**_linux_env(), "image": "quasar:v1"})
+
+    path = store.write_gate_record(
+        gate="G-X.9",
+        work_package="wp_probe",
+        threshold={"value": 1.0},
+        measured={"value": 0.0},
+        passed=True,
+        cases=[{}],
+    )
+    assert path.parent.name == "wp_probe"
+
+
+def _linux_env() -> dict:
+    return {
+        "git_sha": "abc123",
+        "git_dirty": False,
+        "image": "quasar:v1",
+        "python": "3.12.13",
+        "platform": "Linux-6.8.0-generic-x86_64",
+        "gates_md_sha256": "0" * 64,
+    }
+
+
 def test_write_gate_record_round_trips(monkeypatch, tmp_path) -> None:
     monkeypatch.setattr(store, "RESULTS_ROOT", tmp_path)
+    monkeypatch.setattr(store, "environment", _linux_env)
     path = store.write_gate_record(
         gate="G-X.1",
         work_package="wp_probe",

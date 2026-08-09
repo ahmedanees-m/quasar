@@ -44,6 +44,9 @@ figures:  ## regenerate every figure from committed results
 claims:  ## verify every CLAIMS.md entry resolves to an artefact
 	python scripts/check_claims.py
 
+provenance:  ## verify every committed result record came from the pinned image
+	python scripts/check_results_provenance.py
+
 lint:
 	ruff check quasarstack experiments scripts tests
 	black --check quasarstack experiments scripts tests

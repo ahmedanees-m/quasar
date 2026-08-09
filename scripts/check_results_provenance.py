@@ -1,0 +1,103 @@
+"""Refuse to accept a committed result record that was not produced in the pinned image.
+
+ADR-0006 says every result record comes from `quasar:v1` on the declared hardware. That was
+policy with nothing enforcing it, and it broke the first time it was tested: a gate run on
+the laptop, outside Docker, wrote a record that a `git add -A` swept into a commit. The
+record's own provenance block said so plainly, with `image: unknown`, `platform: Windows`
+and `git_dirty: true`, and nobody was reading it.
+
+So it is read here, and in CI. A result whose provenance does not check out is not evidence,
+however good the number inside it looks.
+
+    python scripts/check_results_provenance.py
+
+Exit code 0 means every committed record was produced in the image, from a clean tree, on
+the declared platform.
+"""
+
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+RESULTS = ROOT / "results"
+
+# The declared execution environment, from DECISIONS.md ADR-0006 and GATES.md section 11.3.
+REQUIRED_PLATFORM_PREFIX = "Linux"
+FORBIDDEN_IMAGE_VALUES = {"unknown", "", None}
+
+# Not every JSON under results/ is a gate record. These are driver output, not evidence.
+SKIP_NAMES = {"gate_run_manifest.json"}
+
+# Records from runs outside the pinned image land here, and the directory is gitignored.
+# They are not evidence and are not pretending to be, so failing on them would make this
+# check fire during ordinary development and train people to ignore it. What matters is what
+# is committed.
+SKIP_DIRS = {"_local"}
+
+
+def problems_with(path: Path) -> list[str]:
+    try:
+        record = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"unreadable: {exc}"]
+
+    env = record.get("env")
+    if not isinstance(env, dict):
+        return ["no env block, so the record carries no provenance at all"]
+
+    found = []
+    if env.get("image") in FORBIDDEN_IMAGE_VALUES:
+        found.append(
+            f"image is {env.get('image')!r}: produced outside the pinned image, or the run "
+            f"did not set QUASAR_IMAGE"
+        )
+    platform = str(env.get("platform", ""))
+    if not platform.startswith(REQUIRED_PLATFORM_PREFIX):
+        found.append(f"platform is {platform!r}, not the declared {REQUIRED_PLATFORM_PREFIX}")
+    if env.get("git_dirty"):
+        found.append("produced from a dirty working tree, so the code is not identified")
+    if env.get("git_sha") in {"unknown", "", None}:
+        found.append("no git commit recorded")
+    return found
+
+
+def main() -> int:
+    if not RESULTS.is_dir():
+        print("no results/ directory yet")
+        return 0
+
+    records = sorted(
+        p
+        for p in RESULTS.rglob("*.json")
+        if p.name not in SKIP_NAMES and not SKIP_DIRS.intersection(p.parts)
+    )
+    if not records:
+        print("no result records committed yet")
+        return 0
+
+    failures = 0
+    for path in records:
+        rel = path.relative_to(ROOT).as_posix()
+        found = problems_with(path)
+        if found:
+            failures += 1
+            print(f"REJECTED {rel}")
+            for problem in found:
+                print(f"    {problem}")
+        else:
+            print(f"ok       {rel}")
+
+    print(f"\n{len(records) - failures}/{len(records)} records have valid provenance")
+    if failures:
+        print(
+            "\nA record produced outside the pinned image is not evidence. Rerun the gate "
+            "with `make gates` on the compute VM and commit that record instead."
+        )
+    return 1 if failures else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -21,7 +21,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 LEDGER = ROOT / "CLAIMS.md"
 
-ROW = re.compile(r"^\|\s*(C\d+)\s*\|(.+)\|\s*$")
+# Identifiers may carry a letter suffix, as C4b and C5b do, for a claim that belongs to the
+# same gate as its parent. An earlier form of this pattern required digits only, so those
+# rows matched nothing and were skipped in silence: they sat in the ledger looking checked
+# and were not. A checker that quietly ignores what it cannot parse is worse than no checker,
+# so unparsed rows are now also counted and reported.
+ROW = re.compile(r"^\|\s*(C\d+[a-z]*)\s*\|(.+)\|\s*$")
+CLAIM_LIKE = re.compile(r"^\|\s*(C\S*)\s*\|")
 CODE = re.compile(r"`([^`]+)`")
 VALID_STATUS = {"planned", "pass", "fail", "dropped"}
 
@@ -36,15 +42,26 @@ class Claim:
     status: str
 
 
-def parse_ledger(text: str) -> list[Claim]:
+def parse_ledger(text: str) -> tuple[list[Claim], list[str]]:
+    """Return the parsed claims, and any claim-looking rows that could not be parsed.
+
+    The second half matters as much as the first. A row that looks like a claim but does not
+    parse must be surfaced, not skipped, or the ledger can grow entries nothing is checking.
+    """
     claims: list[Claim] = []
+    unparsed: list[str] = []
     for line in text.splitlines():
-        match = ROW.match(line.strip())
+        stripped = line.strip()
+        match = ROW.match(stripped)
         if not match:
+            if CLAIM_LIKE.match(stripped) and "---" not in stripped:
+                unparsed.append(stripped[:80])
             continue
         ident = match.group(1)
         cells = [c.strip() for c in match.group(2).split("|")]
         if len(cells) < 5:
+            # Identifier fine, columns short. Another way to be skipped in silence.
+            unparsed.append(stripped[:80])
             continue
         statement, gate, artefact_cell, script_cell, status = cells[:5]
         claims.append(
@@ -57,7 +74,7 @@ def parse_ledger(text: str) -> list[Claim]:
                 status=status.lower(),
             )
         )
-    return claims
+    return claims, unparsed
 
 
 def check(claims: list[Claim], allow_planned: bool) -> list[str]:
@@ -102,12 +119,13 @@ def main() -> int:
         print(f"CLAIMS.md not found at {LEDGER}")
         return 1
 
-    claims = parse_ledger(LEDGER.read_text(encoding="utf-8"))
+    claims, unparsed = parse_ledger(LEDGER.read_text(encoding="utf-8"))
     if not claims:
         print("CLAIMS.md parsed but contained no claim rows")
         return 1
 
     problems = check(claims, allow_planned=args.allow_planned)
+    problems.extend(f"row looks like a claim but did not parse: {row}" for row in unparsed)
 
     by_status: dict[str, int] = {}
     for claim in claims:

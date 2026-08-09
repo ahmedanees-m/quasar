@@ -18,8 +18,11 @@ with a reason).
 | C1 | The analytic Crow–Kimura oracle agrees with brute-force exact diagonalisation to machine precision, with maximum absolute error 2.4×10⁻¹⁵ over 1701 comparisons | G-R.1 | `results/wp_r/g_r_1.json` | `experiments/wp_r_rebuild/g_r_1_oracle_vs_ed.py` | pass |
 | C2 | The compiled qubit Hamiltonian's ground state is the analytic quasispecies, at cosine 1.000000 on 40 of 40 registered configurations, with the operator matching the independently assembled generator to 3.6×10⁻¹⁵ | G-R.2 | `results/wp_r/g_r_2.json` | `experiments/wp_r_rebuild/g_r_2_hamiltonian_vs_oracle.py` | pass |
 | C3 | The Trotterised imaginary-time propagator converges to the oracle at cosine 1.000000, and its splitting error is second order with a fitted exponent of 1.995 to 2.000 at R² = 1.00000 | G-R.3 | `results/wp_r/g_r_3.json` | `experiments/wp_r_rebuild/g_r_3_trotter_scaling.py` | pass |
-| C4 | The error threshold appears on the circuit as a localisation-delocalisation transition at the analytically predicted mutation rate | G-R.4 | `results/wp_r/g_r_4.json` | `experiments/wp_r_rebuild/g_r_4_error_threshold.py` | planned |
-| C5 | Rugged epistatic landscapes are reproduced against brute-force exact diagonalisation | G-R.5 | `results/wp_r/g_r_5.json` | `experiments/wp_r_rebuild/g_r_5_rugged.py` | planned |
+| C4 | The error threshold appears on the qubit representation as a localisation-delocalisation transition matching the analytic prediction to 1.9×10⁻¹⁵, with the sharp-peak threshold converging to μ_c·L → 1 and the transition width collapsing from 0.300 to 0.010 over L = 4 to 20 | G-R.4 | `results/wp_r/g_r_4.json` | `experiments/wp_r_rebuild/g_r_4_error_threshold.py` | pass |
+| C4b | The spectral gap at the sharp-peak error threshold closes exponentially in system size, with a fitted decay of 0.717 per site over L = 4 to 12 | G-R.4 | `results/wp_r/g_r_4.json` | `experiments/wp_r_rebuild/g_r_4_error_threshold.py` | pass |
+| C5 | Rugged epistatic landscapes are reproduced against brute-force exact diagonalisation, at cosine 1.000000 across 100 NK instances spanning L = 6 to 10 and K = 1 to 7, including the maximally rugged case where the Pauli decomposition is dense | G-R.5 | `results/wp_r/g_r_5.json` | `experiments/wp_r_rebuild/g_r_5_rugged.py` | pass |
+| C5b | The NK family varies ruggedness monotonically in K: mean local optima rise from 2.8 to 29.1 and fitness autocorrelation falls from 0.659 to −0.021 at L = 8 | G-R.5 | `results/wp_r/g_r_5.json` | `experiments/wp_r_rebuild/g_r_5_rugged.py` | pass |
+| C5c | Imaginary-time evolution at a fixed budget fails to converge on the most rugged instances, and the instances it fails on are those with the smallest spectral gaps | G-R.5 | `results/wp_r/g_r_5.json` | `experiments/wp_r_rebuild/g_r_5_rugged.py` | pass |
 | C6 | varQITE reproduces the quasispecies at circuit depth constant in imaginary time | G-R.6 | `results/wp_r/g_r_6.json` | `experiments/wp_r_rebuild/g_r_6_varqite.py` | planned |
 | C7 | Motta-QITE reproduces the quasispecies with monotonically descending energy and no barren plateau | G-R.7 | `results/wp_r/g_r_7.json` | `experiments/wp_r_rebuild/g_r_7_motta.py` | planned |
 | C8 | The pipeline is feasible under realistic simulated device noise with error mitigation, L = 2 to 4 | G-R.8 | `results/wp_r/g_r_8.json` | `experiments/wp_r_rebuild/g_r_8_noise.py` | planned |
@@ -98,6 +101,19 @@ rests entirely on that one reference. See `DECISIONS.md` ADR-0010.
 | C29 | Validated circuits were executed on a live quantum processor, with job identifiers and both raw and mitigated distributions reported as measured | G-8 | `results/wp8/qpu_runs.json` | `experiments/wp8_live_qpu/submit.py` | planned |
 
 ---
+
+## Claims withdrawn after measurement
+
+Recorded rather than deleted. A claim that the evidence did not support is part of the
+record, and removing it silently is how a project ends up only reporting what worked.
+
+| Claim, as the planning documents state it | What was measured | Status |
+|---|---|---|
+| "Antagonistic epistasis lowers the error threshold" | Not supported in the uniform pairwise family. Negative uniform coupling moves the fitness optimum off the master sequence to Hamming class 1, 2 and 2 at L = 4, 6 and 8, with multiplicities 4, 15 and 28, so there is no master sequence to delocalise from and the question is ill-posed rather than merely noisy. Testing it needs a family that keeps the master optimal while varying curvature, which is WP3 work. Artefact `results/wp_r/g_r_4.json`, reasoning in `DECISIONS.md` ADR-0011 | **dropped** |
+
+The companion claim, that synergistic epistasis raises the threshold, **is** supported:
+the half-surplus crossover rises from 0.388 to 0.859 to 1.325 as coupling grows at L = 8,
+convergently in size, with the master sequence remaining optimal throughout.
 
 ## Claims explicitly not made
 

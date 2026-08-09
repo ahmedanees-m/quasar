@@ -140,6 +140,198 @@ def single_peak_classes(n_sites: int, height: float) -> NDArray[np.float64]:
     return f
 
 
+def epistatic_classes(n_sites: int, cost: float, exponent: float) -> NDArray[np.float64]:
+    """Class fitnesses with tunable epistasis: ``f_d = -cost * d**exponent``.
+
+    Parameters
+    ----------
+    cost
+        Selective cost of the *first* mutation, since ``f_1 - f_0 = -cost`` for every
+        exponent.
+    exponent
+        1.0 is additive: every mutation costs the same, and this family then coincides with
+        the additive landscape up to a constant.
+        Above 1.0 is **synergistic** (negative) epistasis: the cost per additional mutation
+        grows, so mutations are punished harder as they accumulate.
+        Below 1.0 is **antagonistic** (positive) epistasis: diminishing returns, where the
+        first mutations cost most and later ones cost less.
+
+    Notes
+    -----
+    The normalisation is deliberate and was corrected once. Fixing the *total* range instead,
+    so that the all-mutant genotype sits at a common depth, makes the per-mutation cost near
+    the master scale as ``1/L**exponent``. Selection near the master then becomes vanishingly
+    weak, the population delocalises at any mutation rate worth sweeping, and the exponent
+    ends up varying overall selection strength rather than epistasis. Fixing the
+    first-mutation cost is what isolates curvature, which is the thing the exponent is
+    supposed to control.
+
+    The expected effect on the error threshold is that synergistic epistasis raises it and
+    antagonistic epistasis lowers it, because selection that punishes accumulation more
+    steeply holds the population together against a higher mutation rate. That expectation
+    is stated in the planning documents. It is *measured* in gate G-R.4, not assumed here,
+    and the measured direction is reported whichever way it falls.
+    """
+    _check_sites(n_sites)
+    if exponent <= 0.0:
+        raise ValueError(f"exponent must be positive, got {exponent}")
+    d = np.arange(n_sites + 1, dtype=np.float64)
+    return -float(cost) * d ** float(exponent)
+
+
+def nk_fitness(
+    n_sites: int,
+    k: int,
+    seed: int,
+    amplitude: float = 1.0,
+    neighbourhood: str = "adjacent",
+) -> NDArray[np.float64]:
+    """Kauffman NK landscape, standardised so that K varies ruggedness and nothing else.
+
+    Each site contributes a fitness term depending on its own state and on K others. The
+    contributions are drawn independently and uniformly for every configuration of that
+    neighbourhood, so K tunes how much the effect of one site depends on the rest: K = 0 is
+    additive, K = L - 1 is maximally rugged.
+
+    Parameters
+    ----------
+    n_sites
+        Number of loci, L.
+    k
+        Epistatic connectivity, from 0 to ``n_sites - 1``.
+    seed
+        Passed to ``default_rng``. The landscape reproduces exactly from it.
+    amplitude
+        Selection strength, as the standard deviation of the resulting fitness.
+    neighbourhood
+        ``"adjacent"`` uses sites i+1 to i+K wrapping around, which is deterministic given
+        the seed and is the usual choice for a one-dimensional genome. ``"random"`` draws K
+        distinct partners per site from the same generator.
+
+    Returns
+    -------
+    ndarray
+        Length ``2**L`` fitness vector, standardised to zero mean and standard deviation
+        ``amplitude``.
+
+    Notes
+    -----
+    The standardisation is deliberate and follows the lesson of `DECISIONS.md` ADR-0011.
+    Raw NK fitness is a mean of L uniform draws, so its spread shrinks as ``1/sqrt(L)`` and
+    grows with K. Sweeping K on the raw scale would therefore vary selection strength at the
+    same time as ruggedness, and any result would be a mixture of the two. Fixing the spread
+    leaves K varying only the structure.
+
+    Note also what this family does *not* have: a master sequence. The global optimum of an
+    NK landscape sits at a random genotype, not at all-wild-type. Statements about the error
+    threshold, which is defined by delocalisation away from a master sequence, do not carry
+    over unchanged, and `ruggedness_statistics` reports where the optimum actually is.
+    """
+    _check_sites(n_sites)
+    if not 0 <= k <= n_sites - 1:
+        raise ValueError(f"k must be between 0 and {n_sites - 1}, got {k}")
+    if neighbourhood not in {"adjacent", "random"}:
+        raise ValueError(f"neighbourhood must be 'adjacent' or 'random', got {neighbourhood!r}")
+
+    rng = np.random.default_rng(seed)
+    dim = 1 << n_sites
+    index = np.arange(dim, dtype=np.int64)
+    total = np.zeros(dim, dtype=np.float64)
+
+    for site in range(n_sites):
+        if neighbourhood == "adjacent":
+            partners = [(site + offset) % n_sites for offset in range(1, k + 1)]
+        else:
+            others = [s for s in range(n_sites) if s != site]
+            partners = list(rng.choice(others, size=k, replace=False)) if k else []
+
+        # Address into this site's table: its own bit first, then its partners' bits.
+        address = (index >> site) & 1
+        for position, partner in enumerate(partners, start=1):
+            address = address | (((index >> partner) & 1) << position)
+
+        table = rng.random(1 << (k + 1))
+        total += table[address]
+
+    total /= n_sites
+    spread = float(total.std())
+    if spread <= 0.0:
+        raise ValueError("degenerate NK draw: the landscape is flat")
+    standardised: NDArray[np.float64] = amplitude * (total - total.mean()) / spread
+    return standardised
+
+
+def ruggedness_statistics(fitness: NDArray[np.float64]) -> dict[str, float | int]:
+    """Structure of a landscape, as WP3 task T3.3 requires and ADR-0011 now insists on.
+
+    Returns
+    -------
+    dict
+        ``n_local_optima`` counts genotypes at least as fit as every single-mutation
+        neighbour. ``autocorrelation`` is the correlation of fitness across single-mutation
+        neighbour pairs, which falls toward zero as the landscape becomes rugged.
+        ``optimum_index`` and ``optimum_hamming_weight`` say where the global optimum sits,
+        which is the ADR-0011 requirement: a family that silently relocates its optimum is
+        not varying ruggedness alone.
+    """
+    fitness = np.asarray(fitness, dtype=np.float64)
+    size = fitness.size
+    if size < 2 or (size & (size - 1)) != 0:
+        raise ValueError(f"fitness length must be a power of two and at least 2, got {size}")
+    n_sites = size.bit_length() - 1
+    index = np.arange(size, dtype=np.int64)
+
+    is_optimum = np.ones(size, dtype=bool)
+    correlations = []
+    for site in range(n_sites):
+        neighbour = fitness[index ^ (1 << site)]
+        is_optimum &= fitness >= neighbour
+        correlations.append(float(np.corrcoef(fitness, neighbour)[0, 1]))
+
+    optimum_index = int(np.argmax(fitness))
+    return {
+        "n_local_optima": int(is_optimum.sum()),
+        "autocorrelation": float(np.mean(correlations)),
+        "optimum_index": optimum_index,
+        "optimum_hamming_weight": int(optimum_index.bit_count()),
+        "fitness_range": float(fitness.max() - fitness.min()),
+    }
+
+
+def pairwise_uniform_classes(n_sites: int, a: float, b: float) -> NDArray[np.float64]:
+    """Class fitnesses for uniform additive fitness plus uniform pairwise epistasis.
+
+    This is the Jain-Krug form: ``f = a sum_i z_i + b sum_{i<j} z_i z_j``, which the
+    Hamiltonian compiler builds natively as ``a_i Z_i`` and ``b_ij Z_i Z_j``. With uniform
+    coefficients it depends only on the total spin ``S = L - 2d``, so it is permutation
+    symmetric and the analytic class reduction applies:
+
+        f_d = a S + b (S**2 - L) / 2
+
+    Parameters
+    ----------
+    a
+        Per-site fitness. Positive favours wild type.
+    b
+        Pairwise coupling. **Positive is synergistic**: aligned sites reinforce each other,
+        so breaking alignment costs more as mutations accumulate. **Negative is
+        antagonistic**, giving diminishing cost.
+
+    Notes
+    -----
+    Unlike a purely additive landscape, this family has an error threshold to find. A
+    landscape additive in the surplus has no catastrophe at all: the surplus decays smoothly
+    from one with its steepest slope at zero mutation rate, so there is no interior
+    susceptibility peak to locate. The transition needs either a peak, as in the sharp-peak
+    landscape, or the interaction term here. That distinction is measured in gate G-R.4 and
+    the additive case is kept in the sweep as the control that shows it.
+    """
+    _check_sites(n_sites)
+    d = np.arange(n_sites + 1, dtype=np.float64)
+    spin_sum = n_sites - 2.0 * d
+    return a * spin_sum + b * (spin_sum**2 - n_sites) / 2.0
+
+
 def uniform_additive_classes(n_sites: int, a: float) -> NDArray[np.float64]:
     """Class fitnesses equivalent to an additive landscape with every ``a_i`` equal to ``a``.
 

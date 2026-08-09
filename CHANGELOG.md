@@ -51,6 +51,30 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 - **G-R.3**, Trotterised imaginary-time evolution: convergence at cosine 1.0000000 against a
   0.999 threshold, fitted splitting exponent 1.995 to 2.000 against bounds of [1.8, 2.2],
   R² = 1.00000 on every configuration.
+- **G-R.4**, the error threshold: max absolute surplus difference 1.9e-15 against a 1e-3
+  threshold, over 15 cases and a 300-point mutation-rate sweep. The sharp-peak threshold
+  converges to `mu_c × L` = 1.000 with the width collapsing from 0.300 to 0.010, and the
+  spectral gap at that threshold closes with a fitted decay of 0.717 per site.
+
+- **G-R.5**, rugged NK landscapes: cosine 1.000000 across 100 instances against a 0.99999
+  threshold, zero failing, including the maximally rugged K = 7 case where the Pauli
+  decomposition saturates at 2^L + L terms. Ruggedness is monotone in K. The Trotterised
+  diagnostic exposed the budget fairness problem recorded in ADR-0013.
+
+### Claim withdrawn
+
+- "Antagonistic epistasis lowers the error threshold", from the planning documents, is not
+  supported and is dropped. Negative uniform coupling relocates the fitness optimum off the
+  master sequence, so the question is ill-posed in that family. ADR-0011 makes reporting the
+  optimum's location a requirement on every ruggedness axis, which matters because WP7
+  sweeps ruggedness as its main axis.
+
+### Enforcement
+
+- `scripts/check_results_provenance.py`, run in CI, rejects any committed result record that
+  cannot show it came from the pinned image on a clean tree. Added after a laptop-produced
+  record reached a commit. `write_gate_record` now also redirects records from outside the
+  image into a gitignored directory so the situation cannot arise. ADR-0012.
 
 ### Prior art
 

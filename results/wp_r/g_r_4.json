@@ -1,0 +1,684 @@
+{
+  "gate": "G-R.4",
+  "work_package": "wp_r",
+  "passed": true,
+  "threshold": {
+    "statistic": "max absolute difference in surplus between the compiled Hamiltonian ground state and the analytic class reduction, over the whole sweep",
+    "value": 0.001,
+    "registered_in": "GATES.md section 3, sweep and landscapes in Amendment 4"
+  },
+  "measured": {
+    "n_cases": 15,
+    "n_sweep_points": 300,
+    "max_abs_delta_m": 1.942890293094024e-15,
+    "median_abs_delta_m": 9.992007221626409e-16,
+    "worst_case": {
+      "name": "pairwise_synergistic_2",
+      "a": 0.5,
+      "B": 2.0,
+      "L": 8,
+      "max_abs_delta_m": 1.942890293094024e-15,
+      "assembly_error": 0.0,
+      "qubit": {
+        "mu_c": 0.01,
+        "chi_max": 0.3997654781212723,
+        "width": 2.14,
+        "m_at_mu_c": 0.9960007774154922,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 1.3245876645534622,
+        "peak_is_interior": false
+      },
+      "min_spectral_gap": 3.5800757179487377,
+      "mu_at_min_gap": 2.06,
+      "m_at_smallest_mu": 0.9960007774154928,
+      "m_at_largest_mu": 0.15520466776514266
+    },
+    "sharp_peak_asymptotics": [
+      {
+        "L": 4,
+        "mu_c": 0.15,
+        "mu_c_times_L": 0.6,
+        "width": 0.3,
+        "mu_half": 0.19755914331737598
+      },
+      {
+        "L": 6,
+        "mu_c": 0.15,
+        "mu_c_times_L": 0.8999999999999999,
+        "width": 0.16999999999999998,
+        "mu_half": 0.14373528595287505
+      },
+      {
+        "L": 8,
+        "mu_c": 0.13,
+        "mu_c_times_L": 1.04,
+        "width": 0.07999999999999999,
+        "mu_half": 0.11201424101152366
+      },
+      {
+        "L": 10,
+        "mu_c": 0.1,
+        "mu_c_times_L": 1.0,
+        "width": 0.03,
+        "mu_half": 0.09149057836278197
+      },
+      {
+        "L": 12,
+        "mu_c": 0.08,
+        "mu_c_times_L": 0.96,
+        "width": 0.01999999999999999,
+        "mu_half": 0.07704298924392597
+      },
+      {
+        "L": 14,
+        "mu_c": 0.07,
+        "mu_c_times_L": 0.9800000000000001,
+        "width": 0.020000000000000004,
+        "mu_half": 0.06636526195032531
+      },
+      {
+        "L": 16,
+        "mu_c": 0.06,
+        "mu_c_times_L": 0.96,
+        "width": 0.020000000000000004,
+        "mu_half": 0.058780605087451476
+      },
+      {
+        "L": 18,
+        "mu_c": 0.05,
+        "mu_c_times_L": 0.9,
+        "width": 0.009999999999999995,
+        "mu_half": 0.05181108032584389
+      },
+      {
+        "L": 20,
+        "mu_c": 0.05,
+        "mu_c_times_L": 1.0,
+        "width": 0.010000000000000002,
+        "mu_half": 0.04643605750130032
+      }
+    ],
+    "sharp_peak_gap_scaling": [
+      {
+        "L": 4,
+        "min_gap": 0.44046171401626266,
+        "mu_at_min_gap": 0.2615384615
+      },
+      {
+        "L": 6,
+        "min_gap": 0.218401289465038,
+        "mu_at_min_gap": 0.2012820513
+      },
+      {
+        "L": 8,
+        "min_gap": 0.11068050997565329,
+        "mu_at_min_gap": 0.1442307692
+      },
+      {
+        "L": 10,
+        "min_gap": 0.05630820111350623,
+        "mu_at_min_gap": 0.1153846154
+      },
+      {
+        "L": 12,
+        "min_gap": 0.031037621272698955,
+        "mu_at_min_gap": 0.0916666667
+      }
+    ],
+    "gap_decay_per_site": 0.7167436421588269,
+    "epistasis_half_surplus_crossover": {
+      "L4": {
+        "pairwise_additive": {
+          "mu_half": 0.3875983681521451,
+          "optimum_hamming_class": 0,
+          "optimum_multiplicity": 1,
+          "master_sequence_is_optimal": true,
+          "surplus_at_smallest_mu": 0.980199980003999
+        },
+        "pairwise_synergistic_1": {
+          "mu_half": 0.834367996959922,
+          "optimum_hamming_class": 0,
+          "optimum_multiplicity": 1,
+          "master_sequence_is_optimal": true,
+          "surplus_at_smallest_mu": 0.9933365335372222
+        },
+        "pairwise_synergistic_2": {
+          "mu_half": 1.2465978548492613,
+          "optimum_hamming_class": 0,
+          "optimum_multiplicity": 1,
+          "master_sequence_is_optimal": true,
+          "surplus_at_smallest_mu": 0.995999267685859
+        },
+        "pairwise_antagonistic": {
+          "mu_half": 0.30106658671044156,
+          "optimum_hamming_class": 1,
+          "optimum_multiplicity": 4,
+          "master_sequence_is_optimal": false,
+          "surplus_at_smallest_mu": 0.4630541625732671
+        }
+      },
+      "L6": {
+        "pairwise_additive": {
+          "mu_half": 0.3875983681521454,
+          "optimum_hamming_class": 0,
+          "optimum_multiplicity": 1,
+          "master_sequence_is_optimal": true,
+          "surplus_at_smallest_mu": 0.980199980003999
+        },
+        "pairwise_synergistic_1": {
+          "mu_half": 0.8520391113563072,
+          "optimum_hamming_class": 0,
+          "optimum_multiplicity": 1,
+          "master_sequence_is_optimal": true,
+          "surplus_at_smallest_mu": 0.993338492741425
+        },
+        "pairwise_synergistic_2": {
+          "mu_half": 1.3017481780232705,
+          "optimum_hamming_class": 0,
+          "optimum_multiplicity": 1,
+          "master_sequence_is_optimal": true,
+          "surplus_at_smallest_mu": 0.9960003827527815
+        },
+        "pairwise_antagonistic": {
+          "mu_half": 0.7041153288737411,
+          "optimum_hamming_class": 2,
+          "optimum_multiplicity": 15,
+          "master_sequence_is_optimal": false,
+          "surplus_at_smallest_mu": 0.34208235778210955
+        }
+      },
+      "L8": {
+        "pairwise_additive": {
+          "mu_half": 0.38759836815214516,
+          "optimum_hamming_class": 0,
+          "optimum_multiplicity": 1,
+          "master_sequence_is_optimal": true,
+          "surplus_at_smallest_mu": 0.9801999800039992
+        },
+        "pairwise_synergistic_1": {
+          "mu_half": 0.8594667952609985,
+          "optimum_hamming_class": 0,
+          "optimum_multiplicity": 1,
+          "master_sequence_is_optimal": true,
+          "surplus_at_smallest_mu": 0.9933392134899915
+        },
+        "pairwise_synergistic_2": {
+          "mu_half": 1.3245876645534598,
+          "optimum_hamming_class": 0,
+          "optimum_multiplicity": 1,
+          "master_sequence_is_optimal": true,
+          "surplus_at_smallest_mu": 0.9960007774154928
+        },
+        "pairwise_antagonistic": {
+          "mu_half": 0.42358371875183964,
+          "optimum_hamming_class": 2,
+          "optimum_multiplicity": 28,
+          "master_sequence_is_optimal": false,
+          "surplus_at_smallest_mu": 0.4336281300328082
+        }
+      }
+    },
+    "min_spectral_gap_over_all_cases": 0.001589878707556669,
+    "seconds": 49.13
+  },
+  "n_cases": 15,
+  "cases": [
+    {
+      "name": "single_peak",
+      "height": 1.0,
+      "L": 4,
+      "max_abs_delta_m": 5.828670879282072e-16,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.15,
+        "chi_max": 2.839472498185401,
+        "width": 0.3,
+        "m_at_mu_c": 0.6223339401741557,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.19755914331737598,
+        "peak_is_interior": true
+      },
+      "qubit": {
+        "mu_c": 0.15,
+        "chi_max": 2.8394724981854296,
+        "width": 0.3,
+        "m_at_mu_c": 0.6223339401741553,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.19755914331737598,
+        "peak_is_interior": true
+      },
+      "min_spectral_gap": 0.44036254149697285,
+      "mu_at_min_gap": 0.26,
+      "m_at_smallest_mu": 0.9796001648639732,
+      "m_at_largest_mu": 0.011301389595238583
+    },
+    {
+      "name": "pairwise_additive",
+      "a": 0.5,
+      "B": 0.0,
+      "L": 4,
+      "max_abs_delta_m": 4.996003610813204e-16,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.01,
+        "chi_max": 1.9400299748254857,
+        "width": 0.29,
+        "m_at_mu_c": 0.980199980003999,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.3875983681521451,
+        "peak_is_interior": false
+      },
+      "qubit": {
+        "mu_c": 0.01,
+        "chi_max": 1.9400299748254524,
+        "width": 0.29,
+        "m_at_mu_c": 0.9801999800039991,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.3875983681521453,
+        "peak_is_interior": false
+      },
+      "min_spectral_gap": 1.0001999800039982,
+      "mu_at_min_gap": 0.01,
+      "m_at_smallest_mu": 0.980199980003999,
+      "m_at_largest_mu": 0.0827625302982196
+    },
+    {
+      "name": "pairwise_synergistic_1",
+      "a": 0.5,
+      "B": 1.0,
+      "L": 4,
+      "max_abs_delta_m": 6.661338147750939e-16,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.01,
+        "chi_max": 0.6656961968048658,
+        "width": 1.18,
+        "m_at_mu_c": 0.9933365335372222,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.834367996959922,
+        "peak_is_interior": false
+      },
+      "qubit": {
+        "mu_c": 0.01,
+        "chi_max": 0.6656961968048325,
+        "width": 1.18,
+        "m_at_mu_c": 0.993336533537222,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.8343679969599217,
+        "peak_is_interior": false
+      },
+      "min_spectral_gap": 2.432808862921699,
+      "mu_at_min_gap": 1.01,
+      "m_at_smallest_mu": 0.9933365335372222,
+      "m_at_largest_mu": 0.10792972034469872
+    },
+    {
+      "name": "pairwise_synergistic_2",
+      "a": 0.5,
+      "B": 2.0,
+      "L": 4,
+      "max_abs_delta_m": 1.0269562977782698e-15,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.65,
+        "chi_max": 0.4116046322549778,
+        "width": 1.9999999999999998,
+        "m_at_mu_c": 0.735920362380799,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 1.2465978548492613,
+        "peak_is_interior": true
+      },
+      "qubit": {
+        "mu_c": 0.65,
+        "chi_max": 0.4116046322549778,
+        "width": 1.9999999999999998,
+        "m_at_mu_c": 0.7359203623807993,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 1.2465978548492598,
+        "peak_is_interior": true
+      },
+      "min_spectral_gap": 2.9545799263701333,
+      "mu_at_min_gap": 1.6,
+      "m_at_smallest_mu": 0.995999267685859,
+      "m_at_largest_mu": 0.14661781112825478
+    },
+    {
+      "name": "pairwise_antagonistic",
+      "a": 0.5,
+      "B": -1.0,
+      "L": 4,
+      "max_abs_delta_m": 4.996003610813204e-16,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.01,
+        "chi_max": 3.112857271861008,
+        "width": 0.04,
+        "m_at_mu_c": 0.4630541625732671,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.30106658671044156,
+        "peak_is_interior": false
+      },
+      "qubit": {
+        "mu_c": 0.01,
+        "chi_max": 3.1128572718610026,
+        "width": 0.04,
+        "m_at_mu_c": 0.4630541625732672,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.30106658671044134,
+        "peak_is_interior": false
+      },
+      "min_spectral_gap": 0.001589878707556669,
+      "mu_at_min_gap": 0.01,
+      "m_at_smallest_mu": 0.4630541625732671,
+      "m_at_largest_mu": 0.06618492605878566
+    },
+    {
+      "name": "single_peak",
+      "height": 1.0,
+      "L": 6,
+      "max_abs_delta_m": 1.5543122344752192e-15,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.15,
+        "chi_max": 5.199949521537601,
+        "width": 0.16999999999999998,
+        "m_at_mu_c": 0.45709829049417033,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.14373528595287505,
+        "peak_is_interior": true
+      },
+      "qubit": {
+        "mu_c": 0.15,
+        "chi_max": 5.1999495215376115,
+        "width": 0.16999999999999998,
+        "m_at_mu_c": 0.45709829049417017,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.14373528595287507,
+        "peak_is_interior": true
+      },
+      "min_spectral_gap": 0.21810149008070207,
+      "mu_at_min_gap": 0.2,
+      "m_at_smallest_mu": 0.9791796845756638,
+      "m_at_largest_mu": 0.0027796824083070708
+    },
+    {
+      "name": "pairwise_additive",
+      "a": 0.5,
+      "B": 0.0,
+      "L": 6,
+      "max_abs_delta_m": 8.881784197001252e-16,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.01,
+        "chi_max": 1.9400299748254635,
+        "width": 0.29,
+        "m_at_mu_c": 0.980199980003999,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.3875983681521454,
+        "peak_is_interior": false
+      },
+      "qubit": {
+        "mu_c": 0.01,
+        "chi_max": 1.9400299748254524,
+        "width": 0.29,
+        "m_at_mu_c": 0.9801999800039981,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.38759836815214593,
+        "peak_is_interior": false
+      },
+      "min_spectral_gap": 1.0001999800039958,
+      "mu_at_min_gap": 0.01,
+      "m_at_smallest_mu": 0.980199980003999,
+      "m_at_largest_mu": 0.08276253029821978
+    },
+    {
+      "name": "pairwise_synergistic_1",
+      "a": 0.5,
+      "B": 1.0,
+      "L": 6,
+      "max_abs_delta_m": 1.3322676295501878e-15,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.01,
+        "chi_max": 0.665106263737214,
+        "width": 1.2,
+        "m_at_mu_c": 0.993338492741425,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.8520391113563072,
+        "peak_is_interior": false
+      },
+      "qubit": {
+        "mu_c": 0.01,
+        "chi_max": 0.6651062637370919,
+        "width": 1.2,
+        "m_at_mu_c": 0.9933384927414244,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.8520391113563087,
+        "peak_is_interior": false
+      },
+      "min_spectral_gap": 2.606354674524872,
+      "mu_at_min_gap": 1.1,
+      "m_at_smallest_mu": 0.993338492741425,
+      "m_at_largest_mu": 0.10872059377122939
+    },
+    {
+      "name": "pairwise_synergistic_2",
+      "a": 0.5,
+      "B": 2.0,
+      "L": 6,
+      "max_abs_delta_m": 1.0547118733938987e-15,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.01,
+        "chi_max": 0.39988444778289445,
+        "width": 2.1100000000000003,
+        "m_at_mu_c": 0.9960003827527815,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 1.3017481780232705,
+        "peak_is_interior": false
+      },
+      "qubit": {
+        "mu_c": 0.01,
+        "chi_max": 0.39988444778289445,
+        "width": 2.1100000000000003,
+        "m_at_mu_c": 0.996000382752781,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 1.3017481780232718,
+        "peak_is_interior": false
+      },
+      "min_spectral_gap": 3.3661431899970635,
+      "mu_at_min_gap": 1.92,
+      "m_at_smallest_mu": 0.9960003827527815,
+      "m_at_largest_mu": 0.1522462891789553
+    },
+    {
+      "name": "pairwise_antagonistic",
+      "a": 0.5,
+      "B": -1.0,
+      "L": 6,
+      "max_abs_delta_m": 5.828670879282072e-16,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.07,
+        "chi_max": 0.5213747611395974,
+        "width": 0.24999999999999997,
+        "m_at_mu_c": 0.32761352126967486,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.7041153288737411,
+        "peak_is_interior": true
+      },
+      "qubit": {
+        "mu_c": 0.07,
+        "chi_max": 0.5213747611395867,
+        "width": 0.24999999999999997,
+        "m_at_mu_c": 0.3276135212696749,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.7041153288737396,
+        "peak_is_interior": true
+      },
+      "min_spectral_gap": 0.003859738495289644,
+      "mu_at_min_gap": 0.01,
+      "m_at_smallest_mu": 0.34208235778210955,
+      "m_at_largest_mu": 0.06643194199627016
+    },
+    {
+      "name": "single_peak",
+      "height": 1.0,
+      "L": 8,
+      "max_abs_delta_m": 9.992007221626409e-16,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.13,
+        "chi_max": 9.768261336695039,
+        "width": 0.07999999999999999,
+        "m_at_mu_c": 0.3177435773727806,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.11201424101152366,
+        "peak_is_interior": true
+      },
+      "qubit": {
+        "mu_c": 0.13,
+        "chi_max": 9.768261336695105,
+        "width": 0.07999999999999999,
+        "m_at_mu_c": 0.3177435773727805,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.11201424101152362,
+        "peak_is_interior": true
+      },
+      "min_spectral_gap": 0.11053022807258432,
+      "mu_at_min_gap": 0.15,
+      "m_at_smallest_mu": 0.978741507468021,
+      "m_at_largest_mu": 0.00068412624597146
+    },
+    {
+      "name": "pairwise_additive",
+      "a": 0.5,
+      "B": 0.0,
+      "L": 8,
+      "max_abs_delta_m": 9.992007221626409e-16,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.01,
+        "chi_max": 1.9400299748255079,
+        "width": 0.29,
+        "m_at_mu_c": 0.9801999800039992,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.38759836815214516,
+        "peak_is_interior": false
+      },
+      "qubit": {
+        "mu_c": 0.01,
+        "chi_max": 1.9400299748255523,
+        "width": 0.29,
+        "m_at_mu_c": 0.980199980004,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.3875983681521448,
+        "peak_is_interior": false
+      },
+      "min_spectral_gap": 1.0001999800039951,
+      "mu_at_min_gap": 0.01,
+      "m_at_smallest_mu": 0.9801999800039992,
+      "m_at_largest_mu": 0.08276253029821977
+    },
+    {
+      "name": "pairwise_synergistic_1",
+      "a": 0.5,
+      "B": 1.0,
+      "L": 8,
+      "max_abs_delta_m": 1.4432899320127035e-15,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.01,
+        "chi_max": 0.6648896601069376,
+        "width": 1.2,
+        "m_at_mu_c": 0.9933392134899915,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.8594667952609985,
+        "peak_is_interior": false
+      },
+      "qubit": {
+        "mu_c": 0.01,
+        "chi_max": 0.6648896601069265,
+        "width": 1.2,
+        "m_at_mu_c": 0.9933392134899918,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.8594667952609986,
+        "peak_is_interior": false
+      },
+      "min_spectral_gap": 2.684154102801637,
+      "mu_at_min_gap": 1.12,
+      "m_at_smallest_mu": 0.9933392134899915,
+      "m_at_largest_mu": 0.10909002166002195
+    },
+    {
+      "name": "pairwise_synergistic_2",
+      "a": 0.5,
+      "B": 2.0,
+      "L": 8,
+      "max_abs_delta_m": 1.942890293094024e-15,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.01,
+        "chi_max": 0.3997654781213389,
+        "width": 2.14,
+        "m_at_mu_c": 0.9960007774154928,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 1.3245876645534598,
+        "peak_is_interior": false
+      },
+      "qubit": {
+        "mu_c": 0.01,
+        "chi_max": 0.3997654781212723,
+        "width": 2.14,
+        "m_at_mu_c": 0.9960007774154922,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 1.3245876645534622,
+        "peak_is_interior": false
+      },
+      "min_spectral_gap": 3.5800757179487377,
+      "mu_at_min_gap": 2.06,
+      "m_at_smallest_mu": 0.9960007774154928,
+      "m_at_largest_mu": 0.15520466776514266
+    },
+    {
+      "name": "pairwise_antagonistic",
+      "a": 0.5,
+      "B": -1.0,
+      "L": 8,
+      "max_abs_delta_m": 7.216449660063518e-16,
+      "assembly_error": 0.0,
+      "analytic": {
+        "mu_c": 0.01,
+        "chi_max": 3.246593400974834,
+        "width": 0.01,
+        "m_at_mu_c": 0.4336281300328082,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.42358371875183964,
+        "peak_is_interior": false
+      },
+      "qubit": {
+        "mu_c": 0.01,
+        "chi_max": 3.2465934009747843,
+        "width": 0.01,
+        "m_at_mu_c": 0.4336281300328084,
+        "grid_spacing": 0.009999999999999787,
+        "mu_half": 0.4235837187518402,
+        "peak_is_interior": false
+      },
+      "min_spectral_gap": 0.006689746237467542,
+      "mu_at_min_gap": 0.01,
+      "m_at_smallest_mu": 0.4336281300328082,
+      "m_at_largest_mu": 0.06653340886806114
+    }
+  ],
+  "notes": "Threshold location is a diagnostic, not a pass condition, and so is the direction in which epistasis moves it. The planning documents state an expected direction; requiring it would not be a measurement. Two location measures are recorded because the susceptibility peak is undefined for landscapes additive in the surplus, which decay monotonically with steepest slope at zero mutation rate.",
+  "env": {
+    "git_sha": "5736a4a325731a0c73b05c9cbddf800a7b79b295",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "81500c0dd55ed37035ef1380dd1c30df3f7d8bcf5ee4af96707929ba78e9eaf7"
+  },
+  "timestamp": "2026-08-09T15:16:13.142385+00:00"
+}

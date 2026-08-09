@@ -41,6 +41,9 @@ jobs:
       - name: Claims ledger resolves
         run: python scripts/check_claims.py --allow-planned
 
+      - name: Committed results were produced in the pinned image
+        run: python scripts/check_results_provenance.py
+
   secrets:
     runs-on: ubuntu-latest
     steps:
