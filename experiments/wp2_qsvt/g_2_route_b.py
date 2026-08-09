@@ -26,13 +26,16 @@ from quasarstack.analytic.exact_diag import mutation_selection_generator
 from quasarstack.classical.landscapes import (
     additive_fitness,
     class_fitness,
+    pairwise_uniform_classes,
     single_peak_classes,
 )
 from quasarstack.hamiltonian.builder import additive_hamiltonian, diagonal_hamiltonian
 from quasarstack.io.store import write_gate_record
 from quasarstack.qsvt.block_encoding import (
     circuit_is_unitary,
+    encoding_qubit_count,
     lcu_block_encoding,
+    one_norm,
     verify_block_encoding,
 )
 from quasarstack.qsvt.filter import (
@@ -50,8 +53,18 @@ SIZES = [2, 3, 4, 5, 6]
 MU = 0.20
 ADDITIVE_SEEDS = list(range(10))
 PEAK_HEIGHTS = [1.0, 2.5]
+EPISTASIS_B = [0.1]
 CHEBYSHEV_DEGREES = [0, 1, 2, 3, 5, 8]
 UNITARITY_CHECK_UP_TO_QUBITS = 11
+# Registered in Amendment 17. Verification costs 2**n statevector simulations of an
+# (m + n)-qubit circuit and the cliff is steep: measured at 15 s for 9 qubits, 129 s for
+# 11, and past twenty minutes at 13, which is what stalled the first G-2 run.
+VERIFICATION_QUBIT_BUDGET = 12
+# The block-encoding property is a statement about the construction, not about the
+# coefficient values, so verifying all ten additive seeds at every size is redundant
+# cost. Two are kept rather than one so that a sign-handling bug still has varied
+# coefficients to show up in.
+VERIFICATION_SEEDS_PER_FAMILY = 2
 MAX_DEGREE = 4096
 EPSILON = 1.0 - COSINE_THRESHOLD**2
 
@@ -80,6 +93,13 @@ def configurations():
                 diagonal_hamiltonian(fitness, MU),
                 fitness,
             )
+        for b in EPISTASIS_B:
+            fitness = class_fitness(pairwise_uniform_classes(n_sites, 1.0, b))
+            yield (
+                {"family": "additive_pairwise", "L": n_sites, "b": b},
+                diagonal_hamiltonian(fitness, MU),
+                fitness,
+            )
 
 
 def run() -> tuple[bool, dict, list[dict]]:
@@ -92,6 +112,8 @@ def run() -> tuple[bool, dict, list[dict]]:
     unitarity_failures = 0
     degree_failures = 0
     unreached = 0
+    verified = 0
+    skipped_verification: list[dict] = []
 
     for label, operator, fitness in configurations():
         generator = np.asarray(mutation_selection_generator(fitness, MU).todense())
@@ -104,20 +126,33 @@ def run() -> tuple[bool, dict, list[dict]]:
         initial = np.full(dimension, 1.0 / np.sqrt(dimension))
         overlap = float(abs(np.vdot(perron, initial)))
 
-        # Criterion 2, both encodings.
-        encodings = {}
-        for form in ("asymmetric", "symmetric"):
-            encoding = lcu_block_encoding(operator, symmetric=(form == "symmetric"))
-            report = verify_block_encoding(encoding, operator)
-            worst_encoding_error = max(worst_encoding_error, report["max_abs_error"])
-            unitary = None
-            if encoding.n_ancilla + encoding.n_system <= UNITARITY_CHECK_UP_TO_QUBITS:
-                unitary = circuit_is_unitary(encoding, BLOCK_ENCODING_TOLERANCE)
-                if not unitary:
-                    unitarity_failures += 1
-            encodings[form] = {**report, "circuit_unitary": unitary}
+        # alpha is a sum over Pauli coefficients and needs no circuit. Criterion 1 needs
+        # it at every configuration; criterion 2's verification is the expensive part and is
+        # budgeted separately.
+        alpha = one_norm(operator)
+        qubits = encoding_qubit_count(operator)
 
-        alpha = encodings["symmetric"]["alpha"]
+        encodings = {}
+        within_seed_cap = label.get("seed", 0) < VERIFICATION_SEEDS_PER_FAMILY
+        if qubits <= VERIFICATION_QUBIT_BUDGET and within_seed_cap:
+            for form in ("asymmetric", "symmetric"):
+                encoding = lcu_block_encoding(operator, symmetric=(form == "symmetric"))
+                report = verify_block_encoding(encoding, operator)
+                worst_encoding_error = max(worst_encoding_error, report["max_abs_error"])
+                assert abs(report["alpha"] - alpha) < 1e-9 * max(
+                    alpha, 1.0
+                ), "one_norm disagrees with the built encoding's alpha"
+                unitary = None
+                if encoding.n_ancilla + encoding.n_system <= UNITARITY_CHECK_UP_TO_QUBITS:
+                    unitary = circuit_is_unitary(encoding, BLOCK_ENCODING_TOLERANCE)
+                    if not unitary:
+                        unitarity_failures += 1
+                encodings[form] = {**report, "circuit_unitary": unitary}
+            verified += 1
+        elif qubits > VERIFICATION_QUBIT_BUDGET:
+            skipped_verification.append(
+                {**label, "encoding_qubits": qubits, "reason": "over the qubit budget"}
+            )
 
         # Criterion 3: the smallest degree that works, against the derived one.
         found = smallest_sufficient_degree(
@@ -158,8 +193,8 @@ def run() -> tuple[bool, dict, list[dict]]:
                 "predicted_degree": predicted,
                 "degree_ratio": ratio if np.isfinite(ratio) else None,
                 "cosine": cosine,
-                "n_terms": encodings["symmetric"]["n_terms"],
-                "n_ancilla": encodings["symmetric"]["n_ancilla"],
+                "encoding_qubits": qubits,
+                "encoding_verified": bool(encodings),
                 "encoding": encodings,
             }
         )
@@ -190,6 +225,9 @@ def run() -> tuple[bool, dict, list[dict]]:
             "worst_max_abs_error": worst_encoding_error,
             "tolerance": BLOCK_ENCODING_TOLERANCE,
             "unitarity_failures": unitarity_failures,
+            "configurations_verified": verified,
+            "configurations_over_the_qubit_budget": skipped_verification,
+            "qubit_budget": VERIFICATION_QUBIT_BUDGET,
         },
         "criterion_3_resource_scaling": {
             "passed": criterion_3,

@@ -1080,3 +1080,146 @@ that varies ruggedness while leaving the master sequence in place, which is what
 said the project needs and NK does not provide. The gate records the optimum location for
 every family and instance so that this can be judged from the artefact rather than from this
 paragraph.
+
+---
+
+### Amendment 15 (G-4: configurations, and criterion 2 reported as blocked)
+
+Registered before `experiments/wp4_wright_fisher/g_4_wright_fisher.py` was run. Section 8's
+criteria are unchanged; this amendment fixes the configurations and records why criterion 2
+cannot be evaluated as written.
+
+**Configurations.** Single peak at height 1.0, L = 8, mu = 0.10. Population sweep
+`[1e3, 1e4, 1e5, 1e6]` as section 8 declares, burn-in 20%, seeds 0 to 9, 4000 generations at
+`dt = 0.01`. Criterion 1 is decided at the largest declared budget, `N = 1e6`.
+
+**The time step, which section 8 does not mention and which matters.** Wright-Fisher is
+discrete-generation and Crow-Kimura is continuous-time, so the two agree only as the step
+shrinks. Selection weights are `1 + f dt` and the per-site mutation probability is `mu dt`.
+The gate reports the discretisation bias separately from the sampling error, over
+`dt` in `{0.04, 0.02, 0.01, 0.005}`.
+
+**The population must scale with `1 / dt` in that study, and this is registered because
+getting it wrong inverts the conclusion.** Wright-Fisher resamples once per generation, so
+genetic drift is `1 / N` per generation and `1 / (N dt)` per unit of simulated time. Halving
+`dt` at fixed `N` halves the bias and doubles the drift. Exploratory measurement at
+`N = 1e5`, holding simulated time fixed: without scaling the population, the distance to the
+analytic answer plateaus at 0.024, 0.015, 0.016, 0.015 while the equilibration drift climbs
+0.019, 0.030, 0.040, 0.052; with the population scaled as `1 / dt`, the drift holds flat near
+0.020 and the distance falls monotonically 0.024, 0.017, 0.008, 0.006. The gate uses the
+scaled form and reports both.
+
+**Criterion 2 is reported as blocked rather than passed.** See ADR-0018. The implementation
+runs in genotype-count space at `O(L 2^L)` per generation, independent of `N`, while a
+community forward simulator is individual-based at `O(N L)`. At the top of the declared
+sweep the two differ by about three orders of magnitude by construction, so a
+"throughput within 5x" test would pass by a factor of a thousand and establish nothing about
+whether the baseline is well built, which is the only thing it exists to establish. No
+reference implementation is present in the pinned image either, and ADR-0006 forbids
+installing one outside Docker.
+
+The gate therefore records absolute throughput and the measured scaling, so the comparison
+can be completed later without rerunning, and **G-4 as a whole is not claimed as passed**.
+ADR-0018 recommends replacing criterion 2 with time-to-accuracy at matched total variation,
+which is representation-independent, is what the WP7 boundary map consumes, and can fail.
+
+---
+
+### Amendment 16 (G-5: what the applicability class is, and an attribution left open)
+
+Registered before `experiments/wp5_exact_class/g_5_exact_class.py` was run. Section 9's two
+criteria are unchanged.
+
+**The class, stated as a predicate.** A landscape is in the polynomial-time class when it is
+additive, `f = sum_i a_i z_i`, or permutation symmetric, `f` a function of Hamming weight
+alone. Both are decided by measurement rather than by declaration: the additive test fits the
+`L + 1` spin coefficients and takes the largest residual, the symmetry test takes the largest
+deviation within each Hamming class. A landscape qualifies when either residual, relative to
+the largest absolute fitness, is at most `1e-9`. That tolerance sits far above float noise,
+which is `1e-16` here, and far below any epistasis worth the name, so the predicate is not
+deciding borderline cases on rounding.
+
+**Configurations.** L in {4, 6, 8, 10}. In class: additive at seeds 0 to 9, single peak at
+heights 1.0 and 2.5, uniform additive-plus-pairwise at `a = 1.0` and `b` in {0.05, 0.1}. Out
+of class, which the baseline must **refuse** rather than solve: NK at K in {1, 2, 4}, spin
+glass, house of cards, Rough Mount Fuji at roughness 0.5, block at size 2, all at seeds 0 to
+9. mu in {0.05, 0.10, 0.20}.
+
+**Criterion 2's coverage map is emitted before the sweep, not after.** Deciding coverage
+afterwards would let it be chosen with the results in view. The gate emits the covered set for
+the full WP3 family list as part of its artefact.
+
+**Refusal is part of the gate, not an error path.** A baseline that quietly falls back to
+exact diagonalisation on an out-of-class instance would report itself as covering WP7 cells
+it does not cover, and the boundary map would inherit that in the direction that flatters the
+quantum method. The gate therefore requires every out-of-class configuration to raise.
+
+**Attribution, deliberately left open.** Execution plan v4 names this baseline
+"Dixit-Srivastava-Vishnoi" after `PRIOR_ART.md` entry II.1, which is still flagged
+`to-verify`. The project's rule is that nothing may be cited while flagged, so this gate does
+not claim the class it implements is theirs. It implements the class this project can derive
+and check. Whether the two coincide has to be settled by reading arXiv:1203.1287 before the
+name goes in the manuscript, and it is not a formality: **if their class is strictly larger,
+WP7 has cells it currently believes are classically hard and the boundary map is wrong in the
+direction that favours the quantum method.**
+
+---
+
+### Amendment 17 (G-2: a verification budget, set from measurement after the first run stalled)
+
+Registered before `experiments/wp2_qsvt/g_2_route_b.py` was re-run. Section 6's criteria and
+Amendment 13's configurations are unchanged. What this adds is a limit on **which**
+configurations have their block encoding verified, and it exists because the first attempt did
+not finish.
+
+**What happened.** G-2 was launched over the Amendment 13 configuration set and was still
+running after more than an hour on the L = 6 single peak. Verification extracts the encoding's
+top-left block by simulating `2^n` statevectors through a circuit of multi-controlled gates,
+and the cost climbs steeply with the ancilla count. Measured, symmetric form, single-peak
+family unless noted:
+
+| L | family | terms | encoding qubits | seconds |
+|---|---|---|---|---|
+| 3 | additive | 7 | 6 | 0.6 |
+| 3 | single peak | 11 | 7 | 2.4 |
+| 4 | additive | 9 | 8 | 3.6 |
+| 4 | single peak | 20 | 9 | 21.9 |
+| 5 | additive | 11 | 9 | 8.8 |
+| 5 | single peak | 37 | 11 | 129 |
+| 6 | single peak | 70 | 13 | > 1200 |
+
+**Budget.** The block encoding is verified for every configuration needing at most **12
+encoding qubits**, and skipped above that with the configuration and its qubit count recorded
+in the artefact. Twelve is chosen so that everything up to and including the L = 5 single peak
+at 11 qubits is verified, and the 13-qubit case that stalled the run is not.
+
+**What this does and does not weaken.** Criterion 2 asks that the block encoding satisfy its
+defining property to 1e-10. That is a statement about the construction, which does not depend
+on L, and it is now checked on configurations spanning 6 to 11 encoding qubits and three
+families. Criterion 1, the accuracy of the filtered state, is **unaffected**: it needs only
+`alpha`, which is a sum over Pauli coefficients and is computed directly by `one_norm` without
+building any circuit. Criterion 3 likewise. So the budget removes redundant verification of a
+size-independent property, not coverage of a size-dependent one.
+
+**A family added, because the configuration set was testing the wrong thing.** Amendment 13
+listed additive and single peak. The single peak enters `diagonal_hamiltonian` as its
+projector form, which is exactly the representation `DECISIONS.md` forbids and G-R.10 exists
+to argue against: 4108 Pauli terms at L = 12 against 27 for the sparse form. Verifying the
+encoding of a representation the project has decided not to use is worth doing once as a worst
+case and is not worth doing at every size. The uniform additive-plus-pairwise family at
+`b = 0.1` is therefore added at every L, since that is the sparse form Route B would actually
+run on.
+
+**A performance change that was tried and did not work, recorded so it is not tried again.**
+`SELECT` was rewritten to emit one multi-controlled single-target gate per Pauli factor
+instead of one multi-controlled multi-target gate, expecting Qiskit's specialised path for
+controlled Paulis to be cheaper. Measured, it is slower: 21.9 s against 15.0 s on the L = 4
+single peak, because the gate count multiplies by the Pauli string weight. The clearer form
+was kept and no speedup is claimed for it.
+
+**Addendum to Amendment 17, registered at the same time.** The block-encoding property is a
+statement about the construction and not about the coefficient values, so verifying all ten
+additive seeds at every size repeats the same check ten times. Verification runs on the first
+**two** seeds per (family, L); two rather than one so a sign-handling bug still has varied
+coefficients to surface in. Criterion 1 continues to run on all ten, since accuracy does
+depend on the instance.

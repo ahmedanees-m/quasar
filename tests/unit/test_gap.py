@@ -152,3 +152,27 @@ def test_negative_mutation_rate_is_rejected() -> None:
     ):
         with pytest.raises(ValueError, match="non-negative"):
             call()
+
+
+def test_extended_precision_needs_no_dependency_outside_the_standard_library() -> None:
+    """G-1 failed after a six-minute run on `ModuleNotFoundError: mpmath`.
+
+    The docstring had asserted that the pinned image pulls mpmath in through sympy, which is
+    true of a sympy install and not of this one, and nothing checked it. The extended path
+    now uses `decimal` from the standard library. This test fails if it ever grows a
+    third-party import again, which is cheaper than another six minutes.
+    """
+    import ast
+    from pathlib import Path
+
+    source = (
+        Path(__file__).resolve().parents[2] / "quasarstack" / "spectral" / "gap.py"
+    ).read_text(encoding="utf-8")
+    allowed = {"numpy", "scipy", "quasarstack", "decimal", "typing", "__future__"}
+    imported = set()
+    for node in ast.walk(ast.parse(source)):
+        if isinstance(node, ast.Import):
+            imported.update(alias.name.split(".")[0] for alias in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            imported.add(node.module.split(".")[0])
+    assert imported <= allowed, f"gap.py imports something unvetted: {imported - allowed}"

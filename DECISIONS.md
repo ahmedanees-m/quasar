@@ -620,3 +620,56 @@ coincide exactly. The ruggedness axis for WP7 should be Rough Mount Fuji for the
 the spin glass for the compilation question, and those are different axes because the spin
 glass is the only rugged family whose Pauli count stays polynomial, at `L(L-1)/2 + L + 1`
 terms against `2**L` for Rough Mount Fuji at any non-zero roughness.
+
+---
+
+## ADR-0018 — G-4's throughput criterion compares two different complexity classes and would pass for the wrong reason
+
+**Status.** Finding accepted; the replacement criterion needs both PIs.
+**Date.** 10 August 2026.
+
+**Context.** `GATES.md` section 8 requires that the Wright-Fisher baseline's "throughput is
+within 5x of the reference community implementation on a matched configuration", and adds
+that "falling outside 5x is a fail and the implementation is optimised, not excused". The
+intent is clear and right: stop the project from comparing a quantum method against a
+deliberately weak baseline.
+
+**What the implementation turned out to be.** Individuals in Wright-Fisher are exchangeable,
+so nothing depends on which individual carries a genotype, only on how many do. Carrying the
+`2^L` genotype counts instead of `N` individuals makes a generation cost `O(L 2^L)`
+**independent of N**, with no approximation: selection is the same multinomial draw, and
+mutation factorises over sites into binomials because the site flips commute. Measured, five
+seeds and 4000 generations at L = 8 take about ten seconds at `N = 10^3` and about ten
+seconds at `N = 10^6`.
+
+**Why the criterion cannot be evaluated as written.** A community forward simulator is
+individual-based and costs `O(N L)` per generation. At the top of the declared sweep,
+`N = 10^6`, the two implementations differ by roughly three orders of magnitude *by
+construction*. The gate would pass by a factor of a thousand and would have established
+nothing about whether our baseline is well built, which is the only thing it was there to
+establish. A criterion that cannot fail is not a criterion.
+
+The comparison also has a crossover that the criterion does not anticipate. Count space wins
+while `2^L` is smaller than `N`, and loses beyond roughly `L = 20` where `2^L` overtakes any
+population a forward simulator would run. The project's grid stops well below that, so count
+space is the right choice here and the wrong one for a general-purpose tool.
+
+**A second obstacle, separate from the first.** No reference community implementation is
+present in the pinned image, and ADR-0006 forbids installing software on the VM outside
+Docker. Adding one means rebuilding the image, which is a disk-budget decision on a machine
+with 42 GB free that also hosts other people's projects.
+
+**Decision.** G-4 criterion 1 is run and reported. **Criterion 2 is reported as blocked, not
+as passed**, with the reason above, and the gate records absolute throughput and the measured
+`O(L 2^L)` scaling so the comparison can be completed later without rerunning anything.
+
+**Recommended replacement, for the PIs.** Replace "throughput within 5x" with
+**time-to-accuracy at matched total-variation distance**: the wall-clock each implementation
+needs to reach TV 0.02 against the analytic quasispecies at L = 8. That is invariant to the
+representation, it is the quantity the WP7 boundary map actually consumes, and it can fail.
+It also composes with ADR-0013's recommendation that WP7 report budget-to-accuracy alongside
+accuracy-at-budget, so the two decisions want the same measurement.
+
+**Consequences.** `GATES.md` section 8 needs an appended amendment before G-4 can be called
+passed. Nothing else depends on criterion 2. Criterion 1 is unaffected and is met: total
+variation `0.0051` at `N = 10^6`, against a threshold of `0.02`.

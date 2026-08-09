@@ -254,52 +254,54 @@ def _sturm_count_below(diagonal: list, offdiagonal_squared: list, x, tiny) -> in
 def class_gap_extended(f_by_class, mu, dps: int = 60):
     """Gap within the symmetric sector at ``dps`` decimal digits, by Sturm bisection.
 
-    Returns an ``mpmath.mpf``. Use where float64 cannot be trusted: near the error threshold,
-    or beyond L of roughly 64 anywhere. ``mu`` and the class fitnesses are accepted as
-    anything ``mpmath.mpf`` can take, including strings, which is the way to avoid
-    contaminating a high-precision calculation with a float64 literal.
-    """
-    try:
-        from mpmath import mp, mpf
-    except ImportError as exc:  # pragma: no cover - the image ships mpmath via sympy
-        raise ImportError(
-            "class_gap_extended needs mpmath, which the pinned image provides through "
-            "sympy. Install it, or use class_gap and accept the float64 resolution floor."
-        ) from exc
+    Returns a ``decimal.Decimal``. Use where float64 cannot be trusted: near the error
+    threshold, or beyond L of roughly 64 anywhere. ``mu`` and the class fitnesses are
+    accepted as anything ``Decimal`` takes, and **strings are the right way to pass them**,
+    because ``Decimal(0.1)`` captures the float64 approximation to 0.1 and quietly
+    contaminates a sixty-digit calculation with sixteen digits of accuracy.
 
-    previous = mp.dps
-    try:
-        mp.dps = dps
-        mu = mpf(mu)
-        classes = [mpf(v) for v in f_by_class]
+    Uses the standard library rather than mpmath, which is not in the pinned image. That was
+    discovered the hard way: an earlier version asserted in this docstring that sympy pulls
+    mpmath in, which is true of a sympy install and not of this one, and G-1 failed on the
+    import after a six-minute run. `decimal` needs no dependency and the Sturm recurrence
+    uses only arithmetic and comparison, with one square root for the Gershgorin bound.
+    """
+    from decimal import Decimal, localcontext
+
+    with localcontext() as context:
+        # A margin over the requested digits so the working precision does not itself
+        # become the error floor during the bisection.
+        context.prec = dps + 10
+
+        mu = Decimal(mu)
+        classes = [Decimal(v) for v in f_by_class]
         n_sites = len(classes) - 1
 
         diagonal = [f - mu * n_sites for f in classes]
-        off_squared = [mu**2 * mpf(d + 1) * (n_sites - d) for d in range(n_sites)]
-        tiny = mpf(10) ** (-dps - 10)
+        off_squared = [mu**2 * Decimal(d + 1) * Decimal(n_sites - d) for d in range(n_sites)]
+        tiny = Decimal(10) ** (-dps - 10)
 
         # Gershgorin: every eigenvalue lies within one row's radius of its diagonal entry.
-        radii = [mp.sqrt(off_squared[0]) if n_sites else mpf(0)]
+        radii = [off_squared[0].sqrt() if n_sites else Decimal(0)]
         for i in range(1, n_sites):
-            radii.append(mp.sqrt(off_squared[i - 1]) + mp.sqrt(off_squared[i]))
-        radii.append(mp.sqrt(off_squared[-1]) if n_sites else mpf(0))
+            radii.append(off_squared[i - 1].sqrt() + off_squared[i].sqrt())
+        radii.append(off_squared[-1].sqrt() if n_sites else Decimal(0))
         lo = min(diagonal[i] - radii[i] for i in range(n_sites + 1)) - 1
         hi = max(diagonal[i] + radii[i] for i in range(n_sites + 1)) + 1
 
-        target = (hi - lo) * mpf(10) ** (-dps + 5)
+        target = (hi - lo) * Decimal(10) ** (-dps + 5)
+        two = Decimal(2)
         found = []
         for k in (n_sites, n_sites - 1):  # 0-indexed ascending: the top two
             left, right = lo, hi
             while right - left > target:
-                middle = (left + right) / 2
+                middle = (left + right) / two
                 if _sturm_count_below(diagonal, off_squared, middle, tiny) <= k:
                     left = middle
                 else:
                     right = middle
-            found.append((left + right) / 2)
+            found.append((left + right) / two)
         return found[0] - found[1]
-    finally:
-        mp.dps = previous
 
 
 def locate_gap_minimum(
@@ -331,15 +333,15 @@ def locate_gap_minimum(
         Golden-section steps. Each shrinks the bracket by a factor of 0.618, so 220 steps
         take a bracket of order ``1 / L`` down to about 1e-46.
     """
-    from mpmath import mp, mpf
+    from decimal import Decimal, localcontext
 
-    previous = mp.dps
-    try:
-        mp.dps = dps
+    with localcontext() as context:
+        context.prec = dps + 10
         classes = f_by_class_of(n_sites)
-        invphi = (mp.sqrt(5) - 1) / 2
+        two = Decimal(2)
+        invphi = (Decimal(5).sqrt() - 1) / two
 
-        a, b = mpf(mu_low), mpf(mu_high)
+        a, b = Decimal(mu_low), Decimal(mu_high)
         c, d = b - invphi * (b - a), a + invphi * (b - a)
         fc = class_gap_extended(classes, c, dps=dps)
         fd = class_gap_extended(classes, d, dps=dps)
@@ -352,16 +354,14 @@ def locate_gap_minimum(
                 a, c, fc = c, d, fd
                 d = a + invphi * (b - a)
                 fd = class_gap_extended(classes, d, dps=dps)
-        mu_star = (a + b) / 2
+        mu_star = (a + b) / two
         gap = class_gap_extended(classes, mu_star, dps=dps)
         return {
             "L": n_sites,
-            "mu_star": mp.nstr(mu_star, 20),
-            "mu_star_times_L": mp.nstr(mu_star * n_sites, 20),
-            "min_gap": mp.nstr(gap, 20),
+            "mu_star": f"{mu_star:.20e}",
+            "mu_star_times_L": f"{mu_star * n_sites:.20e}",
+            "min_gap": f"{gap:.20e}",
             "min_gap_float": float(gap),
-            "bracket_width": mp.nstr(b - a, 6),
+            "bracket_width": f"{b - a:.6e}",
             "dps": dps,
         }
-    finally:
-        mp.dps = previous

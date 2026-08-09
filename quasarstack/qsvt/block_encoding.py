@@ -49,13 +49,15 @@ from dataclasses import dataclass
 import numpy as np
 from numpy.typing import NDArray
 from qiskit import QuantumCircuit
-from qiskit.circuit.library import StatePreparation
+from qiskit.circuit.library import StatePreparation, XGate, YGate, ZGate
 from qiskit.quantum_info import Operator, SparsePauliOp, Statevector
 
 __all__ = [
     "BlockEncoding",
     "block_encoding_block",
+    "encoding_qubit_count",
     "lcu_block_encoding",
+    "one_norm",
     "verify_block_encoding",
 ]
 
@@ -96,6 +98,30 @@ class BlockEncoding:
         ``alpha``. Reported so that a resource estimate cannot quietly omit it.
         """
         return self.alpha
+
+
+def one_norm(operator: SparsePauliOp) -> float:
+    """``alpha``, the sum of absolute Pauli coefficients, without building any circuit.
+
+    This is the only thing the resource estimate needs from the encoding, and building a
+    circuit to obtain it is wasteful: the block extraction that verifies the circuit costs
+    `2^n` statevector simulations, while this is a sum over terms. Split out so that G-2's
+    accuracy criterion, which needs `alpha` at every configuration, does not drag the
+    verification cost along with it.
+    """
+    coefficients = np.asarray(operator.simplify().coeffs).real
+    return float(np.sum(np.abs(coefficients[np.abs(coefficients) > COEFFICIENT_TOLERANCE])))
+
+
+def encoding_qubit_count(operator: SparsePauliOp) -> int:
+    """Total qubits an encoding of this operator would need, without building it.
+
+    Used to decide in advance whether verifying a configuration is affordable, rather than
+    discovering it by watching a run stall.
+    """
+    coefficients = np.asarray(operator.simplify().coeffs).real
+    n_terms = int(np.sum(np.abs(coefficients) > COEFFICIENT_TOLERANCE))
+    return operator.num_qubits + max(1, int(np.ceil(np.log2(max(n_terms, 1)))))
 
 
 def lcu_block_encoding(operator: SparsePauliOp, symmetric: bool = False) -> BlockEncoding:
@@ -190,22 +216,44 @@ def _controlled_pauli(pauli, index: int, n_ancilla: int, n_system: int, sign: fl
     if set(label) == {"I"} and sign > 0:
         return None
 
-    gate = QuantumCircuit(n_system, name=f"P{index}")
-    if sign < 0:
-        # Qiskit lifts a circuit's global phase to a relative phase under .control().
-        gate.global_phase = np.pi
+    ancillas = list(range(n_ancilla))
+    wrapper = QuantumCircuit(n_ancilla + n_system)
+
+    # One multi-controlled *single-target* gate per Pauli factor, rather than a single
+    # multi-controlled multi-target one. Mathematically identical, because the factors act
+    # on different qubits and share the same control condition.
+    #
+    # This was written expecting it to be faster, on the reasoning that Qiskit decomposes a
+    # controlled arbitrary unitary generically while a controlled single-qubit Pauli hits a
+    # specialised path. **Measured, it is not**: the L = 4 single peak takes 21.9 s against
+    # 15.0 s for the multi-target form, because emitting one controlled gate per Pauli
+    # factor multiplies the gate count by the string weight and that outweighs the cheaper
+    # synthesis. The form is kept because it is the clearer construction and the difference
+    # is small, but no speedup is claimed for it.
+    #
+    # The real cost is intrinsic: verification simulates 2^n statevectors through a circuit
+    # of multi-controlled gates, at 0.6 s for 6 qubits, 22 s for 9, 129 s for 11 and past
+    # twenty minutes at 13. That is why G-2 budgets which configurations it verifies rather
+    # than trying to make them all cheap.
+    single = {"X": XGate(), "Y": YGate(), "Z": ZGate()}
     # Qiskit labels are printed most-significant first; qubit i is the i-th from the right.
     for position, character in enumerate(reversed(label)):
-        if character == "X":
-            gate.x(position)
-        elif character == "Y":
-            gate.y(position)
-        elif character == "Z":
-            gate.z(position)
+        if character in single:
+            wrapper.append(
+                single[character].control(n_ancilla, ctrl_state=index),
+                [*ancillas, n_ancilla + position],
+            )
 
-    controlled = gate.to_gate().control(n_ancilla, ctrl_state=index)
-    wrapper = QuantumCircuit(n_ancilla + n_system)
-    wrapper.append(controlled, list(range(n_ancilla + n_system)))
+    if sign < 0:
+        # A conditional global phase of pi is a relative phase, and dropping it would flip
+        # the sign of that term. It shifts every eigenvalue and leaves the eigenvectors
+        # alone, so it would survive an eigenvector check and only surface in the resource
+        # estimate. Applied as a one-qubit identity carrying the phase, controlled on the
+        # ancilla register; the target qubit is untouched by construction.
+        phase = QuantumCircuit(1, name=f"minus{index}")
+        phase.global_phase = np.pi
+        wrapper.append(phase.to_gate().control(n_ancilla, ctrl_state=index), [*ancillas, n_ancilla])
+
     return wrapper
 
 
