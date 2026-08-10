@@ -21,6 +21,9 @@ import sys
 import time
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from quasarstack.io.store import evidence_directory  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 EXPERIMENTS = ROOT / "experiments"
 RESULTS = ROOT / "results"
@@ -32,12 +35,44 @@ ORDER = [
     "wp_r_rebuild",
     "wp1_spectral",
     "wp2_qsvt",
+    "wp3_landscapes",
+    "wp4_wright_fisher",
+    "wp5_exact_class",
+    "wp6_mps",
     "wp7_boundary_map",
     "wp8_live_qpu",
 ]
 
 
 def discover(only: str | None) -> list[Path]:
+    """Every gate script, in dependency order, with nothing silently left out.
+
+    `ORDER` used to be an allowlist and any work package missing from it was skipped in
+    silence while the runner still printed a pass count and exited zero. Four gates were
+    written, committed, launched and reported as a clean run without ever executing: G-3,
+    G-4, G-5 and G-6 sat in directories nobody had added to the list. That is the same shape
+    as ADR-0014, a mechanism that fails by doing nothing and says it succeeded.
+
+    `ORDER` now sequences the packages it knows about, and any package holding a `g_*.py`
+    that is *not* listed raises rather than being skipped. Adding a work package should
+    force a decision about where it belongs in the order, not quietly opt it out of the
+    suite.
+    """
+    listed = {name for name in ORDER}
+    found = {
+        directory.name
+        for directory in EXPERIMENTS.iterdir()
+        if directory.is_dir() and any(directory.glob("g_*.py"))
+    }
+    unlisted = sorted(found - listed)
+    if unlisted:
+        raise SystemExit(
+            f"gate scripts live in work packages missing from ORDER: {unlisted}. "
+            f"Add them to scripts/run_all_gates.py in the position their dependencies "
+            f"require. Skipping them silently is how G-3 to G-6 were reported as a clean "
+            f"run without executing."
+        )
+
     scripts: list[Path] = []
     for package in ORDER:
         if only and only not in package:
@@ -97,7 +132,7 @@ def main() -> int:
         print(f"--- {'PASS' if ok else 'FAIL'} in {elapsed:.1f}s", flush=True)
 
     manifest = {"git_sha": sha, "gates": summary, "failed": failed}
-    (RESULTS / "gate_run_manifest.json").write_text(
+    (evidence_directory() / "gate_run_manifest.json").write_text(
         json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
     )
 

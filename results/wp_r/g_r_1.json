@@ -23,7 +23,7 @@
       "mean_fitness_error": 6.661338147750939e-16,
       "spectral_gap": 0.5299124618495128
     },
-    "seconds": 274.97
+    "seconds": 274.18
   },
   "n_cases": 1701,
   "cases": [
@@ -17040,12 +17040,12 @@
   ],
   "notes": "The oracle never forms the 2^L generator and exact diagonalisation never uses the structure the oracle exploits, so agreement is evidence about both. The additive_uniform family is checked by both analytic routes as well as against exact diagonalisation. Spectral gaps are recorded for every case and no case was excluded on the basis of its gap.",
   "env": {
-    "git_sha": "79743337de704127ca4cb34f7732b30b7ff50217",
+    "git_sha": "30ff2ca926162922e08d031623fc0875b6a96037",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",
     "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
-    "gates_md_sha256": "b023ed9bf44d82e814c7fb3829bd11a27d4199d2c6664dd91bd5eabb0cb480a7"
+    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9"
   },
-  "timestamp": "2026-08-09T12:29:27.287080+00:00"
+  "timestamp": "2026-08-10T02:50:32.785945+00:00"
 }

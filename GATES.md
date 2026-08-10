@@ -1393,3 +1393,124 @@ be a cell where it ran out of time rather than out of bond dimension.
 
 The gate records the per-cell wall-clock alongside the bond dimension so the two costs are
 separable in the artefact rather than conflated in a single "MPS is cheap" claim.
+
+---
+
+### Amendment 20 (WP7: the registered grid costs 294 hours, and what is run instead)
+
+Registered before the sweep runs. Section 11.1's grid and section 11.5's decision criteria
+are unchanged in kind; what changes is how much of the grid is covered, and the reason is a
+cost measurement that section 11.1 was written without.
+
+**The registered grid is not runnable.** Section 11.1 declares L in {8, 10, 12, 14}, a
+21-point mutation axis, and at least 5 seeds across nine landscape families. That is **3108
+cells**. Measured per-cell cost on the declared hardware, all three baselines, after the
+Baseline A correction below:
+
+| L | seconds per cell |
+|---|---|
+| 8 | about 25 |
+| 10 | about 100 |
+| 12 | about 250 |
+| 14 | budget-capped, about 900 |
+
+which totals **about 294 hours**, twelve days of exclusive use of a shared machine. The grid
+was specified without a cost model and cannot be executed as written. That is a planning
+finding and it is recorded here rather than worked around silently.
+
+**What runs instead.** L in {8, 10, 12}, a **7-point** mutation axis spanning the same
+`[0.4 mu_c, 1.6 mu_c]`, seeds 0 to 4, all nine families. **777 cells, about 27 hours.** The
+seed count meets section 11.1's stated minimum of five. What is given up is mutation-axis
+resolution, from 21 points to 7, and the L = 14 row.
+
+**Why those two and not others.** The seed count is what the confidence intervals in section
+11.4 rest on, so it is not the thing to cut. The mutation axis is the one place where
+measurement says resolution buys least: WP6 found the bond dimension required by Baseline C
+is **flat** across `mu / mu_c` from 0.4 to 1.6, and G-1 found the spectral gap varies smoothly
+over the same range, so a 7-point axis resolves everything either of them shows. L = 14 is
+deferred rather than dropped, and section 11.2's rule already excludes cells without a
+trustworthy reference, so a partial size axis is a case the manifest can already express.
+
+**A correction to Baseline A, with the measurement that forced it.** Section 11.3 says
+Wright-Fisher spends its budget on samples. At L = 10 on an NK K = 2 cell:
+
+| | seconds | cosine | total variation |
+|---|---|---|---|
+| ladder over N = 1e3 to 1e6 | 59.1 | 0.999830 | 9.35e-3 |
+| N = 1e6 once, 3000 generations | 23.0 | 0.999830 | 9.35e-3 |
+| N = 1e6 once, 12000 generations | 105.8 | 0.999735 | 1.06e-2 |
+
+The ladder costs 2.6 times more for a bit-identical answer, because a generation in
+genotype-count space is `O(L 2^L)` and independent of N. And **more generations makes it
+worse**: drift is injected once per generation, so a longer chain accumulates noise faster
+than time-averaging removes it.
+
+**Baseline A therefore cannot spend a larger budget at all.** Its accuracy is set by a drift
+floor. Section 11.3's protocol assumes methods improve with budget, and one of the three does
+not, so a WP7 cell where Baseline A looks weak is a cell where it sits at its floor rather
+than one where it was starved. Every Baseline A record carries
+`budget_is_not_the_binding_constraint` so this cannot be misread from the artefact alone.
+
+---
+
+### Amendment 21 (WP7: the sweep had no quantum route, and Route A cannot afford the grid)
+
+Registered before the quantum pass runs, and after the classical pass had already started.
+
+**The first fault, and it is mine.** The sweep runner's `METHODS` held only
+`baseline_a_wright_fisher`, `baseline_b_exact_class` and `baseline_c_tensor_network`. Section
+11.5's decision criterion requires that "a quantum route achieves cosine >= 0.90" while "the
+compute-matched tensor-network baseline achieves cosine < 0.80". **A sweep holding only the
+baselines cannot answer G-7 either way.** It would have completed 777 clean cells and left the
+axis the decision turns on empty. Same shape as the `ORDER` defect: a run that succeeds while
+doing less than it claims.
+
+Two quantum routes are added. `route_b_qsvt_filter` applies the eigenstate filter to the
+operator, which is what the block encoding G-2 verified to 1.7e-12 implements; simulating the
+circuit in every cell is not affordable and would measure Qiskit rather than the method.
+`route_a_varqite` runs the variational route directly.
+
+**The second fault is not a fault but a result. Route A cannot finish a cell within the
+declared budget anywhere on this grid.** Measured at L = 6: 198 s and 235 s of a 300 s
+allotment, at cosine 0.999993 and 0.999995. Its cost scales as `n_parameters^2 * 2^L` with
+`n_parameters = L(L + 3)`, so L = 8, the smallest size in the grid, is about ten times that,
+roughly 2100 s against 300 allotted. Route B reaches the same accuracy in **0.3 s**.
+
+Running Route A over all 777 cells would therefore spend about 65 hours establishing that it
+runs out of time. It runs instead on a **declared probe**: L = 8, seed 0, `mu / mu_c` in
+{0.4, 1.0, 1.6}, every family, 27 cells. Every other cell records Route A as inapplicable
+with this amendment as the reason, which is a statement about the budget and not about the
+method's accuracy.
+
+**What this means for G-7, stated before the data exists.** The quantum side of the boundary
+map is Route B. Route A's exclusion is itself a finding and belongs in the result: the
+variational route, which is the NISQ-runnable one, cannot reach any cell of the declared grid
+inside the declared budget. That is consistent with G-R.9's barren-plateau measurement and
+with the concern ADR-0013 raised about budget protocols disadvantaging imaginary time, and it
+should be reported as a limitation of Route A rather than buried as a missing column.
+
+**A hardening that came out of finding this.** `run_cell` catches a method's exception so one
+failure cannot lose a cell, which also means a method broken in *every* cell produces a sweep
+that looks complete and is full of nulls. Route A did exactly that in its first smoke test, an
+`AttributeError` on every call. The manifest now counts errors per method and the runner
+prints them, so a column of nulls announces itself.
+
+**Addendum to Amendment 21, correcting an extrapolation and a gap in the budget accounting.**
+
+The amendment above estimated Route A at about 2100 s per cell at L = 8, extrapolated from
+`n_parameters^2 * 2^L`. **Measured, it is 510 s**, so the extrapolation was four times too
+pessimistic. The probe design is unchanged and the conclusion is unchanged, because 510 s
+still exceeds the 300 s allotment section 11.3 declares, but the number quoted above is an
+estimate and this one is a measurement.
+
+The measurement also exposed a gap in the budget accounting that affects every method. Each
+one checks its remaining budget **between** units of work, so a single unit that overruns is
+never caught: Route A converged on its first imaginary-time rung after 510 s and reported
+`budget_exhausted = False`, which is true as written and misleading as read. Section 11.3
+calls the budget a fairness firewall, and a cell in which one method was allowed 1.7 times
+its allotment is not a compute-matched comparison.
+
+Every method record now carries `over_budget`, set from measured seconds against allotted
+seconds independently of what the method thinks it did, and the manifest counts them. A cell
+where any method is over budget can be excluded or reported as such when G-7 is scored,
+rather than being silently treated as matched.

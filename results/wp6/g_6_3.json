@@ -1,0 +1,3144 @@
+{
+  "gate": "G-6.3",
+  "work_package": "wp6",
+  "passed": true,
+  "threshold": {
+    "statistic": "MPO bond dimension reported per family, at least two site orderings on the non-local families, structural disadvantage stated",
+    "registered_in": "GATES.md section 10 criterion 3"
+  },
+  "measured": {
+    "criterion_3_only": true,
+    "gate_6_claimed": false,
+    "n_cases": 212,
+    "families_saturating_the_ceiling": [
+      "house_of_cards",
+      "rough_mount_fuji"
+    ],
+    "max_ordering_ratio": 2.6666666666666665,
+    "mean_ordering_ratio": 1.6213945578231292,
+    "families_cheap_for_the_circuit_and_hard_for_mps": [],
+    "caveat": "This is the bond dimension of the operator, which sets the cost of one step, not of the state, which sets whether the quasispecies is representable. Criteria 1, 2 and 4 need matrix-product imaginary-time evolution and are not built yet, so G-6 as a whole is not claimed.",
+    "seconds": 10.96
+  },
+  "n_cases": 212,
+  "cases": [
+    {
+      "family": "additive",
+      "L": 8,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 17
+    },
+    {
+      "family": "single_peak",
+      "L": 8,
+      "mpo_bond_dimension": 1,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.0625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 264
+    },
+    {
+      "family": "additive_pairwise",
+      "L": 8,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.1875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 45
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 0,
+      "L": 8,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.25,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 25,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.25
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 1,
+      "L": 8,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.25,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 25,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.25
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 2,
+      "L": 8,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.25,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 25,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.25
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 3,
+      "L": 8,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.25,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 25,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.25
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 4,
+      "L": 8,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.25,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 25,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.25
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 0,
+      "L": 8,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 41,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 9
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 1,
+      "L": 8,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 41,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 9
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 2,
+      "L": 8,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 41,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 9
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 3,
+      "L": 8,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 41,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 9
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 4,
+      "L": 8,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 41,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 9
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 0,
+      "L": 8,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 133,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 15
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0714285714285714
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 1,
+      "L": 8,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 133,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 15
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0714285714285714
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 2,
+      "L": 8,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 133,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 15
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0714285714285714
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 3,
+      "L": 8,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 133,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 15
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0714285714285714
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 4,
+      "L": 8,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 133,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 15
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0714285714285714
+    },
+    {
+      "family": "spin_glass",
+      "seed": 0,
+      "L": 8,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.25,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 37,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 0,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264,
+      "by_ordering": {
+        "identity": 16,
+        "even_then_odd": 16
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 0,
+      "L": 8,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 21,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.6666666666666667
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 0,
+      "L": 8,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 39,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.75
+    },
+    {
+      "family": "spin_glass",
+      "seed": 1,
+      "L": 8,
+      "mpo_bond_dimension": 5,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.3125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 37,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 1,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264,
+      "by_ordering": {
+        "identity": 16,
+        "even_then_odd": 16
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 1,
+      "L": 8,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 21,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.6666666666666667
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 1,
+      "L": 8,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 39,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.75
+    },
+    {
+      "family": "spin_glass",
+      "seed": 2,
+      "L": 8,
+      "mpo_bond_dimension": 5,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.3125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 37,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 2,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264,
+      "by_ordering": {
+        "identity": 16,
+        "even_then_odd": 16
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 2,
+      "L": 8,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 21,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.6666666666666667
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 2,
+      "L": 8,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 39,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.75
+    },
+    {
+      "family": "spin_glass",
+      "seed": 3,
+      "L": 8,
+      "mpo_bond_dimension": 5,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.3125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 37,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 3,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264,
+      "by_ordering": {
+        "identity": 16,
+        "even_then_odd": 16
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 3,
+      "L": 8,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 21,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.6666666666666667
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 3,
+      "L": 8,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 39,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.75
+    },
+    {
+      "family": "spin_glass",
+      "seed": 4,
+      "L": 8,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 37,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 4,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264,
+      "by_ordering": {
+        "identity": 16,
+        "even_then_odd": 16
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 4,
+      "L": 8,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 21,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 5
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.6666666666666667
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 4,
+      "L": 8,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 39,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.75
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 0,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 1,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 2,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 3,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 4,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 0,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 1,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 2,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 3,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 4,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 0,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 1,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 2,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 3,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 4,
+      "L": 8,
+      "mpo_bond_dimension": 16,
+      "middle_cut_ceiling": 16,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 264
+    },
+    {
+      "family": "additive",
+      "L": 10,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.0625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 21
+    },
+    {
+      "family": "single_peak",
+      "L": 10,
+      "mpo_bond_dimension": 1,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "additive_pairwise",
+      "L": 10,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 66
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 0,
+      "L": 10,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 31,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 1,
+      "L": 10,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 31,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 2,
+      "L": 10,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 31,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 3,
+      "L": 10,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 31,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 4,
+      "L": 10,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 31,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 0,
+      "L": 10,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.1875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 51,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 11
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.8333333333333333
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 1,
+      "L": 10,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.1875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 51,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 11
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.8333333333333333
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 2,
+      "L": 10,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.1875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 51,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 11
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.8333333333333333
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 3,
+      "L": 10,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.1875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 51,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 11
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.8333333333333333
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 4,
+      "L": 10,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.1875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 51,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 11
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.8333333333333333
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 0,
+      "L": 10,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.4375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 171,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 21
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 1,
+      "L": 10,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.4375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 171,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 21
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 2,
+      "L": 10,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.4375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 171,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 21
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 3,
+      "L": 10,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.4375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 171,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 21
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 4,
+      "L": 10,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.4375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 171,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 21
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.5
+    },
+    {
+      "family": "spin_glass",
+      "seed": 0,
+      "L": 10,
+      "mpo_bond_dimension": 5,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.15625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 56,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 0,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034,
+      "by_ordering": {
+        "identity": 32,
+        "even_then_odd": 32
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 0,
+      "L": 10,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 26,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 0,
+      "L": 10,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 44,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.6
+    },
+    {
+      "family": "spin_glass",
+      "seed": 1,
+      "L": 10,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.1875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 56,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 1,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034,
+      "by_ordering": {
+        "identity": 32,
+        "even_then_odd": 32
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 1,
+      "L": 10,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 26,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 1,
+      "L": 10,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 44,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.6
+    },
+    {
+      "family": "spin_glass",
+      "seed": 2,
+      "L": 10,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.1875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 56,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.1666666666666667
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 2,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034,
+      "by_ordering": {
+        "identity": 32,
+        "even_then_odd": 32
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 2,
+      "L": 10,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 26,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 2,
+      "L": 10,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 44,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.6
+    },
+    {
+      "family": "spin_glass",
+      "seed": 3,
+      "L": 10,
+      "mpo_bond_dimension": 5,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.15625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 56,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.1666666666666667
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 3,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034,
+      "by_ordering": {
+        "identity": 32,
+        "even_then_odd": 32
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 3,
+      "L": 10,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 26,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 3,
+      "L": 10,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 44,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.6
+    },
+    {
+      "family": "spin_glass",
+      "seed": 4,
+      "L": 10,
+      "mpo_bond_dimension": 7,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.21875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 56,
+      "by_ordering": {
+        "identity": 7,
+        "even_then_odd": 5
+      },
+      "best_ordering": "even_then_odd",
+      "ordering_ratio": 1.4
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 4,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034,
+      "by_ordering": {
+        "identity": 32,
+        "even_then_odd": 32
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 4,
+      "L": 10,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 26,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 6
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 4,
+      "L": 10,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 44,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.6
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 0,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 1,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 2,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 3,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 4,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 0,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 1,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 2,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 3,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 4,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 0,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 1,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 2,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 3,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 4,
+      "L": 10,
+      "mpo_bond_dimension": 32,
+      "middle_cut_ceiling": 32,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 1034
+    },
+    {
+      "family": "additive",
+      "L": 12,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 25
+    },
+    {
+      "family": "single_peak",
+      "L": 12,
+      "mpo_bond_dimension": 1,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.015625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "additive_pairwise",
+      "L": 12,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.046875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 91
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 0,
+      "L": 12,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.0625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 37,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.75
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 1,
+      "L": 12,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.0625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 37,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.75
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 2,
+      "L": 12,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.0625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 37,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.75
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 3,
+      "L": 12,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.0625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 37,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.75
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 4,
+      "L": 12,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.0625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 37,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.75
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 0,
+      "L": 12,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 61,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 13
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.1666666666666665
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 1,
+      "L": 12,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 61,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 13
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.1666666666666665
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 2,
+      "L": 12,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 61,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 13
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.1666666666666665
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 3,
+      "L": 12,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 61,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 13
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.1666666666666665
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 4,
+      "L": 12,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 61,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 13
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.1666666666666665
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 0,
+      "L": 12,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.21875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 205,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 25
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.7857142857142858
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 1,
+      "L": 12,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.21875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 205,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 25
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.7857142857142858
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 2,
+      "L": 12,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.21875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 205,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 25
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.7857142857142858
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 3,
+      "L": 12,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.21875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 205,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 25
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.7857142857142858
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 4,
+      "L": 12,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.21875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 205,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 25
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.7857142857142858
+    },
+    {
+      "family": "spin_glass",
+      "seed": 0,
+      "L": 12,
+      "mpo_bond_dimension": 8,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 79,
+      "by_ordering": {
+        "identity": 8,
+        "even_then_odd": 7
+      },
+      "best_ordering": "even_then_odd",
+      "ordering_ratio": 1.1428571428571428
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 0,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108,
+      "by_ordering": {
+        "identity": 64,
+        "even_then_odd": 64
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 0,
+      "L": 12,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 31,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.3333333333333335
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 0,
+      "L": 12,
+      "mpo_bond_dimension": 5,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.078125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 58,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 10
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "spin_glass",
+      "seed": 1,
+      "L": 12,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.09375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 79,
+      "by_ordering": {
+        "identity": 7,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 1,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108,
+      "by_ordering": {
+        "identity": 64,
+        "even_then_odd": 64
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 1,
+      "L": 12,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 31,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.3333333333333335
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 1,
+      "L": 12,
+      "mpo_bond_dimension": 5,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.078125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 58,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 10
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "spin_glass",
+      "seed": 2,
+      "L": 12,
+      "mpo_bond_dimension": 8,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 79,
+      "by_ordering": {
+        "identity": 8,
+        "even_then_odd": 7
+      },
+      "best_ordering": "even_then_odd",
+      "ordering_ratio": 1.1428571428571428
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 2,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108,
+      "by_ordering": {
+        "identity": 64,
+        "even_then_odd": 64
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 2,
+      "L": 12,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 31,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.3333333333333335
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 2,
+      "L": 12,
+      "mpo_bond_dimension": 5,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.078125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 58,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 10
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "spin_glass",
+      "seed": 3,
+      "L": 12,
+      "mpo_bond_dimension": 7,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.109375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 79,
+      "by_ordering": {
+        "identity": 7,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 3,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108,
+      "by_ordering": {
+        "identity": 64,
+        "even_then_odd": 64
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 3,
+      "L": 12,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 31,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.3333333333333335
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 3,
+      "L": 12,
+      "mpo_bond_dimension": 5,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.078125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 58,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 10
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "spin_glass",
+      "seed": 4,
+      "L": 12,
+      "mpo_bond_dimension": 8,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 79,
+      "by_ordering": {
+        "identity": 8,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 4,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108,
+      "by_ordering": {
+        "identity": 64,
+        "even_then_odd": 64
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 4,
+      "L": 12,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 31,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 7
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.3333333333333335
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 4,
+      "L": 12,
+      "mpo_bond_dimension": 5,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 0.078125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": 58,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 10
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 0,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 1,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 2,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 3,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 4,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 0,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 1,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 2,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 3,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 4,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 0,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 1,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 2,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 3,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 4,
+      "L": 12,
+      "mpo_bond_dimension": 64,
+      "middle_cut_ceiling": 64,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": 4108
+    },
+    {
+      "family": "additive",
+      "L": 14,
+      "mpo_bond_dimension": 2,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.015625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null
+    },
+    {
+      "family": "single_peak",
+      "L": 14,
+      "mpo_bond_dimension": 1,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0078125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null
+    },
+    {
+      "family": "additive_pairwise",
+      "L": 14,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0234375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 0,
+      "L": 14,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 1,
+      "L": 14,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 2,
+      "L": 14,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 3,
+      "L": 14,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 4,
+      "L": 14,
+      "mpo_bond_dimension": 4,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.03125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 4,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 0,
+      "L": 14,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.046875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 15
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.5
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 1,
+      "L": 14,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.046875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 15
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.5
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 2,
+      "L": 14,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.046875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 15
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.5
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 3,
+      "L": 14,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.046875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 15
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.5
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 4,
+      "L": 14,
+      "mpo_bond_dimension": 6,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.046875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 6,
+        "even_then_odd": 15
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.5
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 0,
+      "L": 14,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.109375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 29
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0714285714285716
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 1,
+      "L": 14,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.109375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 29
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0714285714285716
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 2,
+      "L": 14,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.109375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 29
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0714285714285716
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 3,
+      "L": 14,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.109375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 29
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0714285714285716
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 4,
+      "L": 14,
+      "mpo_bond_dimension": 14,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.109375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 14,
+        "even_then_odd": 29
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.0714285714285716
+    },
+    {
+      "family": "spin_glass",
+      "seed": 0,
+      "L": 14,
+      "mpo_bond_dimension": 8,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 8,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 0,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 128,
+        "even_then_odd": 128
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 0,
+      "L": 14,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0234375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.6666666666666665
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 0,
+      "L": 14,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0234375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 11
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.2
+    },
+    {
+      "family": "spin_glass",
+      "seed": 1,
+      "L": 14,
+      "mpo_bond_dimension": 8,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 8,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 1,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 128,
+        "even_then_odd": 128
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 1,
+      "L": 14,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0234375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.6666666666666665
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 1,
+      "L": 14,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0234375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 11
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.2
+    },
+    {
+      "family": "spin_glass",
+      "seed": 2,
+      "L": 14,
+      "mpo_bond_dimension": 8,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0625,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 8,
+        "even_then_odd": 9
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.125
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 2,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 128,
+        "even_then_odd": 128
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 2,
+      "L": 14,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0234375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.6666666666666665
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 2,
+      "L": 14,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0234375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 11
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.2
+    },
+    {
+      "family": "spin_glass",
+      "seed": 3,
+      "L": 14,
+      "mpo_bond_dimension": 7,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0546875,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 8,
+        "even_then_odd": 9
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.125
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 3,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 128,
+        "even_then_odd": 128
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 3,
+      "L": 14,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0234375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.6666666666666665
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 3,
+      "L": 14,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0234375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 11
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.2
+    },
+    {
+      "family": "spin_glass",
+      "seed": 4,
+      "L": 14,
+      "mpo_bond_dimension": 9,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0703125,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 9,
+        "even_then_odd": 9
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 4,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 128,
+        "even_then_odd": 128
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 1.0
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 4,
+      "L": 14,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0234375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 3,
+        "even_then_odd": 8
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.6666666666666665
+    },
+    {
+      "family": "block",
+      "block_size": 4,
+      "seed": 4,
+      "L": 14,
+      "mpo_bond_dimension": 3,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 0.0234375,
+      "saturates_the_ceiling": false,
+      "pauli_terms": null,
+      "by_ordering": {
+        "identity": 5,
+        "even_then_odd": 11
+      },
+      "best_ordering": "identity",
+      "ordering_ratio": 2.2
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 0,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 1,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 2,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 3,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.1,
+      "seed": 4,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 0,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 1,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 2,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 3,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 0.5,
+      "seed": 4,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 0,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 1,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 2,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 3,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    },
+    {
+      "family": "rough_mount_fuji",
+      "roughness": 1.0,
+      "seed": 4,
+      "L": 14,
+      "mpo_bond_dimension": 128,
+      "middle_cut_ceiling": 128,
+      "fraction_of_ceiling": 1.0,
+      "saturates_the_ceiling": true,
+      "pauli_terms": null
+    }
+  ],
+  "notes": "This is the bond dimension of the operator, which sets the cost of one step, not of the state, which sets whether the quasispecies is representable. Criteria 1, 2 and 4 need matrix-product imaginary-time evolution and are not built yet, so G-6 as a whole is not claimed.",
+  "env": {
+    "git_sha": "30ff2ca926162922e08d031623fc0875b6a96037",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9"
+  },
+  "timestamp": "2026-08-10T10:40:35.435347+00:00"
+}

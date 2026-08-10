@@ -85,6 +85,37 @@ def environment() -> dict[str, Any]:
     }
 
 
+def in_pinned_image() -> bool:
+    """Is this process running inside the image whose output counts as evidence?"""
+    env = environment()
+    return env["image"] != "unknown" and str(env["platform"]).startswith("Linux")
+
+
+def evidence_directory(work_package: str, announce: bool = True) -> Path:
+    """Where this run may write: the evidence tree inside the image, ``_local`` outside it.
+
+    ADR-0012 built this redirection so a laptop run cannot leave a file where committed
+    evidence lives. It was implemented inside `write_gate_record` and nowhere else, and every
+    later writer had to remember to re-implement it. Two did not: the WP7 sweep runner and
+    the G-7 scorer both wrote straight into `results/` on their first version.
+
+    Three occurrences of one omission is a sign the guard is in the wrong place, so it lives
+    here now and callers ask for a directory rather than deciding for themselves.
+    """
+    inside = in_pinned_image()
+    if inside:
+        directory = RESULTS_ROOT / work_package if work_package else RESULTS_ROOT
+    else:
+        directory = RESULTS_ROOT / "_local"
+    directory.mkdir(parents=True, exist_ok=True)
+    if not inside and announce:
+        print(
+            f"NOTE: not running in the pinned image, so output goes to {directory} "
+            f"and is not evidence."
+        )
+    return directory
+
+
 def write_gate_record(
     gate: str,
     work_package: str,

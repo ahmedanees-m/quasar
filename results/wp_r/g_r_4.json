@@ -116,12 +116,12 @@
       },
       {
         "L": 10,
-        "min_gap": 0.05630820111350623,
+        "min_gap": 0.05630820111350596,
         "mu_at_min_gap": 0.1153846154
       },
       {
         "L": 12,
-        "min_gap": 0.031037621272698955,
+        "min_gap": 0.031037621272699028,
         "mu_at_min_gap": 0.0916666667
       }
     ],
@@ -219,7 +219,7 @@
       }
     },
     "min_spectral_gap_over_all_cases": 0.001589878707556669,
-    "seconds": 49.13
+    "seconds": 49.48
   },
   "n_cases": 15,
   "cases": [
@@ -673,12 +673,12 @@
   ],
   "notes": "Threshold location is a diagnostic, not a pass condition, and so is the direction in which epistasis moves it. The planning documents state an expected direction; requiring it would not be a measurement. Two location measures are recorded because the susceptibility peak is undefined for landscapes additive in the surplus, which decay monotonically with steepest slope at zero mutation rate.",
   "env": {
-    "git_sha": "5736a4a325731a0c73b05c9cbddf800a7b79b295",
+    "git_sha": "30ff2ca926162922e08d031623fc0875b6a96037",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",
     "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
-    "gates_md_sha256": "81500c0dd55ed37035ef1380dd1c30df3f7d8bcf5ee4af96707929ba78e9eaf7"
+    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9"
   },
-  "timestamp": "2026-08-09T15:16:13.142385+00:00"
+  "timestamp": "2026-08-10T02:51:40.901576+00:00"
 }

@@ -54,3 +54,8 @@ figures/**/draft/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Figures are regenerated from committed artefacts by `make figures`, so they are outputs
+# rather than sources. Committing them would put a binary in every diff that touches a
+# result, and the artefact is the thing that has to be reviewable.
+figures/*.png

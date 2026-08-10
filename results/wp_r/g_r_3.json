@@ -30,7 +30,7 @@
     "exponents_within_bounds": true,
     "fits_above_r_squared_threshold": true,
     "all_converged": true,
-    "seconds": 7.37
+    "seconds": 7.36
   },
   "n_cases": 6,
   "cases": [
@@ -231,12 +231,12 @@
   ],
   "notes": "The exponent is fitted against exp(-H tau) computed without splitting, not against the analytic quasispecies, so that the residual from tau being finite cannot flatten the fit. Circuit depth and two-qubit counts are the unitary real-time analogue of the same interaction pattern and are labelled structural: imaginary-time evolution is non-unitary and this propagator is not a hardware-runnable circuit. The hardware-faithful routes are G-R.6 and G-R.7.",
   "env": {
-    "git_sha": "81a663e6583e56f83e4ab5bbd24874cebefe2cf3",
+    "git_sha": "30ff2ca926162922e08d031623fc0875b6a96037",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",
     "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
-    "gates_md_sha256": "0c5a76a5020b54611bf92f1b9e5a4dd5145454c587104bed2c949e8c8a18b848"
+    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9"
   },
-  "timestamp": "2026-08-09T13:46:27.740124+00:00"
+  "timestamp": "2026-08-10T02:50:47.941799+00:00"
 }

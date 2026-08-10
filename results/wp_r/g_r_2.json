@@ -30,7 +30,7 @@
       "energy_error": 1.1102230246251565e-16,
       "pauli_terms": 264
     },
-    "seconds": 0.99
+    "seconds": 0.97
   },
   "n_cases": 40,
   "cases": [
@@ -557,12 +557,12 @@
   ],
   "notes": "The registered criterion is the cosine, but the operator-level comparison against the independently assembled generator is the stricter check and is recorded per configuration: an endianness error permutes the basis and can leave the spectrum intact, so a spectral check alone would not catch it. Pauli term counts are recorded here and feed G-R.10.",
   "env": {
-    "git_sha": "9cfd48c341f226c65120003e2f160d7ce204b1f2",
+    "git_sha": "30ff2ca926162922e08d031623fc0875b6a96037",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",
     "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
-    "gates_md_sha256": "2af8a032a986f1c26dc5c36857f6164963d49c399d2dfdc8acf7f1c15452f86c"
+    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9"
   },
-  "timestamp": "2026-08-09T12:58:42.851672+00:00"
+  "timestamp": "2026-08-10T02:50:37.137300+00:00"
 }

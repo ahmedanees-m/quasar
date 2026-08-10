@@ -1,0 +1,262 @@
+{
+  "gate": "G-R.9",
+  "work_package": "wp_r",
+  "passed": true,
+  "threshold": {
+    "statistic": "fitted decay base of the McLachlan force variance against system size, middle component on the nk_k2 landscape",
+    "bounds": [
+      0.3,
+      0.55
+    ],
+    "r_squared": 0.95,
+    "registered_in": "GATES.md section 3, statistic in Amendment 11"
+  },
+  "measured": {
+    "gate_statistic": "nk_k2_middle",
+    "decay_base": 0.548958176724438,
+    "r_squared": 0.9915873897031214,
+    "within_registered_bounds": true,
+    "fit_above_threshold": true,
+    "decays_exponentially": true,
+    "all_fits": {
+      "nk_k2_first": {
+        "base": 0.5558115229879927,
+        "r_squared": 0.996828396391101
+      },
+      "nk_k2_middle": {
+        "base": 0.548958176724438,
+        "r_squared": 0.9915873897031214
+      },
+      "nk_k2_mean_all": {
+        "base": 0.5350095265573805,
+        "r_squared": 0.9996019181347385
+      },
+      "single_peak_first": {
+        "base": 0.5544184759692509,
+        "r_squared": 0.99089524781192
+      },
+      "single_peak_middle": {
+        "base": 0.5420578723106889,
+        "r_squared": 0.9901839526772118
+      },
+      "single_peak_mean_all": {
+        "base": 0.5387677033507616,
+        "r_squared": 0.9902910163935309
+      }
+    },
+    "variance_series": {
+      "nk_k2": {
+        "first": [
+          0.061174659354906485,
+          0.031196026966784186,
+          0.01835625356138823,
+          0.009938797873002485,
+          0.006133392328042763,
+          0.0027621485543695267,
+          0.0018471036315603306
+        ],
+        "middle": [
+          0.05418058808546948,
+          0.027764253672786933,
+          0.021338555729352886,
+          0.010896634522235573,
+          0.00505789728227389,
+          0.0027696251886176544,
+          0.0015088699158692794
+        ],
+        "mean_all": [
+          0.05975254208611682,
+          0.03034583842203478,
+          0.01720452090071262,
+          0.00920923480546718,
+          0.004906304507973052,
+          0.0024869673214403007,
+          0.0014027467312897315
+        ]
+      },
+      "single_peak": {
+        "first": [
+          0.015532703797814741,
+          0.007394690075728556,
+          0.00372901869934727,
+          0.001895312101626123,
+          0.001157280506476372,
+          0.0007748365847918145,
+          0.00041968562202059084
+        ],
+        "middle": [
+          0.014755661676195344,
+          0.006535561185950202,
+          0.0036606975478772996,
+          0.0021593938369519985,
+          0.0009049820701261431,
+          0.0007283397192770312,
+          0.0003344455052930176
+        ],
+        "mean_all": [
+          0.015016164064181811,
+          0.00624180742996003,
+          0.0032107600262962733,
+          0.0016058011308450603,
+          0.000984887044259371,
+          0.0005762018163586157,
+          0.00033926402509840923
+        ]
+      }
+    },
+    "seconds": 775.5
+  },
+  "n_cases": 14,
+  "cases": [
+    {
+      "landscape": "nk_k2",
+      "L": 2,
+      "reps": 4,
+      "n_parameters": 10,
+      "samples": 400,
+      "variance_first": 0.061174659354906485,
+      "variance_middle": 0.05418058808546948,
+      "variance_mean_all": 0.05975254208611682
+    },
+    {
+      "landscape": "nk_k2",
+      "L": 3,
+      "reps": 5,
+      "n_parameters": 18,
+      "samples": 400,
+      "variance_first": 0.031196026966784186,
+      "variance_middle": 0.027764253672786933,
+      "variance_mean_all": 0.03034583842203478
+    },
+    {
+      "landscape": "nk_k2",
+      "L": 4,
+      "reps": 6,
+      "n_parameters": 28,
+      "samples": 400,
+      "variance_first": 0.01835625356138823,
+      "variance_middle": 0.021338555729352886,
+      "variance_mean_all": 0.01720452090071262
+    },
+    {
+      "landscape": "nk_k2",
+      "L": 5,
+      "reps": 7,
+      "n_parameters": 40,
+      "samples": 400,
+      "variance_first": 0.009938797873002485,
+      "variance_middle": 0.010896634522235573,
+      "variance_mean_all": 0.00920923480546718
+    },
+    {
+      "landscape": "nk_k2",
+      "L": 6,
+      "reps": 8,
+      "n_parameters": 54,
+      "samples": 400,
+      "variance_first": 0.006133392328042763,
+      "variance_middle": 0.00505789728227389,
+      "variance_mean_all": 0.004906304507973052
+    },
+    {
+      "landscape": "nk_k2",
+      "L": 7,
+      "reps": 9,
+      "n_parameters": 70,
+      "samples": 400,
+      "variance_first": 0.0027621485543695267,
+      "variance_middle": 0.0027696251886176544,
+      "variance_mean_all": 0.0024869673214403007
+    },
+    {
+      "landscape": "nk_k2",
+      "L": 8,
+      "reps": 10,
+      "n_parameters": 88,
+      "samples": 400,
+      "variance_first": 0.0018471036315603306,
+      "variance_middle": 0.0015088699158692794,
+      "variance_mean_all": 0.0014027467312897315
+    },
+    {
+      "landscape": "single_peak",
+      "L": 2,
+      "reps": 4,
+      "n_parameters": 10,
+      "samples": 400,
+      "variance_first": 0.015532703797814741,
+      "variance_middle": 0.014755661676195344,
+      "variance_mean_all": 0.015016164064181811
+    },
+    {
+      "landscape": "single_peak",
+      "L": 3,
+      "reps": 5,
+      "n_parameters": 18,
+      "samples": 400,
+      "variance_first": 0.007394690075728556,
+      "variance_middle": 0.006535561185950202,
+      "variance_mean_all": 0.00624180742996003
+    },
+    {
+      "landscape": "single_peak",
+      "L": 4,
+      "reps": 6,
+      "n_parameters": 28,
+      "samples": 400,
+      "variance_first": 0.00372901869934727,
+      "variance_middle": 0.0036606975478772996,
+      "variance_mean_all": 0.0032107600262962733
+    },
+    {
+      "landscape": "single_peak",
+      "L": 5,
+      "reps": 7,
+      "n_parameters": 40,
+      "samples": 400,
+      "variance_first": 0.001895312101626123,
+      "variance_middle": 0.0021593938369519985,
+      "variance_mean_all": 0.0016058011308450603
+    },
+    {
+      "landscape": "single_peak",
+      "L": 6,
+      "reps": 8,
+      "n_parameters": 54,
+      "samples": 400,
+      "variance_first": 0.001157280506476372,
+      "variance_middle": 0.0009049820701261431,
+      "variance_mean_all": 0.000984887044259371
+    },
+    {
+      "landscape": "single_peak",
+      "L": 7,
+      "reps": 9,
+      "n_parameters": 70,
+      "samples": 400,
+      "variance_first": 0.0007748365847918145,
+      "variance_middle": 0.0007283397192770312,
+      "variance_mean_all": 0.0005762018163586157
+    },
+    {
+      "landscape": "single_peak",
+      "L": 8,
+      "reps": 10,
+      "n_parameters": 88,
+      "samples": 400,
+      "variance_first": 0.00041968562202059084,
+      "variance_middle": 0.0003344455052930176,
+      "variance_mean_all": 0.00033926402509840923
+    }
+  ],
+  "notes": "Which gradient component is measured is a methodological choice and all three are recorded. The registered band was reverse-engineered from the lost implementation's 0.42^L, whose ansatz and measured component are unknown, so a value outside it is a disagreement about a numerical band inherited from code that no longer exists, not about whether the variance decays exponentially.",
+  "env": {
+    "git_sha": "30ff2ca926162922e08d031623fc0875b6a96037",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9"
+  },
+  "timestamp": "2026-08-10T03:31:22.675718+00:00"
+}

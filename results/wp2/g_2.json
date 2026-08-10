@@ -1,0 +1,1838 @@
+{
+  "gate": "G-2",
+  "work_package": "wp2",
+  "passed": false,
+  "threshold": {
+    "criterion_1": "cosine >= 0.95 against the analytic quasispecies, L = [2, 3, 4, 5, 6]",
+    "criterion_2": "block encoding defining property to 1e-10",
+    "criterion_3": "derived degree within a factor of 2.0 of the empirically sufficient degree",
+    "registered_in": "GATES.md section 6, configurations in Amendment 13"
+  },
+  "measured": {
+    "assumption": "Route B is built as ADR-0010 option C under ADR-0015, a working assumption pending confirmation by both PIs: QSVT eigenstate filtering for a Hermitian stoquastic operator. ADR-0010 records that the G-2 thresholds do not depend on this choice.",
+    "n_configurations": 65,
+    "criterion_1_accuracy": {
+      "passed": true,
+      "worst_cosine": 0.9502415432806568,
+      "threshold": 0.95,
+      "configurations_never_reaching_threshold": 0
+    },
+    "criterion_2_block_encoding": {
+      "passed": true,
+      "worst_max_abs_error": 1.7017537921569015e-12,
+      "tolerance": 1e-10,
+      "unitarity_failures": 0,
+      "configurations_verified": 23,
+      "configurations_over_the_qubit_budget": [
+        {
+          "family": "single_peak",
+          "L": 6,
+          "height": 1.0,
+          "encoding_qubits": 13,
+          "reason": "over the qubit budget"
+        },
+        {
+          "family": "single_peak",
+          "L": 6,
+          "height": 2.5,
+          "encoding_qubits": 13,
+          "reason": "over the qubit budget"
+        }
+      ],
+      "qubit_budget": 12
+    },
+    "criterion_3_resource_scaling": {
+      "passed": false,
+      "worst_degree_ratio": 3.398076200223952,
+      "allowed_factor": 2.0,
+      "configurations_outside_factor": 4
+    },
+    "supporting_chebyshev_check": {
+      "worst_max_abs_error": 3.8160458474751954e-13,
+      "degrees": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        8
+      ],
+      "instances": [
+        {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "alpha": 3.114545569447692,
+          "worst_max_abs_error": 2.3254515982757103e-14,
+          "per_degree": [
+            {
+              "degree": 0,
+              "max_abs_error": 0.0
+            },
+            {
+              "degree": 1,
+              "max_abs_error": 2.849101384766133e-15
+            },
+            {
+              "degree": 2,
+              "max_abs_error": 5.74267153505755e-15
+            },
+            {
+              "degree": 3,
+              "max_abs_error": 9.106110376756048e-15
+            },
+            {
+              "degree": 5,
+              "max_abs_error": 1.393994647729184e-14
+            },
+            {
+              "degree": 8,
+              "max_abs_error": 2.3254515982757103e-14
+            }
+          ]
+        },
+        {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "alpha": 1.3,
+          "worst_max_abs_error": 1.2412789984104289e-14,
+          "per_degree": [
+            {
+              "degree": 0,
+              "max_abs_error": 0.0
+            },
+            {
+              "degree": 1,
+              "max_abs_error": 1.7622695800133722e-15
+            },
+            {
+              "degree": 2,
+              "max_abs_error": 5.846377318495591e-15
+            },
+            {
+              "degree": 3,
+              "max_abs_error": 7.942230367745544e-15
+            },
+            {
+              "degree": 5,
+              "max_abs_error": 1.1688642195152874e-14
+            },
+            {
+              "degree": 8,
+              "max_abs_error": 1.2412789984104289e-14
+            }
+          ]
+        },
+        {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "alpha": 2.5000000000000004,
+          "worst_max_abs_error": 1.6941849131467005e-14,
+          "per_degree": [
+            {
+              "degree": 0,
+              "max_abs_error": 0.0
+            },
+            {
+              "degree": 1,
+              "max_abs_error": 3.0158202919467223e-15
+            },
+            {
+              "degree": 2,
+              "max_abs_error": 6.5837001138755285e-15
+            },
+            {
+              "degree": 3,
+              "max_abs_error": 6.448251505525906e-15
+            },
+            {
+              "degree": 5,
+              "max_abs_error": 1.6941849131467005e-14
+            },
+            {
+              "degree": 8,
+              "max_abs_error": 1.618752644057526e-14
+            }
+          ]
+        },
+        {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "alpha": 2.9000000000000004,
+          "worst_max_abs_error": 2.0889605669847967e-14,
+          "per_degree": [
+            {
+              "degree": 0,
+              "max_abs_error": 0.0
+            },
+            {
+              "degree": 1,
+              "max_abs_error": 4.141277492837347e-15
+            },
+            {
+              "degree": 2,
+              "max_abs_error": 8.96511257428815e-15
+            },
+            {
+              "degree": 3,
+              "max_abs_error": 1.1735850204011549e-14
+            },
+            {
+              "degree": 5,
+              "max_abs_error": 2.0889605669847967e-14
+            },
+            {
+              "degree": 8,
+              "max_abs_error": 1.404228861737905e-14
+            }
+          ]
+        },
+        {
+          "n_system": 3,
+          "n_ancilla": 3,
+          "alpha": 3.338745690561586,
+          "worst_max_abs_error": 1.31683487393845e-14,
+          "per_degree": [
+            {
+              "degree": 0,
+              "max_abs_error": 0.0
+            },
+            {
+              "degree": 1,
+              "max_abs_error": 8.886045086729575e-16
+            },
+            {
+              "degree": 2,
+              "max_abs_error": 3.346979712777872e-15
+            },
+            {
+              "degree": 3,
+              "max_abs_error": 5.150630472322865e-15
+            },
+            {
+              "degree": 5,
+              "max_abs_error": 8.52431319920942e-15
+            },
+            {
+              "degree": 8,
+              "max_abs_error": 1.31683487393845e-14
+            }
+          ]
+        },
+        {
+          "n_system": 3,
+          "n_ancilla": 4,
+          "alpha": 1.95,
+          "worst_max_abs_error": 2.348272871521306e-13,
+          "per_degree": [
+            {
+              "degree": 0,
+              "max_abs_error": 0.0
+            },
+            {
+              "degree": 1,
+              "max_abs_error": 2.0650316133810956e-14
+            },
+            {
+              "degree": 2,
+              "max_abs_error": 1.0536490297386384e-13
+            },
+            {
+              "degree": 3,
+              "max_abs_error": 1.34014967957338e-13
+            },
+            {
+              "degree": 5,
+              "max_abs_error": 2.348272871521306e-13
+            },
+            {
+              "degree": 8,
+              "max_abs_error": 2.2445797229856062e-13
+            }
+          ]
+        },
+        {
+          "n_system": 3,
+          "n_ancilla": 4,
+          "alpha": 3.0750000000000006,
+          "worst_max_abs_error": 3.375259177299322e-13,
+          "per_degree": [
+            {
+              "degree": 0,
+              "max_abs_error": 0.0
+            },
+            {
+              "degree": 1,
+              "max_abs_error": 3.9080481270251204e-14
+            },
+            {
+              "degree": 2,
+              "max_abs_error": 1.1068991761080263e-13
+            },
+            {
+              "degree": 3,
+              "max_abs_error": 1.5499668734875787e-13
+            },
+            {
+              "degree": 5,
+              "max_abs_error": 2.3115909844754833e-13
+            },
+            {
+              "degree": 8,
+              "max_abs_error": 3.375259177299322e-13
+            }
+          ]
+        },
+        {
+          "n_system": 3,
+          "n_ancilla": 4,
+          "alpha": 4.5,
+          "worst_max_abs_error": 3.8160458474751954e-13,
+          "per_degree": [
+            {
+              "degree": 0,
+              "max_abs_error": 0.0
+            },
+            {
+              "degree": 1,
+              "max_abs_error": 3.686279010788088e-14
+            },
+            {
+              "degree": 2,
+              "max_abs_error": 9.904684396191741e-14
+            },
+            {
+              "degree": 3,
+              "max_abs_error": 1.380253826965424e-13
+            },
+            {
+              "degree": 5,
+              "max_abs_error": 2.2450099352699462e-13
+            },
+            {
+              "degree": 8,
+              "max_abs_error": 3.8160458474751954e-13
+            }
+          ]
+        }
+      ]
+    },
+    "seconds": 25270.78
+  },
+  "n_cases": 65,
+  "cases": [
+    {
+      "family": "additive",
+      "L": 2,
+      "seed": 0,
+      "alpha": 3.114545569447692,
+      "gap": 1.9067234849046648,
+      "initial_overlap": 0.5880066533641068,
+      "empirical_degree": 2,
+      "predicted_degree": 2.422141823282707,
+      "degree_ratio": 1.2110709116413536,
+      "cosine": 0.9767256331477111,
+      "encoding_qubits": 5,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "n_terms": 5,
+          "alpha": 3.114545569447692,
+          "max_abs_error": 1.3335875724497545e-14,
+          "frobenius_error": 1.8831789948991853e-14,
+          "block_spectral_norm": 0.8830028731634044,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "n_terms": 5,
+          "alpha": 3.114545569447692,
+          "max_abs_error": 8.10805860259717e-15,
+          "frobenius_error": 1.1023177930134178e-14,
+          "block_spectral_norm": 0.8830028731634041,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 2,
+      "seed": 1,
+      "alpha": 2.436634480991279,
+      "gap": 0.8641970357660174,
+      "initial_overlap": 0.6506393590799036,
+      "empirical_degree": 2,
+      "predicted_degree": 3.7175785486333046,
+      "degree_ratio": 1.8587892743166523,
+      "cosine": 0.9702724415236096,
+      "encoding_qubits": 5,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "n_terms": 5,
+          "alpha": 2.436634480991279,
+          "max_abs_error": 4.896111493656643e-15,
+          "frobenius_error": 8.006841642425947e-15,
+          "block_spectral_norm": 0.8624848902259425,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "n_terms": 5,
+          "alpha": 2.436634480991279,
+          "max_abs_error": 4.903538984329308e-15,
+          "frobenius_error": 8.194060667219958e-15,
+          "block_spectral_norm": 0.8624848902259425,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 2,
+      "seed": 2,
+      "alpha": 2.3671528574685987,
+      "gap": 0.7651920190144672,
+      "initial_overlap": 0.6642713452244581,
+      "empirical_degree": 2,
+      "predicted_degree": 3.9658690915506343,
+      "degree_ratio": 1.9829345457753171,
+      "cosine": 0.9691982933847123,
+      "encoding_qubits": 5,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 2,
+      "seed": 3,
+      "alpha": 2.312791082006212,
+      "gap": 1.4888554478655707,
+      "initial_overlap": 0.6280746237564594,
+      "empirical_degree": 3,
+      "predicted_degree": 2.1409231834254134,
+      "degree_ratio": 0.7136410611418045,
+      "cosine": 0.9796970293729861,
+      "encoding_qubits": 5,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 2,
+      "seed": 4,
+      "alpha": 2.95289773860442,
+      "gap": 2.1754845671104084,
+      "initial_overlap": 0.5913384807133548,
+      "empirical_degree": 3,
+      "predicted_degree": 2.000969728670253,
+      "degree_ratio": 0.666989909556751,
+      "cosine": 0.9816976517595503,
+      "encoding_qubits": 5,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 2,
+      "seed": 5,
+      "alpha": 2.2104549410109207,
+      "gap": 1.3594897197024496,
+      "initial_overlap": 0.6370394297600998,
+      "empirical_degree": 3,
+      "predicted_degree": 2.2024871833868276,
+      "degree_ratio": 0.7341623944622758,
+      "cosine": 0.9794709891806952,
+      "encoding_qubits": 5,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 2,
+      "seed": 6,
+      "alpha": 1.7184247446270096,
+      "gap": 0.8674789388788737,
+      "initial_overlap": 0.7024873293727353,
+      "empirical_degree": 3,
+      "predicted_degree": 2.3315188105867306,
+      "degree_ratio": 0.7771729368622435,
+      "cosine": 0.9800033770442489,
+      "encoding_qubits": 5,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 2,
+      "seed": 7,
+      "alpha": 2.6350734011907555,
+      "gap": 1.1780151264769885,
+      "initial_overlap": 0.6217280841202407,
+      "empirical_degree": 2,
+      "predicted_degree": 3.120171044348087,
+      "degree_ratio": 1.5600855221740435,
+      "cosine": 0.9746140112764062,
+      "encoding_qubits": 5,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 2,
+      "seed": 8,
+      "alpha": 3.309388384267824,
+      "gap": 2.236665841623945,
+      "initial_overlap": 0.5797622165199374,
+      "empirical_degree": 2,
+      "predicted_degree": 2.2257128100407777,
+      "degree_ratio": 1.1128564050203889,
+      "cosine": 0.9741437082125609,
+      "encoding_qubits": 5,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 2,
+      "seed": 9,
+      "alpha": 2.2836695355512773,
+      "gap": 1.494025166963352,
+      "initial_overlap": 0.6302401176418202,
+      "empirical_degree": 3,
+      "predicted_degree": 2.097942782353253,
+      "degree_ratio": 0.6993142607844177,
+      "cosine": 0.9789324391923607,
+      "encoding_qubits": 5,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "single_peak",
+      "L": 2,
+      "height": 1.0,
+      "alpha": 1.3,
+      "gap": 0.8442362760795785,
+      "initial_overlap": 0.7064979272528602,
+      "empirical_degree": 3,
+      "predicted_degree": 1.794965101156791,
+      "degree_ratio": 0.5983217003855971,
+      "cosine": 0.977402516576716,
+      "encoding_qubits": 5,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "n_terms": 6,
+          "alpha": 1.3,
+          "max_abs_error": 2.5583152813749106e-15,
+          "frobenius_error": 3.944392503602361e-15,
+          "block_spectral_norm": 0.5499189394576356,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "n_terms": 6,
+          "alpha": 1.3,
+          "max_abs_error": 2.5620184290063647e-15,
+          "frobenius_error": 3.937671759711865e-15,
+          "block_spectral_norm": 0.5499189394576357,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "single_peak",
+      "L": 2,
+      "height": 2.5,
+      "alpha": 2.5000000000000004,
+      "gap": 2.266487417013297,
+      "initial_overlap": 0.5825438897975085,
+      "empirical_degree": 2,
+      "predicted_degree": 1.6512677945624872,
+      "degree_ratio": 0.8256338972812436,
+      "cosine": 0.9901804301096061,
+      "encoding_qubits": 5,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "n_terms": 6,
+          "alpha": 2.5000000000000004,
+          "max_abs_error": 6.745083922171106e-15,
+          "frobenius_error": 8.022842946830071e-15,
+          "block_spectral_norm": 0.8527979561662123,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "n_terms": 6,
+          "alpha": 2.5000000000000004,
+          "max_abs_error": 6.020923303537102e-15,
+          "frobenius_error": 7.193684693936737e-15,
+          "block_spectral_norm": 0.8527979561662127,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive_pairwise",
+      "L": 2,
+      "b": 0.1,
+      "alpha": 2.9000000000000004,
+      "gap": 2.228335340459891,
+      "initial_overlap": 0.5899053025928699,
+      "empirical_degree": 3,
+      "predicted_degree": 1.923366351264376,
+      "degree_ratio": 0.6411221170881253,
+      "cosine": 0.9832915990900821,
+      "encoding_qubits": 5,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "n_terms": 6,
+          "alpha": 2.9000000000000004,
+          "max_abs_error": 7.569996464586756e-15,
+          "frobenius_error": 1.0339898639349309e-14,
+          "block_spectral_norm": 0.8082268453344453,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 2,
+          "n_ancilla": 3,
+          "n_terms": 6,
+          "alpha": 2.9000000000000004,
+          "max_abs_error": 1.1671739612363547e-14,
+          "frobenius_error": 1.5626421670388597e-14,
+          "block_spectral_norm": 0.8082268453344439,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 3,
+      "seed": 0,
+      "alpha": 3.338745690561586,
+      "gap": 0.9653390745497765,
+      "initial_overlap": 0.5206964082200433,
+      "empirical_degree": 4,
+      "predicted_degree": 5.73582915282054,
+      "degree_ratio": 1.433957288205135,
+      "cosine": 0.9601728775376939,
+      "encoding_qubits": 6,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 3,
+          "n_ancilla": 3,
+          "n_terms": 7,
+          "alpha": 3.338745690561586,
+          "max_abs_error": 4.3019844613959924e-15,
+          "frobenius_error": 8.916677602252905e-15,
+          "block_spectral_norm": 0.8478682216672853,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 3,
+          "n_ancilla": 3,
+          "n_terms": 7,
+          "alpha": 3.338745690561586,
+          "max_abs_error": 4.363435767133172e-15,
+          "frobenius_error": 6.565878600373705e-15,
+          "block_spectral_norm": 0.8478682216672851,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 3,
+      "seed": 1,
+      "alpha": 4.169542839882826,
+      "gap": 1.5206870927017526,
+      "initial_overlap": 0.46951883554932,
+      "empirical_degree": 4,
+      "predicted_degree": 4.9229933840022575,
+      "degree_ratio": 1.2307483460005644,
+      "cosine": 0.9566232445188922,
+      "encoding_qubits": 6,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 3,
+          "n_ancilla": 3,
+          "n_terms": 7,
+          "alpha": 4.169542839882826,
+          "max_abs_error": 1.2880149937271127e-14,
+          "frobenius_error": 1.8837695446923495e-14,
+          "block_spectral_norm": 0.8713383109122772,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 3,
+          "n_ancilla": 3,
+          "n_terms": 7,
+          "alpha": 4.169542839882826,
+          "max_abs_error": 1.2755927817434888e-14,
+          "frobenius_error": 1.9826766416367495e-14,
+          "block_spectral_norm": 0.8713383109122772,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 3,
+      "seed": 2,
+      "alpha": 4.226287089799188,
+      "gap": 1.5111276416789878,
+      "initial_overlap": 0.4711064672524323,
+      "empirical_degree": 5,
+      "predicted_degree": 5.009435892003612,
+      "degree_ratio": 1.0018871784007224,
+      "cosine": 0.9792045047312067,
+      "encoding_qubits": 6,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 3,
+      "seed": 3,
+      "alpha": 4.111333249164458,
+      "gap": 0.814118175213066,
+      "initial_overlap": 0.4988489601215056,
+      "empirical_degree": 5,
+      "predicted_degree": 8.66753437627009,
+      "degree_ratio": 1.7335068752540181,
+      "cosine": 0.9684388200465938,
+      "encoding_qubits": 6,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 3,
+      "seed": 4,
+      "alpha": 3.633720110452653,
+      "gap": 1.1308025484326407,
+      "initial_overlap": 0.5039939202504441,
+      "empirical_degree": 5,
+      "predicted_degree": 5.471201339439418,
+      "degree_ratio": 1.0942402678878835,
+      "cosine": 0.9592708901445353,
+      "encoding_qubits": 6,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 3,
+      "seed": 5,
+      "alpha": 4.126266021591057,
+      "gap": 1.383099715772068,
+      "initial_overlap": 0.4772263598998429,
+      "empirical_degree": 5,
+      "predicted_degree": 5.293935555646754,
+      "degree_ratio": 1.0587871111293508,
+      "cosine": 0.9792639008085254,
+      "encoding_qubits": 6,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 3,
+      "seed": 6,
+      "alpha": 3.249274770378743,
+      "gap": 0.7748963669793135,
+      "initial_overlap": 0.5350306715069253,
+      "empirical_degree": 2,
+      "predicted_degree": 6.796152400447904,
+      "degree_ratio": 3.398076200223952,
+      "cosine": 0.9525737720354718,
+      "encoding_qubits": 6,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 3,
+      "seed": 7,
+      "alpha": 3.43908614017596,
+      "gap": 0.8160271572652312,
+      "initial_overlap": 0.5225659611230445,
+      "empirical_degree": 4,
+      "predicted_degree": 6.968508866355368,
+      "degree_ratio": 1.742127216588842,
+      "cosine": 0.9548825566492456,
+      "encoding_qubits": 6,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 3,
+      "seed": 8,
+      "alpha": 4.445911322998361,
+      "gap": 1.7853004235209595,
+      "initial_overlap": 0.45741137113176283,
+      "empirical_degree": 4,
+      "predicted_degree": 4.55411969556361,
+      "degree_ratio": 1.1385299238909026,
+      "cosine": 0.9614067481515098,
+      "encoding_qubits": 6,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 3,
+      "seed": 9,
+      "alpha": 2.83651784438076,
+      "gap": 0.7228030251682944,
+      "initial_overlap": 0.5697260220120572,
+      "empirical_degree": 4,
+      "predicted_degree": 6.005540617411259,
+      "degree_ratio": 1.5013851543528147,
+      "cosine": 0.975316368964662,
+      "encoding_qubits": 6,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "single_peak",
+      "L": 3,
+      "height": 1.0,
+      "alpha": 1.95,
+      "gap": 0.6465825084958935,
+      "initial_overlap": 0.6290146127833836,
+      "empirical_degree": 6,
+      "predicted_degree": 4.149045115078282,
+      "degree_ratio": 0.6915075191797136,
+      "cosine": 0.9566878100593382,
+      "encoding_qubits": 7,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 3,
+          "n_ancilla": 4,
+          "n_terms": 11,
+          "alpha": 1.95,
+          "max_abs_error": 3.344528215867e-14,
+          "frobenius_error": 9.794834206867204e-14,
+          "block_spectral_norm": 0.5913597311314783,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 3,
+          "n_ancilla": 4,
+          "n_terms": 11,
+          "alpha": 1.95,
+          "max_abs_error": 3.9646615199138984e-14,
+          "frobenius_error": 1.1634247302547883e-13,
+          "block_spectral_norm": 0.5913597311314726,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "single_peak",
+      "L": 3,
+      "height": 2.5,
+      "alpha": 3.0750000000000006,
+      "gap": 2.0353235968923586,
+      "initial_overlap": 0.4492098599244639,
+      "empirical_degree": 4,
+      "predicted_degree": 2.7973142289227213,
+      "degree_ratio": 0.6993285572306803,
+      "cosine": 0.9939312695592385,
+      "encoding_qubits": 7,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 3,
+          "n_ancilla": 4,
+          "n_terms": 11,
+          "alpha": 3.0750000000000006,
+          "max_abs_error": 9.309612219096345e-14,
+          "frobenius_error": 1.3570485224562857e-13,
+          "block_spectral_norm": 0.6335943705625277,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 3,
+          "n_ancilla": 4,
+          "n_terms": 11,
+          "alpha": 3.0750000000000006,
+          "max_abs_error": 1.1968218163681803e-13,
+          "frobenius_error": 1.627422757542365e-13,
+          "block_spectral_norm": 0.6335943705625187,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive_pairwise",
+      "L": 3,
+      "b": 0.1,
+      "alpha": 4.5,
+      "gap": 2.4201989412272793,
+      "initial_overlap": 0.44504465531927245,
+      "empirical_degree": 4,
+      "predicted_degree": 3.464284552343585,
+      "degree_ratio": 0.8660711380858962,
+      "cosine": 0.977246342206812,
+      "encoding_qubits": 7,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 3,
+          "n_ancilla": 4,
+          "n_terms": 10,
+          "alpha": 4.5,
+          "max_abs_error": 1.3283396731497184e-13,
+          "frobenius_error": 2.1272216529576577e-13,
+          "block_spectral_norm": 0.7496948800090387,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 3,
+          "n_ancilla": 4,
+          "n_terms": 10,
+          "alpha": 4.5,
+          "max_abs_error": 1.6165239343976692e-13,
+          "frobenius_error": 2.6126028702887157e-13,
+          "block_spectral_norm": 0.7496948800090321,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 4,
+      "seed": 0,
+      "alpha": 5.405506470523609,
+      "gap": 1.4989365612826084,
+      "initial_overlap": 0.368639109065508,
+      "empirical_degree": 7,
+      "predicted_degree": 7.532898242288989,
+      "degree_ratio": 1.0761283203269985,
+      "cosine": 0.9735226789300624,
+      "encoding_qubits": 8,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 4,
+          "n_ancilla": 4,
+          "n_terms": 9,
+          "alpha": 5.405506470523609,
+          "max_abs_error": 1.0927201916243987e-13,
+          "frobenius_error": 2.647286867103798e-13,
+          "block_spectral_norm": 0.8681344812693678,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 4,
+          "n_ancilla": 4,
+          "n_terms": 9,
+          "alpha": 5.405506470523609,
+          "max_abs_error": 1.3147008283222366e-13,
+          "frobenius_error": 2.9159243669519624e-13,
+          "block_spectral_norm": 0.8681344812693632,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 4,
+      "seed": 1,
+      "alpha": 3.9001608607893044,
+      "gap": 0.846491082883027,
+      "initial_overlap": 0.4736921451797065,
+      "empirical_degree": 7,
+      "predicted_degree": 8.220142464503395,
+      "degree_ratio": 1.174306066357628,
+      "cosine": 0.9673097118091258,
+      "encoding_qubits": 8,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 4,
+          "n_ancilla": 4,
+          "n_terms": 9,
+          "alpha": 3.9001608607893044,
+          "max_abs_error": 8.024052284647456e-14,
+          "frobenius_error": 1.772624746496557e-13,
+          "block_spectral_norm": 0.8360607090919908,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 4,
+          "n_ancilla": 4,
+          "n_terms": 9,
+          "alpha": 3.9001608607893044,
+          "max_abs_error": 1.0083345329082031e-13,
+          "frobenius_error": 2.2626038699432055e-13,
+          "block_spectral_norm": 0.8360607090919839,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 4,
+      "seed": 2,
+      "alpha": 5.207183603031728,
+      "gap": 0.9619458733849497,
+      "initial_overlap": 0.40398138546632734,
+      "empirical_degree": 8,
+      "predicted_degree": 10.724869846266758,
+      "degree_ratio": 1.3406087307833447,
+      "cosine": 0.9770192475844783,
+      "encoding_qubits": 8,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 4,
+      "seed": 3,
+      "alpha": 5.7408245342068565,
+      "gap": 1.3616496918435184,
+      "initial_overlap": 0.36524522406761195,
+      "empirical_degree": 7,
+      "predicted_degree": 8.851856862985157,
+      "degree_ratio": 1.264550980426451,
+      "cosine": 0.9595547062710319,
+      "encoding_qubits": 8,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 4,
+      "seed": 4,
+      "alpha": 5.7223273941618755,
+      "gap": 1.3062709141528859,
+      "initial_overlap": 0.36298017219143536,
+      "empirical_degree": 7,
+      "predicted_degree": 9.228813418438873,
+      "degree_ratio": 1.318401916919839,
+      "cosine": 0.9683340362846902,
+      "encoding_qubits": 8,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 4,
+      "seed": 5,
+      "alpha": 5.1322234119036025,
+      "gap": 1.135726052663702,
+      "initial_overlap": 0.3819173067939148,
+      "empirical_degree": 7,
+      "predicted_degree": 9.253208919632447,
+      "degree_ratio": 1.321886988518921,
+      "cosine": 0.9673069445310392,
+      "encoding_qubits": 8,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 4,
+      "seed": 6,
+      "alpha": 5.255764433150079,
+      "gap": 1.2982926992899342,
+      "initial_overlap": 0.37777670333748803,
+      "empirical_degree": 7,
+      "predicted_degree": 8.340980568313137,
+      "degree_ratio": 1.1915686526161624,
+      "cosine": 0.962811419302384,
+      "encoding_qubits": 8,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 4,
+      "seed": 7,
+      "alpha": 6.130437618720971,
+      "gap": 1.886244509301352,
+      "initial_overlap": 0.34777668809513973,
+      "empirical_degree": 7,
+      "predicted_degree": 7.006156498842519,
+      "degree_ratio": 1.0008794998346455,
+      "cosine": 0.9767472955757909,
+      "encoding_qubits": 8,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 4,
+      "seed": 8,
+      "alpha": 5.179520257284983,
+      "gap": 0.7714111677397715,
+      "initial_overlap": 0.4002675510417466,
+      "empirical_degree": 7,
+      "predicted_degree": 13.376782700205629,
+      "degree_ratio": 1.9109689571722328,
+      "cosine": 0.954180167299075,
+      "encoding_qubits": 8,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 4,
+      "seed": 9,
+      "alpha": 5.49585254124531,
+      "gap": 1.0296002547562737,
+      "initial_overlap": 0.3758714459797214,
+      "empirical_degree": 7,
+      "predicted_degree": 11.029621068486753,
+      "degree_ratio": 1.5756601526409646,
+      "cosine": 0.9589623811135409,
+      "encoding_qubits": 8,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "single_peak",
+      "L": 4,
+      "height": 1.0,
+      "alpha": 2.4750000000000005,
+      "gap": 0.47273200731630577,
+      "initial_overlap": 0.5971130425277994,
+      "empirical_degree": 12,
+      "predicted_degree": 7.639412827642609,
+      "degree_ratio": 0.6366177356368841,
+      "cosine": 0.9629895468729776,
+      "encoding_qubits": 9,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 4,
+          "n_ancilla": 5,
+          "n_terms": 20,
+          "alpha": 2.4750000000000005,
+          "max_abs_error": 1.493546888227449e-13,
+          "frobenius_error": 6.129595475911826e-13,
+          "block_spectral_norm": 0.6359670452248969,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 4,
+          "n_ancilla": 5,
+          "n_terms": 20,
+          "alpha": 2.4750000000000005,
+          "max_abs_error": 1.7996734174082744e-13,
+          "frobenius_error": 7.499794927181981e-13,
+          "block_spectral_norm": 0.6359670452248707,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "single_peak",
+      "L": 4,
+      "height": 2.5,
+      "alpha": 3.7875000000000005,
+      "gap": 1.8220056645071496,
+      "initial_overlap": 0.3493939186305665,
+      "empirical_degree": 6,
+      "predicted_degree": 4.470169568448773,
+      "degree_ratio": 0.7450282614081288,
+      "cosine": 0.9889842633349167,
+      "encoding_qubits": 9,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 4,
+          "n_ancilla": 5,
+          "n_terms": 20,
+          "alpha": 3.7875000000000005,
+          "max_abs_error": 2.7933689155913927e-13,
+          "frobenius_error": 6.815950279001222e-13,
+          "block_spectral_norm": 0.465964224876185,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 4,
+          "n_ancilla": 5,
+          "n_terms": 20,
+          "alpha": 3.7875000000000005,
+          "max_abs_error": 3.976936935158979e-13,
+          "frobenius_error": 8.446251513041601e-13,
+          "block_spectral_norm": 0.4659642248761525,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive_pairwise",
+      "L": 4,
+      "b": 0.1,
+      "alpha": 6.2,
+      "gap": 2.614215881465613,
+      "initial_overlap": 0.33277359217185104,
+      "empirical_degree": 5,
+      "predicted_degree": 5.230818096869662,
+      "degree_ratio": 1.0461636193739323,
+      "cosine": 0.9584864931307767,
+      "encoding_qubits": 8,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 4,
+          "n_ancilla": 4,
+          "n_terms": 15,
+          "alpha": 6.2,
+          "max_abs_error": 2.8688285690473897e-13,
+          "frobenius_error": 6.078089973204224e-13,
+          "block_spectral_norm": 0.6953675505182061,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 4,
+          "n_ancilla": 4,
+          "n_terms": 15,
+          "alpha": 6.2,
+          "max_abs_error": 3.5707715062149234e-13,
+          "frobenius_error": 7.421771749869388e-13,
+          "block_spectral_norm": 0.6953675505181952,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 5,
+      "seed": 0,
+      "alpha": 6.681620594637129,
+      "gap": 0.774619075457764,
+      "initial_overlap": 0.3145497389875965,
+      "empirical_degree": 10,
+      "predicted_degree": 19.56712575363772,
+      "degree_ratio": 1.9567125753637717,
+      "cosine": 0.9576050789510089,
+      "encoding_qubits": 9,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 5,
+          "n_ancilla": 4,
+          "n_terms": 11,
+          "alpha": 6.681620594637129,
+          "max_abs_error": 1.7970487044354021e-13,
+          "frobenius_error": 4.715119757197011e-13,
+          "block_spectral_norm": 0.8711127033677275,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 5,
+          "n_ancilla": 4,
+          "n_terms": 11,
+          "alpha": 6.681620594637129,
+          "max_abs_error": 2.318422769131063e-13,
+          "frobenius_error": 6.151423483439863e-13,
+          "block_spectral_norm": 0.8711127033677195,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 5,
+      "seed": 1,
+      "alpha": 7.683002379221703,
+      "gap": 0.7265086584632581,
+      "initial_overlap": 0.2898016674350348,
+      "empirical_degree": 11,
+      "predicted_degree": 24.94327239525109,
+      "degree_ratio": 2.267570217750099,
+      "cosine": 0.9633196166618374,
+      "encoding_qubits": 9,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 5,
+          "n_ancilla": 4,
+          "n_terms": 11,
+          "alpha": 7.683002379221703,
+          "max_abs_error": 2.014312146608981e-13,
+          "frobenius_error": 7.123026710592035e-13,
+          "block_spectral_norm": 0.8853716505254052,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 5,
+          "n_ancilla": 4,
+          "n_terms": 11,
+          "alpha": 7.683002379221703,
+          "max_abs_error": 2.5136950953125427e-13,
+          "frobenius_error": 7.9106578498169e-13,
+          "block_spectral_norm": 0.8853716505253958,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 5,
+      "seed": 2,
+      "alpha": 6.58011883486782,
+      "gap": 1.0234496491789775,
+      "initial_overlap": 0.2995752318865813,
+      "empirical_degree": 8,
+      "predicted_degree": 14.931051340114202,
+      "degree_ratio": 1.8663814175142752,
+      "cosine": 0.9599695353712963,
+      "encoding_qubits": 9,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 5,
+      "seed": 3,
+      "alpha": 6.840402221592761,
+      "gap": 1.103550235304981,
+      "initial_overlap": 0.29635254998834343,
+      "empirical_degree": 8,
+      "predicted_degree": 14.468607156468671,
+      "degree_ratio": 1.808575894558584,
+      "cosine": 0.9553833876612884,
+      "encoding_qubits": 9,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 5,
+      "seed": 4,
+      "alpha": 6.36494271891493,
+      "gap": 0.791912810126234,
+      "initial_overlap": 0.3258940959316592,
+      "empirical_degree": 8,
+      "predicted_degree": 17.915378210326452,
+      "degree_ratio": 2.2394222762908065,
+      "cosine": 0.9512850309132054,
+      "encoding_qubits": 9,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 5,
+      "seed": 5,
+      "alpha": 5.708862933216835,
+      "gap": 0.9340101752772254,
+      "initial_overlap": 0.33751750423193977,
+      "empirical_degree": 10,
+      "predicted_degree": 13.383387456970839,
+      "degree_ratio": 1.3383387456970839,
+      "cosine": 0.9673087790463274,
+      "encoding_qubits": 9,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 5,
+      "seed": 6,
+      "alpha": 7.912253272399642,
+      "gap": 1.3174442503134238,
+      "initial_overlap": 0.26901335496599477,
+      "empirical_degree": 9,
+      "predicted_degree": 14.650362646809514,
+      "degree_ratio": 1.6278180718677238,
+      "cosine": 0.9753869998449763,
+      "encoding_qubits": 9,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 5,
+      "seed": 7,
+      "alpha": 6.726796120698623,
+      "gap": 0.9815331864194095,
+      "initial_overlap": 0.3008183005955257,
+      "empirical_degree": 8,
+      "predicted_degree": 15.88453493855287,
+      "degree_ratio": 1.9855668673191087,
+      "cosine": 0.9521813576066721,
+      "encoding_qubits": 9,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 5,
+      "seed": 8,
+      "alpha": 5.789374320992506,
+      "gap": 0.8217010803263127,
+      "initial_overlap": 0.33101840067969324,
+      "empirical_degree": 8,
+      "predicted_degree": 15.581376181754592,
+      "degree_ratio": 1.947672022719324,
+      "cosine": 0.9622562698960428,
+      "encoding_qubits": 9,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 5,
+      "seed": 9,
+      "alpha": 6.9210124298004985,
+      "gap": 1.23371541338885,
+      "initial_overlap": 0.2879595845498119,
+      "empirical_degree": 8,
+      "predicted_degree": 13.270797903163395,
+      "degree_ratio": 1.6588497378954243,
+      "cosine": 0.9649311213491321,
+      "encoding_qubits": 9,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "single_peak",
+      "L": 5,
+      "height": 1.0,
+      "alpha": 2.937500000000001,
+      "gap": 0.32380120555934466,
+      "initial_overlap": 0.6265359467357339,
+      "empirical_degree": 19,
+      "predicted_degree": 12.539758904797552,
+      "degree_ratio": 0.6599873107788184,
+      "cosine": 0.950335159526622,
+      "encoding_qubits": 11,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 5,
+          "n_ancilla": 6,
+          "n_terms": 37,
+          "alpha": 2.937500000000001,
+          "max_abs_error": 4.750854480696227e-13,
+          "frobenius_error": 2.8204952936676865e-12,
+          "block_spectral_norm": 0.6759727431990343,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 5,
+          "n_ancilla": 6,
+          "n_terms": 37,
+          "alpha": 2.937500000000001,
+          "max_abs_error": 5.95441598577939e-13,
+          "frobenius_error": 3.574635062685526e-12,
+          "block_spectral_norm": 0.6759727431989477,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "single_peak",
+      "L": 5,
+      "height": 2.5,
+      "alpha": 4.343750000000001,
+      "gap": 1.6194467214903316,
+      "initial_overlap": 0.27462740215164133,
+      "empirical_degree": 8,
+      "predicted_degree": 6.483205816861733,
+      "degree_ratio": 0.8104007271077166,
+      "cosine": 0.9794131382221394,
+      "encoding_qubits": 11,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 5,
+          "n_ancilla": 6,
+          "n_terms": 37,
+          "alpha": 4.343750000000001,
+          "max_abs_error": 6.677415271772542e-13,
+          "frobenius_error": 2.961622248440091e-12,
+          "block_spectral_norm": 0.45590885551677074,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 5,
+          "n_ancilla": 6,
+          "n_terms": 37,
+          "alpha": 4.343750000000001,
+          "max_abs_error": 9.501387657352659e-13,
+          "frobenius_error": 3.708329001235765e-12,
+          "block_spectral_norm": 0.45590885551671356,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive_pairwise",
+      "L": 5,
+      "b": 0.1,
+      "alpha": 8.000000000000002,
+      "gap": 2.809741514930044,
+      "initial_overlap": 0.24701875761167333,
+      "empirical_degree": 7,
+      "predicted_degree": 7.205681558732536,
+      "degree_ratio": 1.0293830798189336,
+      "cosine": 0.9511620365198096,
+      "encoding_qubits": 10,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 5,
+          "n_ancilla": 5,
+          "n_terms": 21,
+          "alpha": 8.000000000000002,
+          "max_abs_error": 7.918435017330573e-13,
+          "frobenius_error": 2.1269280663567504e-12,
+          "block_spectral_norm": 0.645012014451334,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 5,
+          "n_ancilla": 5,
+          "n_terms": 21,
+          "alpha": 8.000000000000002,
+          "max_abs_error": 1.0347296316600907e-12,
+          "frobenius_error": 2.827813544268038e-12,
+          "block_spectral_norm": 0.6450120144513035,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 6,
+      "seed": 0,
+      "alpha": 8.549753948974956,
+      "gap": 1.542182639203216,
+      "initial_overlap": 0.21645473308732957,
+      "empirical_degree": 11,
+      "predicted_degree": 14.804138256680062,
+      "degree_ratio": 1.3458307506072784,
+      "cosine": 0.9726074399614313,
+      "encoding_qubits": 10,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 6,
+          "n_ancilla": 4,
+          "n_terms": 13,
+          "alpha": 8.549753948974956,
+          "max_abs_error": 2.9944410322715234e-13,
+          "frobenius_error": 1.0032295398690205e-12,
+          "block_spectral_norm": 0.873963935666821,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 6,
+          "n_ancilla": 4,
+          "n_terms": 13,
+          "alpha": 8.549753948974956,
+          "max_abs_error": 3.8548262604000947e-13,
+          "frobenius_error": 1.2603507222233796e-12,
+          "block_spectral_norm": 0.873963935666811,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 6,
+      "seed": 1,
+      "alpha": 8.338869911618993,
+      "gap": 0.9508804794086232,
+      "initial_overlap": 0.23019064658784638,
+      "empirical_degree": 12,
+      "predicted_degree": 22.84994822743206,
+      "degree_ratio": 1.904162352286005,
+      "cosine": 0.97143204481513,
+      "encoding_qubits": 10,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 6,
+          "n_ancilla": 4,
+          "n_terms": 13,
+          "alpha": 8.338869911618993,
+          "max_abs_error": 2.7971732974293894e-13,
+          "frobenius_error": 1.179998695889964e-12,
+          "block_spectral_norm": 0.872985791050211,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 6,
+          "n_ancilla": 4,
+          "n_terms": 13,
+          "alpha": 8.338869911618993,
+          "max_abs_error": 3.7136118226861504e-13,
+          "frobenius_error": 1.3100924648978614e-12,
+          "block_spectral_norm": 0.8729857910501999,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    },
+    {
+      "family": "additive",
+      "L": 6,
+      "seed": 2,
+      "alpha": 8.250723659292337,
+      "gap": 0.9516850656828013,
+      "initial_overlap": 0.22989525795476282,
+      "empirical_degree": 12,
+      "predicted_degree": 22.60105262381933,
+      "degree_ratio": 1.8834210519849444,
+      "cosine": 0.9660553954622415,
+      "encoding_qubits": 10,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 6,
+      "seed": 3,
+      "alpha": 8.32212975299581,
+      "gap": 0.7447158408041785,
+      "initial_overlap": 0.23622193625233392,
+      "empirical_degree": 12,
+      "predicted_degree": 28.811432868753343,
+      "degree_ratio": 2.4009527390627787,
+      "cosine": 0.9657036243343283,
+      "encoding_qubits": 10,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 6,
+      "seed": 4,
+      "alpha": 8.951100665370621,
+      "gap": 1.153250275407066,
+      "initial_overlap": 0.21340291119516602,
+      "empirical_degree": 11,
+      "predicted_degree": 20.84167771070961,
+      "degree_ratio": 1.8946979737008738,
+      "cosine": 0.9502415432806568,
+      "encoding_qubits": 10,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 6,
+      "seed": 5,
+      "alpha": 7.469364422946915,
+      "gap": 1.3418912266392118,
+      "initial_overlap": 0.23548291217620093,
+      "empirical_degree": 10,
+      "predicted_degree": 14.369638662963563,
+      "degree_ratio": 1.4369638662963564,
+      "cosine": 0.9539281335379102,
+      "encoding_qubits": 10,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 6,
+      "seed": 6,
+      "alpha": 7.036278817464212,
+      "gap": 1.0287316029642093,
+      "initial_overlap": 0.25120078417040115,
+      "empirical_degree": 10,
+      "predicted_degree": 17.187389302813653,
+      "degree_ratio": 1.7187389302813654,
+      "cosine": 0.9527130985368135,
+      "encoding_qubits": 10,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 6,
+      "seed": 7,
+      "alpha": 7.4393946285687536,
+      "gap": 0.9066869078533966,
+      "initial_overlap": 0.24991657976559367,
+      "empirical_degree": 13,
+      "predicted_degree": 20.662997696132045,
+      "degree_ratio": 1.5894613612409265,
+      "cosine": 0.9619792293404158,
+      "encoding_qubits": 10,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 6,
+      "seed": 8,
+      "alpha": 7.167484850254529,
+      "gap": 0.7288579362523735,
+      "initial_overlap": 0.26878453055007834,
+      "empirical_degree": 13,
+      "predicted_degree": 23.997589320724963,
+      "degree_ratio": 1.8459684092865356,
+      "cosine": 0.952452688864316,
+      "encoding_qubits": 10,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive",
+      "L": 6,
+      "seed": 9,
+      "alpha": 7.643952699875666,
+      "gap": 1.0722702349698388,
+      "initial_overlap": 0.2414754720671391,
+      "empirical_degree": 13,
+      "predicted_degree": 18.213251448158665,
+      "degree_ratio": 1.4010193421660513,
+      "cosine": 0.9679750615177529,
+      "encoding_qubits": 10,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "single_peak",
+      "L": 6,
+      "height": 1.0,
+      "alpha": 3.3687500000000012,
+      "gap": 0.2181014900807019,
+      "initial_overlap": 0.7515704741666176,
+      "empirical_degree": 23,
+      "predicted_degree": 15.963226548876879,
+      "degree_ratio": 0.6940533282120382,
+      "cosine": 0.9570275155334833,
+      "encoding_qubits": 13,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "single_peak",
+      "L": 6,
+      "height": 2.5,
+      "alpha": 4.821875000000001,
+      "gap": 1.4238300715875083,
+      "initial_overlap": 0.21870117131760558,
+      "empirical_degree": 10,
+      "predicted_degree": 9.00651719318066,
+      "degree_ratio": 0.900651719318066,
+      "cosine": 0.9571910634338893,
+      "encoding_qubits": 13,
+      "encoding_verified": false,
+      "encoding": {}
+    },
+    {
+      "family": "additive_pairwise",
+      "L": 6,
+      "b": 0.1,
+      "alpha": 9.899999999999999,
+      "gap": 3.0063454815438555,
+      "initial_overlap": 0.18226540639004216,
+      "empirical_degree": 8,
+      "predicted_degree": 9.383009479418106,
+      "degree_ratio": 1.1728761849272633,
+      "cosine": 0.961691798670375,
+      "encoding_qubits": 11,
+      "encoding_verified": true,
+      "encoding": {
+        "asymmetric": {
+          "n_system": 6,
+          "n_ancilla": 5,
+          "n_terms": 28,
+          "alpha": 9.899999999999999,
+          "max_abs_error": 1.1963995243233042e-12,
+          "frobenius_error": 4.342648536580986e-12,
+          "block_spectral_norm": 0.6444214042434134,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        },
+        "symmetric": {
+          "n_system": 6,
+          "n_ancilla": 5,
+          "n_terms": 28,
+          "alpha": 9.899999999999999,
+          "max_abs_error": 1.7017537921569015e-12,
+          "frobenius_error": 5.977999452471167e-12,
+          "block_spectral_norm": 0.644421404243362,
+          "block_norm_within_one": true,
+          "circuit_unitary": true
+        }
+      }
+    }
+  ],
+  "notes": "Route B is built as ADR-0010 option C under ADR-0015, a working assumption pending confirmation by both PIs: QSVT eigenstate filtering for a Hermitian stoquastic operator. ADR-0010 records that the G-2 thresholds do not depend on this choice. Amendment 13 discloses that the first derivation of the degree omitted the initial-overlap term and overshot by factors of 3.3 to 7.2; the corrected form is the standard two-factor eigenstate-filtering cost and contains no fitted constant. The degree is linear in alpha over the gap, not square root: Chebyshev acceleration needs the target eigenvalue outside the encoded spectrum and here it is inside by construction.",
+  "env": {
+    "git_sha": "30ff2ca926162922e08d031623fc0875b6a96037",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9"
+  },
+  "timestamp": "2026-08-10T10:40:21.007211+00:00"
+}

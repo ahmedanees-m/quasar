@@ -125,7 +125,7 @@
       },
       "depth_unchanged": true
     },
-    "seconds": 1294.51
+    "seconds": 1304.94
   },
   "n_cases": 14,
   "cases": [
@@ -652,12 +652,12 @@
   ],
   "notes": "The ansatz depth rule reps = L + 2 was chosen by a pre-run scan, disclosed in Amendment 6 with its numbers, because an ansatz too shallow to hold the answer fails for reasons unrelated to the method. Convergence is judged on the state rather than the parameters: the ansatz has gauge directions, so parameters drift long after the state has settled. tau_used is reported per configuration as the budget-needed-for-accuracy half of ADR-0013.",
   "env": {
-    "git_sha": "526ac4cccf268a8d07ff339b45330f1f21dd404c",
+    "git_sha": "30ff2ca926162922e08d031623fc0875b6a96037",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",
     "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
-    "gates_md_sha256": "5ea16d8e7e4ddda40fe35db72ed003ce12c8f1d3e7bf92b03f4a6444545d5178"
+    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9"
   },
-  "timestamp": "2026-08-09T20:00:31.512988+00:00"
+  "timestamp": "2026-08-10T03:16:11.494072+00:00"
 }

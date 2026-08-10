@@ -166,6 +166,43 @@ def test_the_sweep_runner_also_redirects_out_of_the_evidence_tree() -> None:
     execution, because running the sweep to find out would cost minutes.
     """
     source = (store.REPO_ROOT / "scripts" / "sweep_runner.py").read_text(encoding="utf-8")
-    assert "_local" in source, "sweep_runner has no redirection for non-image runs"
-    assert "in_pinned_image" in source, "sweep_runner does not check whether it is in the image"
-    assert "not evidence" in source, "sweep_runner does not say so when it is not evidence"
+    assert "evidence_directory" in source, (
+        "sweep_runner does not use the shared guard, so a non-image run could write into "
+        "the evidence tree"
+    )
+
+
+def test_every_results_writer_uses_the_shared_evidence_guard() -> None:
+    """ADR-0012's redirection was re-implemented per writer, and twice forgotten.
+
+    `write_gate_record` had it, the WP7 sweep runner had its own copy, and the G-7 scorer had
+    none: both wrote straight into `results/` on their first version. Three occurrences of one
+    omission means the guard was in the wrong place, so it now lives in `evidence_directory`
+    and this test fails if a script that *writes* under `results/` does not use it.
+
+    Read-only consumers are listed explicitly rather than inferred. Guessing read from write
+    by pattern-matching would either miss a writer or, as the first version of this test did,
+    flag `make_figures.py` for reading artefacts it never writes to.
+    """
+    read_only = {"make_figures.py", "check_claims.py", "check_results_provenance.py"}
+    offenders = []
+    for path in (store.REPO_ROOT / "scripts").glob("*.py"):
+        if path.name in read_only:
+            continue
+        source = path.read_text(encoding="utf-8")
+        builds_results_path = "RESULTS_ROOT" in source or "RESULTS /" in source
+        if builds_results_path and "evidence_directory" not in source:
+            offenders.append(path.name)
+    assert not offenders, (
+        f"these scripts build a results path without the shared guard: {offenders}. "
+        f"Use quasarstack.io.store.evidence_directory so a non-image run cannot write "
+        f"where committed evidence lives."
+    )
+
+    # And the read-only list must not go stale: a script named there that starts writing
+    # would slip through the check above.
+    for name in read_only:
+        source = (store.REPO_ROOT / "scripts" / name).read_text(encoding="utf-8")
+        assert "RESULTS_ROOT /" not in source.replace(
+            "RESULTS_ROOT / relative", ""
+        ), f"{name} is on the read-only list but builds a results path to write to"

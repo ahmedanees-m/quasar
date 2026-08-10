@@ -43,7 +43,10 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from quasarstack.analytic.exact_diag import perron_vector  # noqa: E402
+from quasarstack.analytic.exact_diag import (  # noqa: E402
+    mutation_selection_generator,
+    perron_vector,
+)
 from quasarstack.classical.exact_class import applicability, solve  # noqa: E402
 from quasarstack.classical.landscapes import (  # noqa: E402
     additive_fitness,
@@ -58,13 +61,21 @@ from quasarstack.classical.landscapes import (  # noqa: E402
 )
 from quasarstack.classical.mps_ite import evolve as mps_evolve  # noqa: E402
 from quasarstack.classical.wright_fisher import sample_stationary  # noqa: E402
-from quasarstack.io.store import RESULTS_ROOT, environment  # noqa: E402
+from quasarstack.hamiltonian.builder import diagonal_hamiltonian  # noqa: E402
+from quasarstack.io.store import environment, evidence_directory  # noqa: E402
+from quasarstack.ite.varqite import Ansatz  # noqa: E402
+from quasarstack.ite.varqite import evolve as varqite_evolve  # noqa: E402
+from quasarstack.qsvt.block_encoding import one_norm  # noqa: E402
+from quasarstack.qsvt.filter import filtered_state  # noqa: E402
 from quasarstack.spectral.order_parameter import localisation  # noqa: E402
 
 # Registered in GATES.md section 11.1, with Amendment 18's split of the ruggedness axis.
 REGISTERED_GRID = {
+    # Amendment 20: section 11.1's grid is 3108 cells and about 294 hours at measured cost.
+    # This covers the same families and mutation range at 7 points instead of 21, and defers
+    # L = 14, for 777 cells and about 27 hours. The seed count meets the registered minimum.
     "sizes": [8, 10, 12],
-    "mu_ratios": [0.4, 0.7, 1.0, 1.3, 1.6],
+    "mu_ratios": [0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6],
     "seeds": [0, 1, 2, 3, 4],
     "families": [
         {"family": "single_peak", "axis": "control"},
@@ -88,9 +99,32 @@ SMOKE_GRID = {
     ],
 }
 
+# A grid big enough to exercise the boundary-map figure without being the registered sweep.
+# One size, one seed, the full mutation axis, and one family from each of the three axes
+# Amendment 18 separates, so the figure has something with structure in it to draw.
+LOCAL_GRID = {
+    "sizes": [8],
+    "mu_ratios": [0.4, 0.7, 1.0, 1.3, 1.6],
+    "seeds": [0],
+    "families": [
+        {"family": "single_peak", "axis": "control"},
+        {"family": "nk", "K": 2, "axis": "biological"},
+        {"family": "spin_glass", "axis": "compilation"},
+    ],
+}
+
 # Section 11.3. Wall-clock seconds per cell per method.
 BUDGET_SECONDS = {8: 300.0, 10: 300.0, 12: 300.0, 14: 900.0}
 REFERENCE_DENSE_LIMIT = 10
+
+# Registered in Amendment 21. Route A is measured, not assumed, to be unable to finish a
+# cell within section 11.3's allotment anywhere on this grid: at L = 6 it used 198 to 235 s
+# of 300, and its cost scales as n_parameters^2 * 2^L with n_parameters = L(L+3), so L = 8 is
+# about ten times that. Running it on all 777 cells would spend 65 hours confirming
+# budget exhaustion. It runs on a declared probe instead, and the exhaustion is the result.
+ROUTE_A_PROBE_SIZE = 8
+ROUTE_A_PROBE_MU = (0.4, 1.0, 1.6)
+ROUTE_A_PROBE_SEED = 0
 
 
 def build_fitness(spec: dict[str, Any], n_sites: int, seed: int) -> np.ndarray:
@@ -192,16 +226,93 @@ def method_baseline_c(fitness: np.ndarray, mu: float, budget: float) -> dict[str
 
 
 def method_baseline_a(fitness: np.ndarray, mu: float, budget: float) -> dict[str, Any]:
-    """Baseline A, spending its budget on population size."""
+    """Baseline A. One run at the largest declared population, and **it cannot use more
+    budget than that**, which is a fairness fact WP7 has to carry.
+
+    Section 11.3 says Wright-Fisher spends its budget on samples. Measured at L = 10 on an
+    NK K = 2 cell, three ways of spending it:
+
+    | | seconds | cosine | total variation |
+    |---|---|---|---|
+    | ladder over N = 1e3 to 1e6, 3000 generations each | 59.1 | 0.999830 | 9.35e-3 |
+    | N = 1e6 once, 3000 generations | **23.0** | 0.999830 | 9.35e-3 |
+    | N = 1e6 once, 12000 generations | 105.8 | 0.999735 | 1.06e-2 |
+
+    The ladder costs 2.6 times more for a **bit-identical** answer, because a generation in
+    genotype-count space is ``O(L 2^L)`` and independent of N, so the small-population runs
+    are pure waste rather than a cheap approximation being refined.
+
+    And the third row is the one that matters for the budget protocol: **more generations
+    makes it worse.** Genetic drift is injected once per generation, so a longer chain
+    accumulates noise faster than time-averaging removes it. This is finding 4.11 of the
+    project record showing up again in a different place.
+
+    So Baseline A's accuracy here is set by a drift floor and not by compute, and handing it
+    a larger allotment cannot move it. Section 11.3's protocol assumes methods improve with
+    budget; this one does not, and a WP7 cell where Baseline A looks weak is a cell where it
+    is at its floor rather than one where it was starved.
+    """
     began = time.monotonic()
+    population = 10**6
+    generations = 3000
+    result = sample_stationary(fitness, mu, population, generations, [0, 1, 2], dt=0.01)
+    return {
+        "applicable": True,
+        "distribution": np.asarray(result["distribution"]),
+        "seconds": time.monotonic() - began,
+        "budget_exhausted": False,
+        "detail": {
+            "population": population,
+            "generations": generations,
+            "seed_spread": float(result["max_pairwise_tv_between_seeds"]),
+            "burn_in_drift": float(result["max_burn_in_drift"]),
+            "budget_is_not_the_binding_constraint": True,
+        },
+    }
+
+
+def in_route_a_probe(cell: dict[str, Any]) -> bool:
+    """Is this cell in the declared Route A feasibility probe? See Amendment 21."""
+    return (
+        cell["L"] == ROUTE_A_PROBE_SIZE
+        and cell.get("seed", 0) == ROUTE_A_PROBE_SEED
+        and any(abs(cell["mu_over_mu_c"] - r) < 1e-9 for r in ROUTE_A_PROBE_MU)
+    )
+
+
+def method_route_a(fitness: np.ndarray, mu: float, budget: float) -> dict[str, Any]:
+    """Route A, varQITE, spending its budget on imaginary time.
+
+    The expensive route. Each step solves the McLachlan system, whose geometric tensor costs
+    `O(n_parameters^2 * 2^L)`, and the ansatz carries `L * (reps + 1)` parameters. A cell
+    that cannot finish inside its allotment is recorded as `budget_exhausted` rather than
+    scored as inaccurate, which matters here more than for the baselines: G-7's positive
+    result requires a quantum route to *succeed* where the tensor network fails, and a
+    quantum route that merely ran out of time must not be read as either.
+    """
+    began = time.monotonic()
+    n_sites = fitness.size.bit_length() - 1
+    matrix = np.asarray(diagonal_hamiltonian(fitness, mu).to_matrix()).real
+    ansatz = Ansatz(n_sites, reps=n_sites + 2)
+
     best: dict[str, Any] | None = None
     exhausted = False
-    for population in (10**3, 10**4, 10**5, 10**6):
+    for tau in (5.0, 15.0, 40.0):
         if time.monotonic() - began > budget:
             exhausted = True
             break
-        result = sample_stationary(fitness, mu, population, 3000, [0, 1, 2], dt=0.01)
-        best = {"distribution": np.asarray(result["distribution"]), "population": population}
+        result = varqite_evolve(ansatz, matrix, tau=tau, dtau=0.05)
+        # Evolution exposes probs, already a distribution over genotypes.
+        probabilities = np.abs(np.asarray(result.probs))
+        best = {
+            "distribution": probabilities / probabilities.sum(),
+            "tau": tau,
+            "tau_used": float(result.tau_used),
+            "steps": int(result.steps),
+            "converged": bool(result.converged),
+        }
+        if best["converged"]:
+            break
     if best is None:
         return {"applicable": True, "budget_exhausted": True, "seconds": time.monotonic() - began}
     return {
@@ -209,15 +320,66 @@ def method_baseline_a(fitness: np.ndarray, mu: float, budget: float) -> dict[str
         "distribution": best["distribution"],
         "seconds": time.monotonic() - began,
         "budget_exhausted": exhausted,
-        "detail": {"population": best["population"]},
+        "detail": {
+            "tau_ceiling": best["tau"],
+            "tau_used": best["tau_used"],
+            "steps": best["steps"],
+            "converged": best["converged"],
+            "reps": ansatz.reps,
+        },
     }
 
 
-METHODS: dict[str, Callable[[np.ndarray, float, float], dict[str, Any]]] = {
+def method_route_b(fitness: np.ndarray, mu: float, budget: float) -> dict[str, Any]:
+    """Route B, QSVT eigenstate filtering, spending its budget on polynomial degree.
+
+    Scored as the filter applied to the operator, which is what the circuit's block encoding
+    implements and what G-2 verified to 1.7e-12. Simulating the circuit itself at every cell
+    is not affordable and would measure Qiskit rather than the method.
+    """
+    began = time.monotonic()
+    n_sites = fitness.size.bit_length() - 1
+    generator = np.asarray(mutation_selection_generator(fitness, mu).todense())
+    values = np.linalg.eigvalsh(generator)
+    lambda_1, lambda_2 = float(values[-1]), float(values[-2])
+    alpha = one_norm(diagonal_hamiltonian(fitness, mu))
+    initial = np.full(1 << n_sites, 1.0 / np.sqrt(1 << n_sites))
+
+    best: dict[str, Any] | None = None
+    exhausted = False
+    for degree in (16, 64, 256, 1024):
+        if time.monotonic() - began > budget:
+            exhausted = True
+            break
+        state = filtered_state(generator, alpha, degree, lambda_1, lambda_2, initial=initial)
+        amplitudes = np.abs(np.asarray(state))
+        best = {"distribution": amplitudes / amplitudes.sum(), "degree": degree}
+    if best is None:
+        return {"applicable": True, "budget_exhausted": True, "seconds": time.monotonic() - began}
+    return {
+        "applicable": True,
+        "distribution": best["distribution"],
+        "seconds": time.monotonic() - began,
+        "budget_exhausted": exhausted,
+        "detail": {"degree": best["degree"], "alpha": alpha, "gap": lambda_1 - lambda_2},
+    }
+
+
+CLASSICAL_METHODS: dict[str, Callable[[np.ndarray, float, float], dict[str, Any]]] = {
     "baseline_a_wright_fisher": method_baseline_a,
     "baseline_b_exact_class": method_baseline_b,
     "baseline_c_tensor_network": method_baseline_c,
 }
+
+QUANTUM_METHODS: dict[str, Callable[[np.ndarray, float, float], dict[str, Any]]] = {
+    "route_a_varqite": method_route_a,
+    "route_b_qsvt_filter": method_route_b,
+}
+
+# Selected per invocation. G-7's decision compares a quantum route against the
+# compute-matched tensor network, so a sweep holding only the baselines cannot answer it
+# either way, which is what the first pass of this runner did.
+METHODS: dict[str, Callable[[np.ndarray, float, float], dict[str, Any]]] = dict(CLASSICAL_METHODS)
 
 
 # --------------------------------------------------------------------------------------
@@ -264,6 +426,12 @@ def run_cell(cell: dict[str, Any]) -> dict[str, Any]:
     }
 
     for name, method in METHODS.items():
+        if name == "route_a_varqite" and not in_route_a_probe(cell):
+            record["methods"][name] = {
+                "applicable": False,
+                "reason": "outside the declared Route A feasibility probe, Amendment 21",
+            }
+            continue
         try:
             outcome = method(fitness, mu, budget)
         except Exception as error:  # a method failing must not lose the cell
@@ -272,11 +440,21 @@ def run_cell(cell: dict[str, Any]) -> dict[str, Any]:
         if not outcome.get("applicable", True):
             record["methods"][name] = {"applicable": False, "reason": outcome["reason"]}
             continue
+        used = float(outcome.get("seconds", 0.0))
         entry: dict[str, Any] = {
             "applicable": True,
-            "seconds_used": round(float(outcome.get("seconds", 0.0)), 3),
+            "seconds_used": round(used, 3),
             "seconds_allotted": budget,
+            # Stopped early because the clock ran out.
             "budget_exhausted": bool(outcome.get("budget_exhausted", False)),
+            # Ran past the clock. Every method here checks its budget *between* units of
+            # work, so a single unit that overruns is never caught by that check: Route A
+            # converged on its first rung at L = 8 after 510 s of a 300 s allotment and
+            # reported itself unexhausted. Section 11.3 calls the budget a fairness
+            # firewall, and a cell where one method was allowed 1.7 times its allotment is
+            # not a fair comparison. Recorded per cell so the sweep cannot be read as
+            # compute-matched where it was not.
+            "over_budget": bool(used > budget),
             "detail": outcome.get("detail", {}),
         }
         if "distribution" in outcome:
@@ -290,11 +468,24 @@ def run_cell(cell: dict[str, Any]) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--wp", default="7")
-    parser.add_argument("--grid", choices=["smoke", "registered"], default="smoke")
+    parser.add_argument("--grid", choices=["smoke", "local", "registered"], default="smoke")
+    parser.add_argument(
+        "--methods",
+        choices=["classical", "quantum", "all"],
+        default="classical",
+        help="which method set to run; streams are kept separate so a pass can be "
+        "added without recomputing one already done",
+    )
     parser.add_argument("--list", action="store_true", help="show the cells and stop")
     arguments = parser.parse_args()
 
-    grid = SMOKE_GRID if arguments.grid == "smoke" else REGISTERED_GRID
+    grid = {"smoke": SMOKE_GRID, "local": LOCAL_GRID, "registered": REGISTERED_GRID}[arguments.grid]
+    global METHODS
+    METHODS = {
+        "classical": CLASSICAL_METHODS,
+        "quantum": QUANTUM_METHODS,
+        "all": {**CLASSICAL_METHODS, **QUANTUM_METHODS},
+    }[arguments.methods]
     planned = list(cells(grid))
 
     if arguments.list:
@@ -303,21 +494,12 @@ def main() -> int:
         print(f"{len(planned)} cells")
         return 0
 
-    # ADR-0012: a run outside the pinned image must not write where committed evidence
-    # lives. write_gate_record enforces this for gates; the sweep writes its own stream
-    # and so has to enforce it too. This was reintroduced here once and caught before it
-    # produced anything, which is the only reason the check is duplicated rather than
-    # trusted to live in one place.
+    # ADR-0012, via the shared guard in quasarstack.io.store. This script had its own copy
+    # and the G-7 scorer had none; the helper exists so a third writer cannot forget.
     env = environment()
-    in_pinned_image = env["image"] != "unknown" and str(env["platform"]).startswith("Linux")
-    directory = RESULTS_ROOT / f"wp{arguments.wp}" if in_pinned_image else RESULTS_ROOT / "_local"
-    directory.mkdir(parents=True, exist_ok=True)
-    if not in_pinned_image:
-        print(
-            f"NOTE: not running in the pinned image, so this sweep writes to "
-            f"{directory} and is not evidence."
-        )
-    stream = directory / f"sweep_{arguments.grid}.jsonl"
+    directory = evidence_directory(f"wp{arguments.wp}")
+    suffix = "" if arguments.methods == "classical" else f"_{arguments.methods}"
+    stream = directory / f"sweep_{arguments.grid}{suffix}.jsonl"
 
     done = set()
     if stream.exists():
@@ -341,6 +523,7 @@ def main() -> int:
     ]
     manifest = {
         "grid": arguments.grid,
+        "methods": arguments.methods,
         "cells_planned": len(planned),
         "cells_recorded": len(records),
         # C27: every cell is scored or excluded with a reason. Neither state is silent.
@@ -353,17 +536,35 @@ def main() -> int:
             name: sum(1 for r in records if r["methods"].get(name, {}).get("budget_exhausted"))
             for name in METHODS
         },
+        # A method that raises in every cell would otherwise be a silent column of nulls:
+        # run_cell catches so one failure cannot lose a cell, and that same catch turns a
+        # method broken everywhere into a sweep that looks complete. Counted, and the
+        # printout calls it out.
+        "methods_over_budget_by_name": {
+            name: sum(1 for r in records if r["methods"].get(name, {}).get("over_budget"))
+            for name in METHODS
+        },
+        "methods_errored_by_name": {
+            name: sum(1 for r in records if "error" in r["methods"].get(name, {}))
+            for name in METHODS
+        },
         "seconds": round(time.monotonic() - started, 2),
         "env": env,
     }
-    (directory / f"sweep_manifest_{arguments.grid}.json").write_text(
+    (directory / f"sweep_manifest_{arguments.grid}{suffix}.json").write_text(
         json.dumps(manifest, indent=2), encoding="utf-8"
     )
 
     print(f"\n{manifest['cells_recorded']} of {manifest['cells_planned']} cells recorded")
     print(f"inapplicable per method: {manifest['methods_inapplicable_by_name']}")
+    over = {k: v for k, v in manifest["methods_over_budget_by_name"].items() if v}
+    if over:
+        print(f"OVER BUDGET per method: {over}  <- those cells are not compute-matched")
+    errored = {k: v for k, v in manifest["methods_errored_by_name"].items() if v}
+    if errored:
+        print(f"ERRORED per method: {errored}  <- these cells carry no score")
     print(f"budget exhausted per method: {manifest['methods_budget_exhausted_by_name']}")
-    print(f"manifest  {directory / f'sweep_manifest_{arguments.grid}.json'}")
+    print(f"manifest  {directory / f'sweep_manifest_{arguments.grid}{suffix}.json'}")
     return 0
 
 
