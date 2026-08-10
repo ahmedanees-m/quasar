@@ -155,3 +155,17 @@ def test_make_gates_runs_the_container_so_that_records_count_as_evidence() -> No
     assert (
         "-e PYTHONPATH=/work" in docker_line
     ), "gate scripts cannot import quasarstack without PYTHONPATH; make gates would fail"
+
+
+def test_the_sweep_runner_also_redirects_out_of_the_evidence_tree() -> None:
+    """ADR-0012 applies to every writer, not only to `write_gate_record`.
+
+    The sweep writes its own JSONL stream rather than going through the gate-record path, so
+    it needs its own copy of the redirection. It was written without one, caught before it
+    produced anything, and this test is why that cannot recur. A grep rather than an
+    execution, because running the sweep to find out would cost minutes.
+    """
+    source = (store.REPO_ROOT / "scripts" / "sweep_runner.py").read_text(encoding="utf-8")
+    assert "_local" in source, "sweep_runner has no redirection for non-image runs"
+    assert "in_pinned_image" in source, "sweep_runner does not check whether it is in the image"
+    assert "not evidence" in source, "sweep_runner does not say so when it is not evidence"

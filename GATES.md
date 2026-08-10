@@ -1223,3 +1223,173 @@ additive seeds at every size repeats the same check ten times. Verification runs
 **two** seeds per (family, L); two rather than one so a sign-handling bug still has varied
 coefficients to surface in. Criterion 1 continues to run on all ten, since accuracy does
 depend on the instance.
+
+---
+
+### Amendment 18 (WP7: the order parameter, the budget protocol, and two axes instead of one)
+
+Registered before any WP7 sweep runs. Section 11's grid, reference rules and G-7 decision
+criteria are unchanged. This amendment fixes three things WP1, WP3 and WP6 turned up that
+section 11 could not have anticipated when it was written.
+
+**1. The order parameter is measured from each instance's own fittest genotype. ADR-0017.**
+
+Section 11.4 scores against the reference distribution, and the surrounding analysis uses
+`magnetisation`, which measures concentration on genotype 0. That is right for the single peak
+and for any additive landscape, and wrong for a rugged one, because a rugged landscape's
+optimum is somewhere random. Measured: Rough Mount Fuji keeps its optimum at genotype 0 in 97%
+of instances at roughness 0.3, where it has 1.4 local optima, and in 25% at roughness 1.0 at
+L = 12, where it has 121. Retention gets **worse** with L. NK sits at Hamming weight 3.2 to 4.2
+out of 8 at every K including K = 0.
+
+A sweep that keeps measuring from genotype 0 while raising ruggedness stops measuring
+localisation partway along the axis and starts measuring how far the optimum has wandered.
+That quantity also falls with ruggedness and also looks like a threshold crossing, and it
+would land in the paper's central figure.
+
+Every cell therefore records the reference genotype used and its Hamming weight, and uses
+`order_parameter.localisation(probs, reference)`, which reduces to `magnetisation` exactly
+when the optimum is genotype 0 so nothing already measured changes.
+
+**Naming, which is part of the registration and not a stylistic note.** Where the landscape is
+rugged the result is a **localisation transition**, not an error threshold. The error threshold
+in the classical quasispecies literature means delocalisation from a master sequence, and on a
+rugged landscape there is no master sequence. A rugged-landscape transition point must not be
+quoted as comparable to the sharp-peak value.
+
+**2. The budget protocol reports both panels. ADR-0013 option 3, proceeding under ADR-0015.**
+
+Section 11.3 fixes wall-clock per cell per method. ADR-0013 showed that an equal-wall-clock
+budget systematically disadvantages imaginary time in exactly the rugged near-threshold cells
+WP7 is about, because the imaginary-time budget scales as `1 / gap` and the gap closes there
+at roughly `0.72` per site. The sweep therefore records, per cell per method, both **accuracy
+at the fixed budget** section 11.3 declares and **the budget needed to reach a fixed accuracy**,
+with a stated ceiling beyond which a method is recorded as not having reached it.
+
+This is a superset of the alternatives, so whichever the PIs choose the data will already
+exist. G-7's decision criteria are evaluated on the fixed-budget panel as section 11.5 states;
+the second panel is reported alongside and does not move the gate.
+
+**3. The ruggedness axis is two axes, because the families separate.**
+
+Section 11.1 lists one ruggedness axis. WP3 and WP6 measured that biological faithfulness and
+compilation cost point in different directions, and a single axis conflates them:
+
+| | keeps the master sequence | Pauli terms at L = 12 | MPO bond dimension at L = 12 |
+|---|---|---|---|
+| Rough Mount Fuji | yes to roughness 0.3 | 4108, dense | 64, saturated |
+| spin glass | no, weight 2.2 | 79 | 8 |
+| NK, K = 2 | no, weight 3.2 | 61 | 6 |
+| house of cards | no, weight 4.8 | 4108, dense | 64, saturated |
+
+Rough Mount Fuji is the family the biology wants and the worst case for both the circuit and
+the tensor network. The spin glass is rugged and cheap for both. The sweep runs both and
+reports them separately rather than averaging over a "ruggedness" that means two things.
+
+**4. An expectation recorded in advance, so the outcome is not read as a surprise either way.**
+
+`results/wp6/g_6_3.json` finds no family in the set that is cheap for the circuit while being
+expensive for a matrix-product operator: wherever the Pauli expansion is sparse the MPO bond
+dimension is small, and where the MPO saturates its ceiling the Pauli expansion is dense too.
+That is the only shape in which G-7's positive result could appear, and it is absent from the
+operator-level structure. This raises the prior on the null that section 11.5 already
+registers as publishable.
+
+It is **not** decisive, and the sweep is not being pre-empted. The MPO bond dimension is a
+property of the operator and sets the per-step cost; whether the quasispecies *state* is
+representable at modest bond dimension is a different question and is exactly what G-6
+criteria 1 and 2 measure. A positive result remains possible if the state is hard where the
+operator is easy. This paragraph exists so that a null is reported as an expected finding
+rather than a disappointment, and a positive one as a surprise that gets extra scrutiny.
+
+---
+
+### Amendment 19 (G-6: the chi sweep is extended downward, and how dtau is swept)
+
+Registered before `experiments/wp6_mps/g_6_tensor_network.py` was run. Section 10's four
+criteria are unchanged.
+
+**The chi sweep is extended downward to {1, 2, 4, 8}.** Section 10 registers
+`[16, 32, 64, 128, 256, 512, 1024]`. Exploratory measurement, disclosed below, finds that the
+smallest registered value already suffices on every family tested, so the registered sweep
+would report "16" in every cell and the map criterion 2 calls a primary deliverable would be
+a constant. The extension only adds resolution below the registered floor; every registered
+value is still run, and criterion 1 is unaffected because a family that reaches cosine 0.999
+at chi = 2 also reaches it at chi = 16.
+
+**dtau is swept as a convergence study, not crossed with everything.** Section 10 registers
+`[0.1, 0.05, 0.02]`. Crossing three time steps with every family, size and chi triples the
+run for a quantity that does not interact with them: the Trotter error is a property of the
+step size and the operator, not of the truncation. The chi map is therefore built at
+`dtau = 0.05`, and all three steps are run on a fixed subset (single peak and NK K=2, at
+L = 8 and L = 12) to characterise and report the Trotter floor separately. That floor is real
+and is around 2 to 3 parts in ten thousand in total variation at `dtau = 0.05`, which is why
+criterion 1's threshold is on cosine and not on total variation.
+
+**Reference.** Sparse `eigsh` through `analytic.exact_diag.perron_vector`, which is section
+11.2's rule and is exact at every size this gate runs.
+
+**Disclosure of what was already seen.** The implementation was validated before this
+amendment and the numbers are the reason for the downward extension. Bond dimension needed to
+reach cosine 0.999 at `mu = 0.2`, one seed:
+
+| family | L = 8 | L = 10 | L = 12 | operator chi at L = 12 |
+|---|---|---|---|---|
+| additive | 2 | 2 | 2 | 2 |
+| single peak | 2 | 2 | 2 | 1 |
+| NK K = 2 | 4 | 4 | 4 | 6 |
+| spin glass | 8 | 8 | 16 | 8 |
+| Rough Mount Fuji, roughness 0.5 | 2 | 2 | 4 | 64, saturated |
+| house of cards | 2 | 4 | - | 64, saturated |
+
+And across the error threshold, `mu / mu_c` from 0.4 to 1.6: the single peak needs chi = 2 at
+every point at both L = 10 and L = 12, and NK K = 2 needs chi = 4 at every point at both.
+
+**Two things this says that the project should not lose.** The **operator's** bond dimension
+is a poor predictor of the **state's**: Rough Mount Fuji and house-of-cards saturate the
+operator ceiling at 64 and their states need 2 to 4. That is the caveat attached to
+`results/wp6/g_6_3.json`, now measured, and it cuts against the earlier reading rather than
+for it. And the requirement is **flat across the error threshold**, where it was expected to
+peak; both deep phases are low rank and so is the crossover between them.
+
+Together these raise the prior on the G-7 null further than Amendment 18 recorded, and that
+amendment's reasoning stands: the sweep is not being pre-empted, and a positive result would
+now need extra scrutiny rather than less.
+
+**Addendum to Amendment 19, registered at the same time.** Section 10 does not fix a seed
+count, so one is chosen here and disclosed: **two seeds** per seeded family, at every size and
+every mutation rate. One would risk a rugged family being represented by an atypical instance;
+ten would put the gate past four hours in the image for a quantity that exploratory runs show
+is stable across seeds. The reference uses the sparse `eigsh` route from `L = 11` upward
+rather than the default dense cutoff at 12, because a dense 4096 by 4096 solve in the
+single-threaded image costs 37 s against 0.2 s for the sparse path, which would make the
+reference more expensive than the evolution it exists to check. The two agree to machine
+precision; that is what G-R.1 established and what `tests/unit/test_numerics.py` keeps true.
+
+**Second addendum to Amendment 19, registered before the run.** The grid uses **one seed at
+L = 14** and two below it, and the reason is a measurement that qualifies the finding above.
+
+The state's bond dimension is small on every family, but the **wall-clock cost of a step is
+set by the bond dimension of `exp(dtau f)`**, which appears in the Hadamard product before
+rounding pulls it back. Measured at L = 12, chi = 4, one evolution to convergence:
+
+| family | operator chi | seconds |
+|---|---|---|
+| additive | 1 | 2.6 |
+| single peak | 2 | 1.8 |
+| block, size 2 | 2 | 2.9 |
+| NK K = 2 | 16 | 16.6 |
+| Rough Mount Fuji, roughness 0.5 | 64 | 15.9 |
+| spin glass | 60 | 26.9 |
+| house of cards | 64 | 30.6 |
+
+So the earlier reading, that a tensor network handles every family cheaply, is **true of
+memory and not of time**. Rough Mount Fuji and house-of-cards need a state of bond dimension
+two to four and still cost ten to twenty times more per run than the additive family, because
+each step contracts against a saturated operator. That distinction matters directly for WP7,
+whose budget protocol in section 11.3 is denominated in wall-clock seconds: Baseline C will
+spend its budget very unevenly across the ruggedness axis, and a cell where it looks weak may
+be a cell where it ran out of time rather than out of bond dimension.
+
+The gate records the per-cell wall-clock alongside the bond dimension so the two costs are
+separable in the artefact rather than conflated in a single "MPS is cheap" claim.

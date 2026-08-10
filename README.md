@@ -56,7 +56,13 @@ thresholds and `DECISIONS.md` ADR-0001 for why the rebuild is happening.
 | Work package | Content | Status |
 |---|---|---|
 | WP0 | Pre-registration and prior-art dossier | `GATES.md` and `CLAIMS.md` done; entry IV.4 verified with a finding that changes WP2; 19 entries still to verify |
-| WP-R | Rebuild and re-validate Phases 1–3 | 9 of 10 passed; G-R.9 outstanding |
+| WP-R | Rebuild and re-validate Phases 1–3 | **10 of 10 passed**, from a clean `make gates` |
+| WP1 | Structural and spectral analysis | Built. **G-1 fails criterion 2 as registered**; criteria 1 and 3 pass |
+| WP2 | Route B, QSVT eigenstate filtering | Built under ADR-0015. Artefact pending |
+| WP3 | Landscape families | Built. Artefact pending |
+| WP4 | Baseline A, Wright–Fisher | Built. Criterion 1 met, **criterion 2 blocked**, so G-4 is not claimed |
+| WP5 | Baseline B, the polynomial-time class | Built. Artefact pending |
+| WP6 | Baseline C, tensor networks | Built. G-6.3 recorded; G-6 artefact pending |
 | WP1 | Spectral and structural analysis | not started |
 | WP2 | Route B, QSVT Perron-vector extraction | not started |
 | WP3 | Landscape families | not started |
@@ -83,7 +89,15 @@ in `GATES.md`, not carried over as results.
 | G-R.6 | varQITE reaches the quasispecies at circuit depth constant in imaginary time, 14 configurations at L = 3 to 6 | cosine ≥ 0.999; depth identical at τ = 2.5 and τ = 20 | **0.9999722**; **identical** on all 14 | `results/wp_r/g_r_6.json` |
 | G-R.7 | Motta-QITE reaches the quasispecies with the energy descending on every step, 14 configurations at L = 3 to 6 | cosine ≥ 0.95; no energy rise beyond 1e-10 | **0.9989051**; **zero rises** | `results/wp_r/g_r_7.json` |
 | G-R.8 | Feasibility under **simulated** device noise with readout mitigation, 12 cases at L = 2 to 4 on two device classes | mitigated cosine ≥ 0.98 | **0.991172**, mitigation helped 12 of 12 | `results/wp_r/g_r_8.json` |
+| G-R.9 | varQITE's gradient variance decays exponentially in system size, bounding Route A's reach | fitted base in [0.30, 0.55] at R² ≥ 0.95 | **0.5490** at R² **0.99159** | `results/wp_r/g_r_9.json` |
 | G-R.10 | The sparse landscape form costs far fewer Pauli terms than the single-peak projector at L = 12 | ratio ≥ 50 | **152.1** (27 against 4108) | `results/wp_r/g_r_10.json` |
+
+**G-R.9 passes by 0.001 against a spread of 0.021** across defensible choices of which
+gradient component to measure, and `GATES.md` Amendment 11 records that the question was
+raised only after a first scan came back outside the band. All six combinations are in the
+artefact. What is robust, independent of the choice, is exponential decay at base near 0.54
+with R² ≥ 0.99 everywhere. The planning documents' `0.42^L` is **not** reproduced.
+
 
 **G-R.1.** Two independent analytic routes and one structure-blind reference agree: the
 closed-form product state for additive fitness, the Hamming-class tridiagonal reduction for
