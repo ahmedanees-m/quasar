@@ -448,7 +448,14 @@ def gap_map() -> tuple[dict, list[dict]]:
     )
 
 
-def main() -> int:
+def run() -> tuple[bool, dict, list[dict]]:
+    """Measure the three criteria and the gap map, separately from reporting them.
+
+    Split out after G-5 passed its science and then died formatting the result. The replay
+    in tests/regression/test_gate_reporting.py can only reach gates shaped this way, and this
+    was one of the two it could not cover. The split moves no computation and changes no
+    recorded key, so the artefact already committed stays readable and needs no rerun.
+    """
     started = time.monotonic()
 
     one_ok, one, one_cases = criterion_one()
@@ -464,6 +471,16 @@ def main() -> int:
         "gap_map": map_summary,
         "seconds": round(time.monotonic() - started, 2),
     }
+    return passed, measured, one_cases + two_cases + three_cases + map_cases
+
+
+def main() -> int:
+    passed, measured, cases = run()
+    one = measured["criterion_1_closed_forms"]
+    two = measured["criterion_2_threshold_location"]
+    three = measured["criterion_3_derivations"]
+    map_summary = measured["gap_map"]
+    one_ok, two_ok, three_ok = one["passed"], two["passed"], three["passed"]
 
     path = write_gate_record(
         gate="G-1",
@@ -479,7 +496,7 @@ def main() -> int:
         },
         measured=measured,
         passed=passed,
-        cases=one_cases + two_cases + three_cases + map_cases,
+        cases=cases,
         notes=(
             "Criterion 2 was registered in Amendment 12 in the expectation that it fails, "
             "with the exploratory numbers disclosed there, rather than adjusted to fit. The "
@@ -491,10 +508,7 @@ def main() -> int:
         ),
     )
 
-    print(
-        f"G-1: {len(one_cases + two_cases + three_cases + map_cases)} cases "
-        f"in {measured['seconds']} s\n"
-    )
+    print(f"G-1: {len(cases)} cases in {measured['seconds']} s\n")
 
     print("  Criterion 1, closed forms")
     print(
@@ -506,7 +520,9 @@ def main() -> int:
 
     print("  Criterion 2, threshold location")
     print(f"    {'L':>4} {'height':>7} {'vs asymptotic':>14} {'vs chi peak':>12} {'within':>7}")
-    for row in two_cases:
+    # Picked out of cases by a key only criterion 2 records, so this works on a record read
+    # back from disk as well as on one just computed.
+    for row in [c for c in cases if "deviation_from_reading_a" in c]:
         mark = "  <-" if row["decides_gate"] else ""
         print(
             f"    {row['L']:>4} {row['height']:>7.1f} "
@@ -526,8 +542,7 @@ def main() -> int:
     print("  Gap map")
     print(f"    cells                  {map_summary['n_cells']}")
     print(
-        f"    lambda2 in symmetric sector everywhere: "
-        f"{map_summary['sector_check_all_symmetric']}"
+        f"    lambda2 in symmetric sector everywhere: {map_summary['sector_check_all_symmetric']}"
     )
     print(
         f"    gap at threshold ~ {map_summary['closing_prefactor']:.4f} x "

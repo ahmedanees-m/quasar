@@ -54,11 +54,13 @@ MU = 0.20
 
 def families(n_sites: int):
     """Every (label, builder) the gate covers, as registered."""
-    yield {"family": "single_peak"}, lambda s: class_fitness(
-        single_peak_classes(n_sites, PEAK_HEIGHT)
+    yield (
+        {"family": "single_peak"},
+        lambda s: class_fitness(single_peak_classes(n_sites, PEAK_HEIGHT)),
     )
-    yield {"family": "additive_pairwise"}, lambda s: class_fitness(
-        pairwise_uniform_classes(n_sites, EPISTASIS_A, EPISTASIS_B)
+    yield (
+        {"family": "additive_pairwise"},
+        lambda s: class_fitness(pairwise_uniform_classes(n_sites, EPISTASIS_A, EPISTASIS_B)),
     )
     for k in NK_K:
         if k <= n_sites - 1:
@@ -278,7 +280,13 @@ def optimum_survey() -> tuple[dict, list[dict]]:
     )
 
 
-def main() -> int:
+def run() -> tuple[bool, dict, list[dict]]:
+    """Compute the three criteria and the optimum survey, separately from reporting them.
+
+    Kept apart from `main` so the summary printing can be replayed against a committed
+    artefact in milliseconds. G-5 passed its science and then died formatting the result,
+    and the test that should have caught it exercised only this half.
+    """
     started = time.monotonic()
 
     one_ok, one, one_cases = criterion_one()
@@ -294,6 +302,15 @@ def main() -> int:
         "optimum_survey": survey,
         "seconds": round(time.monotonic() - started, 2),
     }
+    return passed, measured, one_cases + two_cases + three_cases + survey_cases
+
+
+def main() -> int:
+    passed, measured, cases = run()
+    one = measured["criterion_1_reproduction"]
+    two = measured["criterion_2_nk_k0_is_additive"]
+    three = measured["criterion_3_monotone_ruggedness"]
+    one_ok, two_ok, three_ok = one["passed"], two["passed"], three["passed"]
 
     path = write_gate_record(
         gate="G-3",
@@ -307,7 +324,7 @@ def main() -> int:
         },
         measured=measured,
         passed=passed,
-        cases=one_cases + two_cases + three_cases + survey_cases,
+        cases=cases,
         notes=(
             "The optimum survey is the ADR-0011 requirement applied to all seven families. "
             "A family whose global optimum wanders away from the master sequence as "
@@ -316,10 +333,7 @@ def main() -> int:
         ),
     )
 
-    print(
-        f"G-3: {len(one_cases + two_cases + three_cases + survey_cases)} cases "
-        f"in {measured['seconds']} s\n"
-    )
+    print(f"G-3: {len(cases)} cases in {measured['seconds']} s\n")
     print(
         f"  Criterion 1, reproduction: {one['n_landscapes']} landscapes, "
         f"{one['mismatches']} mismatches  {'PASS' if one_ok else 'FAIL'}"
@@ -339,7 +353,8 @@ def main() -> int:
         f"    {'family':26s} {'opt wt':>7} {'optima':>7} {'strict':>7} "
         f"{'autocorr':>9} {'pauli':>6} {'keeps master':>13}"
     )
-    for case in survey_cases:
+    # The survey rows are the ones carrying an optimum weight; the criteria rows do not.
+    for case in [c for c in cases if "mean_optimum_hamming_weight" in c]:
         name = case["family"]
         for extra in ("roughness", "block_size", "K"):
             if extra in case:

@@ -1,4 +1,4 @@
-# CLAIMS.md — the claims ledger
+# CLAIMS.md: the claims ledger
 
 Every claim the manuscript will make maps to a re-runnable artefact. `make claims` runs
 `scripts/check_claims.py`, which verifies that each row below resolves to an artefact that
@@ -32,7 +32,7 @@ with a reason).
 | C9 | varQITE gradient variance decays exponentially in system size, bounding the method's reach | G-R.9 | `results/wp_r/g_r_9.json` | `experiments/wp_r_rebuild/g_r_9_barren.py` | pass |
 | C10 | The sparse additive-plus-epistasis representation requires 152 times fewer Pauli terms than the single-peak projector at L = 12, 27 against 4108 | G-R.10 | `results/wp_r/g_r_10.json` | `experiments/wp_r_rebuild/g_r_10_pauli_count.py` | pass |
 | C32 | The circuit holds the quasispecies in its amplitudes, so a computational-basis measurement returns the distribution squared; recovering it needs an explicit square-root decode, without which the measured distribution sits at total-variation distance 0.22 from the quasispecies while scoring 0.987 on cosine | G-R.8 | `results/wp_r/g_r_8.json` | `experiments/wp_r_rebuild/g_r_8_noise.py` | pass |
-| C11 | Analytic-first validation catches implementation errors that produce plausible but incorrect output | — | `docs/validation.md` plus the regression tests that lock each convention | `tests/regression/` | planned |
+| C11 | Analytic-first validation catches implementation errors that produce plausible but incorrect output | none | `docs/validation.md` plus the regression tests that lock each convention | `tests/regression/` | planned |
 
 Note on C11. The three bugs described in the planning documents belong to an implementation
 that no longer exists. They will be reported as methodological history, clearly attributed
@@ -42,7 +42,7 @@ as new.
 
 ---
 
-## WP0 — pre-registration and prior art
+## WP0: pre-registration and prior art
 
 | # | Claim | Gate | Artefact | Script | Status |
 |---|---|---|---|---|---|
@@ -53,11 +53,11 @@ C30 and C31 were not in the original plan. They exist because verification of pr
 entry IV.4 was pulled forward ahead of WP1, on the grounds that WP2 is the novelty core and
 rests entirely on that one reference. See `DECISIONS.md` ADR-0010.
 
-## WP1 — structural and spectral analysis
+## WP1: structural and spectral analysis
 
 | # | Claim | Gate | Artefact | Script | Status |
 |---|---|---|---|---|---|
-| C12 | The mutation-selection generator is a non-conservative linear operator whose Perron eigenvector is the quasispecies, with the structural properties derived, not asserted | G-1.3 | `docs/theory.md` | — | pass |
+| C12 | The mutation-selection generator is a non-conservative linear operator whose Perron eigenvector is the quasispecies, with the structural properties derived, not asserted | G-1.3 | `docs/theory.md` | none | pass |
 | C13 | The spectral gap of the generator is mapped across ruggedness, mutation rate and system size, and closes at the error threshold | G-1.1, G-1.2 | `results/wp1/g_1.json` | `experiments/wp1_spectral/g_1_gap_map.py` | pass |
 | C14 | The condition number of the generator degrades in a characterised way approaching the error threshold and with ruggedness | G-1.3 | `results/wp1/g_1.json` | `experiments/wp1_spectral/g_1_gap_map.py` | pass |
 | C15 | Pauli-term count, qubit count and depth scaling are measured per landscape family | G-1.3 | `results/wp1/g_1.json` | `experiments/wp1_spectral/g_1_gap_map.py` | pass |
@@ -68,7 +68,7 @@ rests entirely on that one reference. See `DECISIONS.md` ADR-0010.
 | C39 | The gap minimum locates the error threshold only asymptotically: at L = 6, 8, 10 it sits 19 to 30% away from the analytic μ_c under both readings, converging inside 1% by L = 48. G-1 criterion 2 therefore **fails as registered**, for reasons that are a property of the model at small L rather than of the implementation | G-1.2 | `results/wp1/g_1.json` | `experiments/wp1_spectral/g_1_gap_map.py` | fail |
 ---
 
-## WP2 — Route B, QSVT
+## WP2: Route B, QSVT
 
 | # | Claim | Gate | Artefact | Script | Status |
 |---|---|---|---|---|---|
@@ -82,32 +82,32 @@ rests entirely on that one reference. See `DECISIONS.md` ADR-0010.
 | C41 | The degree bound is loose in the direction that is safe for a resource estimate, and loosest where the spectrum is most spread: it assumes all unwanted weight sits immediately below λ₂, and the additive family, whose λ₂ is L-fold degenerate and whose spectrum spans sums of ±√(aᵢ²+μ²), places most of that weight far below λ₂ where the filter suppresses it harder | G-2.3 | `results/wp2/g_2.json` | `experiments/wp2_qsvt/g_2_route_b.py` | pass |
 ---
 
-## WP3 to WP6 — landscapes and classical baselines
+## WP3 to WP6: landscapes and classical baselines
 
 | # | Claim | Gate | Artefact | Script | Status |
 |---|---|---|---|---|---|
-| C20 | Seven landscape families are implemented, reproduce exactly from seed, and ruggedness increases monotonically with K | G-3 | `results/wp3/g_3.json` | `experiments/wp3_landscapes/g_3_families.py` | planned |
-| C21 | The Wright-Fisher baseline converges to the analytic quasispecies and is competitive with the reference community implementation | G-4 | `results/wp4/wf_validation.json` | `experiments/wp4_wright_fisher/validate.py` | planned |
-| C22 | The Dixit-Srivastava-Vishnoi baseline matches the analytic oracle where it applies, and its applicability boundary is mapped | G-5 | `results/wp5/dv_applicability.json` | `experiments/wp5_dixit_vishnoi/applicability.py` | planned |
-| C23 | Tensor-network imaginary-time evolution converges to exact diagonalisation where both run | G-6.1 | `results/wp6/mps_vs_ed.parquet` | `experiments/wp6_mps/cross_validate.py` | planned |
-| C24 | The bond dimension required to hold fixed accuracy is mapped across ruggedness, mutation rate and system size | G-6.2 | `results/wp6/chi_hardness.parquet` | `experiments/wp6_mps/chi_sweep.py` | planned |
-| C25 | The MPS comparison is scoped honestly: MPO bond dimensions are reported per family and structural disadvantage on long-range families is stated, not exploited | G-6.3 | `results/wp6/g_6_3.json` | `experiments/wp6_mps/mpo_analysis.py` | planned |
+| C20 | Seven landscape families are implemented, reproduce exactly from seed, and ruggedness increases monotonically with K. Measured: 360 of 360 landscapes reproduce bit-identically, NK at K = 0 equals additive to 4.0e-15 against a 1e-12 tolerance, and strict local optima rise 1.0 to 98.7 while correlation length falls 5.49 to 1.13 across K at L = 12 | G-3 | `results/wp3/g_3.json` | `experiments/wp3_landscapes/g_3_families.py` | pass |
+| C21 | The Wright-Fisher baseline converges to the analytic quasispecies, and reaches the accuracy WP7 needs inside the budget WP7 grants. Measured: total variation 0.004664 at N = 1e6 against a 0.02 threshold, and 0.02 reached in 28.04 s against a 300 s allotment. **The competitiveness half of the original claim is withdrawn, not met**: it compared two different complexity classes and no reference implementation exists in the pinned image. See Amendment 15, Amendment 22 and ADR-0018 | G-4 | `results/wp4/g_4.json` | `experiments/wp4_wright_fisher/g_4_wright_fisher.py` | pass |
+| C22 | The polynomial-time baseline matches the analytic oracle where it applies, refuses where it does not, and its applicability boundary is an explicit predicate. Measured: worst error 1.375e-10 against a 1e-6 tolerance over 442 cases, zero in-class refusals, zero out-of-class solves; 58 of 326 instances are in the class. **The Dixit-Srivastava-Vishnoi attribution is not claimed** and remains flagged in PRIOR_ART entry II.1 | G-5 | `results/wp5/g_5.json` | `experiments/wp5_exact_class/g_5_exact_class.py` | pass |
+| C23 | Tensor-network imaginary-time evolution converges to exact diagonalisation where both run. Measured: cosine >= 0.999 on **285 of 285** configurations that were given the full ladder, zero failures to converge. Eight cells at L = 14 were stopped by Amendment 23's wall-clock limit and are reported as stopped, with the largest chi tried and the best cosine seen, rather than as failures | G-6.1 | `results/wp6/g_6.json` | `experiments/wp6_mps/g_6_tensor_network.py` | pass |
+| C24 | The bond dimension required to hold fixed accuracy is mapped across ruggedness, mutation rate and system size. Measured: the requirement **rises with mutation rate and plateaus above the threshold**, max chi of 16, 16, 64, 64, 64 at mu/mu_c of 0.4, 0.7, 1.0, 1.3, 1.6, against a median of 4 throughout. It does not peak at mu_c | G-6.2 | `results/wp6/g_6.json` | `experiments/wp6_mps/g_6_tensor_network.py` | pass |
+| C25 | The MPS comparison is scoped honestly: MPO bond dimensions are reported per family and structural disadvantage on long-range families is stated, not exploited. The record also separates the operator's bond dimension, which sets the cost of one step, from the state's, which sets whether the quasispecies is representable at all | G-6.3 | `results/wp6/g_6_3.json` | `experiments/wp6_mps/mpo_analysis.py` | pass |
 
-| C37 | No landscape family is both meaningfully rugged and anchored to a master sequence: Rough Mount Fuji keeps its optimum at genotype 0 in 97% of instances at roughness 0.3, where it has 1.4 local optima, and 25% at roughness 1.0, where it has 121, with retention worsening as L grows; the order parameter is therefore measured from each instance's own fittest genotype | G-3 | `results/wp3/g_3.json` | `experiments/wp3_landscapes/g_3_families.py` | planned |
-| C38 | The Sherrington-Kirkpatrick spin glass is the only rugged family whose Pauli count stays polynomial, at L(L−1)/2 + L + 1 terms against 2^L for Rough Mount Fuji at any non-zero roughness, so the biological ruggedness axis and the compilation-cost axis are different axes | G-3 | `results/wp3/g_3.json` | `experiments/wp3_landscapes/g_3_families.py` | planned |
+| C37 | No landscape family is both multi-peaked and anchored to a master sequence, so the order parameter is measured from each instance's own fittest genotype. Measured across 18 configurations at L = 8: every family with more than 1.2 strict local optima has its optimum away from genotype 0, and every family that keeps genotype 0 has at most 1.2. **Read with the strict count only.** Counted non-strictly the single-peak landscape shows 248 optima while being anchored, because its plateau ties are not peaks; the planning documents' figures of 1.4 optima at roughness 0.3 and 121 at roughness 1.0 are pre-registration targets and the rebuild measures 1.2 and 12.7, so the qualitative claim reproduces and the quantitative one does not | G-3 | `results/wp3/g_3.json` | `experiments/wp3_landscapes/g_3_families.py` | pass |
+| C38 | The Sherrington-Kirkpatrick spin glass is the only rugged family whose Pauli count stays polynomial, so the biological ruggedness axis and the compilation-cost axis are different axes. Measured at L = 8: spin glass 37 terms, exactly the predicted L(L-1)/2 + L + 1 = 37, against 264 for Rough Mount Fuji at every non-zero roughness including 0.1, where the landscape is still smooth and still anchored, and 263 for NK at K = 6 | G-3 | `results/wp3/g_3.json` | `experiments/wp3_landscapes/g_3_families.py` | pass |
 ---
 
-## WP7 — the boundary map
+## WP7: the boundary map
 
 | # | Claim | Gate | Artefact | Script | Status |
 |---|---|---|---|---|---|
-| C26 | The compute-budget protocol was fixed before the sweep and applied to every method, including QUASAR's classical optimisation time | G-7 | `GATES.md` section 11.3 plus per-cell budget fields | `quasarstack/classical/budget.py` | planned |
-| C27 | Every grid cell is either scored or explicitly excluded, with the exclusion reason recorded | G-7 | `results/wp7/sweep_manifest.json` | `scripts/sweep_runner.py` | planned |
-| C28 | The quantum-classical boundary for mutation-selection dynamics is mapped, with the decision gate answered positively or as a null with an explicit crossover bound | G-7 | `results/wp7/boundary.parquet`, `figures/F7_boundary_map.png` | `experiments/wp7_boundary_map/phase_diagram.py` | planned |
+| C26 | The compute-budget protocol was fixed before the sweep and applied to every method, including QUASAR's classical optimisation time. Every method record carries `seconds_used` beside `seconds_allotted`, and `over_budget` is recomputed from the measurement rather than trusted from the method, after Route A reported itself within budget having spent 510 s of 300 | G-7 | `results/wp7/sweep_manifest_registered.json` | `scripts/sweep_runner.py` | planned |
+| C27 | Every grid cell is either scored or explicitly excluded, with the exclusion reason recorded, and the excluded share is reported per size rather than folded into a total. ADR-0019 | G-7 | `results/wp7/sweep_manifest_registered.json`, `results/wp7/g_7_verdict.json` | `scripts/sweep_runner.py`, `scripts/score_g7.py` | planned |
+| C28 | The quantum-classical boundary for mutation-selection dynamics is mapped, with the decision gate answered positively or as a null carrying an explicit bound and a tally of which of the four conditions each group failed | G-7 | `results/wp7/g_7_verdict.json`, `figures/F7_boundary_map.png` | `scripts/score_g7.py`, `scripts/make_figures.py` | planned |
 
 ---
 
-## WP8 — live QPU
+## WP8: live QPU
 
 | # | Claim | Gate | Artefact | Script | Status |
 |---|---|---|---|---|---|

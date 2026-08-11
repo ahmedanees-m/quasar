@@ -1,0 +1,5000 @@
+{
+  "gate": "G-5",
+  "work_package": "wp5",
+  "passed": true,
+  "threshold": {
+    "criterion_1": "max abs error <= 1e-06 against the analytic oracle on every in-class landscape, and refusal on every out-of-class one",
+    "criterion_2": "applicability as an explicit predicate, covered set emitted before the sweep",
+    "registered_in": "GATES.md section 9, class predicate in Amendment 16"
+  },
+  "measured": {
+    "criterion_1_matches_the_oracle": {
+      "passed": true,
+      "worst_max_abs_error": 1.37541533717922e-10,
+      "tolerance": 1e-06,
+      "in_class_instances_the_baseline_refused": 0,
+      "out_of_class_instances_the_baseline_solved": 0
+    },
+    "criterion_2_coverage_map": {
+      "passed": true,
+      "n_cells": 84,
+      "n_covered": 14,
+      "fraction_covered": 0.16666666666666666,
+      "map": [
+        {
+          "family": "additive",
+          "L": 8,
+          "seed": 0,
+          "covered": true,
+          "class": "additive",
+          "additive_residual": 5.453998771833995e-16,
+          "symmetric_residual": 0.31465691729854434
+        },
+        {
+          "family": "additive",
+          "L": 8,
+          "seed": 1,
+          "covered": true,
+          "class": "additive",
+          "additive_residual": 6.520435489731295e-16,
+          "symmetric_residual": 0.2622463687864392
+        },
+        {
+          "family": "additive",
+          "L": 8,
+          "seed": 2,
+          "covered": true,
+          "class": "additive",
+          "additive_residual": 6.494537616898689e-16,
+          "symmetric_residual": 0.19251534172953455
+        },
+        {
+          "family": "additive",
+          "L": 8,
+          "seed": 3,
+          "covered": true,
+          "class": "additive",
+          "additive_residual": 3.307404237182949e-16,
+          "symmetric_residual": 0.24147017755291494
+        },
+        {
+          "family": "additive",
+          "L": 8,
+          "seed": 4,
+          "covered": true,
+          "class": "additive",
+          "additive_residual": 8.018372594054222e-16,
+          "symmetric_residual": 0.15988973658612687
+        },
+        {
+          "family": "additive",
+          "L": 8,
+          "seed": 5,
+          "covered": true,
+          "class": "additive",
+          "additive_residual": 7.738533175779784e-16,
+          "symmetric_residual": 0.401049354120828
+        },
+        {
+          "family": "additive",
+          "L": 8,
+          "seed": 6,
+          "covered": true,
+          "class": "additive",
+          "additive_residual": 6.513129628656954e-16,
+          "symmetric_residual": 0.3073814990809886
+        },
+        {
+          "family": "additive",
+          "L": 8,
+          "seed": 7,
+          "covered": true,
+          "class": "additive",
+          "additive_residual": 6.339467689652274e-16,
+          "symmetric_residual": 0.2539357389405204
+        },
+        {
+          "family": "additive",
+          "L": 8,
+          "seed": 8,
+          "covered": true,
+          "class": "additive",
+          "additive_residual": 6.300684372610608e-16,
+          "symmetric_residual": 0.2033449217738538
+        },
+        {
+          "family": "additive",
+          "L": 8,
+          "seed": 9,
+          "covered": true,
+          "class": "additive",
+          "additive_residual": 6.737130094877984e-16,
+          "symmetric_residual": 0.3707243390913415
+        },
+        {
+          "family": "single_peak",
+          "L": 8,
+          "height": 1.0,
+          "covered": true,
+          "class": "permutation_symmetric",
+          "additive_residual": 0.9648437500000001,
+          "symmetric_residual": 0.0
+        },
+        {
+          "family": "single_peak",
+          "L": 8,
+          "height": 2.5,
+          "covered": true,
+          "class": "permutation_symmetric",
+          "additive_residual": 0.96484375,
+          "symmetric_residual": 0.0
+        },
+        {
+          "family": "additive_pairwise",
+          "L": 8,
+          "b": 0.05,
+          "covered": true,
+          "class": "permutation_symmetric",
+          "additive_residual": 0.14893617021276617,
+          "symmetric_residual": 9.448706592554524e-17
+        },
+        {
+          "family": "additive_pairwise",
+          "L": 8,
+          "b": 0.1,
+          "covered": true,
+          "class": "permutation_symmetric",
+          "additive_residual": 0.25925925925925963,
+          "symmetric_residual": 8.22387425648264e-17
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 1,
+          "seed": 0,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.3686750335546301,
+          "symmetric_residual": 0.9124421072302502
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 2,
+          "seed": 0,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.7905815711514,
+          "symmetric_residual": 1.101007436424713
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 4,
+          "seed": 0,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.8616834784372668,
+          "symmetric_residual": 1.0293480782851856
+        },
+        {
+          "family": "spin_glass",
+          "L": 8,
+          "seed": 0,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0000000000000002,
+          "symmetric_residual": 0.9682539682539683
+        },
+        {
+          "family": "house_of_cards",
+          "L": 8,
+          "seed": 0,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0047215385908956,
+          "symmetric_residual": 1.1388491639137086
+        },
+        {
+          "family": "rough_mount_fuji",
+          "L": 8,
+          "seed": 0,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.2040081291152453,
+          "symmetric_residual": 0.23124266610263133
+        },
+        {
+          "family": "block",
+          "L": 8,
+          "block_size": 2,
+          "seed": 0,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.340547640261488,
+          "symmetric_residual": 0.8106666214781167
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 1,
+          "seed": 1,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.606727413514222,
+          "symmetric_residual": 0.9856421234933269
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 2,
+          "seed": 1,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.8285874606567651,
+          "symmetric_residual": 1.0428699072491514
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 4,
+          "seed": 1,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.9522924229303122,
+          "symmetric_residual": 0.9594405916644898
+        },
+        {
+          "family": "spin_glass",
+          "L": 8,
+          "seed": 1,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0,
+          "symmetric_residual": 0.9841269841269841
+        },
+        {
+          "family": "house_of_cards",
+          "L": 8,
+          "seed": 1,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.9668279484731327,
+          "symmetric_residual": 0.9942484218158176
+        },
+        {
+          "family": "rough_mount_fuji",
+          "L": 8,
+          "seed": 1,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.1743707349396397,
+          "symmetric_residual": 0.1793161113085248
+        },
+        {
+          "family": "block",
+          "L": 8,
+          "block_size": 2,
+          "seed": 1,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.3909411795658869,
+          "symmetric_residual": 0.9934191654569631
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 1,
+          "seed": 2,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.44443725562894015,
+          "symmetric_residual": 0.994203150997066
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 2,
+          "seed": 2,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.7316036767048261,
+          "symmetric_residual": 0.9148931978513951
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 4,
+          "seed": 2,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.9677182620079581,
+          "symmetric_residual": 0.9999568908045116
+        },
+        {
+          "family": "spin_glass",
+          "L": 8,
+          "seed": 2,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0000000000000002,
+          "symmetric_residual": 1.0119047619047619
+        },
+        {
+          "family": "house_of_cards",
+          "L": 8,
+          "seed": 2,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0726904631760112,
+          "symmetric_residual": 1.0582056240182685
+        },
+        {
+          "family": "rough_mount_fuji",
+          "L": 8,
+          "seed": 2,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.1784740631730377,
+          "symmetric_residual": 0.17606407801176707
+        },
+        {
+          "family": "block",
+          "L": 8,
+          "block_size": 2,
+          "seed": 2,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.22200629777459574,
+          "symmetric_residual": 0.8871217602879383
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 1,
+          "seed": 3,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.7894454723940453,
+          "symmetric_residual": 1.04939940023143
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 2,
+          "seed": 3,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.5842125329471641,
+          "symmetric_residual": 1.005143135030703
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 4,
+          "seed": 3,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.9457959637950009,
+          "symmetric_residual": 0.9835405914326445
+        },
+        {
+          "family": "spin_glass",
+          "L": 8,
+          "seed": 3,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0,
+          "symmetric_residual": 0.9732142857142857
+        },
+        {
+          "family": "house_of_cards",
+          "L": 8,
+          "seed": 3,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.9978793428802765,
+          "symmetric_residual": 0.9897187546672295
+        },
+        {
+          "family": "rough_mount_fuji",
+          "L": 8,
+          "seed": 3,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.2080868804842738,
+          "symmetric_residual": 0.20638516037523913
+        },
+        {
+          "family": "block",
+          "L": 8,
+          "block_size": 2,
+          "seed": 3,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.474950335428753,
+          "symmetric_residual": 1.025624198292963
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 1,
+          "seed": 4,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.41253594674112304,
+          "symmetric_residual": 0.9041370571867966
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 2,
+          "seed": 4,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.7782961426569719,
+          "symmetric_residual": 0.9818265035981522
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 4,
+          "seed": 4,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.8267401278796996,
+          "symmetric_residual": 0.9471404309746977
+        },
+        {
+          "family": "spin_glass",
+          "L": 8,
+          "seed": 4,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0000000000000002,
+          "symmetric_residual": 1.0612244897959184
+        },
+        {
+          "family": "house_of_cards",
+          "L": 8,
+          "seed": 4,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0175460583704488,
+          "symmetric_residual": 0.9736187902422764
+        },
+        {
+          "family": "rough_mount_fuji",
+          "L": 8,
+          "seed": 4,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.18644182094112105,
+          "symmetric_residual": 0.1783931632991259
+        },
+        {
+          "family": "block",
+          "L": 8,
+          "block_size": 2,
+          "seed": 4,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.2787732635199518,
+          "symmetric_residual": 0.637004927393494
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 1,
+          "seed": 5,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.5379894685822524,
+          "symmetric_residual": 0.8919232774323904
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 2,
+          "seed": 5,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.8364985696383805,
+          "symmetric_residual": 1.0407806362139764
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 4,
+          "seed": 5,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.9458294577907823,
+          "symmetric_residual": 0.9997698561366619
+        },
+        {
+          "family": "spin_glass",
+          "L": 8,
+          "seed": 5,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0000000000000002,
+          "symmetric_residual": 0.9387755102040817
+        },
+        {
+          "family": "house_of_cards",
+          "L": 8,
+          "seed": 5,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.9214234236711422,
+          "symmetric_residual": 1.010185260809565
+        },
+        {
+          "family": "rough_mount_fuji",
+          "L": 8,
+          "seed": 5,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.1655279049924946,
+          "symmetric_residual": 0.1814734090543191
+        },
+        {
+          "family": "block",
+          "L": 8,
+          "block_size": 2,
+          "seed": 5,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.42905083782283,
+          "symmetric_residual": 0.9661436814387655
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 1,
+          "seed": 6,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.6619303384778514,
+          "symmetric_residual": 0.9495407966701755
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 2,
+          "seed": 6,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.72214425931392,
+          "symmetric_residual": 1.0046366416563857
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 4,
+          "seed": 6,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.960682922739453,
+          "symmetric_residual": 0.9514936778056459
+        },
+        {
+          "family": "spin_glass",
+          "L": 8,
+          "seed": 6,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0,
+          "symmetric_residual": 0.9795918367346939
+        },
+        {
+          "family": "house_of_cards",
+          "L": 8,
+          "seed": 6,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.9457735610367862,
+          "symmetric_residual": 0.9948520799793679
+        },
+        {
+          "family": "rough_mount_fuji",
+          "L": 8,
+          "seed": 6,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.17187513354554745,
+          "symmetric_residual": 0.1807941574482952
+        },
+        {
+          "family": "block",
+          "L": 8,
+          "block_size": 2,
+          "seed": 6,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.2156772107797195,
+          "symmetric_residual": 0.9907027153697735
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 1,
+          "seed": 7,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.3989171670334549,
+          "symmetric_residual": 0.9889587870551988
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 2,
+          "seed": 7,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.6734351470224822,
+          "symmetric_residual": 0.9086958728596273
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 4,
+          "seed": 7,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.8576039933107903,
+          "symmetric_residual": 0.965179036900023
+        },
+        {
+          "family": "spin_glass",
+          "L": 8,
+          "seed": 7,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0,
+          "symmetric_residual": 1.0
+        },
+        {
+          "family": "house_of_cards",
+          "L": 8,
+          "seed": 7,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.975966754276205,
+          "symmetric_residual": 0.8489080567203442
+        },
+        {
+          "family": "rough_mount_fuji",
+          "L": 8,
+          "seed": 7,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.17743342569688614,
+          "symmetric_residual": 0.1543338069105472
+        },
+        {
+          "family": "block",
+          "L": 8,
+          "block_size": 2,
+          "seed": 7,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.3559300366785968,
+          "symmetric_residual": 1.0590617643018765
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 1,
+          "seed": 8,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.4740512171921879,
+          "symmetric_residual": 1.0308643319779534
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 2,
+          "seed": 8,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0432881506636984,
+          "symmetric_residual": 1.0537298513594349
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 4,
+          "seed": 8,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.9223264327631657,
+          "symmetric_residual": 1.0708855970982378
+        },
+        {
+          "family": "spin_glass",
+          "L": 8,
+          "seed": 8,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0,
+          "symmetric_residual": 0.7755102040816328
+        },
+        {
+          "family": "house_of_cards",
+          "L": 8,
+          "seed": 8,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.9284456112496836,
+          "symmetric_residual": 0.9630863583313426
+        },
+        {
+          "family": "rough_mount_fuji",
+          "L": 8,
+          "seed": 8,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.1727793431592706,
+          "symmetric_residual": 0.1792258225812147
+        },
+        {
+          "family": "block",
+          "L": 8,
+          "block_size": 2,
+          "seed": 8,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.1614566370460104,
+          "symmetric_residual": 0.9141166370807489
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 1,
+          "seed": 9,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.5453158415735818,
+          "symmetric_residual": 0.936774065257222
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 2,
+          "seed": 9,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.5220557519143638,
+          "symmetric_residual": 1.0192008915282884
+        },
+        {
+          "family": "nk",
+          "L": 8,
+          "K": 4,
+          "seed": 9,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.8553716019837029,
+          "symmetric_residual": 1.009967749713167
+        },
+        {
+          "family": "spin_glass",
+          "L": 8,
+          "seed": 9,
+          "covered": false,
+          "class": null,
+          "additive_residual": 1.0000000000000002,
+          "symmetric_residual": 1.0408163265306123
+        },
+        {
+          "family": "house_of_cards",
+          "L": 8,
+          "seed": 9,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.9473062274767396,
+          "symmetric_residual": 0.9629380970201583
+        },
+        {
+          "family": "rough_mount_fuji",
+          "L": 8,
+          "seed": 9,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.1561059242565065,
+          "symmetric_residual": 0.15868188899964203
+        },
+        {
+          "family": "block",
+          "L": 8,
+          "block_size": 2,
+          "seed": 9,
+          "covered": false,
+          "class": null,
+          "additive_residual": 0.45349589444822874,
+          "symmetric_residual": 0.948638670114821
+        }
+      ]
+    },
+    "instances_in_class_by_family": {
+      "additive": {
+        "in_class": 40,
+        "out_of_class": 0
+      },
+      "single_peak": {
+        "in_class": 8,
+        "out_of_class": 0
+      },
+      "additive_pairwise": {
+        "in_class": 8,
+        "out_of_class": 0
+      },
+      "nk": {
+        "in_class": 0,
+        "out_of_class": 110
+      },
+      "spin_glass": {
+        "in_class": 2,
+        "out_of_class": 38
+      },
+      "house_of_cards": {
+        "in_class": 0,
+        "out_of_class": 40
+      },
+      "rough_mount_fuji": {
+        "in_class": 0,
+        "out_of_class": 40
+      },
+      "block": {
+        "in_class": 0,
+        "out_of_class": 40
+      }
+    },
+    "attribution": "Execution plan v4 names this baseline Dixit-Srivastava-Vishnoi after PRIOR_ART entry II.1, which is still flagged to-verify. This gate does not claim the class it implements is theirs. If their class is strictly larger, WP7 has cells it currently believes are classically hard, and the boundary map would be wrong in the direction that favours the quantum method.",
+    "seconds": 58.28
+  },
+  "n_cases": 442,
+  "cases": [
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.0816681711721685e-17
+    },
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.440892098500626e-16
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.469446951953614e-17
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.163336342344337e-17
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.440892098500626e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.440892098500626e-16
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.440892098500626e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.7755575615628914e-17
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.440892098500626e-16
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 6.661338147750939e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.734723475976807e-17
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 4.440892098500626e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 0,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3666054472166844,
+      "symmetric_residual": 0.7050845958092534
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 0,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8074847656033752,
+      "symmetric_residual": 1.170827270712463
+    },
+    {
+      "family": "spin_glass",
+      "seed": 0,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 0,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4499226015591678,
+      "symmetric_residual": 0.9314540428129073
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 0,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.10608609146298226,
+      "symmetric_residual": 0.21962514983017656
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 0,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.27917924336066546,
+      "symmetric_residual": 0.9202857403539233
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 1,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3264549992905923,
+      "symmetric_residual": 1.011946991066528
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 1,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8210400090746919,
+      "symmetric_residual": 0.908861618797574
+    },
+    {
+      "family": "spin_glass",
+      "seed": 1,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 1,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.045568655226143,
+      "symmetric_residual": 0.7002484582604486
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 1,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.20212438243819467,
+      "symmetric_residual": 0.13536871679514756
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 1,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4118819458320695,
+      "symmetric_residual": 0.7795755776424499
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 2,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4325620838063141,
+      "symmetric_residual": 0.8558126387312285
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 2,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0139676584884483,
+      "symmetric_residual": 0.8841141695187044
+    },
+    {
+      "family": "spin_glass",
+      "seed": 2,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.8888888888888888
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 2,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6687853351263015,
+      "symmetric_residual": 0.8995451432710054
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 2,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.2007416392666101,
+      "symmetric_residual": 0.2700061696484973
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 2,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.2724879483162852,
+      "symmetric_residual": 0.6756073504202539
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 3,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6327331922834905,
+      "symmetric_residual": 1.0774777985283486
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 3,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9586615403093502,
+      "symmetric_residual": 0.9689203653825056
+    },
+    {
+      "family": "spin_glass",
+      "seed": 3,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.8888888888888888
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 3,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.797884502093732,
+      "symmetric_residual": 0.9139931010398805
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 3,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3376714094328923,
+      "symmetric_residual": 0.3868095417697688
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 3,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3507072463901961,
+      "symmetric_residual": 0.8830975845366014
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 4,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.35544433783376445,
+      "symmetric_residual": 0.365058112440216
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 4,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5708745862309528,
+      "symmetric_residual": 0.5340507109413197
+    },
+    {
+      "family": "spin_glass",
+      "seed": 4,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.37541533717922e-10
+    },
+    {
+      "family": "spin_glass",
+      "seed": 4,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 8.712586208048378e-12
+    },
+    {
+      "family": "spin_glass",
+      "seed": 4,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 6.113443085098424e-13
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 4,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7787516759501955,
+      "symmetric_residual": 0.9718383996851349
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 4,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.224988879417924,
+      "symmetric_residual": 0.2807734985015309
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 4,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.2744309199233035,
+      "symmetric_residual": 0.7577767107337445
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 5,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7104854885451392,
+      "symmetric_residual": 0.7631715038182874
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 5,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6593999831681477,
+      "symmetric_residual": 0.7812770462219645
+    },
+    {
+      "family": "spin_glass",
+      "seed": 5,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 5,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8264028277777725,
+      "symmetric_residual": 0.9564171370896729
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 5,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.14683338805509133,
+      "symmetric_residual": 0.1699340369036005
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 5,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.24002391936988102,
+      "symmetric_residual": 1.0800079731232937
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 6,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.48886850458324715,
+      "symmetric_residual": 0.9646696420049642
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 6,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6874307772441649,
+      "symmetric_residual": 0.791479756859004
+    },
+    {
+      "family": "spin_glass",
+      "seed": 6,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 6,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7177469138693615,
+      "symmetric_residual": 0.9404961929499613
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 6,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.2896703027498985,
+      "symmetric_residual": 0.37956807850033986
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 6,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.17928953829151553,
+      "symmetric_residual": 0.9402567637962934
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 7,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5564796209827387,
+      "symmetric_residual": 1.0501351736033404
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 7,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9207974697330105,
+      "symmetric_residual": 0.9036209744562824
+    },
+    {
+      "family": "spin_glass",
+      "seed": 7,
+      "L": 4,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.37541533717922e-10
+    },
+    {
+      "family": "spin_glass",
+      "seed": 7,
+      "L": 4,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 8.712586208048378e-12
+    },
+    {
+      "family": "spin_glass",
+      "seed": 7,
+      "L": 4,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 6.113443085098424e-13
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 7,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7750535255382235,
+      "symmetric_residual": 0.811880420351938
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 7,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1510588916307199,
+      "symmetric_residual": 0.15823649902099335
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 7,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3657666153669756,
+      "symmetric_residual": 1.0073326301398091
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 8,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.2499206970030797,
+      "symmetric_residual": 1.090044593413465
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 8,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9137979622300225,
+      "symmetric_residual": 0.7675722401807984
+    },
+    {
+      "family": "spin_glass",
+      "seed": 8,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 8,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5952779193395461,
+      "symmetric_residual": 0.8997934412548579
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 8,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.17638736594027304,
+      "symmetric_residual": 0.26661864960381454
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 8,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.09250616385382947,
+      "symmetric_residual": 0.44502289649358373
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 9,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7346190180910934,
+      "symmetric_residual": 0.8827425110399104
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 9,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.769420444195988,
+      "symmetric_residual": 0.8312009039331675
+    },
+    {
+      "family": "spin_glass",
+      "seed": 9,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 9,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.592621552353073,
+      "symmetric_residual": 0.6787044871708487
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 9,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.18631803318817175,
+      "symmetric_residual": 0.21338219081563176
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 9,
+      "L": 4,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3253298196775904,
+      "symmetric_residual": 1.0039725632148577
+    },
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 6.938893903907228e-17
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.85722573273506e-17
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 7.771561172376096e-16
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 9.71445146547012e-17
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 6.938893903907228e-17
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 7.632783294297951e-17
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.7755575615628914e-17
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.163336342344337e-17
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.469446951953614e-17
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.85722573273506e-17
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 9.992007221626409e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 8.881784197001252e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 2.42861286636753e-17
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 6,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 6,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 8.881784197001252e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 6,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 0,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3539111497913982,
+      "symmetric_residual": 0.8308257349072455
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 0,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7011909837483074,
+      "symmetric_residual": 1.0344982670292562
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 0,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9234085761533377,
+      "symmetric_residual": 0.9879711124243005
+    },
+    {
+      "family": "spin_glass",
+      "seed": 0,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 1.018181818181818
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 0,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7898189532296765,
+      "symmetric_residual": 0.9461871147016124
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 0,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1511782945155807,
+      "symmetric_residual": 0.18110853596040705
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 0,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3448717669256307,
+      "symmetric_residual": 0.8891042980085143
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 1,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3659645138338315,
+      "symmetric_residual": 1.0809905558044344
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 1,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9963689992997673,
+      "symmetric_residual": 1.0090784562831012
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 1,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8584986986907474,
+      "symmetric_residual": 0.9175081084455317
+    },
+    {
+      "family": "spin_glass",
+      "seed": 1,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 1.0074074074074075
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 1,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9171910488413675,
+      "symmetric_residual": 0.9256237146018444
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 1,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.18458122311983322,
+      "symmetric_residual": 0.1862782651507117
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 1,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4245282550559042,
+      "symmetric_residual": 0.8810803721689745
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 2,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4518503113796139,
+      "symmetric_residual": 0.8327045936413535
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 2,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6728760011703792,
+      "symmetric_residual": 0.9849908776246526
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 2,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9396326493005192,
+      "symmetric_residual": 0.9837003025666624
+    },
+    {
+      "family": "spin_glass",
+      "seed": 2,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.9939393939393939
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 2,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9196900488781468,
+      "symmetric_residual": 0.8888110431909142
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 2,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.19134811610051064,
+      "symmetric_residual": 0.18492351732126294
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 2,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.25390042841690835,
+      "symmetric_residual": 0.7960468576541401
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 3,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6560820281588684,
+      "symmetric_residual": 1.122384027011654
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 3,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6266182250634867,
+      "symmetric_residual": 1.0610439537968142
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 3,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0108107383700808,
+      "symmetric_residual": 0.949536329225728
+    },
+    {
+      "family": "spin_glass",
+      "seed": 3,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.8484848484848485
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 3,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8893888352766478,
+      "symmetric_residual": 1.0010891246900908
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 3,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.2660719972174571,
+      "symmetric_residual": 0.2994885613963393
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 3,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4544505553658064,
+      "symmetric_residual": 1.000626019724967
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 4,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3379963356571296,
+      "symmetric_residual": 0.8138823016912734
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 4,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5993152688194707,
+      "symmetric_residual": 0.9108313971523828
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 4,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0280142726495562,
+      "symmetric_residual": 0.9397275425625113
+    },
+    {
+      "family": "spin_glass",
+      "seed": 4,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.9481481481481481
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 4,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9868818046614408,
+      "symmetric_residual": 1.1019952277718514
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 4,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.19110589209337883,
+      "symmetric_residual": 0.21339716680482665
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 4,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1851188663159754,
+      "symmetric_residual": 0.5664072534085312
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 5,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6711941163638303,
+      "symmetric_residual": 0.865761176727234
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 5,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6597400993109899,
+      "symmetric_residual": 0.9324056759695583
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 5,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9268216140844671,
+      "symmetric_residual": 1.025612113479394
+    },
+    {
+      "family": "spin_glass",
+      "seed": 5,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 1.0074074074074075
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 5,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8606883589593409,
+      "symmetric_residual": 1.0199556169513673
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 5,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1866398209016816,
+      "symmetric_residual": 0.22117684257474682
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 5,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.32697731978730166,
+      "symmetric_residual": 0.9939245171437762
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 6,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5482374368048442,
+      "symmetric_residual": 0.9780795570188276
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 6,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7135550836718283,
+      "symmetric_residual": 1.0433997769732335
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 6,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8671998880328954,
+      "symmetric_residual": 0.8754873715619567
+    },
+    {
+      "family": "spin_glass",
+      "seed": 6,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 1.0074074074074075
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 6,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9523307862307788,
+      "symmetric_residual": 1.103632038582215
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 6,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.22508801336009424,
+      "symmetric_residual": 0.2608488002663633
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 6,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.22496747238759346,
+      "symmetric_residual": 0.9135157435616172
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 7,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.575452688792565,
+      "symmetric_residual": 1.0519154238542665
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 7,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7080190874823497,
+      "symmetric_residual": 0.9449530961703845
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 7,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9976588487355109,
+      "symmetric_residual": 0.9470586431420647
+    },
+    {
+      "family": "spin_glass",
+      "seed": 7,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 1.1428571428571428
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 7,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9275507867287089,
+      "symmetric_residual": 1.043315058106443
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 7,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.16176652423197949,
+      "symmetric_residual": 0.1819560212158261
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 7,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.28226768356679655,
+      "symmetric_residual": 1.0258489079334723
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 8,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5840239520568865,
+      "symmetric_residual": 1.0089996381278914
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 8,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.974819038210847,
+      "symmetric_residual": 0.9194921255444112
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 8,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9019306693071631,
+      "symmetric_residual": 0.8653118904399214
+    },
+    {
+      "family": "spin_glass",
+      "seed": 8,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 1.0285714285714285
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 8,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0567815377043295,
+      "symmetric_residual": 0.8512801876923181
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 8,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.22514774599738865,
+      "symmetric_residual": 0.18136559793381232
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 8,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1761979342923321,
+      "symmetric_residual": 0.890778140229687
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 9,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5444549048510114,
+      "symmetric_residual": 0.677981564775767
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 9,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5207876409269749,
+      "symmetric_residual": 1.0011218705767597
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 9,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.2068886236199494,
+      "symmetric_residual": 1.066134485774796
+    },
+    {
+      "family": "spin_glass",
+      "seed": 9,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.7272727272727273
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 9,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.756992841765727,
+      "symmetric_residual": 0.9804150427550452
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 9,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.17056735226722938,
+      "symmetric_residual": 0.22090935176563203
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 9,
+      "L": 6,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.442369420590428,
+      "symmetric_residual": 0.9775834012566822
+    },
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 6.938893903907228e-17
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 5.551115123125783e-17
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.7755575615628914e-17
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 9.71445146547012e-17
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.440892098500626e-16
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.0816681711721685e-16
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 9.71445146547012e-17
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1796119636642288e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.469446951953614e-16
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.3877787807814457e-16
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.636779683484747e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.440892098500626e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 6.245004513516506e-17
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.7755575615628914e-16
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.3592239273284576e-16
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.3877787807814457e-16
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.885780586188048e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.6653345369377348e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.3877787807814457e-17
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 5.204170427930421e-17
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 4.163336342344337e-17
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.5543122344752192e-15
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.3322676295501878e-15
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.6653345369377348e-15
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 8,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.1102230246251565e-15
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 8,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 8,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.3322676295501878e-15
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 0,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3686750335546301,
+      "symmetric_residual": 0.9124421072302502
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 0,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7905815711514,
+      "symmetric_residual": 1.101007436424713
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 0,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8616834784372668,
+      "symmetric_residual": 1.0293480782851856
+    },
+    {
+      "family": "spin_glass",
+      "seed": 0,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 0.9682539682539683
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 0,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0047215385908956,
+      "symmetric_residual": 1.1388491639137086
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 0,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.2040081291152453,
+      "symmetric_residual": 0.23124266610263133
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 0,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.340547640261488,
+      "symmetric_residual": 0.8106666214781167
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 1,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.606727413514222,
+      "symmetric_residual": 0.9856421234933269
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 1,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8285874606567651,
+      "symmetric_residual": 1.0428699072491514
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 1,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9522924229303122,
+      "symmetric_residual": 0.9594405916644898
+    },
+    {
+      "family": "spin_glass",
+      "seed": 1,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.9841269841269841
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 1,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9668279484731327,
+      "symmetric_residual": 0.9942484218158176
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 1,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1743707349396397,
+      "symmetric_residual": 0.1793161113085248
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 1,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3909411795658869,
+      "symmetric_residual": 0.9934191654569631
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 2,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.44443725562894015,
+      "symmetric_residual": 0.994203150997066
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 2,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7316036767048261,
+      "symmetric_residual": 0.9148931978513951
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 2,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9677182620079581,
+      "symmetric_residual": 0.9999568908045116
+    },
+    {
+      "family": "spin_glass",
+      "seed": 2,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 1.0119047619047619
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 2,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0726904631760112,
+      "symmetric_residual": 1.0582056240182685
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 2,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1784740631730377,
+      "symmetric_residual": 0.17606407801176707
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 2,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.22200629777459574,
+      "symmetric_residual": 0.8871217602879383
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 3,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7894454723940453,
+      "symmetric_residual": 1.04939940023143
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 3,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5842125329471641,
+      "symmetric_residual": 1.005143135030703
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 3,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9457959637950009,
+      "symmetric_residual": 0.9835405914326445
+    },
+    {
+      "family": "spin_glass",
+      "seed": 3,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.9732142857142857
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 3,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9978793428802765,
+      "symmetric_residual": 0.9897187546672295
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 3,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.2080868804842738,
+      "symmetric_residual": 0.20638516037523913
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 3,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.474950335428753,
+      "symmetric_residual": 1.025624198292963
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 4,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.41253594674112304,
+      "symmetric_residual": 0.9041370571867966
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 4,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7782961426569719,
+      "symmetric_residual": 0.9818265035981522
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 4,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8267401278796996,
+      "symmetric_residual": 0.9471404309746977
+    },
+    {
+      "family": "spin_glass",
+      "seed": 4,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 1.0612244897959184
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 4,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0175460583704488,
+      "symmetric_residual": 0.9736187902422764
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 4,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.18644182094112105,
+      "symmetric_residual": 0.1783931632991259
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 4,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.2787732635199518,
+      "symmetric_residual": 0.637004927393494
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 5,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5379894685822524,
+      "symmetric_residual": 0.8919232774323904
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 5,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8364985696383805,
+      "symmetric_residual": 1.0407806362139764
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 5,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9458294577907823,
+      "symmetric_residual": 0.9997698561366619
+    },
+    {
+      "family": "spin_glass",
+      "seed": 5,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 0.9387755102040817
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 5,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9214234236711422,
+      "symmetric_residual": 1.010185260809565
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 5,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1655279049924946,
+      "symmetric_residual": 0.1814734090543191
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 5,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.42905083782283,
+      "symmetric_residual": 0.9661436814387655
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 6,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6619303384778514,
+      "symmetric_residual": 0.9495407966701755
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 6,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.72214425931392,
+      "symmetric_residual": 1.0046366416563857
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 6,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.960682922739453,
+      "symmetric_residual": 0.9514936778056459
+    },
+    {
+      "family": "spin_glass",
+      "seed": 6,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.9795918367346939
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 6,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9457735610367862,
+      "symmetric_residual": 0.9948520799793679
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 6,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.17187513354554745,
+      "symmetric_residual": 0.1807941574482952
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 6,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.2156772107797195,
+      "symmetric_residual": 0.9907027153697735
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 7,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3989171670334549,
+      "symmetric_residual": 0.9889587870551988
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 7,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6734351470224822,
+      "symmetric_residual": 0.9086958728596273
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 7,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8576039933107903,
+      "symmetric_residual": 0.965179036900023
+    },
+    {
+      "family": "spin_glass",
+      "seed": 7,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 1.0
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 7,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.975966754276205,
+      "symmetric_residual": 0.8489080567203442
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 7,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.17743342569688614,
+      "symmetric_residual": 0.1543338069105472
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 7,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3559300366785968,
+      "symmetric_residual": 1.0590617643018765
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 8,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4740512171921879,
+      "symmetric_residual": 1.0308643319779534
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 8,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0432881506636984,
+      "symmetric_residual": 1.0537298513594349
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 8,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9223264327631657,
+      "symmetric_residual": 1.0708855970982378
+    },
+    {
+      "family": "spin_glass",
+      "seed": 8,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.7755102040816328
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 8,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9284456112496836,
+      "symmetric_residual": 0.9630863583313426
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 8,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1727793431592706,
+      "symmetric_residual": 0.1792258225812147
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 8,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1614566370460104,
+      "symmetric_residual": 0.9141166370807489
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 9,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5453158415735818,
+      "symmetric_residual": 0.936774065257222
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 9,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5220557519143638,
+      "symmetric_residual": 1.0192008915282884
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 9,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8553716019837029,
+      "symmetric_residual": 1.009967749713167
+    },
+    {
+      "family": "spin_glass",
+      "seed": 9,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 1.0408163265306123
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 9,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9473062274767396,
+      "symmetric_residual": 0.9629380970201583
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 9,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1561059242565065,
+      "symmetric_residual": 0.15868188899964203
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 9,
+      "L": 8,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.45349589444822874,
+      "symmetric_residual": 0.948638670114821
+    },
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1796119636642288e-16
+    },
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 9.43689570931383e-16
+    },
+    {
+      "family": "additive",
+      "seed": 0,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.440892098500626e-16
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 8.881784197001252e-16
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 6.661338147750939e-16
+    },
+    {
+      "family": "additive",
+      "seed": 1,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.7755575615628914e-16
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.4432899320127035e-15
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 2,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 3,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.1796119636642288e-16
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 4,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.0061396160665481e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.1163626406917047e-16
+    },
+    {
+      "family": "additive",
+      "seed": 5,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 9.71445146547012e-17
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.42861286636753e-16
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 6.106226635438361e-16
+    },
+    {
+      "family": "additive",
+      "seed": 6,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.7755575615628914e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 7.771561172376096e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 7.771561172376096e-16
+    },
+    {
+      "family": "additive",
+      "seed": 7,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 1.5959455978986625e-16
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 4.0245584642661925e-16
+    },
+    {
+      "family": "additive",
+      "seed": 8,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 8.326672684688674e-17
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "additive",
+      "seed": 9,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "additive",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.6653345369377348e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 1.0,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.6263032587282567e-17
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "family": "single_peak",
+      "height": 2.5,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 6.765421556309548e-17
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.05,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 10,
+      "mu": 0.05,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 10,
+      "mu": 0.1,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 5.551115123125783e-16
+    },
+    {
+      "family": "additive_pairwise",
+      "b": 0.1,
+      "L": 10,
+      "mu": 0.2,
+      "applies": true,
+      "class": "permutation_symmetric",
+      "max_abs_error": 1.1102230246251565e-16
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 0,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5134065593484852,
+      "symmetric_residual": 1.0723778815049712
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 0,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9451581714111688,
+      "symmetric_residual": 1.013477145562521
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 0,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7684583082904516,
+      "symmetric_residual": 1.0209822268040207
+    },
+    {
+      "family": "spin_glass",
+      "seed": 0,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 1.0026666666666666
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 0,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9728134332452649,
+      "symmetric_residual": 1.0063129951806131
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 0,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1841986669589569,
+      "symmetric_residual": 0.19054168653632406
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 0,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3057739829679756,
+      "symmetric_residual": 0.7665681593676427
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 1,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5449945226122473,
+      "symmetric_residual": 1.0168752537997143
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 1,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.1535275589117755,
+      "symmetric_residual": 1.0146248639532038
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 1,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9182518188877052,
+      "symmetric_residual": 0.9911390816707197
+    },
+    {
+      "family": "spin_glass",
+      "seed": 1,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 0.9813333333333334
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 1,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9675255288619229,
+      "symmetric_residual": 0.9696150984542636
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 1,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.18744443045040965,
+      "symmetric_residual": 0.18784925509889563
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 1,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4008350217989913,
+      "symmetric_residual": 0.9887824629801998
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 2,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4170781082962989,
+      "symmetric_residual": 0.970630599926465
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 2,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.627609892384726,
+      "symmetric_residual": 0.9798026559934029
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 2,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9653783779975833,
+      "symmetric_residual": 1.0117385567629622
+    },
+    {
+      "family": "spin_glass",
+      "seed": 2,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.9971014492753624
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 2,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.009404369233949,
+      "symmetric_residual": 1.0232767727073029
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 2,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.15053544932597737,
+      "symmetric_residual": 0.15260428175205157
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 2,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.19702450278817035,
+      "symmetric_residual": 0.8424971816968834
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 3,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7888405084254106,
+      "symmetric_residual": 1.025963367525905
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 3,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.7717477816094584,
+      "symmetric_residual": 0.9760113549752261
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 3,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.1396850994372516,
+      "symmetric_residual": 0.9791097113671974
+    },
+    {
+      "family": "spin_glass",
+      "seed": 3,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 1.0058479532163742
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 3,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9937344754915584,
+      "symmetric_residual": 1.0109664345413465
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 3,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.1730865711016617,
+      "symmetric_residual": 0.17608799731646282
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 3,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4399980278298854,
+      "symmetric_residual": 1.0243013407123156
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 4,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4356770502091897,
+      "symmetric_residual": 0.9329127762475807
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 4,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6878741060668134,
+      "symmetric_residual": 0.8461724536737829
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 4,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9548890699648007,
+      "symmetric_residual": 0.9477103529469115
+    },
+    {
+      "family": "spin_glass",
+      "seed": 4,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 1.0318840579710145
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 4,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9874805357224061,
+      "symmetric_residual": 0.9837678231642366
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 4,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.15627284096125124,
+      "symmetric_residual": 0.1556852889861498
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 4,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.34852310481602233,
+      "symmetric_residual": 0.6903500831886971
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 5,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5623498586814563,
+      "symmetric_residual": 0.8867784075695015
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 5,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.720219019195921,
+      "symmetric_residual": 1.0488216525839282
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 5,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9394593863772912,
+      "symmetric_residual": 1.044588111765771
+    },
+    {
+      "family": "spin_glass",
+      "seed": 5,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 1.0105263157894737
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 5,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9845979610623248,
+      "symmetric_residual": 1.0153780195298903
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 5,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.16245007549114507,
+      "symmetric_residual": 0.16752851666147095
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 5,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.4444695811844162,
+      "symmetric_residual": 0.9859486657302905
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 6,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.595253348024945,
+      "symmetric_residual": 0.9865597617274644
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 6,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8225280078553192,
+      "symmetric_residual": 1.0133995426896687
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 6,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9376629171946315,
+      "symmetric_residual": 1.0041701227922248
+    },
+    {
+      "family": "spin_glass",
+      "seed": 6,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 0.968421052631579
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 6,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0179300859578515,
+      "symmetric_residual": 0.9727916361203579
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 6,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.16153308801672908,
+      "symmetric_residual": 0.15437016662249856
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 6,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.21248899405479318,
+      "symmetric_residual": 0.9900333648218729
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 7,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5012348130410157,
+      "symmetric_residual": 1.0223842243068118
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 7,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6560251639848491,
+      "symmetric_residual": 0.9738229902122394
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 7,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0002527040880727,
+      "symmetric_residual": 0.967380347835793
+    },
+    {
+      "family": "spin_glass",
+      "seed": 7,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.9777777777777777
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 7,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.982650727115554,
+      "symmetric_residual": 0.98507950204568
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 7,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.14815398882763114,
+      "symmetric_residual": 0.14852017457800334
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 7,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.30207599993311285,
+      "symmetric_residual": 1.0009434324303677
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 8,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.48881122346285183,
+      "symmetric_residual": 1.0054230893626648
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 8,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.8501486437154521,
+      "symmetric_residual": 0.9651350228310148
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 8,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0120903330211821,
+      "symmetric_residual": 1.0547667518068875
+    },
+    {
+      "family": "spin_glass",
+      "seed": 8,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0000000000000002,
+      "symmetric_residual": 1.0202898550724637
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 8,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0197471861120158,
+      "symmetric_residual": 0.9902951608457138
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 8,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.16637147312507108,
+      "symmetric_residual": 0.16156638329809797
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 8,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.174409682956333,
+      "symmetric_residual": 0.9197005217063344
+    },
+    {
+      "family": "nk",
+      "K": 1,
+      "seed": 9,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.5004997970776244,
+      "symmetric_residual": 0.9104654622309808
+    },
+    {
+      "family": "nk",
+      "K": 2,
+      "seed": 9,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.6022858258690797,
+      "symmetric_residual": 0.9932568952510396
+    },
+    {
+      "family": "nk",
+      "K": 4,
+      "seed": 9,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.9013234425466129,
+      "symmetric_residual": 0.9914126840066886
+    },
+    {
+      "family": "spin_glass",
+      "seed": 9,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 1.0,
+      "symmetric_residual": 0.9543859649122807
+    },
+    {
+      "family": "house_of_cards",
+      "seed": 9,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.966809912069504,
+      "symmetric_residual": 1.0007455890781523
+    },
+    {
+      "family": "rough_mount_fuji",
+      "seed": 9,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.13873911843257924,
+      "symmetric_residual": 0.14360895463596932
+    },
+    {
+      "family": "block",
+      "block_size": 2,
+      "seed": 9,
+      "L": 10,
+      "applies": false,
+      "refused": true,
+      "additive_residual": 0.3760465328035951,
+      "symmetric_residual": 0.9237870159919357
+    }
+  ],
+  "notes": "Execution plan v4 names this baseline Dixit-Srivastava-Vishnoi after PRIOR_ART entry II.1, which is still flagged to-verify. This gate does not claim the class it implements is theirs. If their class is strictly larger, WP7 has cells it currently believes are classically hard, and the boundary map would be wrong in the direction that favours the quantum method.",
+  "env": {
+    "git_sha": "fd824b314bf7d9c20bacbfe78851448eaeda5c20",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "34c3cea9b2797f88826c7d0ec0842b311e3ac8cacb2af4e437fe91661abd174a"
+  },
+  "timestamp": "2026-08-11T00:45:02.714656+00:00"
+}

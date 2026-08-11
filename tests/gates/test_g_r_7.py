@@ -14,9 +14,20 @@ from experiments.wp_r_rebuild.g_r_7_motta import (
 pytestmark = pytest.mark.gate
 
 
-def test_g_r_7_motta_reaches_the_reference_with_a_descending_energy() -> None:
+@pytest.fixture(scope="module")
+def gate_result():
+    """One run of the gate, shared by every test in this file.
+
+    Each test used to call ``run`` itself, so the gate executed once per test. It is
+    deterministic, ADR-0016 having pinned the eigensolver's start vector, so the repeats
+    produced identical numbers at full price.
+    """
+    return run()
+
+
+def test_g_r_7_motta_reaches_the_reference_with_a_descending_energy(gate_result) -> None:
     """G-R.7: cosine >= 0.95, and no energy increase beyond 1e-10 on any step."""
-    passed, measured, cases = run()
+    passed, measured, cases = gate_result
     assert cases, "the gate ran no configurations, which is a failure and not a pass"
     assert measured["all_energies_descend"], (
         f"G-R.7 FAILED on descent: {measured['total_rises_beyond_tolerance']} steps rose "
@@ -30,7 +41,7 @@ def test_g_r_7_motta_reaches_the_reference_with_a_descending_energy() -> None:
     assert passed
 
 
-def test_the_wrong_parity_basis_is_still_dead() -> None:
+def test_the_wrong_parity_basis_is_still_dead(gate_result) -> None:
     """The reason the generator basis is what it is, checked in every gate run.
 
     If someone widened the basis to include Y-free strings, believing more generators must
@@ -38,7 +49,7 @@ def test_the_wrong_parity_basis_is_still_dead() -> None:
     describe. This keeps the evidence for that in the artefact rather than only in a
     docstring.
     """
-    _, measured, _ = run()
+    _, measured, _ = gate_result
     assert measured["parity_even_y_max_abs"] == 0.0, (
         "an even-Y string contributed something, which would mean the parity argument for "
         "the generator basis is wrong"

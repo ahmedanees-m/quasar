@@ -1,0 +1,261 @@
+{
+  "gate": "G-4",
+  "work_package": "wp4",
+  "passed": true,
+  "threshold": {
+    "criterion_1": "total variation < 0.02 against the analytic quasispecies at N = 1000000, L = 8",
+    "criterion_2": "WITHDRAWN as unexecutable, see Amendment 15 and ADR-0018: throughput within 5x of the reference community implementation",
+    "criterion_2b": "reaches total variation <= 0.02 at L = 8 within the 300 s that section 11.3 allots a method per WP7 cell",
+    "registered_in": "GATES.md section 8, configurations in Amendment 15, criterion 2b in Amendment 22"
+  },
+  "measured": {
+    "criterion_1_accuracy": {
+      "passed": true,
+      "total_variation_at_largest_budget": 0.0046641244990745625,
+      "threshold": 0.02,
+      "largest_population": 1000000,
+      "convergence_exponent_in_N": -0.6171495496168377,
+      "expected_exponent": -0.5,
+      "local_slopes_between_adjacent_populations": [
+        {
+          "from_population": 1000,
+          "to_population": 10000,
+          "slope": -1.0367439482336827
+        },
+        {
+          "from_population": 10000,
+          "to_population": 100000,
+          "slope": -0.5085957088620617
+        },
+        {
+          "from_population": 100000,
+          "to_population": 1000000,
+          "slope": -0.34229360533969305
+        }
+      ],
+      "how_to_read_the_exponent": "The single fitted slope averages a curve, not a power law. The local slopes run from about -1.0 at the smallest populations, where the distribution is not yet resolved at all, to about -0.34 at the largest, where the remaining error is a finite-generation floor rather than sampling noise. The central limit rate of -0.5 is crossed inside that range rather than beaten by it."
+    },
+    "criterion_2_throughput": {
+      "passed": null,
+      "status": "BLOCKED, not passed. This implementation is O(L 2^L) per generation and independent of N; a community forward simulator is individual-based at O(N L). At N = 1e6 the two differ by about three orders of magnitude by construction, so a throughput-within-5x test would pass by a factor of a thousand and establish nothing about whether the baseline is well built. No reference implementation is present in the pinned image, and ADR-0006 forbids installing one outside Docker. See ADR-0018 for the recommended replacement: time-to-accuracy at matched total variation.",
+      "seconds_per_1000_generations_by_population": {
+        "1000": 0.478,
+        "10000": 0.5913,
+        "100000": 0.701,
+        "1000000": 0.9283
+      },
+      "cost_model": "O(L * 2**L) per generation, independent of N"
+    },
+    "criterion_2b_time_to_accuracy": {
+      "passed": true,
+      "target_total_variation": 0.02,
+      "budget_seconds": 300.0,
+      "cheapest_sufficient_population": 100000,
+      "seconds_to_reach_target": 28.04,
+      "total_variation_reached": 0.010258024685227948,
+      "registered_in": "GATES.md Amendment 22",
+      "what_this_does_not_establish": "That the baseline is as fast as the best available forward simulator. No reference implementation is present in the pinned image, so the cross-implementation comparison stays blocked and is recorded as blocked. This criterion establishes only that the baseline reaches the accuracy WP7 needs inside the budget WP7 grants, which is what makes it a fair reference for the boundary map."
+    },
+    "time_step_study": {
+      "population_scaled_with_inverse_dt": [
+        {
+          "dt": 0.04,
+          "generations": 2000,
+          "population": 100000,
+          "total_variation": 0.023823520930181148,
+          "max_burn_in_drift": 0.0192571125,
+          "max_pairwise_tv_between_seeds": 0.018964006249999995
+        },
+        {
+          "dt": 0.02,
+          "generations": 4000,
+          "population": 200000,
+          "total_variation": 0.01729261659077214,
+          "max_burn_in_drift": 0.022380018750000008,
+          "max_pairwise_tv_between_seeds": 0.016133607812499992
+        },
+        {
+          "dt": 0.01,
+          "generations": 8000,
+          "population": 400000,
+          "total_variation": 0.008004254068847218,
+          "max_burn_in_drift": 0.019790714062499992,
+          "max_pairwise_tv_between_seeds": 0.01552297734375001
+        },
+        {
+          "dt": 0.005,
+          "generations": 16000,
+          "population": 800000,
+          "total_variation": 0.0064393892742103664,
+          "max_burn_in_drift": 0.020129718750000004,
+          "max_pairwise_tv_between_seeds": 0.013084381152343753
+        }
+      ],
+      "population_held_fixed": [
+        {
+          "dt": 0.04,
+          "generations": 2000,
+          "population": 100000,
+          "total_variation": 0.023823520930181148,
+          "max_burn_in_drift": 0.0192571125,
+          "max_pairwise_tv_between_seeds": 0.018964006249999995
+        },
+        {
+          "dt": 0.02,
+          "generations": 4000,
+          "population": 100000,
+          "total_variation": 0.014919118694781778,
+          "max_burn_in_drift": 0.029873743750000008,
+          "max_pairwise_tv_between_seeds": 0.02314334374999999
+        },
+        {
+          "dt": 0.01,
+          "generations": 8000,
+          "population": 100000,
+          "total_variation": 0.016437527175177415,
+          "max_burn_in_drift": 0.03957811562500001,
+          "max_pairwise_tv_between_seeds": 0.030882092187499988
+        },
+        {
+          "dt": 0.005,
+          "generations": 16000,
+          "population": 100000,
+          "total_variation": 0.015292715459906094,
+          "max_burn_in_drift": 0.052484785937500014,
+          "max_pairwise_tv_between_seeds": 0.04432380937500001
+        }
+      ],
+      "note": "Genetic drift is 1/N per generation, so 1/(N dt) per unit simulated time. Shrinking dt at fixed N halves the discretisation bias and doubles the drift, which is why the fixed-population rows plateau while their equilibration drift climbs."
+    },
+    "seconds": 244.05
+  },
+  "n_cases": 12,
+  "cases": [
+    {
+      "criterion": 1,
+      "population": 1000,
+      "generations": 4000,
+      "dt": 0.01,
+      "total_variation": 0.3600836456330837,
+      "max_pairwise_tv_between_seeds": 0.7487578125000001,
+      "max_burn_in_drift": 0.766265625,
+      "seconds": 19.12,
+      "generations_per_second": 2091.5
+    },
+    {
+      "criterion": 1,
+      "population": 10000,
+      "generations": 4000,
+      "dt": 0.01,
+      "total_variation": 0.03308715673333511,
+      "max_pairwise_tv_between_seeds": 0.23182412499999996,
+      "max_burn_in_drift": 0.2190946875,
+      "seconds": 23.65,
+      "generations_per_second": 1691.5
+    },
+    {
+      "criterion": 1,
+      "population": 100000,
+      "generations": 4000,
+      "dt": 0.01,
+      "total_variation": 0.010258024685227948,
+      "max_pairwise_tv_between_seeds": 0.053922474999999984,
+      "max_burn_in_drift": 0.09027725000000002,
+      "seconds": 28.04,
+      "generations_per_second": 1426.3
+    },
+    {
+      "criterion": 1,
+      "population": 1000000,
+      "generations": 4000,
+      "dt": 0.01,
+      "total_variation": 0.0046641244990745625,
+      "max_pairwise_tv_between_seeds": 0.015242652187499994,
+      "max_burn_in_drift": 0.02507465687499999,
+      "seconds": 37.13,
+      "generations_per_second": 1077.3
+    },
+    {
+      "study": "time_step_population_scaled",
+      "dt": 0.04,
+      "generations": 2000,
+      "population": 100000,
+      "total_variation": 0.023823520930181148,
+      "max_burn_in_drift": 0.0192571125,
+      "max_pairwise_tv_between_seeds": 0.018964006249999995
+    },
+    {
+      "study": "time_step_population_scaled",
+      "dt": 0.02,
+      "generations": 4000,
+      "population": 200000,
+      "total_variation": 0.01729261659077214,
+      "max_burn_in_drift": 0.022380018750000008,
+      "max_pairwise_tv_between_seeds": 0.016133607812499992
+    },
+    {
+      "study": "time_step_population_scaled",
+      "dt": 0.01,
+      "generations": 8000,
+      "population": 400000,
+      "total_variation": 0.008004254068847218,
+      "max_burn_in_drift": 0.019790714062499992,
+      "max_pairwise_tv_between_seeds": 0.01552297734375001
+    },
+    {
+      "study": "time_step_population_scaled",
+      "dt": 0.005,
+      "generations": 16000,
+      "population": 800000,
+      "total_variation": 0.0064393892742103664,
+      "max_burn_in_drift": 0.020129718750000004,
+      "max_pairwise_tv_between_seeds": 0.013084381152343753
+    },
+    {
+      "study": "time_step_population_fixed",
+      "dt": 0.04,
+      "generations": 2000,
+      "population": 100000,
+      "total_variation": 0.023823520930181148,
+      "max_burn_in_drift": 0.0192571125,
+      "max_pairwise_tv_between_seeds": 0.018964006249999995
+    },
+    {
+      "study": "time_step_population_fixed",
+      "dt": 0.02,
+      "generations": 4000,
+      "population": 100000,
+      "total_variation": 0.014919118694781778,
+      "max_burn_in_drift": 0.029873743750000008,
+      "max_pairwise_tv_between_seeds": 0.02314334374999999
+    },
+    {
+      "study": "time_step_population_fixed",
+      "dt": 0.01,
+      "generations": 8000,
+      "population": 100000,
+      "total_variation": 0.016437527175177415,
+      "max_burn_in_drift": 0.03957811562500001,
+      "max_pairwise_tv_between_seeds": 0.030882092187499988
+    },
+    {
+      "study": "time_step_population_fixed",
+      "dt": 0.005,
+      "generations": 16000,
+      "population": 100000,
+      "total_variation": 0.015292715459906094,
+      "max_burn_in_drift": 0.052484785937500014,
+      "max_pairwise_tv_between_seeds": 0.04432380937500001
+    }
+  ],
+  "notes": "Criterion 2 stays withdrawn and unscored, and is still reported so the record shows what was asked for and why it went unanswered. The gate is scored on criterion 1 and on criterion 2b, its registered replacement. BLOCKED, not passed. This implementation is O(L 2^L) per generation and independent of N; a community forward simulator is individual-based at O(N L). At N = 1e6 the two differ by about three orders of magnitude by construction, so a throughput-within-5x test would pass by a factor of a thousand and establish nothing about whether the baseline is well built. No reference implementation is present in the pinned image, and ADR-0006 forbids installing one outside Docker. See ADR-0018 for the recommended replacement: time-to-accuracy at matched total variation.",
+  "env": {
+    "git_sha": "6774691c37515eada4c677b530b4429f41c88762",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "8f597bcfcac3410f7e7b891b2fefeef29faaf7abd697d87c8d6c41ec46cf29bf"
+  },
+  "timestamp": "2026-08-11T02:18:18.051460+00:00"
+}

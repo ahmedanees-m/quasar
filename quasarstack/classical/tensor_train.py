@@ -76,7 +76,7 @@ def to_tt(
 
     for _ in range(n_sites - 1):
         remainder = remainder.reshape(left * 2, -1)
-        u, singular, vt = np.linalg.svd(remainder, full_matrices=False)
+        u, singular, vt = _svd(remainder)
         keep = _rank_to_keep(singular, max_bond, tolerance)
         discarded += float(np.sum(singular[keep:] ** 2))
         u, singular, vt = u[:, :keep], singular[:keep], vt[:keep]
@@ -86,6 +86,36 @@ def to_tt(
 
     cores.append(remainder.reshape(left, 2, 1))
     return cores, discarded / squared_norm if squared_norm > 0 else 0.0
+
+
+def _svd(matrix: NDArray[np.float64]) -> tuple[NDArray, NDArray, NDArray]:
+    """Thin SVD with a fallback driver, because the fast one fails on rank-deficient input.
+
+    numpy calls LAPACK ``gesdd``, a divide-and-conquer routine that is the right default and
+    that occasionally refuses to converge on matrices which are numerically rank deficient.
+    G-6 hit exactly that. It rounds at bond dimension up to 128 while the states it evolves
+    have true rank 2 to 16, so most of each matrix is floating-point noise; the gate died
+    with ``SVD did not converge`` after running for the better part of a day and wrote no
+    record at all. ``gesvd`` is the older Golub-Reinsch routine, slower and numerically more
+    forgiving, and it is only ever reached on the rare failure.
+
+    The finiteness check runs first so that a NaN arriving from somewhere upstream reports
+    itself as that, rather than as a convergence failure two layers down. The two have very
+    different causes and the LAPACK message does not distinguish them.
+    """
+    if not np.all(np.isfinite(matrix)):
+        raise ValueError(
+            f"SVD input is not finite: {int(np.sum(np.isnan(matrix)))} NaN and "
+            f"{int(np.sum(np.isinf(matrix)))} infinite entries in a "
+            f"{matrix.shape[0]}x{matrix.shape[1]} matrix. This is an upstream problem, "
+            f"not a convergence failure."
+        )
+    try:
+        return np.linalg.svd(matrix, full_matrices=False)
+    except np.linalg.LinAlgError:
+        from scipy.linalg import svd as scipy_svd
+
+        return scipy_svd(matrix, full_matrices=False, lapack_driver="gesvd")
 
 
 def _rank_to_keep(singular: NDArray[np.float64], max_bond: int | None, tolerance: float) -> int:
@@ -137,7 +167,7 @@ def tt_round(
     for site in range(n_sites - 1):
         left, physical, right = cores[site].shape
         matrix = cores[site].reshape(left * physical, right)
-        u, singular, vt = np.linalg.svd(matrix, full_matrices=False)
+        u, singular, vt = _svd(matrix)
         keep = _rank_to_keep(singular, max_bond, tolerance)
         discarded += float(np.sum(singular[keep:] ** 2))
         u, singular, vt = u[:, :keep], singular[:keep], vt[:keep]

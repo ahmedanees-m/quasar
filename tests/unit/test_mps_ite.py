@@ -19,6 +19,7 @@ from quasarstack.classical.landscapes import (
 )
 from quasarstack.classical.mps_ite import evolve, step_operator_bond_dimension
 from quasarstack.classical.tensor_train import (
+    _svd,
     apply_single_site,
     from_tt,
     hadamard,
@@ -140,3 +141,35 @@ def test_truncation_history_covers_every_step() -> None:
 def test_a_zero_bond_dimension_is_refused() -> None:
     with pytest.raises(ValueError, match="max_bond_dimension"):
         evolve(np.zeros(16), 0.2, max_bond_dimension=0)
+
+
+class TestSvdFallback:
+    """The SVD driver that killed G-6 after most of a day, and left no record behind."""
+
+    def test_rank_deficient_matrix_decomposes(self) -> None:
+        """A matrix whose true rank is far below its size is the shape that provoked it."""
+        rng = np.random.default_rng(0)
+        left = rng.normal(size=(128, 3))
+        matrix = left @ rng.normal(size=(3, 128))
+        u, singular, vt = _svd(matrix)
+        assert np.allclose(u * singular @ vt, matrix, atol=1e-10)
+        assert np.sum(singular > 1e-9 * singular[0]) == 3
+
+    def test_falls_back_when_the_fast_driver_gives_up(self, monkeypatch) -> None:
+        """gesdd's failure must be survivable, not fatal, so the fallback is exercised here."""
+        rng = np.random.default_rng(1)
+        matrix = rng.normal(size=(40, 24))
+
+        def refuse(*args, **kwargs):
+            raise np.linalg.LinAlgError("SVD did not converge")
+
+        monkeypatch.setattr(np.linalg, "svd", refuse)
+        u, singular, vt = _svd(matrix)
+        assert np.allclose(u * singular @ vt, matrix, atol=1e-10)
+
+    def test_non_finite_input_says_so(self) -> None:
+        """A NaN upstream must not be reported as a convergence failure two layers down."""
+        matrix = np.ones((4, 4))
+        matrix[2, 1] = np.nan
+        with pytest.raises(ValueError, match="not finite"):
+            _svd(matrix)

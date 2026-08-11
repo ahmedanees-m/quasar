@@ -9,9 +9,22 @@ from experiments.wp_r_rebuild.g_r_6_varqite import COSINE_THRESHOLD, reps_for, r
 pytestmark = pytest.mark.gate
 
 
-def test_g_r_6_varqite_reaches_the_reference_at_constant_depth() -> None:
+@pytest.fixture(scope="module")
+def gate_result():
+    """One run of the gate, shared by every test in this file.
+
+    Each test used to call ``run`` itself, so the gate executed once per test. It is
+    deterministic, ADR-0016 having pinned the eigensolver's start vector, so the repeats
+    produced identical numbers at full price. This gate is the slowest in the project and
+    was running three times: on its own it held the suite for the better part of an hour,
+    which is how a suite stops being one anybody waits for.
+    """
+    return run()
+
+
+def test_g_r_6_varqite_reaches_the_reference_at_constant_depth(gate_result) -> None:
     """G-R.6: cosine >= 0.999, and depth identical at tau = 2.5 and tau = 20."""
-    passed, measured, cases = run()
+    passed, measured, cases = gate_result
     assert cases, "the gate ran no configurations, which is a failure and not a pass"
     assert measured["all_depths_unchanged"], (
         "circuit depth changed with imaginary time, which is the one property that makes "
@@ -30,7 +43,7 @@ def test_the_registered_ansatz_rule_is_the_one_used() -> None:
     assert [reps_for(n) for n in (3, 4, 5, 6)] == [5, 6, 7, 8]
 
 
-def test_the_hardware_route_still_reproduces_the_mclachlan_quantities() -> None:
+def test_the_hardware_route_still_reproduces_the_mclachlan_quantities(gate_result) -> None:
     """Not part of the registered threshold, and the most important check in the gate.
 
     varQITE is computed here by differentiating a state vector. That is only a legitimate
@@ -38,12 +51,12 @@ def test_the_hardware_route_still_reproduces_the_mclachlan_quantities() -> None:
     measurements. If this drifts, the method stops being hardware-faithful while every
     accuracy number stays exactly as good.
     """
-    _, measured, _ = run()
+    _, measured, _ = gate_result
     assert measured["hardware_route_max_force_error"] < 1e-10
     assert measured["hardware_route_max_tensor_error"] < 1e-10
 
 
-def test_energy_rises_are_discretisation_and_not_a_defect() -> None:
+def test_energy_rises_are_discretisation_and_not_a_defect(gate_result) -> None:
     """This test originally demanded strict monotonicity, and that was wrong.
 
     The continuous McLachlan flow genuinely cannot raise the energy: ``dE/dtau`` equals
@@ -57,7 +70,7 @@ def test_energy_rises_are_discretisation_and_not_a_defect() -> None:
     4.35e-2, 1.03e-3, 2.13e-4 for dtau of 0.05, 0.02, 0.01, roughly quadratic in the step,
     and always in the first step or two where the flow is stiffest.
     """
-    _, measured, _ = run()
+    _, measured, _ = gate_result
     assert measured["energy_rise_shrinks_with_step"], (
         "the energy rise did not shrink as the step size shrank, which is the signature of "
         "a defect rather than of Euler overshoot: "

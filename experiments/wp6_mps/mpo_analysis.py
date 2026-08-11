@@ -51,8 +51,9 @@ def families(n_sites: int):
     rng = np.random.default_rng(7000 + n_sites)
     yield {"family": "additive"}, additive_fitness(rng.uniform(0.3, 1.5, size=n_sites))
     yield {"family": "single_peak"}, class_fitness(single_peak_classes(n_sites, 1.0))
-    yield {"family": "additive_pairwise"}, class_fitness(
-        pairwise_uniform_classes(n_sites, 1.0, 0.1)
+    yield (
+        {"family": "additive_pairwise"},
+        class_fitness(pairwise_uniform_classes(n_sites, 1.0, 0.1)),
     )
     for k in (1, 2, 4):
         if k <= n_sites - 1:
@@ -62,8 +63,9 @@ def families(n_sites: int):
         yield {"family": "spin_glass", "seed": seed}, spin_glass_fitness(n_sites, seed=seed)
         yield {"family": "house_of_cards", "seed": seed}, house_of_cards_fitness(n_sites, seed=seed)
         for size in (2, 4):
-            yield {"family": "block", "block_size": size, "seed": seed}, block_fitness(
-                n_sites, size, seed=seed
+            yield (
+                {"family": "block", "block_size": size, "seed": seed},
+                block_fitness(n_sites, size, seed=seed),
             )
     for roughness in (0.1, 0.5, 1.0):
         for seed in SEEDS:
@@ -73,7 +75,13 @@ def families(n_sites: int):
             )
 
 
-def main() -> int:
+def run() -> tuple[bool, dict, list[dict]]:
+    """Measure, separately from reporting, so the summary can be replayed in a test.
+
+    Split out after G-5 passed its science and then died formatting the result. The
+    replay in tests/regression/test_gate_reporting.py can only reach gates shaped this
+    way, and this one was one of the two it could not cover.
+    """
     started = time.monotonic()
     cases: list[dict] = []
 
@@ -134,6 +142,12 @@ def main() -> int:
         "seconds": round(time.monotonic() - started, 2),
     }
 
+    return True, measured, cases
+
+
+def main() -> int:
+    passed, measured, cases = run()
+
     path = write_gate_record(
         gate="G-6.3",
         work_package="wp6",
@@ -143,7 +157,7 @@ def main() -> int:
             "registered_in": "GATES.md section 10 criterion 3",
         },
         measured=measured,
-        passed=True,
+        passed=passed,
         cases=cases,
         notes=measured["caveat"],
     )
@@ -170,7 +184,11 @@ def main() -> int:
             f"{100 * case['fraction_of_ceiling']:>7.1f}% {str(case['pauli_terms']):>7}"
         )
 
-    print(f"\n  families saturating the ceiling: {saturating}")
+    # Read back out of measured and cases rather than kept as locals, so this block works on
+    # a record loaded from disk exactly as it does on one just computed.
+    at_pauli_size = [c for c in cases if c["L"] == PAULI_UP_TO and c["pauli_terms"]]
+    cheap_circuit_hard_mps = measured["families_cheap_for_the_circuit_and_hard_for_mps"]
+    print(f"\n  families saturating the ceiling: {measured['families_saturating_the_ceiling']}")
     print(f"  worst site-ordering penalty:     {measured['max_ordering_ratio']:.2f}x")
     print(
         f"  cheap for the circuit and hard for MPS: "

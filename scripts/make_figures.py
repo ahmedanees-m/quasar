@@ -16,6 +16,26 @@ finished everything. Each figure says whether it was drawn or skipped and why, a
 code is zero either way; the check that every *claimed* artefact exists is
 `scripts/check_claims.py`, which is a different job.
 
+**The numbering here is not the execution plan's numbering, and that has to be resolved
+before anything is written.** Plan v4 section 5.2 reserves seven figure slots. The labels in
+this script were chosen for what the rebuild could actually produce, and they collide:
+
+| Plan slot | Plan content | Where that content lives here |
+|---|---|---|
+| F1 | Correspondence and circuit schematic | not built, it is a drawing rather than a result |
+| F2 | Validation overlay, analytic against exact against Trotter | not built |
+| F3 | Error-threshold transition | **F4** here |
+| F4 | Spectral gap and conditioning across ruggedness, mu and L | **F1** here |
+| F5 | Route A against Route B, accuracy and resources | not built; **F5** here is the MPO bond dimension |
+| F6 | Hardware, noiseless to raw to mitigated | not built, needs WP8 |
+| F7 | Boundary map and chi-hardness contours | **F7** here, the one slot that agrees |
+
+Only F7 means the same thing in both. Two figures here, Pauli sparsity and MPO bond
+dimension, have no slot in the plan at all, because they answer questions the plan did not
+anticipate asking. Renumbering is deliberately not done unilaterally: the plan is the
+pre-registered document, the manuscript will cite its numbering, and reassigning F1 or F5
+is a choice about what the paper argues rather than a tidy-up. Recorded as open item 10.
+
     python scripts/make_figures.py
     python scripts/make_figures.py --list
 """

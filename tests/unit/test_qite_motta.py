@@ -1,4 +1,4 @@
-﻿"""Motta-QITE, and the parity error that once made it walk uphill.
+"""Motta-QITE, and the parity error that once made it walk uphill.
 
 The centrepiece is `test_the_wrong_parity_basis_gives_a_dead_right_hand_side`. The planning
 documents record this method failing with "an element-wise gradient that vanishes for real

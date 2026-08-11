@@ -1,4 +1,4 @@
-# DECISIONS.md — architecture and design decision log
+# DECISIONS.md: architecture and design decision log
 
 Short ADR-style entries for consequential choices. Each entry: context, decision,
 consequences. This is what lets a reviewer, or the author in eight months, understand why
@@ -6,7 +6,7 @@ something is the way it is.
 
 ---
 
-## ADR-0001 — Rebuild Phases 1–3 rather than inherit reported results
+## ADR-0001: Rebuild Phases 1–3 rather than inherit reported results
 
 **Date:** 2026-08-09
 **Status:** accepted
@@ -40,7 +40,7 @@ in this repository reproduces it and writes an artefact under `results/`.
 
 ---
 
-## ADR-0002 — Spin convention for fitness, everywhere
+## ADR-0002: Spin convention for fitness, everywhere
 
 **Date:** 2026-08-09
 **Status:** accepted
@@ -59,7 +59,7 @@ in its docstring. A convention mismatch becomes a test failure rather than a wro
 
 ---
 
-## ADR-0003 — Target the stoquastic operator, and normalise L1 at the decode boundary only
+## ADR-0003: Target the stoquastic operator, and normalise L1 at the decode boundary only
 
 **Date:** 2026-08-09
 **Status:** accepted
@@ -79,7 +79,7 @@ them is one function that can be tested.
 
 ---
 
-## ADR-0004 — Sparse eigensolvers only above L = 12
+## ADR-0004: Sparse eigensolvers only above L = 12
 
 **Date:** 2026-08-09
 **Status:** accepted
@@ -95,7 +95,7 @@ what the WP7 grid needs. The guard turns a machine-killing mistake into an immed
 
 ---
 
-## ADR-0005 — Apache-2.0
+## ADR-0005: Apache-2.0
 
 **Date:** 2026-08-09
 **Status:** accepted
@@ -111,7 +111,7 @@ copyleft obligation on downstream users.
 
 ---
 
-## ADR-0006 — All computation runs in Docker on the VM; the laptop only authors
+## ADR-0006: All computation runs in Docker on the VM; the laptop only authors
 
 **Date:** 2026-08-09
 **Status:** accepted
@@ -131,7 +131,7 @@ becomes a source of results that cannot be reproduced.
 
 ---
 
-## ADR-0007 — Code moves by git, data moves by SFTP, no rclone
+## ADR-0007: Code moves by git, data moves by SFTP, no rclone
 
 **Date:** 2026-08-09
 **Status:** accepted
@@ -151,7 +151,7 @@ running sweep needs; the Drive archive keeps everything.
 
 ---
 
-## ADR-0008 — VM storage is treated as a hard 40 GB ceiling
+## ADR-0008: VM storage is treated as a hard 40 GB ceiling
 
 **Date:** 2026-08-09
 **Status:** accepted
@@ -170,7 +170,7 @@ where the complete result set lives. Sweeps are resumable from the archive.
 
 ---
 
-## ADR-0009 — A gate record is committed at the commit that produced it, and reruns that change nothing scientific are discarded
+## ADR-0009: A gate record is committed at the commit that produced it, and reruns that change nothing scientific are discarded
 
 **Date:** 2026-08-09
 **Status:** accepted
@@ -196,7 +196,7 @@ back the same", which is exactly what a reviewer would want to run.
 
 ---
 
-## ADR-0010 — Route B cannot rest on the nonreversible-Markov-chain result, and needs a new foundation
+## ADR-0010: Route B cannot rest on the nonreversible-Markov-chain result, and needs a new foundation
 
 **Date:** 2026-08-09
 **Status:** finding accepted; the redesign choice is open and needs both PIs
@@ -260,7 +260,7 @@ construction is used.
 
 ---
 
-## ADR-0011 — A landscape family must not move the fitness optimum while it varies ruggedness
+## ADR-0011: A landscape family must not move the fitness optimum while it varies ruggedness
 
 **Date:** 2026-08-09
 **Status:** accepted
@@ -312,7 +312,7 @@ against each other.
 
 ---
 
-## ADR-0012 — A committed result must prove it came from the pinned image
+## ADR-0012: A committed result must prove it came from the pinned image
 
 **Date:** 2026-08-09
 **Status:** accepted
@@ -350,7 +350,7 @@ inherit the default.
 
 ---
 
-## ADR-0013 — An equal-wall-clock budget systematically disadvantages imaginary time in exactly the regime WP7 is about
+## ADR-0013: An equal-wall-clock budget systematically disadvantages imaginary time in exactly the regime WP7 is about
 
 **Date:** 2026-08-09
 **Status:** accepted as a finding; the protocol amendment is drafted below and needs both PIs
@@ -417,7 +417,7 @@ inherit the default.
 
 ---
 
-## ADR-0014 — The one-command reproduction did not actually reproduce anything
+## ADR-0014: The one-command reproduction did not actually reproduce anything
 
 **Status.** Accepted. **Date.** 10 August 2026.
 
@@ -465,7 +465,7 @@ cheaper of the two.
 
 ---
 
-## ADR-0015 — Proceeding under the recommendations of ADR-0010 and ADR-0013, pending PI confirmation
+## ADR-0015: Proceeding under the recommendations of ADR-0010 and ADR-0013, pending PI confirmation
 
 **Status.** Accepted as a working assumption, reversible, flagged. **Date.** 10 August 2026.
 
@@ -507,7 +507,7 @@ decides otherwise, the search term is ADR-0015.
 
 ---
 
-## ADR-0016 — A gate result moved in its fifteenth digit, and the cause was the eigensolver's starting vector
+## ADR-0016: A gate result moved in its fifteenth digit, and the cause was the eigensolver's starting vector
 
 **Status.** Accepted. **Date.** 10 August 2026.
 
@@ -553,7 +553,7 @@ to about `1e-14` rather than exactly reproducible.
 
 ---
 
-## ADR-0017 — Ruggedness and the master sequence are in conflict, and the order parameter has to change
+## ADR-0017: Ruggedness and the master sequence are in conflict, and the order parameter has to change
 
 **Status.** Accepted for WP3 and WP7. The narrowed claim it implies needs both PIs.
 **Date.** 10 August 2026.
@@ -623,7 +623,7 @@ terms against `2**L` for Rough Mount Fuji at any non-zero roughness.
 
 ---
 
-## ADR-0018 — G-4's throughput criterion compares two different complexity classes and would pass for the wrong reason
+## ADR-0018: G-4's throughput criterion compares two different complexity classes and would pass for the wrong reason
 
 **Status.** Finding accepted; the replacement criterion needs both PIs.
 **Date.** 10 August 2026.
@@ -673,3 +673,61 @@ accuracy-at-budget, so the two decisions want the same measurement.
 **Consequences.** `GATES.md` section 8 needs an appended amendment before G-4 can be called
 passed. Nothing else depends on criterion 2. Criterion 1 is unaffected and is met: total
 variation `0.0051` at `N = 10^6`, against a threshold of `0.02`.
+
+---
+
+## ADR-0019: The tensor-network baseline overruns its allotment instead of stopping at it
+
+**Status.** Finding accepted. The reporting change is made now; the implementation change is
+recommended for any future run and is not applied to this one.
+**Date.** 11 August 2026.
+
+**Context.** Section 11.3 calls the per-cell per-method allotment a fairness firewall: 300 s
+at `L <= 12`, 900 s at `L >= 14`. ADR-0013 and the amendment that followed it made the runner
+record `seconds_used` beside `seconds_allotted` and set `over_budget` from the measurement
+rather than from what a method believes about itself, after Route A reported
+`budget_exhausted=False` having spent 510 s of 300. `score_g7.py` excludes an over-budget cell
+from the decision, on the reasoning that a method which won on 1.7 times the allotted time has
+not won.
+
+**What the sweep measured.** Baseline C, the matrix-product reference, is the only method that
+overruns, and it does so at a rate that grows sharply with size:
+
+| L | cells with a method over budget | share |
+|---|---|---|
+| 8 | 0 of 259 | 0.0% |
+| 10 | 5 of 259 | 1.9% |
+| 12 | 33 of 89 | 37.1% |
+
+Worst case is 3.28 times the allotment. Baseline A peaks at 0.57 of its allotment and Baseline
+B at effectively zero.
+
+**Why it happens.** `evolve` stops on convergence or on `max_steps`. It never looks at the
+clock. The budget is therefore enforced *after* the fact by exclusion, and not *during* the
+run by truncation. Nothing in the method is aware there is a deadline, so it cannot stop at
+one and hand back what it has.
+
+**Why this is a real defect in the protocol and not only in the method.** Exclusion removes
+precisely the cells where the classical reference is most strained, which is the subset most
+likely to contain a crossover. A rule that drops the hardest cells for the reference can
+manufacture a null. That the rule is conservative in intent does not make it neutral in
+effect, and at `L = 12` it is discarding more than a third of the grid.
+
+**Why it does not change the present verdict.** The 38 over-budget cells have a minimum cosine
+of 0.999519. Including every one of them leaves G-7's second condition, a tensor network below
+0.80, unmet by four orders of magnitude. The null does not depend on the exclusion rule, and
+saying so is part of reporting it honestly rather than a reason to leave the rule unexamined.
+
+**Decision.** The verdict reports the exclusion counts per size, so a reader can see how much
+of the grid the rule removed and at which sizes. The grid is not rerun for this: the cells in
+question are measured, their answers are recorded, and rerunning 777 cells to change a flag
+that does not change the conclusion would spend a day of compute to learn nothing.
+
+**Recommended for any future run, and for `L >= 14` in particular.** Make the method
+budget-aware. `evolve` should take a deadline, return the state it holds when the deadline
+arrives, and mark the record `budget_limited`. A cell then yields a comparable if degraded
+answer instead of being dropped, which is what a compute-matched comparison is supposed to
+mean: not that every method finished, but that every method got the same time and is judged on
+what it produced in it. The trend above says this matters more at every size step, and the
+sweep does not currently go past `L = 12`.
+

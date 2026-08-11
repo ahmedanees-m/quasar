@@ -48,16 +48,19 @@ NK_K = [1, 2, 4]
 def in_class(n_sites: int):
     for seed in SEEDS:
         rng = np.random.default_rng(50_000 + 100 * n_sites + seed)
-        yield {"family": "additive", "seed": seed}, additive_fitness(
-            rng.uniform(0.3, 1.5, size=n_sites)
+        yield (
+            {"family": "additive", "seed": seed},
+            additive_fitness(rng.uniform(0.3, 1.5, size=n_sites)),
         )
     for height in PEAK_HEIGHTS:
-        yield {"family": "single_peak", "height": height}, class_fitness(
-            single_peak_classes(n_sites, height)
+        yield (
+            {"family": "single_peak", "height": height},
+            class_fitness(single_peak_classes(n_sites, height)),
         )
     for b in EPISTASIS_B:
-        yield {"family": "additive_pairwise", "b": b}, class_fitness(
-            pairwise_uniform_classes(n_sites, 1.0, b)
+        yield (
+            {"family": "additive_pairwise", "b": b},
+            class_fitness(pairwise_uniform_classes(n_sites, 1.0, b)),
         )
 
 
@@ -68,12 +71,14 @@ def out_of_class(n_sites: int):
                 yield {"family": "nk", "K": k, "seed": seed}, nk_fitness(n_sites, k, seed=seed)
         yield {"family": "spin_glass", "seed": seed}, spin_glass_fitness(n_sites, seed=seed)
         yield {"family": "house_of_cards", "seed": seed}, house_of_cards_fitness(n_sites, seed=seed)
-        yield {"family": "rough_mount_fuji", "seed": seed}, rough_mount_fuji_fitness(
-            n_sites, seed=seed, roughness=0.5
+        yield (
+            {"family": "rough_mount_fuji", "seed": seed},
+            rough_mount_fuji_fitness(n_sites, seed=seed, roughness=0.5),
         )
         if n_sites >= 2:
-            yield {"family": "block", "block_size": 2, "seed": seed}, block_fitness(
-                n_sites, 2, seed=seed
+            yield (
+                {"family": "block", "block_size": 2, "seed": seed},
+                block_fitness(n_sites, 2, seed=seed),
             )
 
 
@@ -234,18 +239,17 @@ def main() -> int:
         f"    worst max abs error        {one['worst_max_abs_error']:.3e}  "
         f"(tolerance {ORACLE_TOLERANCE})"
     )
-    print(f"    in-class wrongly rejected  {one['in_class_configurations_the_predicate_rejected']}")
-    print(
-        f"    out-of-class solved anyway {one['out_of_class_configurations_the_baseline_solved_anyway']}"
-    )
+    print(f"    in-class refused           {one['in_class_instances_the_baseline_refused']}")
+    print(f"    out-of-class solved anyway {one['out_of_class_instances_the_baseline_solved']}")
     print(f"    {'PASS' if one['passed'] else 'FAIL'}\n")
     print("  Criterion 2, coverage map")
     print(f"    cells                      {two['n_cells']}")
-    print(f"    covered                    {two['n_covered']} " f"({two['fraction_covered']:.1%})")
-    print(
-        f"    out-of-class wrongly accepted {two['out_of_class_configurations_the_predicate_accepted']}"
-    )
+    print(f"    covered                    {two['n_covered']} ({two['fraction_covered']:.1%})")
     print(f"    {'PASS' if two['passed'] else 'FAIL'}")
+    print("\n  Instances in the class, by family")
+    for family, counts in sorted(measured["instances_in_class_by_family"].items()):
+        total = counts["in_class"] + counts["out_of_class"]
+        print(f"    {family:22s} {counts['in_class']:>4} of {total:>4}")
     print(f"\n  record  {path}")
     print(f"  G-5: {'PASS' if passed else 'FAIL'}")
     return 0 if passed else 1

@@ -117,8 +117,15 @@ def score(cells: list[dict]) -> dict[str, Any]:
         groups.setdefault(key, []).append(cell)
 
     regions, excluded = [], []
+    # ADR-0019: how much of the grid the budget rule removed, per size. Exclusion takes out
+    # exactly the cells where the classical reference is most strained, which is the subset
+    # most likely to hold a crossover, so a null that comes with no exclusion count is not a
+    # null anyone can weigh. Counted here whether or not it changes the verdict.
+    seen_by_size: dict[Any, int] = {}
+    dropped_by_size: dict[Any, dict[str, int]] = {}
     for key, members in sorted(groups.items(), key=lambda kv: str(kv[0])):
         family, k, roughness, block, n_sites, ratio = key
+        seen_by_size[n_sites] = seen_by_size.get(n_sites, 0) + len(members)
 
         usable, dropped = [], []
         for cell in members:
@@ -130,6 +137,9 @@ def score(cells: list[dict]) -> dict[str, Any]:
                 dropped.append("a method errored")
                 continue
             usable.append(cell)
+        for reason in dropped:
+            dropped_by_size.setdefault(n_sites, {})
+            dropped_by_size[n_sites][reason] = dropped_by_size[n_sites].get(reason, 0) + 1
         if dropped:
             excluded.append(
                 {
@@ -174,15 +184,25 @@ def score(cells: list[dict]) -> dict[str, Any]:
         tensor_ci = bootstrap_interval(tensor)
         separated = route_ci[0] > tensor_ci[1]
 
-        satisfies = bool(
-            len(route_values) >= MIN_SEEDS
-            and float(np.mean(route_values)) >= QUANTUM_THRESHOLD
-            and float(np.mean(tensor)) < CLASSICAL_THRESHOLD
-            and not baseline_b_applies
-            and separated
-        )
+        # Which conditions this group fails, not merely that it fails. Section 11.5 asks the
+        # null to be as informative as the positive, and "no region qualified" is not
+        # informative: a null because no quantum route is good enough and a null because the
+        # classical reference never falters are opposite findings with opposite next steps.
+        failed = []
+        if len(route_values) < MIN_SEEDS:
+            failed.append(f"fewer than {MIN_SEEDS} seeds")
+        if float(np.mean(route_values)) < QUANTUM_THRESHOLD:
+            failed.append(f"no quantum route reaches {QUANTUM_THRESHOLD}")
+        if float(np.mean(tensor)) >= CLASSICAL_THRESHOLD:
+            failed.append(f"the tensor network stays at or above {CLASSICAL_THRESHOLD}")
+        if baseline_b_applies:
+            failed.append("baseline B applies")
+        if not separated:
+            failed.append("the bootstrap intervals overlap")
+        satisfies = not failed
         regions.append(
             {
+                "failed_conditions": failed,
                 "family": family,
                 "K": k,
                 "roughness": roughness,
@@ -203,10 +223,26 @@ def score(cells: list[dict]) -> dict[str, Any]:
 
     positive = [r for r in regions if r["satisfies_g7"]]
     sizes = [r["L"] for r in regions]
+    why_not: dict[str, int] = {}
+    for region in regions:
+        for reason in region["failed_conditions"]:
+            why_not[reason] = why_not.get(reason, 0) + 1
+    exclusion_summary = [
+        {
+            "L": size,
+            "cells": seen_by_size[size],
+            "cells_excluded": sum(dropped_by_size.get(size, {}).values()),
+            "share_excluded": sum(dropped_by_size.get(size, {}).values()) / seen_by_size[size],
+            "by_reason": dropped_by_size.get(size, {}),
+        }
+        for size in sorted(seen_by_size, key=lambda v: (v is None, v))
+    ]
     return {
         "verdict": "positive" if positive else "null",
         "groups_scored": len(regions),
         "groups_excluded": excluded,
+        "excluded_cells_by_size": exclusion_summary,
+        "conditions_failed_by_group_count": dict(sorted(why_not.items(), key=lambda kv: -kv[1])),
         "positive_region": positive,
         # Section 11.5: a null must carry the bound it delimits.
         "null_bound": (
@@ -267,6 +303,12 @@ def main() -> int:
     print(f"\nverdict: {verdict['verdict'].upper()}")
     print(f"groups scored   {verdict['groups_scored']}")
     print(f"groups excluded {len(verdict['groups_excluded'])}")
+    print("\ncells excluded by size (ADR-0019):")
+    for row in verdict["excluded_cells_by_size"]:
+        print(
+            f"   L={row['L']}  {row['cells_excluded']} of {row['cells']} "
+            f"({row['share_excluded']:.1%})  {row['by_reason'] or ''}"
+        )
     if verdict["positive_region"]:
         print("\nregions satisfying all four conditions:")
         for r in verdict["positive_region"]:
@@ -275,6 +317,9 @@ def main() -> int:
                 f"{r['route']} {r['route_mean_cosine']:.4f} vs MPS {r['tensor_mean_cosine']:.4f}"
             )
     else:
+        print("\nwhich condition each group failed, by group count:")
+        for reason, count in verdict["conditions_failed_by_group_count"].items():
+            print(f"   {count:>5}  {reason}")
         print(f"\n{verdict['null_bound']['statement']}")
         print(
             f"largest L with a valid reference: "

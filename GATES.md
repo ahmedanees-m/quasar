@@ -1,11 +1,11 @@
-# GATES.md — Pre-registration
+# GATES.md: Pre-registration
 
 **This file is append-only.** Thresholds are never lowered. Amendments are appended with a
 date and a rationale; nothing above an amendment line is ever edited in place. The commit
 hash of this file at the time of each run is recorded in that run's result record and cited
 in the paper's methods section.
 
-Project: QUASAR — quantum algorithms for mutation–selection dynamics
+Project: QUASAR, quantum algorithms for mutation–selection dynamics
 Execution plan: `QUASAR_FINAL_execution_plan_v4.md` (v4.0)
 Maintainer: Anees Ahmed Mahaboob Ali
 
@@ -58,7 +58,7 @@ ADR-0001.
 
 ---
 
-## 3. Work package WP-R — rebuild and re-validate Phases 1–3
+## 3. Work package WP-R: rebuild and re-validate Phases 1–3
 
 Objective: reconstruct the validated stack (analytic oracle, Hamiltonian compiler,
 Trotter circuit, both imaginary-time routes, noise backends) and re-hit the seven gates
@@ -90,7 +90,7 @@ artefact under `results/wp_r/`. Binary. No WP1+ run is judged before G-R passes.
 
 ---
 
-## 4. WP0 — pre-registration and prior art
+## 4. WP0: pre-registration and prior art
 
 **Gate G-0.** `GATES.md` and `PRIOR_ART.md` both complete and committed before any WP4+
 run. Binary. `PRIOR_ART.md` must cover all four literatures named in the execution plan,
@@ -99,7 +99,7 @@ establishes and what it leaves open.
 
 ---
 
-## 5. WP1 — spectral and structural analysis
+## 5. WP1: spectral and structural analysis
 
 **Gate G-1.**
 
@@ -117,7 +117,7 @@ spin-glass. L in {4, 6, 8, 10, 12, 14}. mu on a 41-point grid spanning
 
 ---
 
-## 6. WP2 — Route B, QSVT Perron-vector extraction
+## 6. WP2: Route B, QSVT Perron-vector extraction
 
 **Gate G-2.**
 
@@ -136,7 +136,7 @@ in advance so that the fallback cannot be presented later as a planned success.
 
 ---
 
-## 7. WP3 — landscape families
+## 7. WP3: landscape families
 
 **Gate G-3.**
 
@@ -151,7 +151,7 @@ Rough Mount Fuji, House-of-Cards, Block.
 
 ---
 
-## 8. WP4 — Baseline A, Wright–Fisher
+## 8. WP4: Baseline A, Wright–Fisher
 
 **Gate G-4.**
 
@@ -165,7 +165,7 @@ Declared N sweep: `[1e3, 1e4, 1e5, 1e6]`. Burn-in 20% of generations. Seeds `[0.
 
 ---
 
-## 9. WP5 — Baseline B, Dixit–Srivastava–Vishnoi
+## 9. WP5: Baseline B, Dixit–Srivastava–Vishnoi
 
 **Gate G-5.**
 
@@ -176,7 +176,7 @@ Declared N sweep: `[1e3, 1e4, 1e5, 1e6]`. Burn-in 20% of generations. Seeds `[0.
 
 ---
 
-## 10. WP6 — Baseline C, tensor-network imaginary time
+## 10. WP6: Baseline C, tensor-network imaginary time
 
 **Gate G-6.**
 
@@ -194,7 +194,7 @@ chi sweep: `[16, 32, 64, 128, 256, 512, 1024]`. dtau: `[0.1, 0.05, 0.02]`.
 
 ---
 
-## 11. WP7 — the grid sweep and the decision gate
+## 11. WP7: the grid sweep and the decision gate
 
 ### 11.1 The grid
 
@@ -235,7 +235,7 @@ flattering and more conservative metric and is the one used for the decision gat
 two disagree. Bootstrap 95% confidence intervals across seeds, 10000 resamples. Seed-to-seed
 spread reported alongside the mean, never only the mean.
 
-### 11.5 Gate G-7 — the decision gate
+### 11.5 Gate G-7: the decision gate
 
 **Positive result.** A non-empty region of the (ruggedness, mu, L) grid, contiguous and
 reproducible across at least 5 of the seeds run, in which:
@@ -255,7 +255,7 @@ experiment.
 
 ---
 
-## 12. WP8 — live QPU
+## 12. WP8: live QPU
 
 **Gate G-8.** Results are reported as measured. Job IDs, backend name, calibration date,
 transpiled depth, two-qubit gate count, shots, and both raw and mitigated distributions are
@@ -268,9 +268,9 @@ performance. Framing the result as evidence of advantage fails this gate.
 
 *(Append below this line only. Never edit above it.)*
 
-- 2026-08-09 — Initial registration. Anees Ahmed Mahaboob Ali.
+- 2026-08-09: Initial registration. Anees Ahmed Mahaboob Ali.
 
-- 2026-08-09 — **Amendment 1: the G-R.1 case set, registered before the run.**
+- 2026-08-09: **Amendment 1: the G-R.1 case set, registered before the run.**
   Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.1 threshold but named the configurations only as "the WP-R set".
@@ -291,16 +291,16 @@ performance. Framing the result as evidence of advantage fails this gate.
 
   **Families.**
 
-  1. `additive_random` — a_i drawn i.i.d. from Uniform(0.25, 2.00) with
+  1. `additive_random`: a_i drawn i.i.d. from Uniform(0.25, 2.00) with
      `default_rng(seed)`, seeds 0 through 9. Solved by the closed-form product route.
-  2. `additive_uniform` — every a_i equal to a, for a in {0.25, 0.50, 1.00, 2.00}. This
+  2. `additive_uniform`: every a_i equal to a, for a in {0.25, 0.50, 1.00, 2.00}. This
      family is reachable by *both* analytic routes, so it is additionally checked
      closed-form against Hamming-class reduction, making it a three-way agreement. Both
      comparisons count toward the gate statistic.
-  3. `single_peak` — fitness `height` on the master sequence and zero elsewhere, for
+  3. `single_peak`: fitness `height` on the master sequence and zero elsewhere, for
      height in {1.0, 2.0, 5.0}. Solved by the class reduction.
-  4. `class_quadratic` — f_d = height * (1 - d/L)^2, height in {1.0, 2.0, 5.0}.
-  5. `class_exponential` — f_d = height * exp(-2d/L), height in {1.0, 2.0, 5.0}.
+  4. `class_quadratic`: f_d = height * (1 - d/L)^2, height in {1.0, 2.0, 5.0}.
+  5. `class_exponential`: f_d = height * exp(-2d/L), height in {1.0, 2.0, 5.0}.
 
   **Diagnostics recorded per case.** The spectral gap lambda_1 - lambda_2 from the exact
   diagonalisation, and the mean-fitness difference between the two routes. The gap is
@@ -311,7 +311,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   **Expected case count.** 9 sizes x 7 mutation rates x (10 + 4 + 3 + 3 + 3) configurations
   = 1449 comparisons, plus 252 closed-form-versus-class cross-checks on family 2.
 
-- 2026-08-09 — **Amendment 2: the G-R.2 configuration set, registered before the run.**
+- 2026-08-09: **Amendment 2: the G-R.2 configuration set, registered before the run.**
   Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.2 threshold as cosine >= 0.999999 on 40 out of 40 configurations
@@ -354,7 +354,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   - For the additive families, the difference between the structured build and the
     Walsh-Hadamard build of the same operator, since both routes must produce it.
 
-- 2026-08-09 — **Amendment 3: the G-R.3 configuration set and protocol, registered before
+- 2026-08-09: **Amendment 3: the G-R.3 configuration set and protocol, registered before
   the run.** Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.3 thresholds as cosine >= 0.999 at dtau = 0.01 and a fitted
@@ -407,7 +407,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   structural circuit analogue, labelled as such, since that analogue is unitary and does not
   itself perform imaginary-time evolution.
 
-- 2026-08-09 — **Amendment 4: the G-R.4 sweep, landscapes and order parameter, registered
+- 2026-08-09: **Amendment 4: the G-R.4 sweep, landscapes and order parameter, registered
   before the run.** Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.4 threshold as max absolute magnetisation difference < 1e-3 at
@@ -476,7 +476,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   Three sizes was too thin to say anything about how the gap closes. This changes no
   acceptance criterion and the full gap map across all landscapes remains WP1 gate G-1.2.
 
-- 2026-08-09 — **Amendment 5: the G-R.5 instance set and the NK normalisation, registered
+- 2026-08-09: **Amendment 5: the G-R.5 instance set and the NK normalisation, registered
   before the run.** Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.5 threshold as cosine >= 0.99999 across all 10 seeded NK
@@ -523,7 +523,7 @@ performance. Framing the result as evidence of advantage fails this gate.
     converge, and that would be a finding for G-R.6, G-R.7 and WP7 rather than a defect.
   - The spectral gap per instance.
 
-- 2026-08-09 — **Amendment 6: the G-R.6 configuration set, the ansatz rule and the stopping
+- 2026-08-09: **Amendment 6: the G-R.6 configuration set, the ansatz rule and the stopping
   criterion, registered before the run.** Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.6 thresholds as cosine >= 0.999 and circuit depth identical at
@@ -639,7 +639,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   for, and this one was not. Recorded rather than quietly re-run, since the mistake is in the
   registration and not in the result.
 
-- 2026-08-10 — **Amendment 7: the G-R.7 configuration set and generator support, registered
+- 2026-08-10: **Amendment 7: the G-R.7 configuration set and generator support, registered
   before the run.** Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.7 thresholds as cosine >= 0.95 and no energy increase beyond 1e-10
@@ -696,7 +696,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   parity comparison per configuration; `tau_used` and whether the run converged; and the
   number of generators actually in use.
 
-- 2026-08-10 — **Amendment 8: G-R.7 failed its first execution. The failure, the diagnosis
+- 2026-08-10: **Amendment 8: G-R.7 failed its first execution. The failure, the diagnosis
   and the fix.** Anees Ahmed Mahaboob Ali.
 
   Recorded because a gate failure is a scientific event and the run happened. Neither
@@ -737,7 +737,7 @@ performance. Framing the result as evidence of advantage fails this gate.
 
   Both are method parameters, not acceptance criteria. G-R.6 and G-R.7 are re-run under them.
 
-- 2026-08-10 — **Amendment 9: the G-R.10 families, registered before the run.**
+- 2026-08-10: **Amendment 9: the G-R.10 families, registered before the run.**
   Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.10 threshold as a Pauli-term ratio of at least 50 at L = 12.
@@ -766,7 +766,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   because the landscape has structure, so what happens as structure is removed is the honest
   counterweight to the headline ratio and belongs beside it.
 
-- 2026-08-10 — **Amendment 10: the G-R.8 configuration set, and a decode-boundary finding
+- 2026-08-10: **Amendment 10: the G-R.8 configuration set, and a decode-boundary finding
   that changes what the gate measures.** Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.8 threshold as mitigated cosine >= 0.98 at L = 2 to 4 under
@@ -1514,3 +1514,142 @@ Every method record now carries `over_budget`, set from measured seconds against
 seconds independently of what the method thinks it did, and the manifest counts them. A cell
 where any method is over budget can be excluded or reported as such when G-7 is scored,
 rather than being silently treated as matched.
+
+---
+
+### Amendment 22 (G-4: a replacement for the criterion that could not be executed)
+
+Registered before the replacement criterion runs, and after criterion 1 has already been run
+and recorded. Amendment 15 withdrew criterion 2 as unexecutable and said in advance that
+G-4 would not be claimed as passed until a replacement was registered. This is that
+replacement. The withdrawal is not revisited here and the original record stands.
+
+**What stays withdrawn.** "Throughput within 5x of the reference community implementation"
+cannot be evaluated, for the two independent reasons in ADR-0018: the two implementations sit
+in different complexity classes by construction, so the test would pass by three orders of
+magnitude without establishing anything, and no reference implementation exists in the pinned
+image to compare against. Neither reason is an outcome anyone measured and disliked. Both
+were visible from the implementation and the environment before the gate ran.
+
+**Criterion 2b, time to accuracy.** The baseline must reach total variation `<= 0.02` against
+the analytic single-peak quasispecies at `L = 8`, `mu = 0.10`, within **300 s** of wall clock
+in the pinned image, on the `(N, generations)` ladder already declared for criterion 1. The
+gate reports the cheapest configuration that reaches the target and the wall clock it took.
+
+Three things make this a criterion rather than a formality.
+
+**The threshold is not ours to choose.** 300 s is the WP7 per-cell per-method allotment fixed
+in section 11.3 at `L <= 12`, set before any of this was measured and for a different reason.
+A baseline that cannot reach the accuracy WP7 needs inside the budget WP7 grants is not a
+fair reference for WP7, which is the entire purpose criterion 2 was serving. Picking a number
+from the measurement we already hold would have been circular, so the number comes from
+somewhere the measurement cannot reach.
+
+**It can fail.** Nothing about the count-space representation guarantees the target is
+reachable at all: the accuracy floor is set by drift at finite `N`, and if the smallest
+sufficient `N` had turned out to cost more than the budget, this would fail. That is the
+property the withdrawn criterion lacked.
+
+**It is representation independent.** Time to a fixed accuracy is comparable across a
+count-space and an individual-based implementation without either one being penalised for its
+data structure, so a community reference dropped into the image later can be measured against
+the same target with nothing rerun.
+
+**What remains blocked, and is recorded as blocked.** The cross-implementation comparison
+itself. Criterion 2b establishes that our baseline is fast enough for the use WP7 puts it to.
+It does not establish that it is as fast as the best available forward simulator, and no
+claim of that kind is made anywhere from this gate. That comparison waits on a reference in
+the image, which is a disk-budget decision under ADR-0006 on a machine with 42 GB free.
+
+**Correction to ADR-0018.** That decision record quotes total variation `0.0051` at
+`N = 10^6` from an exploratory run. The gate's own record measures **`0.004664`** on the
+registered configuration. The conclusion is unchanged and the recorded value is the one to
+cite.
+
+---
+
+### Amendment 23 (G-6: a per-cell deadline at L = 14, and what a stopped cell is allowed to mean)
+
+Registered before any `L = 14` cell has been measured, and after `L = 8`, `10` and `12` have.
+The measurement that prompts it is below, and it is a cost measurement rather than a result.
+
+**What the grid actually costs.** Measured in the pinned image, mean wall clock per cell:
+
+| L | cells measured | mean s | worst s |
+|---|---|---|---|
+| 8 | 79 | 6.8 | 60 |
+| 10 | 80 | 22.5 | 180 |
+| 12 | 68 | 235.6 | 5760 |
+
+The step from `L = 10` to `L = 12` costs 10.5 times, against 3.3 for the step before it, so
+the growth is accelerating rather than geometric at a fixed ratio. Cost tracks the chi a cell
+has to climb to: cells settling at chi = 4 average 15.6 s and cells settling at chi = 64
+average 2790 s. The single worst cell, house of cards at `mu = mu_c`, took **1.6 hours** and
+returned chi = 64, the ceiling at that size.
+
+**Why that is a problem at `L = 14`.** The ceiling there is 128 rather than 64 and the
+dimension is 16384 rather than 4096, and 45 cells are registered. Extrapolating the measured
+step ratio gives roughly 39 minutes a cell, and the rugged cells that climb to 128 would sit
+far above that. Thirty to a hundred hours is the plausible range for one gate.
+
+**What is not being done.** The grid is not cut. No family, size, mutation rate or seed is
+removed, because a reduction chosen after seeing which cells are expensive would quietly
+remove exactly the cells the map is most interesting about.
+
+**Criterion 2b registered: a per-cell wall-clock allotment of 900 s at `L >= 14`.** The ladder
+stops before starting a rung it cannot afford and the cell reports the largest chi it did try
+and the best cosine it saw, marked `budget_limited`. The check sits between rungs, never
+inside an evolution, so a cell can overshoot by at most one rung and no state is ever reported
+half-evolved.
+
+Four things about this limit.
+
+**The number is borrowed, not chosen.** 900 s is what section 11.3 allots a method per cell at
+`L >= 14`. It was fixed for the WP7 sweep, before any of this was measured and for an
+unrelated purpose, so it cannot have been tuned to produce a convenient outcome here. This is
+the same reasoning Amendment 22 used for G-4.
+
+**It applies only at `L >= 14`.** Sizes up to 12 are affordable at 5.1 hours for the whole
+grid, and capping a measurement that runs fine would discard real results for nothing. A 300 s
+cap at `L = 12` would have thrown away the honest chi = 64 the worst cell returned.
+
+**It is non-destructive when it does not bind.** If `L = 14` turns out cheaper than the
+extrapolation, no cell reaches the limit and the artefact is identical to the one the
+unamended grid would have produced. That is why it can be registered before the size it
+governs has been measured: it bounds cost without changing what is measured.
+
+**A stopped cell is not a failure, and criterion 1 must not treat it as one.** The whole risk
+in a limit like this is that it manufactures a result: in a record, a cell the clock stopped
+looks exactly like a cell where the tensor network genuinely cannot hold the state, and those
+are opposite findings. Criterion 1 therefore counts only cells that were given the full ladder
+and still missed the threshold. Stopped cells are listed separately, with the chi reached, so
+they can be finished later without redoing anything else. Criterion 2's map is complete when
+every cell either carries a chi or carries a stated reason it does not.
+
+This follows ADR-0019, which recommended exactly this shape after the WP7 tensor-network
+baseline overran its allotment on 37 per cent of `L = 12` cells because it stops on
+convergence and never looks at the clock. The recommendation there was a deadline-aware method
+that hands back what it holds. This applies it.
+
+**Second change, not a criterion: the gate now checkpoints.** It previously built its record
+only at the end, so an interruption at nine tenths produced nothing. That turned one LAPACK
+failure into fourteen hours lost and made this very decision cost a whole run rather than its
+remainder. Cells are appended to a gitignored scratch file as they land and reused on restart,
+guarded by a fingerprint of every registered constant so a checkpoint from a different grid is
+refused rather than blended into this one.
+
+**Addendum to Amendment 23, written after the gate ran.** The limit works and the wording
+above overstates it. "Overshoot by at most one rung" is true and hides that a rung is not
+itself bounded: the clock is checked before a rung starts, never inside one, so the real
+ceiling is 900 s plus however long the rung that crosses the line takes. Measured: an
+`L = 14` spin-glass cell ran **3759 s** against the 900 s limit, four times over, because it
+was under the line when it began chi = 16 and that single rung took roughly 2900 s. A tighter
+bound needs the deadline pushed down into `evolve`, which would mean interrupting an
+imaginary-time evolution midway and reporting a state that is neither converged nor a fair
+reading of that chi. That trade was not taken and should be reconsidered before any run at
+`L >= 16`.
+
+**What the limit actually cost.** Eight of 285 cells, all at `L = 14`, three of them within
+0.002 of the threshold at the chi they reached. The family it blocked entirely is house of
+cards, all five mutation rates. Everything else at `L = 14` resolved at chi <= 16, and block
+resolved at chi = 2 throughout.
