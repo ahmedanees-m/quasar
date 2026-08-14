@@ -312,18 +312,29 @@ Route B connects to provable-complexity results rather than heuristics.
 Not one of the four named literatures, but it sets the bar the boundary map is measured
 against, so it belongs in this dossier.
 
-### V.1 Flatiron CCQ / Tindall and related work on 3D tensor networks: `to-verify`
+### V.1 Tindall, Fishman, Stoudenmire & Sels, *PRX Quantum* 5:010308 (2024), arXiv:2306.14887: `verified 2026-08-15, bibliographic`
 
-- **Establishes.** Custom tensor-network methods at hundreds of spins have repeatedly
-  overturned quantum-advantage claims for transverse-field Ising dynamics.
-- **Relation.** Sets the scope limit stated in T6.5. This project benchmarks against a
-  standard, well-tuned MPS implementation at accessible L, not against bespoke
-  state-of-the-art tooling at hundreds of spins, and the manuscript scopes the claim to what
-  was actually tested.
+- **Establishes.** "Efficient Tensor Network Simulation of IBM's Eagle Kicked Ising
+  Experiment". A tensor network whose geometry follows the device lattice, contracted
+  approximately by belief propagation, reproduces the 127-qubit kicked-Ising results at
+  greater accuracy and precision than the processor and than several other classical methods,
+  and extends to long times in the thermodynamic limit. The authors attribute the accuracy to
+  the tree-like correlation structure of the wavefunction.
+- **Relation.** This is the scope limit, and it is a real one. QUASAR benchmarks against a
+  standard matrix-product implementation at the sizes actually tested, **not** against
+  lattice-geometry tensor networks with belief-propagation contraction at hundreds of spins.
+  A null measured here therefore says nothing about what the state of the art could do, and
+  the manuscript must scope the comparison to what was run. The direction of the bias is worth
+  stating: bespoke methods of this kind have repeatedly closed claimed advantage gaps, so the
+  classical side of any comparison scoped as ours is a lower bound on classical capability.
 
-### V.2 MPO-based spin-glass methods: `to-verify`
+### V.2 MPO-based spin-glass methods: `unresolved, no citation`
 
-- **Relation.** As above.
+- **Status.** This entry names a body of work without identifying a paper, so there is nothing
+  to verify. It is left open rather than marked verified, because marking a placeholder as
+  checked is worse than leaving it visibly incomplete.
+- **Needed.** Either a specific citation, or removal. The scope limit it was intended to
+  support is already carried by V.1.
 
 ---
 
