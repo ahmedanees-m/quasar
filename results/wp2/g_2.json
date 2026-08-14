@@ -1827,12 +1827,13 @@
   ],
   "notes": "Route B is built as ADR-0010 option C under ADR-0015, a working assumption pending confirmation by both PIs: QSVT eigenstate filtering for a Hermitian stoquastic operator. ADR-0010 records that the G-2 thresholds do not depend on this choice. Amendment 13 discloses that the first derivation of the degree omitted the initial-overlap term and overshot by factors of 3.3 to 7.2; the corrected form is the standard two-factor eigenstate-filtering cost and contains no fitted constant. The degree is linear in alpha over the gap, not square root: Chebyshev acceleration needs the target eigenvalue outside the encoded spectrum and here it is inside by construction.",
   "env": {
-    "git_sha": "0abc72745a617141d802ea8cffadc36c5c5110c3",
+    "git_sha": "c405fa197b40f6c8d5d4869bd386380fdc509436",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",
     "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
-    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9"
+    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9",
+    "git_sha_note": "release commit. History was condensed for publication, so this names the released tree rather than the individual commit the record was produced at."
   },
   "timestamp": "2026-08-10T10:40:21.007211+00:00"
 }

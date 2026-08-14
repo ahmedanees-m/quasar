@@ -74,9 +74,11 @@ Every result is a committed artefact produced by a script that anyone can rerun.
   lowered to accommodate a result; a failing gate is reported as a failure.
 - **Every claim maps to an artefact.** `CLAIMS.md` is the ledger, and
   `scripts/check_claims.py` fails if a claim names a file that does not exist.
-- **Every committed record proves where it came from.** Records carry the commit, the container
-  image tag, the platform and a hash of the specification. Records produced outside the pinned
-  image are written to a separate tree and are not treated as evidence.
+- **Every committed record carries its execution environment.** Records record the container
+  image tag, the platform, a hash of the specification and the released commit. Records
+  produced outside the pinned image are written to a separate tree and are not treated as
+  evidence. History was condensed for publication, so the recorded commit names the released
+  tree rather than the individual commit a record was produced at.
 - **Failures are recorded, not removed.** Three gates are on the ledger as failures, and
   `DECISIONS.md` carries twenty architecture decision records including the ones that document
   mistakes.

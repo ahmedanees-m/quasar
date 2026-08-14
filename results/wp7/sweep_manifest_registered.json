@@ -15,11 +15,12 @@
   },
   "seconds": 133513.26,
   "env": {
-    "git_sha": "f79bddafa59563c7dcb618df5a3e56b40d37036c",
+    "git_sha": "c405fa197b40f6c8d5d4869bd386380fdc509436",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",
     "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
-    "gates_md_sha256": "1c844d6704e305b6919b562abc79a5151c2ccef7eded9652c5428a671395a11b"
+    "gates_md_sha256": "1c844d6704e305b6919b562abc79a5151c2ccef7eded9652c5428a671395a11b",
+    "git_sha_note": "release commit. History was condensed for publication, so this names the released tree rather than the individual commit the record was produced at."
   }
 }

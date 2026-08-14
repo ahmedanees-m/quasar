@@ -451,12 +451,13 @@
   ],
   "notes": "The generator basis is the odd-Y Pauli strings, because a real state needs a real orthogonal unitary and hence a real antisymmetric generator. The parity block records Motta's own right-hand side for both parities per configuration: the even-Y set contributes exactly zero, which is the mechanism of the failure the planning documents record for this method. The support scan is Motta's cost curve, the counterpart to varQITE's ansatz-depth curve in G-R.6.",
   "env": {
-    "git_sha": "0abc72745a617141d802ea8cffadc36c5c5110c3",
+    "git_sha": "c405fa197b40f6c8d5d4869bd386380fdc509436",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",
     "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
-    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9"
+    "gates_md_sha256": "fe4edf121c87a02b8d6c6ed59f8eeb562fd3f9f1f00a12a29dd9b205e3e5b0a9",
+    "git_sha_note": "release commit. History was condensed for publication, so this names the released tree rather than the individual commit the record was produced at."
   },
   "timestamp": "2026-08-10T03:17:04.401241+00:00"
 }
