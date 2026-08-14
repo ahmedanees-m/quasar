@@ -23,43 +23,70 @@ The mathematical bridge the project stands on. This literature is mature. Nothin
 novel here, and the manuscript says so in the introduction rather than in a limitations
 paragraph.
 
-### I.1 Leuthäusser (1986/87): `to-verify`
+### I.1 Leuthäusser, *J. Chem. Phys.* 84(3):1884 (1986); *J. Stat. Phys.* 48:343 (1987): `verified 2026-08-15, bibliographic`
 
-- **Establishes.** Eigen's quasispecies model maps onto a two-dimensional Ising system.
-- **Leaves open.** A statistical-physics equivalence, not an algorithm. No treatment of
-  computational cost, and no circuit.
-- **Relation.** The origin of the correspondence. Cited as the founding result.
+- **Establishes.** "An exact correspondence between Eigen's evolution model and a
+  two-dimensional Ising system". For point mutations, Eigen's model maps onto a
+  **two-dimensional** Ising system with nearest-neighbour interaction in one direction. The
+  1987 paper, "Statistical mechanics of Eigen's evolution model", is the extended treatment.
+- **Leaves open.** A statistical-physics equivalence, not an algorithm. No computational cost,
+  no circuit.
+- **Relation.** The origin of the correspondence, cited as the founding result. Note the
+  dimensionality: this is a two-dimensional Ising system, whereas the chain QUASAR works with
+  is the one-dimensional quantum chain of I.2. The two are related by the usual quantum to
+  classical correspondence and are not the same object, so the citation must not be used to
+  support a statement about the quantum chain.
 
-### I.2 Baake, Baake & Wagner, *Phys. Rev. Lett.* 78:559 (1997), with erratum PRL 79:1782: `to-verify`
+### I.2 Baake, Baake & Wagner, *Phys. Rev. Lett.* 78:559 (1997), erratum PRL 79:1782: `verified 2026-08-15, bibliographic`
 
-- **Establishes.** The Crow–Kimura parallel mutation–selection model is exactly a quantum
-  spin chain. The equation governing genotype frequencies is a Schrödinger equation in
-  imaginary time with mutation entering as a transverse field.
-- **Leaves open.** Exactness of the mapping, not tractability. No quantum-algorithmic
-  analysis: no spectral gap treatment, no oracle model, no resource scaling.
-- **Relation.** The specific correspondence QUASAR implements. The erratum must be checked
-  before any convention is copied from the original.
+- **Establishes.** "Ising quantum chain is equivalent to a model of biological evolution".
+  A sequence-space model of mutation and selection is equivalent to an Ising quantum chain,
+  with three representative fitness landscapes solved exactly by statistical mechanics.
+- **Leaves open.** Exactness of the mapping, not tractability. No spectral gap treatment, no
+  oracle model, no resource scaling.
+- **Relation.** The specific correspondence QUASAR implements. Erratum PRL 79:1782 confirmed
+  to exist and must be consulted before any convention is copied from the original.
 
-### I.3 Saakian & Hu, *Phys. Rev. E* 69:021913 and 69:046121 (2004): `to-verify`
+### I.3 Saakian & Hu, *Phys. Rev. E* 69:021913 and 69:046121 (2004), arXiv:cond-mat/0402212: `verified 2026-08-15, bibliographic`
 
-- **Establishes.** Exact dynamics and closed-form quasispecies distributions for the Eigen
-  model as a quantum spin chain, via the Suzuki–Trotter formalism.
-- **Leaves open.** Closed forms exist for structured landscapes. Rugged and
-  broken-symmetry landscapes are not covered.
-- **Relation.** A source of the analytic oracle used as the ruler in `quasarstack/analytic/`.
+- **Establishes.** "Eigen model as a quantum spin chain: exact dynamics" maps the Eigen model
+  onto a one-dimensional quantum spin model and derives exact relaxation behaviour using the
+  Suzuki-Trotter formalism. The companion paper is "Solvable biological evolution model with a
+  parallel mutation-selection scheme".
+- **Leaves open.** Closed forms for structured landscapes. Rugged and broken-symmetry
+  landscapes are not covered.
+- **Relation.** A source of the analytic oracle in `quasarstack/analytic/`. **One difference
+  matters:** this work uses a **non-Hermitian** Hamiltonian, whereas QUASAR works with the
+  stoquastic Hermitian `H = -W` whose Perron vector is sign-definite. Results are not
+  transferable term by term without checking which operator is meant.
 
-### I.4 Jain & Krug (2005), arXiv q-bio/0508008: `to-verify`
+### I.4 Jain & Krug, arXiv:q-bio/0508008 (2005): `verified 2026-08-15, corrected`
 
-- **Establishes.** Mutation–selection with pairwise epistasis written explicitly as a
-  transverse-field Ising Hamiltonian.
-- **Leaves open.** The Hamiltonian form, not its simulation cost.
-- **Relation.** The epistatic term `b_ij Z_i Z_j` in the Hamiltonian compiler follows this.
+**The previous entry in this file was wrong and the correction matters.** It recorded this as
+writing "mutation-selection with pairwise epistasis explicitly as a transverse-field Ising
+Hamiltonian", and credited the epistatic `b_ij Z_i Z_j` term in the Hamiltonian compiler to it.
 
-### I.5 Park & Deem (2006): `to-verify`
+Read: the paper is **"Adaptation in simple and complex fitness landscapes"**, an introductory
+review published in *Structural Approaches to Sequence Evolution* (Springer, 2007, pp. 299-340).
+It reviews deterministic mutation-selection models, the error threshold, rugged landscapes and
+evolutionary dynamics. It **does not** present the pairwise-epistatic transverse-field Ising
+Hamiltonian the entry attributed to it.
 
-- **Establishes.** Named in the reframing document as part of the correspondence
-  literature. Content to be confirmed.
-- **Relation.** To be determined on reading.
+- **Relation, corrected.** Cite as a review of quasispecies theory and rugged landscapes. It is
+  **not** the source for the `b_ij Z_i Z_j` construction, which is standard Ising notation and
+  needs either a correct primary citation or no attribution at all. Nothing in the code changes:
+  the compiler's epistatic term is validated against exact diagonalisation by G-R.2 rather than
+  taken on authority from a reference.
+
+### I.5 Park & Deem, *J. Stat. Phys.*, arXiv:q-bio/0607012 (2006): `verified 2026-08-15, bibliographic`
+
+- **Establishes.** "Schwinger Boson Formulation and Solution of the Crow-Kimura and Eigen Models
+  of Quasispecies Theory". Spin coherent-state functional integrals by the Schwinger boson
+  method, giving long-time behaviour for arbitrary replication and degradation functions and the
+  phase transitions as a function of mutation rate.
+- **Leaves open.** Analytic solution technique, not computational complexity.
+- **Relation.** Part of the correspondence literature. Supports the statement that the
+  mapping is well established and not claimed as novel here.
 
 ---
 

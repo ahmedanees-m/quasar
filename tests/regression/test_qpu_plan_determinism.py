@@ -48,7 +48,13 @@ def test_state_preparation_is_deterministic() -> None:
 def test_transpilation_is_deterministic_and_calibration_shares_the_layout() -> None:
     """The seed must pin the layout, and calibration must land on the data circuit's qubits."""
     module = load()
-    from qiskit_ibm_runtime import fake_provider
+    # `qiskit-ibm-runtime` is the optional `qpu` extra. Skip rather than error where it is
+    # absent, so a minimal install still runs the suite; CI installs the extra so this case
+    # is exercised rather than quietly skipped everywhere.
+    fake_provider = pytest.importorskip(
+        "qiskit_ibm_runtime.fake_provider",
+        reason="requires the optional qpu extra",
+    )
 
     backend = getattr(fake_provider, module.FAKE_BACKEND)()
     module.SIZES = [2]

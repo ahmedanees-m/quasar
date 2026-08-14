@@ -301,7 +301,7 @@ def ruggedness_statistics(fitness: NDArray[np.float64]) -> dict[str, float | int
 def pairwise_uniform_classes(n_sites: int, a: float, b: float) -> NDArray[np.float64]:
     """Class fitnesses for uniform additive fitness plus uniform pairwise epistasis.
 
-    This is the Jain-Krug form: ``f = a sum_i z_i + b sum_{i<j} z_i z_j``, which the
+    The pairwise-epistatic form ``f = a sum_i z_i + b sum_{i<j} z_i z_j``, which the
     Hamiltonian compiler builds natively as ``a_i Z_i`` and ``b_ij Z_i Z_j``. With uniform
     coefficients it depends only on the total spin ``S = L - 2d``, so it is permutation
     symmetric and the analytic class reduction applies:
