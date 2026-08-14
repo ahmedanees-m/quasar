@@ -1793,7 +1793,7 @@
   ],
   "notes": "NK landscapes have no master sequence: the global optimum sits at a random genotype near Hamming weight L/2, which is recorded per instance as ADR-0011 requires. Statements about the error threshold do not carry over to this family unchanged. The Trotterised route is a diagnostic and not a pass condition, because a rugged instance with a small gap may legitimately fail to converge at a fixed imaginary-time budget.",
   "env": {
-    "git_sha": "30ff2ca926162922e08d031623fc0875b6a96037",
+    "git_sha": "0abc72745a617141d802ea8cffadc36c5c5110c3",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

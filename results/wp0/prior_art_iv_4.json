@@ -325,7 +325,7 @@
   ],
   "notes": "The reference states its results for row-stochastic Markov kernels and gets its beyond-quadratic speedup from nonreversibility. This run measures both properties for the generator QUASAR implements and for two biologically motivated generalisations, to establish whether nonreversibility is reachable within this problem class at all.",
   "env": {
-    "git_sha": "81a663e6583e56f83e4ab5bbd24874cebefe2cf3",
+    "git_sha": "5de240cf1314b6ae71d8d116bc614b088c9a2532",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

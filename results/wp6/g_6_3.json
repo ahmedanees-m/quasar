@@ -3133,7 +3133,7 @@
   ],
   "notes": "This is the bond dimension of the operator, which sets the cost of one step, not of the state, which sets whether the quasispecies is representable. Criteria 1, 2 and 4 need matrix-product imaginary-time evolution and are not built yet, so G-6 as a whole is not claimed.",
   "env": {
-    "git_sha": "30ff2ca926162922e08d031623fc0875b6a96037",
+    "git_sha": "0abc72745a617141d802ea8cffadc36c5c5110c3",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

@@ -50,8 +50,7 @@ error, and two of them correspond to bugs this project has already been bitten b
 ## 2. Registration note on provenance (2026-08-09)
 
 An earlier implementation of Phases 1–3 was reported in the planning documents with
-specific measured values. **That implementation could not be located** on the laptop, the
-Drive archive, the compute VM, or the GitHub account at the time this repository was
+specific measured values. **That implementation could not be located** in any available archive at the time this repository was
 created. No code and no result artefacts survive.
 
 Consequently the values reported in the planning documents are treated here as
@@ -70,7 +69,7 @@ that the planning documents record.
 
 Thresholds below are set at or slightly looser than the previously reported values, with
 the reported value noted. Setting them looser is deliberate: a threshold must be
-defensible on its own terms, not reverse-engineered from a number we are trying to match.
+defensible on its own terms, not reverse-engineered from a target number.
 Where a run beats the threshold, the measured value is reported.
 
 | Gate | Statement | Threshold | Previously reported |
@@ -222,7 +221,7 @@ Cells with no trustworthy reference are excluded and counted in `sweep_manifest.
 
 - Budget unit: **wall-clock seconds per cell per method**, on the declared hardware, single
   declared worker count, inside the declared Docker image.
-- Declared hardware: VM `sjt418scope025`, 32 vCPU, 62 GB RAM, NVIDIA RTX A4000 16 GB,
+- Declared hardware: 32 vCPU, 62 GB RAM, NVIDIA RTX A4000 16 GB,
   Ubuntu 22.04. Image tag recorded per run.
 - Allotment per cell per method: 300 s at L <= 12, 900 s at L >= 14. Fixed here, not tuned
   later.
@@ -767,7 +766,7 @@ performance. Framing the result as evidence of advantage fails this gate.
 
   **Diagnostic, not gating.** Term count against NK connectivity at L = 4, 6, 8 for
   K = 0, 1, 2, 4, reported as a fraction of the dense projector. The sparse form is cheap
-  because the landscape has structure, so what happens as structure is removed is the honest
+  because the landscape has structure, so what happens as structure is removed is the informative
   counterweight to the headline ratio and belongs beside it.
 
 - 2026-08-10: **revision 10: the G-R.8 configuration set, and a decode-boundary finding
@@ -1029,7 +1028,7 @@ Exploratory ratios of predicted to empirical degree, before and after:
 | omitting overlap | 3.32 to 7.22 | 0 of 10 |
 | corrected | 0.60 to 1.84 | 10 of 10 |
 
-The honest reading is that criterion 3 would have failed on the first derivation and passes
+The correct reading is that criterion 3 would have failed on the first derivation and passes
 on the corrected one, and that the correction was prompted by the failure. What makes this a
 method fix rather than a moved threshold is that the corrected formula is the textbook one,
 is derived rather than fitted, and would have been the right answer had the question been
@@ -1534,7 +1533,7 @@ Three things make this a criterion rather than a formality.
 in section 11.3 at `L <= 12`, set before any of this was measured and for a different reason.
 A baseline that cannot reach the accuracy WP7 needs inside the budget WP7 grants is not a
 fair reference for WP7, which is the entire purpose criterion 2 was serving. Picking a number
-from the measurement we already hold would have been circular, so the number comes from
+from the measurement already held would have been circular, so the number comes from
 somewhere the measurement cannot reach.
 
 **It can fail.** Nothing about the count-space representation guarantees the target is
@@ -1548,7 +1547,7 @@ data structure, so a community reference dropped into the image later can be mea
 the same target with nothing rerun.
 
 **What remains blocked, and is recorded as blocked.** The cross-implementation comparison
-itself. Criterion 2b establishes that our baseline is fast enough for the use WP7 puts it to.
+itself. Criterion 2b establishes that the baseline is fast enough for the use WP7 puts it to.
 It does not establish that it is as fast as the best available forward simulator, and no
 claim of that kind is made anywhere from this gate. That comparison waits on a reference in
 the image, which is a disk-budget decision under ADR-0006 on a machine with 42 GB free.
@@ -1602,7 +1601,7 @@ the same reasoning revision 22 used for G-4.
 
 **It applies only at `L >= 14`.** Sizes up to 12 are affordable at 5.1 hours for the whole
 grid, and capping a measurement that runs fine would discard real results for nothing. A 300 s
-cap at `L = 12` would have thrown away the honest chi = 64 the worst cell returned.
+cap at `L = 12` would have thrown away the chi = 64 the worst cell returned.
 
 **It is non-destructive when it does not bind.** If `L = 14` turns out cheaper than the
 extrapolation, no cell reaches the limit and the artefact is identical to the one the
@@ -1750,7 +1749,7 @@ down before the device ran, and was not adjusted afterwards.** Measured: 0.99930
 0.99461, all within 2.2e-3. The agreement is worth something only because the order is on the
 record, so the timing is stated here and nowhere else in this file needs to argue about it.
 
-**Provenance.** The pinned image has no `qiskit-ibm-runtime`, so WP8 runs on the laptop and the
+**Provenance.** The pinned image has no `qiskit-ibm-runtime`, so WP8 runs outside the pinned image and the
 record is written to `results/_local/` as non-evidence under ADR-0012. ADR-0020 records why the
 alternatives were declined. No claim may cite G-8 as reproduced evidence without that qualifier.
 

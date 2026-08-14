@@ -7,7 +7,7 @@
 2. Specify, then run. Thresholds and protocols live in `GATES.md` and are committed, so a
    result is judged against a written criterion rather than one chosen to fit it.
 3. The ruler comes first. Validation infrastructure is built before the thing it validates.
-4. Honest reporting is a first-class output. Nulls, failures, and scope limits are committed
+4. Complete reporting is a first-class output. Nulls, failures, and scope limits are committed
    artefacts, not omissions.
 5. Reproducibility is binary. A clean clone plus one command reproduces every gate, or the
    project is not done.
@@ -28,7 +28,7 @@ the stash entry in place, and writes nothing. Both times the work was recovered 
 the content.
 
 Commit before pulling instead, then `git pull --rebase`. Avoid `--autostash` as well, since
-it uses the same machinery. The compute VM clone is on a normal filesystem and is unaffected.
+it uses the same machinery. The compute host clone is on a normal filesystem and is unaffected.
 
 ## Commit messages
 

@@ -5799,7 +5799,7 @@
   ],
   "notes": "The operator's bond dimension is a poor predictor of the state's: Rough Mount Fuji and house-of-cards saturate the operator ceiling while their states need single digits. Criterion 3 is recorded separately in results/wp6/g_6_3.json.",
   "env": {
-    "git_sha": "d1ba47143a0cf7de87fcaa8a43bb5983c11f9676",
+    "git_sha": "85d589686679150098434bf9776f945d4763b352",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

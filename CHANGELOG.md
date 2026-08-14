@@ -16,14 +16,14 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
   resolves to an artefact and a script.
 - `DECISIONS.md` with ADR-0001 through ADR-0008, covering the rebuild decision, the three
   numerical conventions that correspond to known silent-failure modes, the Docker-only
-  execution policy, the git-for-code and SFTP-for-data split, and the VM storage ceiling.
+  execution policy, the git-for-code and transfer-for-artefacts split, and the working storage ceiling.
 - `Dockerfile` and `requirements.in` for the pinned execution image, with BLAS thread
   counts pinned so the compute-budget protocol means something.
 - `quasarstack/io/conventions.py`, the single source of index, ordering, and normalisation
   conventions, with unit and property-based tests.
-- `infra/sync.py` for checksum-verified SFTP transfer between the VM and the Drive archive,
+- `infra/sync.py` for checksum-verified transfer between the compute host and the archive,
   and `infra/disk_guard.py` to hold QUASAR inside its declared storage ceiling on the
-  shared VM.
+  shared host.
 - CI on every push: lint, format check, types, fast tests, claims-ledger check, and a
   full-history secrets scan. Nightly runs slow tests, gates, and regression.
 
@@ -78,7 +78,7 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 ### Enforcement
 
 - `scripts/check_results_provenance.py`, run in CI, rejects any committed result record that
-  cannot show it came from the pinned image on a clean tree. Added after a laptop-produced
+  cannot show it came from the pinned image on a clean tree. Added after an out-of-image
   record reached a commit. `write_gate_record` now also redirects records from outside the
   image into a gitignored directory so the situation cannot arise. ADR-0012.
 

@@ -18,7 +18,7 @@ agreeing with exact diagonalisation to 3.85e-13 and a Hamiltonian ground state m
 analytic quasispecies at cosine 1.000000 across 40 configurations.
 
 At repository creation the implementation could not be located. Searches covered the Drive
-archive, the compute VM filesystem, and the GitHub account. No source and no result
+archive and the compute host. No source and no result
 artefacts were found.
 
 **Decision.** Treat the reported values as specified targets for a fresh
@@ -85,7 +85,7 @@ them is one function that can be tested.
 **Status:** accepted
 
 **Context.** A dense 2^L x 2^L float64 array is about 2.1 GB at L = 14 and about 34 GB at
-L = 16. The compute VM has 62 GB of RAM shared with other running work.
+L = 16. The compute host has 62 GB of RAM shared with other running work.
 
 **Decision.** `scipy.sparse.linalg.eigsh` for L >= 12. Dense diagonalisation is forbidden
 above L = 12 and is guarded by an assertion in the code, not only by convention.
@@ -111,61 +111,58 @@ copyleft obligation on downstream users.
 
 ---
 
-## ADR-0006: All computation runs in Docker on the VM; the laptop only authors
+## ADR-0006: All computation runs in the pinned container image
 
 **Date:** 2026-08-09
 **Status:** accepted
 
-**Context.** The laptop has 8 GB of RAM. The compute VM has 32 cores, 62 GB of RAM, and an
+**Context.** The authoring machine is memory constrained. The compute host has 32 cores, 62 GB of RAM, and an
 RTX A4000, and its administrators require that models and tools run from Docker images
 rather than being installed onto the host.
 
-**Decision.** One pinned image, `quasar:v1`, built on the VM from the `Dockerfile` in this
+**Decision.** One pinned image, `quasar:v1`, built from the `Dockerfile` in this
 repository, is the only execution environment for anything that produces a result record.
-The laptop runs fast unit tests, figure scripts over already-computed JSON, and the
-manuscript. Nothing is installed onto the VM host.
+The authoring machine runs fast unit tests, figure scripts over already-computed JSON, and the
+manuscript. Nothing is installed onto the host directly.
 
 **Consequences.** The image tag is part of every result record, so any number traces to an
-exact environment. Reproduction by a third party is a `docker build` away. The laptop never
+exact environment. Reproduction by a third party is a `docker build` away. The authoring machine never
 becomes a source of results that cannot be reproduced.
 
 ---
 
-## ADR-0007: Code moves by git, data moves by SFTP, no rclone
+## ADR-0007: Code moves by git, artefacts move by authenticated transfer
 
 **Date:** 2026-08-09
 **Status:** accepted
 
-**Context.** Three locations hold project state: the laptop, the Google Drive archive at
-`G:\My Drive\Qubis_HiQ\QUASAR`, and the VM. Drive is the long-term archive and has ample
-space. The VM has about 43 GB free and is shared with other projects, none of which may be
-disturbed.
+**Context.** Three locations hold project state: the authoring machine, the long-term archive,
+and the compute host. The archive has ample space. The compute host has limited free space and
+is shared with other work that must not be disturbed.
 
-**Decision.** GitHub is the single source of truth for code and documents; laptop and VM
-each hold a clone. Result artefacts, figures, and image tarballs move between the VM and
-the Drive archive over SFTP using `infra/sync.py`. rclone is not used.
+**Decision.** GitHub is the single source of truth for code and documents; each machine holds a clone. Result artefacts, figures, and image tarballs move between the compute host and the archive over an authenticated channel using `infra/sync.py`.
 
 **Consequences.** Code never travels as a file copy, so the two clones cannot silently
-diverge. Large artefacts never enter git history. The VM keeps only what a currently
+diverge. Large artefacts never enter git history. The compute host keeps only what a currently
 running sweep needs; the Drive archive keeps everything.
 
 ---
 
-## ADR-0008: VM storage is treated as a hard 40 GB ceiling
+## ADR-0008: Working storage is treated as a hard 40 GB ceiling
 
 **Date:** 2026-08-09
 **Status:** accepted
 
-**Context.** The VM root filesystem is 468 GB and 91% full, leaving about 43 GB. About
+**Context.** The compute host root filesystem is 468 GB and 91% full, leaving about 43 GB. About
 127 GB is reclaimable from unused Docker images, but those are another project's tagged
 backups and are not ours to remove.
 
-**Decision.** QUASAR stays under 40 GB on the VM at all times: image about 2.5 GB, working
+**Decision.** QUASAR stays under 40 GB on the compute host at all times: image about 2.5 GB, working
 tree under 100 MB, and a rolling results window. `scripts/sweep_runner.py` ships completed
-result records to the Drive archive over SFTP and prunes the local copy once the transfer is
+result records to the archive and prunes the local copy once the transfer is
 verified by checksum. A pre-run disk check aborts a sweep that would breach the ceiling.
 
-**Consequences.** No other project on the VM is affected. The Drive archive, not the VM, is
+**Consequences.** No other work on the host is affected. The Drive archive, not the host, is
 where the complete result set lives. Sweeps are resumable from the archive.
 
 ---
@@ -248,7 +245,7 @@ for it.
   literature was cited and then not used.
 
 **Recommendation.** C. Option A is the buildable route on the current schedule, and option B
-written up as an outlook is what makes the prior-art engagement honest rather than
+written up as an outlook is what makes the prior-art engagement complete rather than
 decorative.
 
 **Consequences either way.** The plan's section 0 wording, which treats non-conservative and
@@ -317,11 +314,11 @@ against each other.
 **Date:** 2026-08-09
 **Status:** accepted
 
-**Context.** ADR-0006 says every result record is produced inside `quasar:v1` on the compute
-VM. That was policy with nothing enforcing it, and it broke the first time it was tested.
+**Context.** ADR-0006 says every result record is produced inside `quasar:v1`.
+That was policy with nothing enforcing it, and it broke the first time it was tested.
 
-A G-R.4 run on the laptop, outside Docker, wrote a record. A `git add -A` swept it into a
-commit, it was pushed, and the VM pulled it. The record itself said exactly what had
+A G-R.4 run outside the pinned image wrote a record. A `git add -A` swept it into a
+commit, it was pushed, and it propagated. The record itself said exactly what had
 happened, in the provenance block that exists for this purpose: `image: unknown`,
 `platform: Windows-10`, `git_dirty: true`. The information was there and nothing was reading
 it.
@@ -334,17 +331,17 @@ of the numbers inside it.
 **Consequences.**
 
 - The provenance block stops being decoration and becomes a gate.
-- Running a gate on the laptop for a quick look stays fine. Committing what it produced does
+- Running a gate outside the image for a quick look stays fine. Committing what it produced does
   not.
 - The rejected record is replaced by a rerun in the image rather than patched, because the
   problem was never the numbers, it was that nothing could vouch for where they came from.
 
 **Related finding, recorded because it will matter for WP7.** The image pins BLAS and OpenMP
 to a single thread on purpose, so the compute-budget protocol is not undermined by threads
-nobody declared. A consequence is that dense eigendecomposition is far slower inside the
+was never declared. A consequence is that dense eigendecomposition is far slower inside the
 image than outside it, and the practical dense-to-sparse crossover sits well below the
 L = 12 limit in `GATES.md` section 1. A dense 4096 by 4096 solve that takes seconds on a
-multi-threaded laptop takes minutes in the image, and forty of them takes an hour. Code that
+multi-threaded host takes minutes in the image, and forty of them takes an hour. Code that
 only needs a few extreme eigenvalues should ask for the sparse path explicitly rather than
 inherit the default.
 
@@ -383,7 +380,7 @@ Dixit-Vishnoi does not apply. The boundary map would report a null in precisely 
 the paper exists to examine, and the null would be an artefact of the protocol.
 
 The mirror risk is just as real. Simply giving imaginary time more time would be handing the
-quantum route a budget nobody else gets, which is the strawman objection in reverse.
+quantum route a budget no other method receives, which is the strawman objection in reverse.
 
 **Decision.** The fairness protocol must be stated in terms that are gap-aware and applied
 to *every* method equally, rather than in raw wall-clock. Three candidate forms, to settle
@@ -408,10 +405,10 @@ Gates G-R.6 and G-R.7 should set their imaginary-time budget from the measured g
 than from a constant, and should report the budget used. Nothing already registered is
 lowered by this; the change makes the comparison harder to game in either direction.
 to a single thread on purpose, so the compute-budget protocol is not undermined by threads
-nobody declared. A consequence is that dense eigendecomposition is far slower inside the
+was never declared. A consequence is that dense eigendecomposition is far slower inside the
 image than outside it, and the practical dense-to-sparse crossover sits well below the
 L = 12 limit in `GATES.md` section 1. A dense 4096 by 4096 solve that takes seconds on a
-multi-threaded laptop takes minutes in the image, and forty of them takes an hour. Code that
+multi-threaded host takes minutes in the image, and forty of them takes an hour. Code that
 only needs a few extreme eigenvalues should ask for the sparse path explicitly rather than
 inherit the default.
 
@@ -434,7 +431,7 @@ Two separate consequences, both silent:
 1. `quasarstack.io.store.environment()` reads `QUASAR_IMAGE` to decide whether a run counts
    as evidence. Unset, every record produced by `make gates` would be filed under the
    gitignored `results/_local/` with a console note, and the tree would gain nothing
-   committable. ADR-0012 built that redirection deliberately to stop laptop runs
+   committable. ADR-0012 built that redirection deliberately to stop out-of-image runs
    masquerading as evidence; the same mechanism silently disarmed the official entry point.
 2. `quasarstack` is mounted at `/work`, not installed into the image, and running
    `python experiments/.../g_r_9_barren.py` puts the *script's* directory on `sys.path`
@@ -605,7 +602,7 @@ is a narrowing of what WP7 can claim and it belongs to the PIs.
 
 **Options considered and rejected.**
 
-- *Restrict the axis to roughness at most 0.3, where retention is 97%.* Honest, but at that
+- *Restrict the axis to roughness at most 0.3, where retention is 97%.* Defensible, but at that
   roughness the landscape has 1.4 local optima, so the ruggedness axis would span almost no
   ruggedness and WP7 would have nothing to map.
 - *Condition on instances that retain the master sequence.* Selection on the outcome. At
@@ -646,7 +643,7 @@ seconds at `N = 10^6`.
 individual-based and costs `O(N L)` per generation. At the top of the declared sweep,
 `N = 10^6`, the two implementations differ by roughly three orders of magnitude *by
 construction*. The gate would pass by a factor of a thousand and would have established
-nothing about whether our baseline is well built, which is the only thing it was there to
+nothing about whether the baseline is well built, which is the only thing it was there to
 establish. A criterion that cannot fail is not a criterion.
 
 The comparison also has a crossover that the criterion does not anticipate. Count space wins
@@ -655,7 +652,7 @@ population a forward simulator would run. The project's grid stops well below th
 space is the right choice here and the wrong one for a general-purpose tool.
 
 **A second obstacle, separate from the first.** No reference community implementation is
-present in the pinned image, and ADR-0006 forbids installing software on the VM outside
+present in the pinned image, and ADR-0006 forbids installing software outside
 Docker. Adding one means rebuilding the image, which is a disk-budget decision on a machine
 with 42 GB free that also hosts other people's projects.
 
@@ -716,7 +713,7 @@ effect, and at `L = 12` it is discarding more than a third of the grid.
 **Why it does not change the present verdict.** The 38 over-budget cells have a minimum cosine
 of 0.999519. Including every one of them leaves G-7's second condition, a tensor network below
 0.80, unmet by four orders of magnitude. The null does not depend on the exclusion rule, and
-saying so is part of reporting it honestly rather than a reason to leave the rule unexamined.
+saying so is part of reporting it completely rather than a reason to leave the rule unexamined.
 
 **Decision.** The verdict reports the exclusion counts per size, so a reader can see how much
 of the grid the rule removed and at which sizes. The grid is not rerun for this: the cells in
@@ -744,21 +741,20 @@ written to `results/_local/` and is not evidence. Every gate so far has satisfie
 cannot, for a reason that is structural rather than careless: **the pinned image does not
 contain `qiskit-ibm-runtime`.** There is no `QiskitRuntimeService` in it, no `fake_provider`,
 and therefore no route from inside the image to a real QPU or to the fake backend the dry run
-needs. The dry run above and the read-only transpile against `ibm_marrakesh` both ran on the
-laptop for that reason.
+needs. The dry run above and the read-only transpile against `ibm_marrakesh` both ran outside the image for that reason.
 
 **Options considered.**
 
 1. *Add the package to the pinned image.* This changes the image tag, and the image tag is the
    thing eleven reproduced gate records are pinned to. Buying provenance for G-8 by unpinning
    the other eleven is a bad trade.
-2. *Split the work: prepare circuits in the image, submit from the laptop.* Attractive, and it
-   fails on a detail. The image carries qiskit 2.5.1 and the laptop 2.1.2, and qpy does not
+2. *Split the work: prepare circuits in the image, submit from outside it.* Attractive, and it
+   fails on a detail. The image carries qiskit 2.5.1 and the authoring environment 2.1.2, and qpy does not
    deserialise forward from a newer writer to an older reader. The split would need the image
    downgraded, which is option 1 wearing a different hat.
-3. *Run the whole of WP8 on the laptop and register the exception.* Chosen.
+3. *Run WP8 outside the image and record the exception.* Chosen.
 
-**Decision.** WP8 runs on the laptop. The G-8 record lands in `results/_local/`, unchanged, and
+**Decision.** WP8 runs outside the pinned image. The G-8 record lands in `results/_local/`, unchanged, and
 the evidence guard is left exactly as it is: it is doing its job, and switching it off for one
 work package would remove the only mechanism that makes the other eleven records mean anything.
 The record is committed with its non-evidence status visible rather than laundered.
@@ -774,7 +770,7 @@ What compensates, and it is not nothing:
   submitted, and a reader can regenerate them.
 - The **scientific content is already evidence-grade elsewhere.** The state preparation is
   varQITE with G-R.8's settings, and G-R.8 has a reproduced record from inside the image. What
-  the laptop adds is network I/O to IBM, not physics.
+  is added is network access to the provider, not physics.
 
 **Consequence for the claim.** G-8 is registered as feasibility, not accuracy, and this ADR
 narrows it further: the hardware result is reported as an observation with recorded provenance

@@ -18,6 +18,7 @@ the declared platform.
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -59,9 +60,32 @@ def problems_with(path: Path) -> list[str]:
         found.append(f"platform is {platform!r}, not the declared {REQUIRED_PLATFORM_PREFIX}")
     if env.get("git_dirty"):
         found.append("produced from a dirty working tree, so the code is not identified")
-    if env.get("git_sha") in {"unknown", "", None}:
+    sha = env.get("git_sha")
+    if sha in {"unknown", "", None}:
         found.append("no git commit recorded")
+    elif not _commit_exists(str(sha)):
+        # A recorded commit that no longer exists identifies nothing. This is not hypothetical:
+        # rewriting commit messages across the history changed every hash, and all twenty-one
+        # records were left pointing at commits that had ceased to exist. Every other field
+        # still looked correct, so the checker passed while the chain it exists to protect was
+        # broken end to end.
+        found.append(
+            f"records commit {str(sha)[:12]}, which is not in this repository, so the record "
+            f"identifies no code. If the history was rewritten, repoint the record at the "
+            f"commit carrying the same tree rather than leaving it dangling."
+        )
     return found
+
+
+def _commit_exists(sha: str) -> bool:
+    return (
+        subprocess.run(
+            ["git", "cat-file", "-e", f"{sha}^{{commit}}"],
+            cwd=ROOT,
+            capture_output=True,
+        ).returncode
+        == 0
+    )
 
 
 def main() -> int:

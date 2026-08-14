@@ -733,7 +733,7 @@
   "cases": [],
   "notes": "Answered as a null. passed=true records that the gate produced a valid answer, not that a quantum advantage was found. Section 11.5 registered both a positive region and a bounded null as publishable outcomes before the sweep ran, so a null is a result. Read measured.verdict and measured.conditions_failed_by_group_count for what was found.",
   "env": {
-    "git_sha": "71498140aa33b029a0f2dff75a619a9a08aa7a86",
+    "git_sha": "5f5af6e49531462b1019a03ae2712fd95ee95704",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

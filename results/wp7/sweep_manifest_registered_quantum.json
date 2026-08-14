@@ -22,7 +22,7 @@
   },
   "seconds": 67270.58,
   "env": {
-    "git_sha": "c717bf643c5bd8baff103d19f9ecce3ed0152604",
+    "git_sha": "818c189244f6dc50c3787fba00d77b05fb1212cb",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

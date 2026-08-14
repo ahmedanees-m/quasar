@@ -5062,7 +5062,7 @@
   ],
   "notes": "The optimum survey is the ADR-0011 requirement applied to all seven families. A family whose global optimum wanders away from the master sequence as ruggedness rises cannot carry an error-threshold statement, because the threshold is defined by delocalisation away from that sequence.",
   "env": {
-    "git_sha": "045de9032a8ebb72c27461c42bb12babbf8264ac",
+    "git_sha": "f79bddafa59563c7dcb618df5a3e56b40d37036c",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

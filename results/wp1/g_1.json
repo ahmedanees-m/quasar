@@ -120333,7 +120333,7 @@
   ],
   "notes": "Criterion 2 was registered in Amendment 12 in the expectation that it fails, with the exploratory numbers disclosed there, rather than adjusted to fit. The gap minimum and the susceptibility peak are different finite-size locators of a crossover that only becomes sharp as L grows; they converge to the grid resolution by L = 24 and cannot be made to agree at L = 6 by any correct implementation. The physics the criterion was written to test, that the gap closes where the population delocalises, is supported by the closing fit.",
   "env": {
-    "git_sha": "30ff2ca926162922e08d031623fc0875b6a96037",
+    "git_sha": "0abc72745a617141d802ea8cffadc36c5c5110c3",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

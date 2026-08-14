@@ -17,10 +17,10 @@ Entry format: citation, what it establishes, what it leaves open, how QUASAR rel
 
 ---
 
-## Literature I: the evolution to spin-chain correspondence
+## Literature group I: the evolution to spin-chain correspondence
 
 The mathematical bridge the project stands on. This literature is mature. Nothing here is
-novel to us, and the manuscript says so in the introduction rather than in a limitations
+novel here, and the manuscript says so in the introduction rather than in a limitations
 paragraph.
 
 ### I.1 Leuthäusser (1986/87): `to-verify`
@@ -57,7 +57,7 @@ paragraph.
 
 ### I.5 Park & Deem (2006): `to-verify`
 
-- **Establishes.** Named in the honest-reframe document as part of the correspondence
+- **Establishes.** Named in the reframing document as part of the correspondence
   literature. Content to be confirmed.
 - **Relation.** To be determined on reading.
 
@@ -211,7 +211,7 @@ Route B connects to provable-complexity results rather than heuristics.
   spin-chain configurations.
 - **Leaves open.** Memory advantage, not time advantage, and not eigenvector extraction.
 - **Relation.** A precedent for advantage in a related setting; cited to keep the scope
-  claim honest in both directions.
+  claim accurate in both directions.
 
 ### IV.3 Orfi & Sels (Flatiron, 2024): `to-verify`
 

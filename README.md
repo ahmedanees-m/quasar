@@ -1,325 +1,163 @@
 # QUASAR
 
-**Quantum algorithms for mutation–selection dynamics: formulation, methods, and an honest
-assessment of the quantum–classical boundary.**
+Quantum algorithms for mutation-selection dynamics: formulation, methods, and a measured
+quantum-classical boundary.
 
-QUASAR studies whether quantum algorithms help compute the quasispecies distribution of
-molecular evolution, and where the boundary against the best classical methods actually
-falls. It rests on a proven correspondence: the Crow–Kimura and Eigen mutation–selection
-models are exactly transverse-field Ising spin chains evolving in imaginary time. Mutation
-rate is the transverse field, per-site fitness is the longitudinal field, epistasis is the
-ZZ coupling, the quasispecies is the Perron eigenvector, and the error catastrophe is a
-localisation–delocalisation phase transition.
+[![ci](https://github.com/ahmedanees-m/quasar/actions/workflows/ci.yml/badge.svg)](https://github.com/ahmedanees-m/quasar/actions/workflows/ci.yml)
+[![nightly](https://github.com/ahmedanees-m/quasar/actions/workflows/nightly.yml/badge.svg)](https://github.com/ahmedanees-m/quasar/actions/workflows/nightly.yml)
+[![python](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
+[![licence](https://img.shields.io/badge/licence-Apache%202.0-blue.svg)](LICENSE)
+[![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![gates](https://img.shields.io/badge/gates-16%20recorded-brightgreen.svg)](CLAIMS.md)
+[![provenance](https://img.shields.io/badge/provenance-21%2F21-brightgreen.svg)](scripts/check_results_provenance.py)
 
----
+## Overview
 
-## What this is, and what it is not
+QUASAR asks whether quantum algorithms help compute the quasispecies distribution of molecular
+evolution, and where the boundary against the best classical methods falls.
 
-**This is.**
+The work rests on an exact correspondence: the Crow-Kimura and Eigen mutation-selection models
+map onto transverse-field Ising chains evolving in imaginary time. Mutation rate is the
+transverse field, per-site fitness the longitudinal field, epistasis the ZZ coupling, the
+quasispecies the Perron eigenvector, and the error catastrophe a localisation transition.
 
-- A formal quantum-algorithmic characterisation of the mutation–selection operator: Perron
-  structure, spectral gap, conditioning, resource scaling. That characterisation does not
-  exist in the literature.
-- Two quantum routes compared head to head on the same biological problem. Route A is
-  heuristic near-term imaginary-time evolution. Route B is QSVT Perron-vector extraction,
-  which connects to provable-complexity results rather than heuristics.
-- A biology-specific quantum–classical boundary map, benchmarked against three classical
-  baselines, one of which is a computational-biology result that physics benchmarks do not
-  include.
+Two quantum routes are compared on identical problems:
 
-**This is not.**
+- **Route A**, variational imaginary-time evolution by McLachlan's principle. Near-term in
+  shape: shallow circuits, no ancillas, constant depth in imaginary time, driven by a classical
+  optimisation loop.
+- **Route B**, QSVT eigenstate filtering through qubitisation walk operators. Fault-tolerant in
+  shape: a single deep coherent circuit on 5 to 9 ancillas with no optimisation.
 
-- A claim of quantum advantage. None is made, and the current literature argues against one
-  for this problem class at accessible scales.
-- A claim of superiority over tensor networks in general. The comparison is scoped to a
-  standard, well-tuned MPS implementation at the system sizes actually tested, and the
-  manuscript says so.
-- A claim of clinical or therapeutic utility. Biological applications are outlook, not
-  results.
-- A simulator of whole genomes. That would be quantum-washing.
+Three classical baselines are held to the same per-cell compute budget: a Wright-Fisher
+finite-population sampler, an exact polynomial-time solver for the landscape classes that admit
+one, and a matrix-product-state reference.
 
-The correspondence this project implements is over twenty-five years old, and classical
-methods already solve the standard cases efficiently, including in closed form and in
-polynomial time for structured landscapes. Those facts lead the introduction rather than
-being buried. The open question is narrower and real: whether quantum methods offer anything
-in the regime the classical guarantees do not cover, which is rugged, broken-symmetry,
-strong-epistasis landscapes near the error threshold. A null answer is a publishable result
-and is specified as such.
+## Results
 
----
+**No quantum advantage is claimed, and none was found.** The boundary sweep covers 777 cells
+across landscape family, ruggedness, mutation rate and system size. Of 152 scored groups, every
+one fails the advantage criterion, and the classical tensor-network reference never falls below
+cosine 0.80 against the analytic quasispecies. The null is bounded at `L = 12`, the largest size
+at which the sweep held a valid reference.
 
-## Status
+The mechanism behind the null is the useful part. Where the Pauli expansion of the generator is
+sparse, the matrix-product bond dimension is small; where the bond dimension saturates, the
+expansion is dense as well. The two costs rise together, so there is no regime in the sweep
+where a quantum route is cheap and the classical reference is not.
 
-Rebuilding Phases 1–3 (work package WP-R). See `GATES.md` section 3 for the registered
-thresholds and `DECISIONS.md` ADR-0001 for why the rebuild is happening.
+**The exclusion rule does not manufacture the result.** The compute budget removes 64.1% of
+`L = 12` cells, and those are exactly the cells where the classical reference is most strained.
+Scoring with every excluded cell restored moves the worst tensor-network cosine from 0.999981 to
+0.875797 and still leaves zero cells below the 0.80 threshold. The analysis is an artefact, not
+an assurance: see `scripts/budget_sensitivity.py`.
 
-| Work package | Content | Status |
-|---|---|---|
-| WP0 | Specification and prior-art dossier | `GATES.md` and `CLAIMS.md` done; entry IV.4 verified with a finding that changes WP2; 19 entries still to verify |
-| WP-R | Rebuild and re-validate Phases 1–3 | **10 of 10 passed**, from a clean `make gates` |
-| WP1 | Structural and spectral analysis | Built. **G-1 fails criterion 2 as registered**; criteria 1 and 3 pass |
-| WP2 | Route B, QSVT eigenstate filtering | Built under ADR-0015. Artefact pending |
-| WP3 | Landscape families | Built. Artefact pending |
-| WP4 | Baseline A, Wright–Fisher | Built. Criterion 1 met, **criterion 2 blocked**, so G-4 is not claimed |
-| WP5 | Baseline B, the polynomial-time class | Built. Artefact pending |
-| WP6 | Baseline C, tensor networks | Built. G-6.3 recorded; G-6 artefact pending |
-| WP1 | Spectral and structural analysis | not started |
-| WP2 | Route B, QSVT Perron-vector extraction | not started |
-| WP3 | Landscape families | not started |
-| WP4 | Baseline A, Wright–Fisher | not started |
-| WP5 | Baseline B, Dixit–Srivastava–Vishnoi | not started |
-| WP6 | Baseline C, tensor-network imaginary time | not started |
-| WP7 | Grid sweep and boundary map | not started |
-| WP8 | Live QPU execution | not started |
-| WP9 | Manuscript and red-team | not started |
+**Hardware.** The mutation-rate sweep across the error threshold ran on an IBM Heron r2 device
+at `L = 2, 3, 4`, 51 circuits and 208,896 shots. After readout mitigation the recovered
+distributions match the analytic quasispecies to cosine 0.99930, 0.99595 and 0.99461, agreeing
+with the simulated noise model to within 2.1e-3 at every point where a prediction existed. The
+error threshold is visible in the hardware error profile, with the largest departures below the
+critical mutation rate. This is a feasibility and validation result at sizes that are
+exactly solvable classically; it is not evidence of advantage.
 
-### Gates passed in this repository
+A secondary finding: full `2^n` readout mitigation improved 7 of 23 hardware points against 16
+of 23 in simulation, and degraded results at `L = 4`. The assignment matrix carries its own
+sampling noise, and inverting it costs more than the readout error it corrects at these shot
+counts.
 
-Only gates with a committed artefact appear here. Numbers reported in the planning
-documents belong to an earlier implementation that was lost; they are registered as targets
-in `GATES.md`, not carried over as results.
+## Method
 
-| Gate | What it establishes | Threshold | Measured | Artefact |
-|---|---|---|---|---|
-| G-R.1 | The analytic oracle agrees with brute-force exact diagonalisation, over 1701 comparisons spanning L = 2 to 10 and seven mutation rates | max abs error < 1e-9 | **2.4e-15** | `results/wp_r/g_r_1.json` |
-| G-R.2 | The compiled qubit Hamiltonian's ground state is the analytic quasispecies, on 40 registered configurations | cosine ≥ 0.999999, 40 of 40 | **1.000000**, 40 of 40 | `results/wp_r/g_r_2.json` |
-| G-R.3 | The Trotterised imaginary-time propagator converges, and its splitting error is second order | cosine ≥ 0.999; exponent in [1.8, 2.2] at R² ≥ 0.99 | **1.0000000**; **1.995 to 2.000** at R² = **1.00000** | `results/wp_r/g_r_3.json` |
-| G-R.4 | The error threshold on the qubit representation matches the analytic prediction, over a 300-point sweep at L = 4, 6, 8 | max abs Δm < 1e-3 | **1.9e-15** | `results/wp_r/g_r_4.json` |
-| G-R.5 | Rugged NK landscapes reproduce brute-force exact diagonalisation, 100 instances at L = 6 to 10 and K = 1 to 7 | cosine ≥ 0.99999, every instance | **1.000000**, 0 failing | `results/wp_r/g_r_5.json` |
-| G-R.6 | varQITE reaches the quasispecies at circuit depth constant in imaginary time, 14 configurations at L = 3 to 6 | cosine ≥ 0.999; depth identical at τ = 2.5 and τ = 20 | **0.9999722**; **identical** on all 14 | `results/wp_r/g_r_6.json` |
-| G-R.7 | Motta-QITE reaches the quasispecies with the energy descending on every step, 14 configurations at L = 3 to 6 | cosine ≥ 0.95; no energy rise beyond 1e-10 | **0.9989051**; **zero rises** | `results/wp_r/g_r_7.json` |
-| G-R.8 | Feasibility under **simulated** device noise with readout mitigation, 12 cases at L = 2 to 4 on two device classes | mitigated cosine ≥ 0.98 | **0.991172**, mitigation helped 12 of 12 | `results/wp_r/g_r_8.json` |
-| G-R.9 | varQITE's gradient variance decays exponentially in system size, bounding Route A's reach | fitted base in [0.30, 0.55] at R² ≥ 0.95 | **0.5490** at R² **0.99159** | `results/wp_r/g_r_9.json` |
-| G-R.10 | The sparse landscape form costs far fewer Pauli terms than the single-peak projector at L = 12 | ratio ≥ 50 | **152.1** (27 against 4108) | `results/wp_r/g_r_10.json` |
+Every result is a committed artefact produced by a script that anyone can rerun.
 
-**G-R.9 passes by 0.001 against a spread of 0.021** across defensible choices of which
-gradient component to measure, and `GATES.md` revision 11 records that the question was
-raised only after a first scan came back outside the band. All six combinations are in the
-artefact. What is robust, independent of the choice, is exponential decay at base near 0.54
-with R² ≥ 0.99 everywhere. The planning documents' `0.42^L` is **not** reproduced.
+- **Acceptance criteria are written before the runs they judge** and live in `GATES.md`. A gate
+  states its statistic, its threshold, and the artefact it must write. A threshold is not
+  lowered to accommodate a result; a failing gate is reported as a failure.
+- **Every claim maps to an artefact.** `CLAIMS.md` is the ledger, and
+  `scripts/check_claims.py` fails if a claim names a file that does not exist.
+- **Every committed record proves where it came from.** Records carry the commit, the container
+  image tag, the platform and a hash of the specification. Records produced outside the pinned
+  image are written to a separate tree and are not treated as evidence.
+- **Failures are recorded, not removed.** Three gates are on the ledger as failures, and
+  `DECISIONS.md` carries twenty architecture decision records including the ones that document
+  mistakes.
 
-
-**G-R.1.** Two independent analytic routes and one structure-blind reference agree: the
-closed-form product state for additive fitness, the Hamming-class tridiagonal reduction for
-permutation-symmetric fitness, and diagonalisation of the full 2^L generator. On the family
-where both analytic routes apply, all three are compared.
-
-**G-R.2.** Beyond the registered cosine, the compiled Pauli operator was compared entry by
-entry against the generator assembled independently in `analytic/exact_diag.py`, agreeing to
-3.6e-15. That is the stricter check: an endianness error permutes the computational basis
-and leaves the spectrum untouched, so a spectral comparison alone would not see it.
-
-**G-R.3.** The splitting exponent is fitted against `exp(-H tau)` computed without
-splitting, not against the quasispecies, so the residual from a finite `tau` cannot flatten
-it. Convergence is scored separately against the oracle. The propagator is not a
-hardware-runnable circuit, because imaginary-time evolution is non-unitary; the
-hardware-faithful routes are varQITE and Motta-QITE, gates G-R.6 and G-R.7.
-
-**G-R.4.** Three diagnostics came out of it, none of them pass conditions. The sharp-peak
-threshold converges to the infinite-size prediction, with `mu_c × L` reaching 1.000 by
-L = 20 against a peak height of 1.0 while the width collapses from 0.300 to 0.010. The
-spectral gap at that threshold closes exponentially, a fitted decay of **0.717 per site**
-over L = 4 to 12, which is the first measured evidence here for how hard the critical region
-is and feeds WP1 gate G-1.2 directly. And one claim from the planning documents did not
-survive: see below.
-
-**G-R.5.** The first family with no structure for the compiler to exploit: at K = 7 the
-Pauli decomposition saturates at 2^L + L terms and the two routes still agree to machine
-precision. Ruggedness is monotone in K, with mean local optima rising 2.8 to 29.1 and
-fitness autocorrelation falling 0.659 to −0.021 at L = 8. The Trotterised route ran
-alongside as a diagnostic and found something the gate was not asking about.
-
-**G-R.6.** Depth grows with system size, 34 with 10 two-qubit gates at L = 3 up to 55 with
-40 at L = 6, and never with imaginary time. Two things beyond the registered criteria are
-worth knowing.
-
-The McLachlan quantities were recomputed the way hardware would obtain them, the force by
-parameter shift on the energy and the metric by fidelity shift, touching no derivative
-state. They agree to **7e-16**. Without that, describing the method as hardware-faithful
-would rest on the literature rather than on this code.
-
-The ansatz depth needed **grows faster than the system**. At L = 6 a depth of reps = 4
-fails to clear 0.999 on every seed while reps = 6 clears it, and the spread between the best
-and worst seed at reps = 4 is a factor of eighty in the error. This is the cost curve for
-Route A and it prefigures the barren-plateau ceiling G-R.9 measures.
-
-**G-R.7.** This gate **failed its first execution** and the failure is in the record, not
-absorbed into the pass. One step raised the energy by 2.281e-03 against a 1e-10 bound. The
-cause was not truncation or discretisation but a numerically singular linear solve: the Gram
-matrix reaches a condition number of **2.95e+32**, so an absolute ridge was choosing
-arbitrarily inside a null space, which is why the failure appeared and vanished
-non-monotonically along every axis. A relative singular-value cutoff discards those
-directions instead. `GATES.md` revision 8 carries the failure, the diagnosis and the fix.
-
-The parity demonstration holds on every configuration: even-Y Pauli strings contribute
-**exactly zero**, which is the mechanism of the failure the planning documents record for
-this method, kept as evidence rather than as an assertion.
-
-### The circuit stores the quasispecies in its amplitudes, not its probabilities
-
-Building the noise gate turned up something the planning documents do not mention, and it
-changes what any hardware result can claim.
-
-The Perron vector of the generator is the quasispecies, and the ground state of the
-stoquastic Hamiltonian is that vector, so **the circuit holds the distribution in its
-amplitudes**. A computational-basis measurement returns the square.
-
-| | cosine vs oracle | total variation |
-|---|---|---|
-| amplitudes, what the circuit holds | 0.9999998 | 4.96e-04 |
-| squared, what a measurement returns | 0.9865108 | **2.24e-01** |
-
-The squared distribution is non-negative, normalised, and peaked on the right genotype, and
-it scores 0.987 on cosine. It would pass an eyeball check and most thresholds while being
-the wrong object. Only total variation exposes it, which is why this project reports both
-metrics everywhere and why `GATES.md` section 11.4 lets total variation decide.
-
-`decode_from_measurement` takes the element-wise square root and inverts the encoding
-exactly. A consequence that is reported rather than buried: the same square root **amplifies
-the noise floor in the tail**, since a spurious probability of 1e-4 becomes an amplitude of
-1e-2. The encoding that makes the ground state the quasispecies also makes readout noise
-worse after decoding.
-
-### A budget problem that would have biased the boundary map
-
-Imaginary-time evolution at a fixed budget failed to reach the gate's accuracy on 3 of 40
-rugged instances, and they were **the three with the smallest spectral gaps**: 0.0276,
-0.0476 and 0.0835. Mean shortfall by connectivity runs 8.6e-12 at K = 1 up to 1.7e-4 at
-K = 7.
-
-That is not a defect in the method. Imaginary time suppresses the leading contaminant as
-`exp(-gap × tau)`, so the budget it needs scales as `1 / gap`. But `GATES.md` section 11.3
-currently gives every method equal wall-clock, and G-R.4 measured the gap at the error
-threshold closing at 0.717 per site. Under that protocol an imaginary-time route would score
-badly in the rugged, small-gap, near-threshold cells **because it was under-budgeted, not
-because the method is unsuited**, and those cells are exactly the candidate quantum-relevant
-regime the boundary map exists to examine.
-
-`DECISIONS.md` ADR-0013 sets out three fairness protocols and recommends reporting both
-accuracy-at-fixed-budget and budget-needed-for-accuracy, so the protocol's effect is visible
-rather than buried. It needs settling before WP7 runs.
-
-### A claim that did not survive measurement
-
-The planning documents state that antagonistic epistasis lowers the error threshold. In the
-uniform pairwise family it does not, and the reason is structural rather than statistical:
-negative uniform coupling moves the fitness optimum **off the master sequence** to Hamming
-class 1, 2 and 2 at L = 4, 6 and 8, with multiplicities up to 28. There is no master
-sequence left to delocalise from, so the question is ill-posed in that family.
-
-The companion claim, that synergistic epistasis raises it, is supported and converges in
-size. The failing case is kept in the record rather than dropped. `DECISIONS.md` ADR-0011
-turns it into a requirement on WP3: any family used as a ruggedness axis must report where
-its fitness optimum sits, because WP7 sweeps ruggedness as its main axis and cells that
-silently change which genotype is optimal are not comparable.
-
-### A prior-art finding that changes WP2
-
-Verification of prior-art entry IV.4 was pulled ahead of schedule, because Route B is the
-paper's novelty core and rests on that single reference. The result:
-
-> The mutation–selection generator is **non-conservative but reversible**, so the
-> beyond-quadratic speedup of Claudon, Piquemal and Monmarché (2025), which is bought by
-> *non*reversibility and stated for row-stochastic kernels, does not apply. Reversibility is
-> a property of the mutation operator alone, so no amount of landscape ruggedness changes
-> it. Within this problem class, nonreversibility requires direction-specific
-> context-dependent mutation, which is biologically real but is a model extension.
-
-Route B is not dead; its foundation has to change. Measured across 20 operators in
-`results/wp0/prior_art_iv_4.json`, with options and a recommendation in `DECISIONS.md`
-ADR-0010.
-
----
-
-## Quickstart
-
-Everything that produces a result record runs inside the pinned Docker image. Nothing is
-installed onto a host.
+## Reproducing
 
 ```bash
-git clone https://github.com/ahmedanees-m/quasar.git
-cd quasar
-make docker
-make gates
+make setup      # install the pinned environment
+make test       # fast unit and regression suite
+make gates      # run every gate and write its artefact
+make figures    # regenerate every figure from committed artefacts
+make claims     # verify each claim resolves to an artefact
 ```
 
-For development on a machine without Docker, or to run the fast test suite only:
+A full run covers 16 gate scripts producing 21 records and takes over twenty hours, dominated
+by the matrix-product baseline. Individual work packages can be run alone:
 
 ```bash
-make setup
-make test
+python scripts/run_all_gates.py --wp wp_r
+python scripts/run_all_gates.py --list
 ```
 
----
+Results are compared against their committed versions with:
 
-## Repository map
-
-```
-quasarstack/        the package
-  analytic/         the ruler: closed-form Crow-Kimura oracle, brute-force exact diag
-  hamiltonian/      biology to qubit Pauli operator
-  spectral/         WP1: spectral gap, conditioning, Perron structure
-  circuit/          Trotterised imaginary-time circuit (modules M, S, E)
-  ite/              Route A: varQITE and Motta-QITE
-  qsvt/             Route B: block encoding, phase factors, eigenvalue transform
-  classical/        landscapes and the three classical baselines, plus the budget protocol
-  backends/         noise models, execution pipeline, live QPU submission
-  scoring/          cosine, total variation, bootstrap confidence intervals
-  io/               result schema, provenance capture, bitstring conventions
-experiments/        one directory per work package; scripts read as protocols
-tests/              unit, integration, gates, regression
-scripts/            run_all_gates, sweep_runner, make_figures, check_claims
-infra/              VM and archive sync over SFTP; no credentials in the repository
-docs/               theory, methods, baselines, validation, reproduction
+```bash
+python scripts/compare_reproduction.py
 ```
 
----
+## Repository layout
 
-## The documents that carry scientific weight
-
-| File | Role |
+| Path | Contents |
 |---|---|
-| `GATES.md` | Gate specification. Every threshold, the full grid, seeds, the compute-budget protocol, and the decision rule. |
-| `PRIOR_ART.md` | The four-literature dossier. Nothing is cited in the manuscript while still marked to-verify. |
-| `CLAIMS.md` | The claims ledger. Every manuscript claim maps to an artefact and a script. `make claims` verifies each one resolves. |
-| `DECISIONS.md` | Why things are the way they are. Conventions, storage policy, the rebuild decision. |
+| `quasarstack/` | Library: analytic references, Hamiltonian construction, imaginary-time evolution, QSVT, classical baselines, scoring |
+| `experiments/` | One gate script per acceptance criterion, each writing a JSON record |
+| `scripts/` | Sweep runner, scorers, figure generation, ledger and provenance checks |
+| `results/` | Committed result records |
+| `figures/` | Figures, regenerated from records only |
+| `tests/` | Unit, regression and gate tests |
+| `GATES.md` | Gate specification: statistics, thresholds, grids, seeds, budgets |
+| `CLAIMS.md` | Claim to artefact ledger |
+| `DECISIONS.md` | Architecture decision records |
+| `PRIOR_ART.md` | Prior-art dossier with verification status per entry |
 
----
+## Gate summary
 
-## Reproducibility
+| Work package | Subject | Status |
+|---|---|---|
+| WP-R | Validation suite: oracle, Hamiltonian, Trotter, threshold, ruggedness, varQITE, QITE, noise, gradients, Pauli count | 10 of 10 recorded |
+| WP1 | Spectral gap map and closed-form references | recorded, criterion 2 fails |
+| WP2 | QSVT eigenstate filtering | recorded, split verdict |
+| WP3 | Landscape families and ruggedness axes | recorded |
+| WP4 | Wright-Fisher baseline | recorded |
+| WP5 | Polynomial-time landscape class | recorded |
+| WP6 | Matrix-product baseline and bond dimension analysis | recorded |
+| WP7 | Boundary sweep and advantage verdict | recorded, null |
+| WP8 | Hardware execution | recorded |
 
-A clean clone plus one command reproduces every gate, or the project is not done. Every
-stochastic component takes an explicit seed; every result record carries its seeds, its git
-commit, and its image tag. Figures are script-generated only, never hand-edited.
+A failing gate is a result. WP1 criterion 2 fails because the finite-size threshold location
+converges to the asymptotic value only above `L = 48`, which the record states rather than
+hides.
 
-**No external datasets are required.** Every input is analytic, exactly computed, or
-seeded-synthetic. There is no licensing question, no provenance risk, and no ethics
-approval to obtain.
+## Scope
 
----
+This work does not claim quantum advantage, superiority over tensor networks in general, or
+clinical utility. The comparison is scoped to a well-tuned matrix-product implementation at the
+sizes actually tested, and the hardware result is feasibility at sizes solvable exactly by
+classical means. Route B cannot run on present hardware: 1024 walk-operator queries on 5 to 9
+ancillas is a deep coherent circuit and squarely fault-tolerant territory. That absence is
+reported as part of the resource comparison rather than omitted.
 
-## Compute layout
+## Citation
 
-- **Laptop.** Authoring, git, fast tests, figure scripts over computed JSON, manuscript.
-- **VM.** All Docker containers, all inference, all sweeps. Nothing installed on the host.
-- **Drive archive.** Complete result set, figures, image tarballs, versioned backups.
+```bibtex
+@software{quasar,
+  author  = {Mahaboob Ali, Anees Ahmed},
+  title   = {QUASAR: Quantum Algorithms for Mutation-Selection Dynamics},
+  year    = {2026},
+  url     = {https://github.com/ahmedanees-m/quasar}
+}
+```
 
-Code moves between machines by git. Data moves by SFTP. See `DECISIONS.md` ADR-0006 through
-ADR-0008.
+## Licence
 
----
-
-## Licence and citation
-
-Apache-2.0. See `LICENSE`. Citation metadata is in `CITATION.cff`; a Zenodo DOI is minted at
-release.
-
----
-
-## Author
-
-Anees Ahmed Mahaboob Ali, Gene Therapy Laboratory, VIT Vellore.
-
-In collaboration with Dr Delhibabu Radhakrishnan (School of Computer Science and
-Engineering) and Dr Everette Jacob Remington Nelson (School of Bio Sciences and Technology),
-VIT Vellore.
+Apache License 2.0. See [LICENSE](LICENSE).
