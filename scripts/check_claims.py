@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -77,6 +78,18 @@ def parse_ledger(text: str) -> tuple[list[Claim], list[str]]:
     return claims, unparsed
 
 
+def _is_tracked(path: Path) -> bool:
+    """Is this file committed, rather than merely present on disk?"""
+    return (
+        subprocess.run(
+            ["git", "ls-files", "--error-unmatch", str(path)],
+            cwd=ROOT,
+            capture_output=True,
+        ).returncode
+        == 0
+    )
+
+
 def check(claims: list[Claim], allow_planned: bool) -> list[str]:
     problems: list[str] = []
     for claim in claims:
@@ -101,7 +114,16 @@ def check(claims: list[Claim], allow_planned: bool) -> list[str]:
             except ValueError:
                 problems.append(f"{claim.ident}: path escapes the repository: {path_str}")
                 continue
-            if must_exist and not target.exists():
+            if must_exist and target.exists() and not _is_tracked(target):
+                # Existing on the author's disk is not the same as existing in the repository.
+                # Two claims named artefacts under the gitignored `results/_local/` tree, which
+                # resolved locally and failed in CI on a fresh checkout: the ledger appeared to
+                # hold while pointing at files no reader could obtain.
+                problems.append(
+                    f"{claim.ident}: {claim.status} but {path_str} is not committed, so it "
+                    f"resolves only on the author's machine"
+                )
+            elif must_exist and not target.exists():
                 problems.append(f"{claim.ident}: {claim.status} but missing {path_str}")
     return problems
 

@@ -1,0 +1,93 @@
+{
+  "gate": "G-7-budget-sensitivity",
+  "work_package": "wp7",
+  "passed": true,
+  "threshold": {
+    "statistic": "condition 1 of G-7 evaluated with and without the budget exclusion",
+    "value": 0.8,
+    "registered_in": "GATES.md section 11.3, ADR-0019"
+  },
+  "measured": {
+    "threshold": 0.8,
+    "condition_tested": "condition 1 of G-7: a compute-matched tensor network falls below cosine 0.8. It is the condition the exclusion rule could plausibly have manufactured, so it is the one tested here.",
+    "arms": {
+      "with_exclusion": {
+        "cells": 606,
+        "worst_tensor_network_cosine": 0.9999810770564768,
+        "cells_below_threshold": 0,
+        "margin_above_threshold": 0.19998107705647672
+      },
+      "without_exclusion": {
+        "cells": 777,
+        "worst_tensor_network_cosine": 0.8757974897590506,
+        "cells_below_threshold": 0,
+        "margin_above_threshold": 0.07579748975905054
+      }
+    },
+    "by_size": [
+      {
+        "L": 8,
+        "cells": 259,
+        "cells_over_budget": 0,
+        "share_over_budget": 0.0,
+        "worst_cosine_all_cells": 0.9999937209490688,
+        "worst_cosine_among_over_budget": null
+      },
+      {
+        "L": 10,
+        "cells": 259,
+        "cells_over_budget": 5,
+        "share_over_budget": 0.019305019305019305,
+        "worst_cosine_all_cells": 0.9999887245722398,
+        "worst_cosine_among_over_budget": 0.999995331588627
+      },
+      {
+        "L": 12,
+        "cells": 259,
+        "cells_over_budget": 166,
+        "share_over_budget": 0.640926640926641,
+        "worst_cosine_all_cells": 0.8757974897590506,
+        "worst_cosine_among_over_budget": 0.8757974897590506
+      }
+    ],
+    "verdict_unchanged": true,
+    "interpretation": "The exclusion rule removes 64.1% of L = 12 cells, and it removes exactly the cells where the classical reference is most strained: the single worst tensor network cosine in the whole sweep, 0.875797, belongs to a cell the rule excludes. Putting every excluded cell back therefore moves the worst case from 0.999981 to 0.875797, a large move, and still leaves zero cells below 0.80. The null does not rest on the exclusion rule. The tensor network would have to be a further 8.7% worse on its worst cell before condition 1 fired."
+  },
+  "n_cases": 3,
+  "cases": [
+    {
+      "L": 8,
+      "cells": 259,
+      "cells_over_budget": 0,
+      "share_over_budget": 0.0,
+      "worst_cosine_all_cells": 0.9999937209490688,
+      "worst_cosine_among_over_budget": null
+    },
+    {
+      "L": 10,
+      "cells": 259,
+      "cells_over_budget": 5,
+      "share_over_budget": 0.019305019305019305,
+      "worst_cosine_all_cells": 0.9999887245722398,
+      "worst_cosine_among_over_budget": 0.999995331588627
+    },
+    {
+      "L": 12,
+      "cells": 259,
+      "cells_over_budget": 166,
+      "share_over_budget": 0.640926640926641,
+      "worst_cosine_all_cells": 0.8757974897590506,
+      "worst_cosine_among_over_budget": 0.8757974897590506
+    }
+  ],
+  "notes": "The exclusion rule removes 64.1% of L = 12 cells, and it removes exactly the cells where the classical reference is most strained: the single worst tensor network cosine in the whole sweep, 0.875797, belongs to a cell the rule excludes. Putting every excluded cell back therefore moves the worst case from 0.999981 to 0.875797, a large move, and still leaves zero cells below 0.80. The null does not rest on the exclusion rule. The tensor network would have to be a further 8.7% worse on its worst cell before condition 1 fired.",
+  "env": {
+    "git_sha": "26f79fb919b55b6471a3991be8e4782ade59f3ce",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "2c5e1723a24a25ea8ff75f81b987d557a8855ae9bff0160c685327fe3a28707c"
+  },
+  "timestamp": "2026-08-14T20:59:49.088294+00:00"
+}
