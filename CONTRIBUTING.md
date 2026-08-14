@@ -4,8 +4,8 @@
 
 1. Every claim in the paper maps to a committed, re-runnable artefact. If a script cannot
    regenerate it, it does not go in the paper.
-2. Pre-register, then run. Thresholds and protocols are committed before the runs they
-   judge.
+2. Specify, then run. Thresholds and protocols live in `GATES.md` and are committed, so a
+   result is judged against a written criterion rather than one chosen to fit it.
 3. The ruler comes first. Validation infrastructure is built before the thing it validates.
 4. Honest reporting is a first-class output. Nulls, failures, and scope limits are committed
    artefacts, not omissions.
@@ -67,7 +67,7 @@ Four layers, and a change is not done until the relevant ones exist:
 
 - `tests/unit/` fast, isolated, deterministic. Runs on every push.
 - `tests/integration/` cross-module pipelines.
-- `tests/gates/` the pre-registered acceptance criteria, one test per gate in `GATES.md`.
+- `tests/gates/` the specified acceptance criteria, one test per gate in `GATES.md`.
   A failing gate test is a red build.
 - `tests/regression/` golden outputs. Any change that shifts a golden file must be
   explained in the pull request and logged in `DECISIONS.md`.

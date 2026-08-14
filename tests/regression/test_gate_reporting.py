@@ -57,6 +57,16 @@ EXPERIMENTS = REPO_ROOT / "experiments"
 
 GATE_CALL = re.compile(r'gate="(?P<gate>[^"]+)"[^)]*?work_package="(?P<wp>[^"]+)"', re.S)
 
+# A script may compute its gate id rather than writing it literally at the call site. G-8 does:
+# a run sent to a device other than the registered target gets a suffixed record, so that a
+# cross-device comparison cannot overwrite the registered one. That is legitimate, and it must
+# not become a way to write records no test can find. Such a script declares its canonical gate
+# statically instead, and the assertion below still fires for one that declares neither.
+GATE_DECLARATION = re.compile(
+    r'^GATE\s*=\s*"(?P<gate>[^"]+)"\s*$.*?^WORK_PACKAGE\s*=\s*"(?P<wp>[^"]+)"\s*$',
+    re.S | re.M,
+)
+
 
 def artefact_name(gate: str) -> str:
     """The same rule `write_gate_record` uses, so the two cannot drift apart."""
@@ -70,8 +80,13 @@ def gate_scripts() -> list[tuple[Path, str, str]]:
         source = path.read_text(encoding="utf-8")
         if "write_gate_record(" not in source:
             continue
-        match = GATE_CALL.search(source)
-        assert match is not None, f"{path.name} writes a record but declares no gate id"
+        match = GATE_CALL.search(source) or GATE_DECLARATION.search(source)
+        assert match is not None, (
+            f"{path.name} writes a record but declares no gate id. Either pass gate= and "
+            f"work_package= as literals at the call site, or, if the gate id is computed, "
+            f"declare GATE and WORK_PACKAGE as module-level string literals so this test can "
+            f"still find the artefact to replay."
+        )
         found.append((path, match["gate"], match["wp"]))
     return found
 

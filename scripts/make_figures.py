@@ -16,25 +16,30 @@ finished everything. Each figure says whether it was drawn or skipped and why, a
 code is zero either way; the check that every *claimed* artefact exists is
 `scripts/check_claims.py`, which is a different job.
 
-**The numbering here is not the execution plan's numbering, and that has to be resolved
-before anything is written.** Plan v4 section 5.2 reserves seven figure slots. The labels in
-this script were chosen for what the rebuild could actually produce, and they collide:
+**Numbering follows execution plan v4 section 5.2, with a rule for what the plan did not
+anticipate.** Open item 10 recorded a collision: the rebuild had chosen labels for what it
+could produce, and only F7 meant the same thing in both documents. The plan is the
+specified document and the manuscript will cite it, so it wins wherever it reserves a
+slot. Findings the plan did not anticipate go at F8 or above, outside the plan's F1 to F7
+range, where they cannot collide with a cited number.
 
-| Plan slot | Plan content | Where that content lives here |
+| slot | content | state |
 |---|---|---|
 | F1 | Correspondence and circuit schematic | not built, it is a drawing rather than a result |
 | F2 | Validation overlay, analytic against exact against Trotter | not built |
-| F3 | Error-threshold transition | **F4** here |
-| F4 | Spectral gap and conditioning across ruggedness, mu and L | **F1** here |
-| F5 | Route A against Route B, accuracy and resources | not built; **F5** here is the MPO bond dimension |
-| F6 | Hardware, noiseless to raw to mitigated | not built, needs WP8 |
-| F7 | Boundary map and chi-hardness contours | **F7** here, the one slot that agrees |
+| F3 | Error-threshold transition | built |
+| F4 | Spectral gap and conditioning across ruggedness, mu and L | built |
+| F5 | Route A against Route B, accuracy and resources | built, from the WP7 quantum sweep |
+| F6 | Hardware, noiseless to raw to mitigated | built, from the WP8 record |
+| F7 | Boundary map | built |
+| F8 | Pauli sparsity against bond dimension, the structural mechanism | built, no plan slot |
+| F9 | MPO bond dimension per family | built, no plan slot |
+| F10 | Barren-plateau diagnostic | built, no plan slot |
 
-Only F7 means the same thing in both. Two figures here, Pauli sparsity and MPO bond
-dimension, have no slot in the plan at all, because they answer questions the plan did not
-anticipate asking. Renumbering is deliberately not done unilaterally: the plan is the
-pre-registered document, the manuscript will cite its numbering, and reassigning F1 or F5
-is a choice about what the paper argues rather than a tidy-up. Recorded as open item 10.
+F8 is the figure the 13 August review called the reusable scientific object: the coincidence
+that where the Pauli expansion is sparse the bond dimension is small, and where bond dimension
+saturates the expansion is dense too. That coincidence is the mechanism behind the null, and
+it is absent at the operator level, which is the only shape a positive could have taken.
 
     python scripts/make_figures.py
     python scripts/make_figures.py --list
@@ -106,7 +111,7 @@ def figure_gap_closing() -> tuple[str, str]:
     axes.set_title("The gap closes exponentially, and a grid cannot see it")
     axes.legend(frameon=False)
     axes.grid(alpha=0.3)
-    return "drawn", _finish(figure, axes, "F1_gap_closing.png")
+    return "drawn", _finish(figure, axes, "F4_spectral_gap.png")
 
 
 def figure_barren_plateau() -> tuple[str, str]:
@@ -136,7 +141,7 @@ def figure_barren_plateau() -> tuple[str, str]:
     axes.set_title("Gradient variance decays exponentially, base near 0.54")
     axes.legend(frameon=False, fontsize=7)
     axes.grid(alpha=0.3)
-    return "drawn", _finish(figure, axes, "F2_barren_plateau.png")
+    return "drawn", _finish(figure, axes, "F10_barren_plateau.png")
 
 
 def figure_pauli_sparsity() -> tuple[str, str]:
@@ -160,7 +165,7 @@ def figure_pauli_sparsity() -> tuple[str, str]:
     axes.set_title("Why the spin convention is a factor of 152 at $L=12$")
     axes.legend(frameon=False)
     axes.grid(alpha=0.3)
-    return "drawn", _finish(figure, axes, "F3_pauli_sparsity.png")
+    return "drawn", _finish(figure, axes, "F8_pauli_sparsity.png")
 
 
 def figure_error_threshold() -> tuple[str, str]:
@@ -192,7 +197,76 @@ def figure_error_threshold() -> tuple[str, str]:
     axes[1].set_title("Threshold location, grid-limited at small $L$")
     axes[1].legend(frameon=False)
     axes[1].grid(alpha=0.3)
-    return "drawn", _finish(figure, axes, "F4_error_threshold.png")
+    return "drawn", _finish(figure, axes, "F3_error_threshold.png")
+
+
+def figure_hardware_threshold() -> tuple[str, str]:
+    """The mutation-rate sweep as a real QPU measured it, against the analytic curve.
+
+    This is the plan's **F6**, `Hardware, noiseless to raw to mitigated`. It was briefly
+    numbered F11 on the reasoning that the plan had not anticipated it, which was wrong: the
+    plan reserves F6 for exactly this and open item 10's rule is that the plan wins wherever
+    it reserves a slot. The shot-noise floor plays the `noiseless` role, and it is the honest
+    one, because a noiseless device at a finite shot count is not at zero.
+
+    The G-8 record lives in `results/_local/` and not `results/wp8/`, because the pinned image
+    has no `qiskit-ibm-runtime` and ADR-0012 files anything produced outside the image as
+    non-evidence. ADR-0020 records why that was not worked around. **The caption says so**, on
+    the figure itself, because a figure travels into slides and talks without its record.
+    """
+    record = load("_local/g_8.json") or load("_local/g_8_dry.json")
+    if record is None:
+        return "skipped", "no G-8 record in results/_local yet"
+    cases = record.get("cases") or []
+    if not cases:
+        return "skipped", "the G-8 record has no cases"
+    simulated = record["measured"].get("simulated", True)
+    device = record["measured"]["device"]["backend"]
+
+    sizes = sorted({case["L"] for case in cases})
+    figure, axes = plt.subplots(1, len(sizes), figsize=(4.0 * len(sizes), 4.0), squeeze=False)
+    for column, size in enumerate(sizes):
+        axis = axes[0][column]
+        at_size = sorted((c for c in cases if c["L"] == size), key=lambda c: c["mu_over_mu_c"])
+        ratios = [c["mu_over_mu_c"] for c in at_size]
+        # The floor is not decoration. Total variation here is dominated by sampling at these
+        # shot counts, so a reader shown the measurement alone would attribute sampling noise
+        # to the device. Shading what a noiseless device would score at the same shots is the
+        # only honest way to present the gap.
+        axis.fill_between(
+            ratios,
+            0,
+            [c["shot_noise_floor_tv"] for c in at_size],
+            alpha=0.25,
+            label="shot-noise floor",
+        )
+        axis.plot(ratios, [c["decoded_raw_total_variation"] for c in at_size], "o--", label="raw")
+        if at_size[0].get("readout_mitigation_applied", True):
+            axis.plot(
+                ratios,
+                [c["decoded_mitigated_total_variation"] for c in at_size],
+                "s-",
+                label="readout mitigated",
+            )
+        axis.axvline(1.0, linestyle=":", color="black")
+        axis.set_xlabel(r"$\mu / \mu_c$")
+        axis.set_ylabel("total variation from the analytic quasispecies")
+        axis.set_title(
+            f"$L={size}$, depth {at_size[0]['transpiled_depth']}, "
+            f"{at_size[0]['two_qubit_gates']} two-qubit gates"
+        )
+        axis.legend(frameon=False, fontsize=8)
+        axis.grid(alpha=0.3)
+
+    kind = "noise-model simulation" if simulated else "hardware"
+    figure.suptitle(
+        f"Error-threshold sweep on {device} ({kind}), "
+        f"{record['measured']['shots_per_circuit']} shots per point. "
+        f"Feasibility only: no advantage is claimed, and this record is not evidence "
+        f"under ADR-0012.",
+        fontsize=9,
+    )
+    return "drawn", _finish(figure, axes, "F6_hardware_threshold.png")
 
 
 def figure_mpo_bond_dimension() -> tuple[str, str]:
@@ -222,7 +296,70 @@ def figure_mpo_bond_dimension() -> tuple[str, str]:
     axes.set_title(f"Operator cost per family, $L={cases[0]['L']}$")
     axes.legend(frameon=False)
     axes.grid(alpha=0.3, axis="x")
-    return "drawn", _finish(figure, axes, "F5_mpo_bond_dimension.png")
+    return "drawn", _finish(figure, axes, "F9_mpo_bond_dimension.png")
+
+
+def figure_route_a_vs_b() -> tuple[str, str]:
+    """Plan slot F5: Route A against Route B, in accuracy and in two cost currencies.
+
+    The right panel is the point. Quoting the simulator ratio alone would say Route B wins by
+    three orders of magnitude, which is true and misleading: a state-vector simulator charges
+    for 2^L arithmetic and is blind to what either method would cost on hardware. Route A buys
+    its accuracy with millions of shallow ancilla-free repetitions driven by a classical
+    optimiser, the near-term shape. Route B buys it with one deep coherent circuit of
+    walk-operator queries plus encoding ancillas, the fault-tolerant shape. Both bars are
+    drawn so neither currency can be quoted on its own.
+    """
+    record = load("wp2/wp2_route_cost.json")
+    if record is None:
+        return "skipped", "results/wp2/wp2_route_cost.json is not present"
+    cases = record["cases"]
+    measured = record["measured"]
+
+    figure, axes = plt.subplots(1, 2, figsize=(10.0, 4.2))
+
+    a_cos = [c["route_a"]["cosine"] for c in cases]
+    b_cos = [c["route_b"]["cosine"] for c in cases]
+    axes[0].scatter(a_cos, b_cos, s=28, alpha=0.8)
+    low = min(min(a_cos), min(b_cos)) - 0.005
+    axes[0].plot([low, 1.0], [low, 1.0], ":", color="black", label="equal accuracy")
+    axes[0].set_xlabel("Route A cosine, varQITE")
+    axes[0].set_ylabel("Route B cosine, QSVT filter")
+    axes[0].set_title(
+        f"Route B is more accurate on "
+        f"{measured['accuracy']['cells_where_b_is_more_accurate']} of {len(cases)} cells"
+    )
+    axes[0].legend(frameon=False)
+    axes[0].grid(alpha=0.3)
+
+    sim, qc = measured["simulator_currency"], measured["quantum_currency"]
+    labels = ["simulator\nseconds", "circuit repetitions\nor walk queries", "ancillas"]
+    route_a = [
+        sim["route_a_mean_seconds"],
+        qc["route_a_mean_circuit_repetitions"],
+        max(qc["route_a_ancillas"], 0.5),
+    ]
+    route_b = [
+        sim["route_b_mean_seconds"],
+        qc["route_b_mean_walk_operator_queries"],
+        qc["route_b_ancillas_max"] or 0.5,
+    ]
+    positions = range(len(labels))
+    axes[1].bar([x - 0.2 for x in positions], route_a, width=0.4, label="Route A")
+    axes[1].bar([x + 0.2 for x in positions], route_b, width=0.4, label="Route B")
+    axes[1].set_yscale("log")
+    axes[1].set_xticks(list(positions))
+    axes[1].set_xticklabels(labels, fontsize=8)
+    axes[1].set_ylabel("cost, log scale")
+    axes[1].set_title("Two currencies: the simulator prices only the first")
+    axes[1].legend(frameon=False)
+    axes[1].grid(alpha=0.3, axis="y")
+
+    figure.tight_layout()
+    target = FIGURES / "F5_route_a_vs_b.png"
+    figure.savefig(target, dpi=200)
+    plt.close(figure)
+    return "drawn", str(target.relative_to(ROOT))
 
 
 def figure_boundary_map() -> tuple[str, str]:
@@ -310,12 +447,14 @@ def figure_boundary_map() -> tuple[str, str]:
 
 
 FIGURES_TO_BUILD: dict[str, Callable[[], tuple[str, str]]] = {
-    "F1 gap closing": figure_gap_closing,
-    "F2 barren plateau": figure_barren_plateau,
-    "F3 Pauli sparsity": figure_pauli_sparsity,
-    "F4 error threshold": figure_error_threshold,
-    "F5 MPO bond dimension": figure_mpo_bond_dimension,
+    "F4 spectral gap": figure_gap_closing,
+    "F10 barren plateau": figure_barren_plateau,
+    "F8 Pauli sparsity": figure_pauli_sparsity,
+    "F3 error threshold": figure_error_threshold,
+    "F9 MPO bond dimension": figure_mpo_bond_dimension,
+    "F5 Route A vs Route B": figure_route_a_vs_b,
     "F7 boundary map": figure_boundary_map,
+    "F6 hardware threshold": figure_hardware_threshold,
 }
 
 

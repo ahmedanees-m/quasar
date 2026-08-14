@@ -68,19 +68,65 @@ paragraph.
 The most dangerous literature for this project, because it contains results that solve the
 target problem outright. The manuscript leads with these rather than burying them.
 
-### II.1 Dixit, Srivastava & Vishnoi, *J. Comput. Biol.* (2012), arXiv:1203.1287: `to-verify`
+### II.1 Dixit, Srivastava & Vishnoi, arXiv:1203.1287 (2012): `verified 2026-08-14`
 
-- **Establishes.** A deterministic polynomial-time algorithm for the stationary
-  distribution of finite-population molecular evolution, for the class of fitness landscapes
-  it covers. Framed explicitly for mutagenic-drug design, which is the application QUASAR
-  points at. For single-peak and permutation-symmetric landscapes the steady state is the
-  noisy-hypercube matrix with an explicit spectrum.
-- **Leaves open.** The applicability class. The result assumes structured landscapes.
-  Rugged, broken-symmetry, strong-epistasis landscapes are not covered.
-- **Relation.** Baseline B, and the single most important entry in this file. Its
-  applicability boundary *defines* the candidate quantum-relevant regime. Where it applies
-  it is expected to win outright, and the paper says so. It is invisible to the physics
-  benchmarking literature, which is precisely why including it differentiates this work.
+Read in full from the arXiv PDF. This entry was the one substantive prior-art risk in the file,
+because if this paper's efficient class were larger than Baseline B's, WP7 would contain cells it
+believes are classically hard which are not. **It is not larger. It is a strict subset**, and the
+attribution the execution plan carried was wrong in a way a referee in this field would catch.
+
+- **Exact title.** *A Finite Population Model of Molecular Evolution: Theory and Computation.*
+  Note "Finite Population": the paper's own model is the RSM process, a Wright-Fisher-style
+  finite-population chain, **not** the infinite-population quasispecies that Baseline B computes.
+
+- **Their efficient class, defined verbatim.** "The fitness landscape is said to be
+  class-invariant if `a_sigma` depends only on the Hamming weight of `sigma`." That is exactly
+  permutation symmetry.
+
+- **Their algorithm, Theorem 3.3 verbatim.** "For any class invariant fitness landscape A, there
+  is an algorithm running in time `T = O(N^O(L^2))` which computes the steady state of the RSM
+  process with population size N and the genome length L." This is for the **finite-population**
+  model, and `N^O(L^2)` is not polynomial in L.
+
+- **What they attribute to whom, and this is the correction.** For the infinite-population
+  quasispecies, the paper says: "In the case of class-invariant fitness landscapes, it is known
+  **[SS82]** that one only needs to find the leading eigenvector of an `(L + 1) x (L + 1)`
+  matrix." `[SS82]` is Swetina and Schuster 1982. **The `(L+1)`-dimensional reduction that
+  Baseline B implements is Swetina-Schuster, not Dixit-Srivastava-Vishnoi**, and this paper says
+  so itself.
+
+- **Class relation, decided by measurement rather than by reading.** Baseline B covers
+  `{additive} union {permutation symmetric}`. Additive with distinct per-site coefficients
+  depends on *which* sites carry mutations, not only how many, so it is **outside** class
+  invariance while Baseline B still solves it in `O(L)` as a product state. Checked directly:
+
+  | landscape | DSV class-invariant | Baseline B applies |
+  |---|---|---|
+  | additive, distinct `a_i` | no | yes, `O(L)` |
+  | additive, uniform `a_i` | yes | yes |
+  | single peak, symmetric | yes | yes |
+  | house of cards | no | no |
+
+- **Consequence for WP7.** None adverse. The boundary map marks *more* cells classically easy
+  than this paper alone would justify, so the error, if any, runs against the quantum method
+  rather than in its favour. The exposure the review raised does not exist.
+
+- **Relation, corrected.** Cite **Swetina and Schuster (1982)** for Baseline B's
+  permutation-symmetric reduction. Cite this paper for the finite-population RSM model, its
+  convergence-to-quasispecies result, and its mixing-time condition (Theorem 3.4), which is
+  relevant to WP4 rather than to Baseline B. Do **not** describe Baseline B as
+  "Dixit-Srivastava-Vishnoi": the plan's label was wrong.
+
+### II.1a Swetina & Schuster, *Biophys. Chem.* 16:329-345 (1982): `verified 2026-08-14 by citation`
+
+- **Establishes.** For class-invariant landscapes the quasispecies is the leading eigenvector of
+  an `(L+1) x (L+1)` matrix rather than a `2^L x 2^L` one. This is the reduction Baseline B's
+  permutation-symmetric branch implements.
+- **Status.** Verified indirectly: arXiv:1203.1287 attributes the reduction to it explicitly and
+  by reference number. The primary source has not been read, so the entry is marked by citation
+  rather than read in full, and the manuscript should not attribute anything to it beyond the
+  `(L+1)` reduction until someone reads it.
+- **Relation.** The correct citation for Baseline B, `quasarstack/classical/exact_class.py`.
 
 ### II.2 Dalmau (2014, 2018): `to-verify`
 

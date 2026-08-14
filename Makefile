@@ -13,8 +13,13 @@ GID     := $(shell id -g 2>/dev/null || echo 1000)
 # invocation, which meant `make gates` - the documented one-command reproduction - wrote
 # every record to the gitignored results/_local and produced no evidence at all. See
 # DECISIONS.md ADR-0014.
+# Set to 1 by the reproduction script on a resumed attempt, so run_all_gates.py skips gates it
+# has already run at this commit. Empty means a fresh full run, which is the default.
+QUASAR_RESUME ?=
+
 DOCKER  := docker run --rm -v "$(CURDIR)":/work -w /work -u $(UID):$(GID) \
-             -e QUASAR_IMAGE=$(IMAGE) -e PYTHONPATH=/work $(IMAGE)
+             -e QUASAR_IMAGE=$(IMAGE) -e PYTHONPATH=/work \
+             -e QUASAR_RESUME=$(QUASAR_RESUME) $(IMAGE)
 
 .PHONY: help setup test test-all gates figures claims lint format docker shell lock sweep disk sync-up sync-down
 

@@ -1,6 +1,6 @@
 """G-5: Baseline B, the polynomial-time landscape class. WP5.
 
-Criteria, registered in `GATES.md` section 9 with the class predicate in Amendment 16:
+Criteria, registered in `GATES.md` section 9 with the class predicate in revision 16:
 
 1. Matches the analytic oracle to at most 1e-6 on every landscape in the declared class.
 2. The applicability boundary is an explicit predicate in code, and the covered set of WP7
@@ -35,7 +35,7 @@ from quasarstack.classical.landscapes import (
 )
 from quasarstack.io.store import write_gate_record
 
-# Registered in GATES.md section 9 and Amendment 16.
+# Registered in GATES.md section 9 and revision 16.
 ORACLE_TOLERANCE = 1e-6
 SIZES = [4, 6, 8, 10]
 MUS = [0.05, 0.10, 0.20]
@@ -223,7 +223,7 @@ def main() -> int:
             f"on every in-class landscape, and refusal on every out-of-class one",
             "criterion_2": "applicability as an explicit predicate, covered set emitted "
             "before the sweep",
-            "registered_in": "GATES.md section 9, class predicate in Amendment 16",
+            "registered_in": "GATES.md section 9, class predicate in revision 16",
         },
         measured=measured,
         passed=passed,

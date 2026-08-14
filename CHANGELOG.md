@@ -8,7 +8,7 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 ### Added
 
 - Repository skeleton per `QUASAR_engineering_standards.md`.
-- `GATES.md`, the append-only pre-registration, with thresholds for WP-R through WP8, the
+- `GATES.md`, the kept as a running record specification, with thresholds for WP-R through WP8, the
   full WP7 grid, seed lists, the compute-budget protocol, and the G-7 decision rule.
 - `PRIOR_ART.md`, the four-literature dossier, with a per-entry verification flag. Nothing
   may be cited in the manuscript while still marked to-verify.

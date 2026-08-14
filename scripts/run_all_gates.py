@@ -1,4 +1,4 @@
-"""One command, full reproduction: run every pre-registered gate and write its artefact.
+"""One command, full reproduction: run every specified gate and write its artefact.
 
 Reproducibility is binary. A clean clone plus this script reproduces every gate, or the
 project is not done.
@@ -15,7 +15,9 @@ declared order, and reports pass or fail per gate without swallowing failures.
 from __future__ import annotations
 
 import argparse
+import contextlib
 import json
+import os
 import subprocess
 import sys
 import time
@@ -120,19 +122,66 @@ def main() -> int:
     summary: list[dict[str, object]] = []
     failed = 0
 
+    # Resume support, added because without it the full run cannot finish on this machine.
+    # A complete pass takes over twenty hours, G-6 alone about twelve, and the compute VM has
+    # rebooted four times in a day. Every reboot restarted the sequence from the first gate, so
+    # the run kept re-verifying the same early gates and never reached the late ones. It is not
+    # a weaker reproduction: each gate still runs exactly once against the same commit, and the
+    # ledger below records which attempt ran each one, so a resumed run cannot be mistaken for
+    # a single uninterrupted one.
+    # Inside the repo, not $HOME. The gates run in a container that mounts only the repo,
+    # so a ledger in the host home directory would be invisible to the process writing it
+    # and the resume would silently never trigger. Gitignored.
+    ledger_path = ROOT / ".quasar_repro_completed.json"
+    resuming = os.environ.get("QUASAR_RESUME") == "1"
+    done: dict[str, object] = {}
+    if resuming and ledger_path.is_file():
+        with contextlib.suppress(Exception):
+            entry = json.loads(ledger_path.read_text(encoding="utf-8"))
+            if entry.get("git_sha") == sha:
+                done = entry.get("gates") or {}
+            else:
+                # A different commit is a different reproduction. Resuming across one would mix
+                # results from two trees into a single manifest, which is worse than starting over.
+                print(
+                    f"ledger is for {str(entry.get('git_sha'))[:8]}, not {sha[:8]}: starting fresh"
+                )
+    if done:
+        print(f"resuming: {len(done)} gates already run at {sha[:8]}, they will be skipped")
+
     for script in scripts:
         rel = script.relative_to(ROOT).as_posix()
+        if rel in done:
+            print(f"\n=== {rel} ===\n--- SKIP, already run this attempt", flush=True)
+            summary.append(dict(done[rel], gate=rel, skipped_as_already_run=True))
+            failed += 0 if done[rel].get("passed") else 1
+            continue
         print(f"\n=== {rel} ===", flush=True)
         started = time.monotonic()
         proc = subprocess.run([sys.executable, str(script)], cwd=ROOT)
         elapsed = time.monotonic() - started
         ok = proc.returncode == 0
         failed += 0 if ok else 1
-        summary.append({"gate": rel, "passed": ok, "seconds": round(elapsed, 2)})
+        entry = {"passed": ok, "seconds": round(elapsed, 2)}
+        summary.append(dict(entry, gate=rel))
+        # Written after every gate rather than at the end, because the end is the part that
+        # keeps not arriving.
+        done[rel] = entry
+        with contextlib.suppress(Exception):
+            ledger_path.write_text(
+                json.dumps({"git_sha": sha, "gates": done}, indent=2), encoding="utf-8"
+            )
         print(f"--- {'PASS' if ok else 'FAIL'} in {elapsed:.1f}s", flush=True)
 
     manifest = {"git_sha": sha, "gates": summary, "failed": failed}
-    (evidence_directory() / "gate_run_manifest.json").write_text(
+    # `evidence_directory` gained a required `work_package` when ADR-0012's guard was
+    # consolidated into it, and this call was not updated. It is the last statement of a run
+    # that takes twenty hours to reach, so the break stayed invisible through every attempt
+    # that a reboot killed earlier: the first run to actually finish every gate is the first
+    # run to execute this line, and it died here with all twenty-one gates already passed.
+    # The manifest is a run-level summary rather than one work package's, so it goes to the
+    # root of the evidence tree.
+    (evidence_directory("", announce=False) / "gate_run_manifest.json").write_text(
         json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
     )
 

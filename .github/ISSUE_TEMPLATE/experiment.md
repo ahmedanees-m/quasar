@@ -5,7 +5,7 @@ title: "exp(wpN): "
 labels: ["experiment"]
 ---
 
-Pre-registration is a workflow habit here, not a one-off document. Fill this in **before**
+Specification is a workflow habit here, not a one-off document. Fill this in **before**
 the run, not after.
 
 **Work package.**
@@ -14,7 +14,7 @@ the run, not after.
 
 **Method.** Which module, which parameters, which seeds.
 
-**Pre-registered threshold.** The number that decides pass or fail, and why that number.
+**Specified threshold.** The number that decides pass or fail, and why that number.
 
 **Expected artefact.** Path under `results/` and the `CLAIMS.md` row it backs.
 

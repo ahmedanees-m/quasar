@@ -191,12 +191,27 @@ def test_every_results_writer_uses_the_shared_evidence_guard() -> None:
             continue
         source = path.read_text(encoding="utf-8")
         builds_results_path = "RESULTS_ROOT" in source or "RESULTS /" in source
-        if builds_results_path and "evidence_directory" not in source:
+        # `write_gate_record` counts as guarded because it delegates to `evidence_directory`,
+        # which the assertion below verifies rather than takes on trust. Without this the test
+        # flagged the G-7 scorer for switching to `write_gate_record`, which had made it more
+        # protected rather than less.
+        guarded = "evidence_directory" in source or "write_gate_record" in source
+        if builds_results_path and not guarded:
             offenders.append(path.name)
     assert not offenders, (
         f"these scripts build a results path without the shared guard: {offenders}. "
         f"Use quasarstack.io.store.evidence_directory so a non-image run cannot write "
         f"where committed evidence lives."
+    )
+
+    # The delegation the exemption above relies on, checked rather than assumed. If
+    # `write_gate_record` ever stops routing through `evidence_directory`, treating it as
+    # proof of guarding would be wrong, and every caller would silently lose the protection.
+    store_source = (store.REPO_ROOT / "quasarstack" / "io" / "store.py").read_text(encoding="utf-8")
+    body = store_source[store_source.index("def write_gate_record") :]
+    assert "evidence_directory(" in body, (
+        "write_gate_record no longer calls evidence_directory, so scripts that rely on it "
+        "for ADR-0012's redirection are unguarded and the exemption above is unsound."
     )
 
     # And the read-only list must not go stale: a script named there that starts writing

@@ -38,7 +38,7 @@ def test_g_r_6_varqite_reaches_the_reference_at_constant_depth(gate_result) -> N
 
 
 def test_the_registered_ansatz_rule_is_the_one_used() -> None:
-    """reps = L + 2, from the pre-run scan disclosed in Amendment 6. If this drifts, the
+    """reps = L + 2, from the pre-run scan disclosed in revision 6. If this drifts, the
     gate is measuring a different method than the one registered."""
     assert [reps_for(n) for n in (3, 4, 5, 6)] == [5, 6, 7, 8]
 

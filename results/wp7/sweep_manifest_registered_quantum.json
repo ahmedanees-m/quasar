@@ -1,0 +1,32 @@
+{
+  "grid": "registered",
+  "methods": "quantum",
+  "cells_planned": 777,
+  "cells_recorded": 777,
+  "cells_excluded": [],
+  "methods_inapplicable_by_name": {
+    "route_a_varqite": 750,
+    "route_b_qsvt_filter": 0
+  },
+  "methods_budget_exhausted_by_name": {
+    "route_a_varqite": 0,
+    "route_b_qsvt_filter": 0
+  },
+  "methods_over_budget_by_name": {
+    "route_a_varqite": 27,
+    "route_b_qsvt_filter": 0
+  },
+  "methods_errored_by_name": {
+    "route_a_varqite": 0,
+    "route_b_qsvt_filter": 0
+  },
+  "seconds": 67270.58,
+  "env": {
+    "git_sha": "c717bf643c5bd8baff103d19f9ecce3ed0152604",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "c98f7dc050d621b70e1cc433c3efcbef9f23fab0bc82d9fc2e6603fa6fdd600b"
+  }
+}

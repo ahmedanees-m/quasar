@@ -1,6 +1,6 @@
 ---
 name: Validation failure
-about: A pre-registered gate did not pass
+about: A specified gate did not pass
 title: "gate failure: G-"
 labels: ["validation-failure", "honesty-check"]
 ---

@@ -143,7 +143,7 @@ def predicted_degree(gap: float, alpha: float, overlap: float, epsilon: float = 
 
     An earlier version of this function omitted the overlap entirely and used a fixed
     ``epsilon = 1e-3``. It overestimated the measured degree by factors of 3.3 to 7.2, which
-    is what surfaced the omission. See `GATES.md` Amendment 13 for the disclosure.
+    is what surfaced the omission. See `GATES.md` revision 13 for the disclosure.
     """
     if gap <= 0.0:
         return float("inf")

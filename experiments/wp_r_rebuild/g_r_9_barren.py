@@ -16,9 +16,9 @@ report this quantity decaying as ``0.42^L``.
 **Which component is measured is a methodological choice, not a detail.** The first rotation
 sits at the circuit boundary and is the least scrambled, so it is atypical; the
 barren-plateau literature looks at a mid-circuit parameter. Both are recorded, along with the
-mean over all components, and the registered statistic is stated in Amendment 11.
+mean over all components, and the registered statistic is stated in revision 11.
 
-Thresholds are in GATES.md section 3 and Amendment 11, committed before this ran.
+Thresholds are in GATES.md section 3 and revision 11, committed before this ran.
 
     python experiments/wp_r_rebuild/g_r_9_barren.py
 """
@@ -39,7 +39,7 @@ from quasarstack.ite.varqite import Ansatz, force_components
 DECAY_BASE_BOUNDS = (0.30, 0.55)
 R_SQUARED_THRESHOLD = 0.95
 
-# Registered in GATES.md Amendment 11.
+# Registered in GATES.md revision 11.
 MU = 0.20
 SIZES = [2, 3, 4, 5, 6, 7, 8]
 SAMPLES = 400
@@ -149,7 +149,7 @@ def main() -> int:
             f"size, {GATE_STATISTIC} component on the {GATE_LANDSCAPE} landscape",
             "bounds": DECAY_BASE_BOUNDS,
             "r_squared": R_SQUARED_THRESHOLD,
-            "registered_in": "GATES.md section 3, statistic in Amendment 11",
+            "registered_in": "GATES.md section 3, statistic in revision 11",
         },
         measured=measured,
         passed=passed,

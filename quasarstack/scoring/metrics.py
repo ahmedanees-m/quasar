@@ -2,7 +2,7 @@
 
 Two metrics, reported together everywhere, because they fail differently.
 
-**Cosine similarity** is the field's habit and is what the pre-registered thresholds are
+**Cosine similarity** is the field's habit and is what the specified thresholds are
 written in. It is also flattering: it is dominated by wherever the mass is, so a method that
 gets the master sequence right and the tail wrong scores well. On a concentrated
 quasispecies, cosine above 0.99 can coexist with a tail that is wrong by orders of

@@ -1,6 +1,6 @@
 """G-3: the landscape families, their reproducibility, and the ruggedness axis. WP3.
 
-Criteria, registered in `GATES.md` section 7 with parameters in Amendment 14:
+Criteria, registered in `GATES.md` section 7 with parameters in revision 14:
 
 1. Every landscape reproduces exactly from its seed, byte-for-byte.
 2. NK with K = 0 equals the additive family analytically, to 1e-12.
@@ -39,7 +39,7 @@ from quasarstack.classical.landscapes import (
 from quasarstack.hamiltonian.builder import diagonal_hamiltonian, pauli_term_count
 from quasarstack.io.store import write_gate_record
 
-# Registered in GATES.md section 7 and Amendment 14.
+# Registered in GATES.md section 7 and revision 14.
 ADDITIVE_TOLERANCE = 1e-12
 NK_K = [0, 1, 2, 3, 4, 6]
 RMF_ROUGHNESS = [0.0, 0.1, 0.3, 1.0, 3.0]
@@ -83,7 +83,7 @@ def families(n_sites: int):
 def correlation_length(autocorrelation: float) -> float:
     """Weinberger's ``ell = -1 / ln(rho)``. Zero where there is no correlation to speak of.
 
-    Amendment 14 fixes this convention. A non-positive ``rho`` has no correlation length,
+    revision 14 fixes this convention. A non-positive ``rho`` has no correlation length,
     and returning zero rather than a complex number keeps the monotonicity comparison
     well defined at the rugged end where ``rho`` crosses zero.
     """
@@ -320,7 +320,7 @@ def main() -> int:
             "criterion_2": f"NK at K = 0 equals additive to {ADDITIVE_TOLERANCE}",
             "criterion_3": "local optima rise and correlation length falls with K, in the "
             "seed mean, at L = 10 and L = 12",
-            "registered_in": "GATES.md section 7, parameters in Amendment 14",
+            "registered_in": "GATES.md section 7, parameters in revision 14",
         },
         measured=measured,
         passed=passed,

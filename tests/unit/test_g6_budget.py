@@ -1,6 +1,6 @@
 """G-6's per-cell deadline, and the distinction it exists to protect.
 
-Amendment 23 gives each cell at `L >= 14` a wall-clock allotment, because the chi ladder is
+revision 23 gives each cell at `L >= 14` a wall-clock allotment, because the chi ladder is
 climbed from 1 on every cell and the rugged families at the largest size cannot be afforded
 otherwise. The risk in any such limit is that it manufactures a scientific result: a cell the
 clock stopped looks identical, in a record, to a cell where the tensor network genuinely could

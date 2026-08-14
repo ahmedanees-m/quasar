@@ -4,7 +4,7 @@ The gap governs convergence for every eigenvector-extraction method, quantum or 
 this map is the object that says where a quantum method could possibly help. It is also the
 input to the WP7 budget protocol (ADR-0013) and to the WP2 resource estimate.
 
-The three criteria are registered in `GATES.md` section 5; Amendment 12 fixes what section 5
+The three criteria are registered in `GATES.md` section 5; revision 12 fixes what section 5
 left ambiguous and discloses the exploratory scans that preceded it.
 
 1. Every closed form that exists is reproduced to relative error < 1e-6.
@@ -14,7 +14,7 @@ left ambiguous and discloses the exploratory scans that preceded it.
 3. Every operator-structure claim is derived in `docs/theory.md` and resolves to a test or
    an artefact. Asserted-but-underived claims fail.
 
-Criterion 2 is expected to fail, and Amendment 12 registers that expectation rather than
+Criterion 2 is expected to fail, and revision 12 registers that expectation rather than
 adjusting the threshold. The two locators differ by 29%, 14% and 7% at L = 6, 8, 10 and
 converge to grid resolution by L = 24, because they are different finite-size locators of a
 crossover that only becomes sharp as L grows.
@@ -48,7 +48,7 @@ from quasarstack.spectral.order_parameter import locate_threshold, magnetisation
 
 ROOT = Path(__file__).resolve().parents[2]
 
-# Registered in GATES.md section 5 and Amendment 12.
+# Registered in GATES.md section 5 and revision 12.
 CLOSED_FORM_TOLERANCE = 1e-6
 THRESHOLD_TOLERANCE = 0.05
 CRITERION_2_SIZES = [6, 8, 10]
@@ -78,7 +78,7 @@ def registered_grid(mu_c: float, points: int = GRID_POINTS) -> np.ndarray:
 def _trusted_class_gap(classes: np.ndarray, mu: float) -> tuple[float, bool]:
     """Class gap, recomputed at 60 digits when float64 cannot be trusted.
 
-    Returns ``(gap, used_extended)``. Amendment 12: any gap below 1e-9 is recomputed, and
+    Returns ``(gap, used_extended)``. revision 12: any gap below 1e-9 is recomputed, and
     the float64 value is discarded rather than averaged with it.
     """
     gap = class_gap(classes, mu)
@@ -492,13 +492,13 @@ def main() -> int:
             f"mu_c under both readings, at L = {CRITERION_2_SIZES}",
             "criterion_3": "every operator-structure claim derived in docs/theory.md and "
             "resolving to a test or artefact",
-            "registered_in": "GATES.md section 5, readings and grid in Amendment 12",
+            "registered_in": "GATES.md section 5, readings and grid in revision 12",
         },
         measured=measured,
         passed=passed,
         cases=cases,
         notes=(
-            "Criterion 2 was registered in Amendment 12 in the expectation that it fails, "
+            "Criterion 2 was registered in revision 12 in the expectation that it fails, "
             "with the exploratory numbers disclosed there, rather than adjusted to fit. The "
             "gap minimum and the susceptibility peak are different finite-size locators of a "
             "crossover that only becomes sharp as L grows; they converge to the grid "

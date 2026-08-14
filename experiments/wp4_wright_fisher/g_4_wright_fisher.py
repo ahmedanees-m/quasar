@@ -1,11 +1,11 @@
 """G-4: the Wright-Fisher finite-population baseline. WP4.
 
-Criteria, registered in `GATES.md` section 8 with configurations in Amendment 15:
+Criteria, registered in `GATES.md` section 8 with configurations in revision 15:
 
 1. Reproduces the analytic single-peak quasispecies as population size and sample budget
    grow: total variation < 0.02 at the largest declared budget, L = 8.
 2. Throughput within 5x of the reference community implementation. **Withdrawn as
-   unexecutable** by Amendment 15, and replaced by Amendment 22.
+   unexecutable** by revision 15, and replaced by revision 22.
 2b. Reaches total variation <= 0.02 at L = 8 within the 300 s that section 11.3 allots a
    method per WP7 cell.
 
@@ -38,7 +38,7 @@ from quasarstack.analytic.crow_kimura import single_peak_quasispecies
 from quasarstack.classical.wright_fisher import sample_stationary, time_step_bias
 from quasarstack.io.store import write_gate_record
 
-# Registered in GATES.md section 8 and Amendment 15.
+# Registered in GATES.md section 8 and revision 15.
 TV_THRESHOLD = 0.02
 N_SITES = 8
 MU = 0.10
@@ -49,7 +49,7 @@ BURN_IN_FRACTION = 0.2
 SEEDS = list(range(10))
 DT = 0.01
 TIME_STEPS = [0.04, 0.02, 0.01, 0.005]
-# Section 11.3's per-cell per-method allotment at L <= 12. Criterion 2b in Amendment 22
+# Section 11.3's per-cell per-method allotment at L <= 12. Criterion 2b in revision 22
 # borrows it deliberately: a threshold taken from the measurement it judges would be
 # circular, and this one was fixed before any of these runs and for another purpose.
 WP7_BUDGET_SECONDS = 300.0
@@ -138,7 +138,7 @@ def run() -> tuple[bool, dict, list[dict]]:
 
     criterion_1 = bool(largest_tv is not None and largest_tv < TV_THRESHOLD)
 
-    # Criterion 2b, registered in Amendment 22: the cheapest configuration on the ladder that
+    # Criterion 2b, registered in revision 22: the cheapest configuration on the ladder that
     # reaches the target accuracy, and whether it fits the budget WP7 grants a method per
     # cell. Read off the runs criterion 1 already did, so it costs nothing extra and cannot
     # disagree with them. The budget is section 11.3's number, fixed before any of this was
@@ -186,7 +186,7 @@ def run() -> tuple[bool, dict, list[dict]]:
             "cheapest_sufficient_population": cheapest["population"] if cheapest else None,
             "seconds_to_reach_target": cheapest["seconds"] if cheapest else None,
             "total_variation_reached": cheapest["total_variation"] if cheapest else None,
-            "registered_in": "GATES.md Amendment 22",
+            "registered_in": "GATES.md revision 22",
             "what_this_does_not_establish": (
                 "That the baseline is as fast as the best available forward simulator. No "
                 "reference implementation is present in the pinned image, so the "
@@ -206,7 +206,7 @@ def run() -> tuple[bool, dict, list[dict]]:
         },
         "seconds": round(time.monotonic() - started, 2),
     }
-    # Criterion 2 stays withdrawn and unscored; Amendment 22 replaced it with 2b, and the
+    # Criterion 2 stays withdrawn and unscored; revision 22 replaced it with 2b, and the
     # gate passes on criterion 1 and criterion 2b together. The withdrawn criterion is still
     # reported so the record shows what was asked for and why it was not answered.
     return bool(criterion_1 and criterion_2b), measured, cases
@@ -221,13 +221,13 @@ def main() -> int:
         threshold={
             "criterion_1": f"total variation < {TV_THRESHOLD} against the analytic "
             f"quasispecies at N = {POPULATIONS[-1]}, L = {N_SITES}",
-            "criterion_2": "WITHDRAWN as unexecutable, see Amendment 15 and ADR-0018: "
+            "criterion_2": "WITHDRAWN as unexecutable, see revision 15 and ADR-0018: "
             "throughput within 5x of the reference community implementation",
             "criterion_2b": f"reaches total variation <= {TV_THRESHOLD} at L = {N_SITES} "
             f"within the {WP7_BUDGET_SECONDS:.0f} s that section 11.3 allots a method per "
             f"WP7 cell",
-            "registered_in": "GATES.md section 8, configurations in Amendment 15, "
-            "criterion 2b in Amendment 22",
+            "registered_in": "GATES.md section 8, configurations in revision 15, "
+            "criterion 2b in revision 22",
         },
         measured=measured,
         passed=passed,
@@ -283,7 +283,7 @@ def main() -> int:
     print("    " + CRITERION_2_STATUS.replace(". ", ".\n    "))
 
     accuracy_in_time = measured["criterion_2b_time_to_accuracy"]
-    print("\n  Criterion 2b, time to accuracy (Amendment 22)")
+    print("\n  Criterion 2b, time to accuracy (revision 22)")
     print(
         f"    cheapest N reaching TV <= {accuracy_in_time['target_total_variation']}   "
         f"{accuracy_in_time['cheapest_sufficient_population']}"

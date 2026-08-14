@@ -146,16 +146,16 @@ def write_gate_record(
     """
     env = environment()
 
-    # A run outside the pinned image writes somewhere gitignored, not into the tree where
-    # committed evidence lives. Twice in one afternoon a laptop run left a record in
-    # results/, and the second time it also blocked a pull by colliding with the real one.
-    # Local runs are useful and stay allowed; what stops is their output sitting where a
-    # `git add -A` can mistake it for evidence. See DECISIONS.md ADR-0012.
-    in_pinned_image = env["image"] != "unknown" and str(env["platform"]).startswith("Linux")
-    directory = RESULTS_ROOT / work_package if in_pinned_image else RESULTS_ROOT / "_local"
+    # ADR-0012's redirection, obtained from `evidence_directory` rather than reimplemented.
+    # This function used to carry its own copy of the rule, which is how the guard came to
+    # exist in two places at once: the very duplication that consolidating it into
+    # `evidence_directory` was supposed to end. Keeping a second copy here also meant a script
+    # could be properly guarded, by calling this function, while the test that looks for the
+    # guard could not tell. That is what happened to the G-7 scorer.
+    directory = evidence_directory(work_package, announce=False)
     directory.mkdir(parents=True, exist_ok=True)
     path = directory / f"{gate.lower().replace('-', '_').replace('.', '_')}.json"
-    if not in_pinned_image:
+    if not in_pinned_image():
         try:
             shown = path.relative_to(REPO_ROOT).as_posix()
         except ValueError:  # results root redirected elsewhere, as tests do

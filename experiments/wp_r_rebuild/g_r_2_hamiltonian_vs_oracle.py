@@ -11,7 +11,7 @@ independently in `exact_diag`. That comparison is recorded as a diagnostic rathe
 promoted to the gate, because the threshold was registered in cosine and thresholds do not
 move.
 
-Threshold and configuration set are in GATES.md section 3 and Amendment 2, both committed
+Threshold and configuration set are in GATES.md section 3 and revision 2, both committed
 before this script was run.
 
     python experiments/wp_r_rebuild/g_r_2_hamiltonian_vs_oracle.py
@@ -48,7 +48,7 @@ from quasarstack.scoring.metrics import score
 THRESHOLD = 0.999999
 REQUIRED_CONFIGURATIONS = 40
 
-# Registered in GATES.md Amendment 2.
+# Registered in GATES.md revision 2.
 MUS = [0.10, 0.30, 0.60, 1.00]
 CONFIGURATIONS = [
     {"family": "additive_random", "L": 2, "seed": 0},
@@ -179,7 +179,7 @@ def main() -> int:
             "operator and the analytic quasispecies, on every configuration",
             "value": THRESHOLD,
             "required_configurations": REQUIRED_CONFIGURATIONS,
-            "registered_in": "GATES.md section 3, configuration set in Amendment 2",
+            "registered_in": "GATES.md section 3, configuration set in revision 2",
         },
         measured=measured,
         passed=passed,

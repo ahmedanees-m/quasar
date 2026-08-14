@@ -11,7 +11,7 @@ including the direction in which epistasis moves it. That is deliberate. The pla
 documents state an expected direction, and a gate that required the expected answer would
 not be a measurement.
 
-Thresholds, sweep and landscapes are in GATES.md section 3 and Amendment 4, committed
+Thresholds, sweep and landscapes are in GATES.md section 3 and revision 4, committed
 before this ran.
 
     python experiments/wp_r_rebuild/g_r_4_error_threshold.py
@@ -43,7 +43,7 @@ from quasarstack.spectral.order_parameter import (
 # Registered in GATES.md section 3.
 THRESHOLD = 1e-3
 
-# Registered in GATES.md Amendment 4.
+# Registered in GATES.md revision 4.
 SIZES = [4, 6, 8]
 MUS = np.round(np.arange(0.01, 3.001, 0.01), 10)
 LANDSCAPES = [
@@ -240,7 +240,7 @@ def main() -> int:
             "statistic": "max absolute difference in surplus between the compiled "
             "Hamiltonian ground state and the analytic class reduction, over the whole sweep",
             "value": THRESHOLD,
-            "registered_in": "GATES.md section 3, sweep and landscapes in Amendment 4",
+            "registered_in": "GATES.md section 3, sweep and landscapes in revision 4",
         },
         measured=measured,
         passed=passed,

@@ -58,6 +58,6 @@ def test_the_wrong_parity_basis_is_still_dead(gate_result) -> None:
 
 
 def test_the_registered_support_cutoff_is_the_one_used() -> None:
-    """max_weight = 2, from the pre-run scan in Amendment 7. Weight 1 fails the accuracy
+    """max_weight = 2, from the pre-run scan in revision 7. Weight 1 fails the accuracy
     threshold outright at 0.8298, so this is not a free parameter."""
     assert MAX_WEIGHT == 2

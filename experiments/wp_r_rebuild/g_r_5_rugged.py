@@ -14,7 +14,7 @@ diagnostic. It is the first test of whether imaginary time actually converges on
 landscape at a fixed budget, and it is deliberately not a pass condition: an instance with a
 small gap may fail to converge, and that is a finding for G-R.6, G-R.7 and WP7, not a defect.
 
-Thresholds and instances are in GATES.md section 3 and Amendment 5, committed before this
+Thresholds and instances are in GATES.md section 3 and revision 5, committed before this
 ran.
 
     python experiments/wp_r_rebuild/g_r_5_rugged.py
@@ -37,7 +37,7 @@ from quasarstack.scoring.metrics import score
 # Registered in GATES.md section 3.
 THRESHOLD = 0.99999
 
-# Registered in GATES.md Amendment 5.
+# Registered in GATES.md revision 5.
 MU = 0.25
 SEEDS = list(range(10))
 CELLS = [(6, 1), (6, 2), (6, 4), (8, 1), (8, 2), (8, 4), (8, 7), (10, 1), (10, 2), (10, 4)]
@@ -147,7 +147,7 @@ def main() -> int:
             "statistic": "cosine between the compiled Pauli Hamiltonian's ground state and "
             "brute-force exact diagonalisation, on every NK instance",
             "value": THRESHOLD,
-            "registered_in": "GATES.md section 3, instance set in Amendment 5",
+            "registered_in": "GATES.md section 3, instance set in revision 5",
         },
         measured=measured,
         passed=passed,

@@ -1,0 +1,25 @@
+{
+  "grid": "registered",
+  "cells_planned": 777,
+  "cells_recorded": 777,
+  "cells_excluded": [],
+  "methods_inapplicable_by_name": {
+    "baseline_a_wright_fisher": 0,
+    "baseline_b_exact_class": 735,
+    "baseline_c_tensor_network": 0
+  },
+  "methods_budget_exhausted_by_name": {
+    "baseline_a_wright_fisher": 0,
+    "baseline_b_exact_class": 0,
+    "baseline_c_tensor_network": 101
+  },
+  "seconds": 133513.26,
+  "env": {
+    "git_sha": "045de9032a8ebb72c27461c42bb12babbf8264ac",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "1c844d6704e305b6919b562abc79a5151c2ccef7eded9652c5428a671395a11b"
+  }
+}

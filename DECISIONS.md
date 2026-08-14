@@ -21,7 +21,7 @@ At repository creation the implementation could not be located. Searches covered
 archive, the compute VM filesystem, and the GitHub account. No source and no result
 artefacts were found.
 
-**Decision.** Treat the reported values as pre-registered targets for a fresh
+**Decision.** Treat the reported values as specified targets for a fresh
 implementation rather than as inherited results. Register them as thresholds in `GATES.md`
 section 3 (WP-R). No number from the planning documents enters the manuscript unless a run
 in this repository reproduces it and writes an artefact under `results/`.
@@ -422,7 +422,7 @@ inherit the default.
 **Status.** Accepted. **Date.** 10 August 2026.
 
 **Context.** `README.md` and `CONTRIBUTING.md` both point a reader at `make gates` as the way
-to reproduce every pre-registered gate from a clean checkout. `Makefile` built its container
+to reproduce every specified gate from a clean checkout. `Makefile` built its container
 invocation as
 
     docker run --rm -v "$(CURDIR)":/work -w /work -u $(UID):$(GID) quasar:v1
@@ -487,7 +487,7 @@ written down, say so in the artefacts, and keep the choice cheap to reverse.
 
 - ADR-0010 records that "the `GATES.md` G-2 thresholds are unaffected" by the choice: they
   speak of reproducing the analytic quasispecies and deriving resource scaling, neither of
-  which depends on which QSVT construction is used. So the pre-registration does not have to
+  which depends on which QSVT construction is used. So the specification does not have to
   be rewritten if the PIs pick A or B instead.
 - Option C differs from option A only by a paragraph of write-up, so choosing C and being
   told A costs nothing. Being told B is the expensive branch, and B is a scope increase that
@@ -731,3 +731,56 @@ mean: not that every method finished, but that every method got the same time an
 what it produced in it. The trend above says this matters more at every size step, and the
 sweep does not currently go past `L = 12`.
 
+
+---
+
+## ADR-0020: The hardware run cannot happen inside the pinned image, and says so rather than hiding it
+
+**Status.** Accepted. Registered before any job is submitted.
+**Date.** 13 August 2026.
+
+**Context.** ADR-0012 makes the rule that a gate record produced outside the pinned image is
+written to `results/_local/` and is not evidence. Every gate so far has satisfied it. G-8
+cannot, for a reason that is structural rather than careless: **the pinned image does not
+contain `qiskit-ibm-runtime`.** There is no `QiskitRuntimeService` in it, no `fake_provider`,
+and therefore no route from inside the image to a real QPU or to the fake backend the dry run
+needs. The dry run above and the read-only transpile against `ibm_marrakesh` both ran on the
+laptop for that reason.
+
+**Options considered.**
+
+1. *Add the package to the pinned image.* This changes the image tag, and the image tag is the
+   thing eleven reproduced gate records are pinned to. Buying provenance for G-8 by unpinning
+   the other eleven is a bad trade.
+2. *Split the work: prepare circuits in the image, submit from the laptop.* Attractive, and it
+   fails on a detail. The image carries qiskit 2.5.1 and the laptop 2.1.2, and qpy does not
+   deserialise forward from a newer writer to an older reader. The split would need the image
+   downgraded, which is option 1 wearing a different hat.
+3. *Run the whole of WP8 on the laptop and register the exception.* Chosen.
+
+**Decision.** WP8 runs on the laptop. The G-8 record lands in `results/_local/`, unchanged, and
+the evidence guard is left exactly as it is: it is doing its job, and switching it off for one
+work package would remove the only mechanism that makes the other eleven records mean anything.
+The record is committed with its non-evidence status visible rather than laundered.
+
+What compensates, and it is not nothing:
+
+- The **client environment is recorded in full** in the record itself, both qiskit and
+  qiskit-ibm-runtime versions, so the run is reconstructible even though it is not replayable
+  in the image.
+- The **device provenance is recorded** as section 12 requires: backend name, calibration
+  timestamp, processor type, basis gates, job ids, transpiled depth, two-qubit counts, shots.
+- The **transpiler is seeded**, so the circuits inspected free by `--mode isa` are the circuits
+  submitted, and a reader can regenerate them.
+- The **scientific content is already evidence-grade elsewhere.** The state preparation is
+  varQITE with G-R.8's settings, and G-R.8 has a reproduced record from inside the image. What
+  the laptop adds is network I/O to IBM, not physics.
+
+**Consequence for the claim.** G-8 is registered as feasibility, not accuracy, and this ADR
+narrows it further: the hardware result is reported as an observation with recorded provenance
+and stated non-evidence status under ADR-0012, and no claim in `CLAIMS.md` may cite it as
+reproduced evidence. A claim citing it must carry the qualifier in its own text.
+
+**What would change this.** If the pinned image is ever rebuilt for an unrelated reason, adding
+`qiskit-ibm-runtime` at that point costs nothing and this ADR should be revisited. Rebuilding
+it *for* this is what the decision declines.

@@ -1,0 +1,744 @@
+{
+  "gate": "G-7",
+  "work_package": "wp7",
+  "passed": true,
+  "threshold": {
+    "criteria": "a non-empty region, contiguous and reproducible across at least 5 seeds, in which a quantum route reaches cosine >= 0.9, the compute-matched tensor network is below 0.8, Baseline B does not apply, and the bootstrap confidence intervals do not overlap",
+    "both_outcomes_registered_publishable": true,
+    "registered_in": "GATES.md section 11.5"
+  },
+  "measured": {
+    "verdict": "null",
+    "groups_scored": 152,
+    "groups_excluded": [
+      {
+        "family": "additive_pairwise",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "additive_pairwise",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "additive_pairwise",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "block",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "block",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "block",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 10,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 10,
+        "mu_over_mu_c": 0.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 10,
+        "mu_over_mu_c": 0.8,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 0.6,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 0.8,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.2,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.4,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 1,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 1,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 1,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 10,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 12,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 12,
+        "mu_over_mu_c": 0.6,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 12,
+        "mu_over_mu_c": 0.8,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 12,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 12,
+        "mu_over_mu_c": 1.2,
+        "cells_dropped": 3,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 12,
+        "mu_over_mu_c": 1.4,
+        "cells_dropped": 3,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 12,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 2,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 10,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 12,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 12,
+        "mu_over_mu_c": 0.6,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 12,
+        "mu_over_mu_c": 0.8,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 12,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 12,
+        "mu_over_mu_c": 1.2,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 12,
+        "mu_over_mu_c": 1.4,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 12,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 0.6,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 0.8,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.2,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.4,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 3,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "single_peak",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "single_peak",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "single_peak",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 0.6,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 0.8,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.2,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.4,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 12,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 5,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      }
+    ],
+    "excluded_cells_by_size": [
+      {
+        "L": 8,
+        "cells": 259,
+        "cells_excluded": 27,
+        "share_excluded": 0.10424710424710425,
+        "by_reason": {
+          "over budget": 27
+        }
+      },
+      {
+        "L": 10,
+        "cells": 259,
+        "cells_excluded": 5,
+        "share_excluded": 0.019305019305019305,
+        "by_reason": {
+          "over budget": 5
+        }
+      },
+      {
+        "L": 12,
+        "cells": 259,
+        "cells_excluded": 166,
+        "share_excluded": 0.640926640926641,
+        "by_reason": {
+          "over budget": 166
+        }
+      }
+    ],
+    "conditions_failed_by_group_count": {
+      "the tensor network stays at or above 0.8": 152,
+      "the bootstrap intervals overlap": 132,
+      "fewer than 5 seeds": 66,
+      "baseline B applies": 36
+    },
+    "positive_region": [],
+    "null_bound": {
+      "largest_L_with_a_valid_reference": 12,
+      "statement": "No region satisfies all four conditions at the sizes swept. The crossover, if it exists, lies beyond the largest L at which this sweep held a valid reference."
+    },
+    "conditions": {
+      "quantum_cosine_at_least": 0.9,
+      "tensor_network_below": 0.8,
+      "minimum_seeds": 5,
+      "bootstrap_resamples": 10000
+    }
+  },
+  "n_cases": 0,
+  "cases": [],
+  "notes": "Answered as a null. passed=true records that the gate produced a valid answer, not that a quantum advantage was found. Section 11.5 registered both a positive region and a bounded null as publishable outcomes before the sweep ran, so a null is a result. Read measured.verdict and measured.conditions_failed_by_group_count for what was found.",
+  "env": {
+    "git_sha": "71498140aa33b029a0f2dff75a619a9a08aa7a86",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.36",
+    "gates_md_sha256": "e2f9efbc48a87ba7ce2e3ed22b9540ca1122e49ae6a068d7e5e3f9a4c6a33ff5"
+  },
+  "timestamp": "2026-08-14T19:44:40.271346+00:00"
+}

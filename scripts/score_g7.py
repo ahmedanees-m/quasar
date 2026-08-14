@@ -43,7 +43,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from quasarstack.io.store import RESULTS_ROOT, evidence_directory  # noqa: E402
+from quasarstack.io.store import RESULTS_ROOT, write_gate_record  # noqa: E402
 
 QUANTUM_THRESHOLD = 0.90
 CLASSICAL_THRESHOLD = 0.80
@@ -326,9 +326,43 @@ def main() -> int:
             f"{verdict['null_bound']['largest_L_with_a_valid_reference']}"
         )
 
-    target = evidence_directory("wp7") / "g_7_verdict.json"
-    target.write_text(json.dumps(verdict, indent=2), encoding="utf-8")
-    print(f"\nwritten {target}")
+    # Written through write_gate_record, not as a bare JSON dump. The first version of this
+    # script wrote the verdict with `json.dumps` straight to disk, so the single most important
+    # artefact in the project carried no `env` block: no git sha, no image tag, no platform. It
+    # could have been produced anywhere by any version of the code with nothing recording
+    # otherwise, while every other gate in the tree carried full provenance. CI's provenance
+    # check rejected it from the moment it was committed, and nobody read that either.
+    # ADR-0012 exists for exactly this.
+    #
+    # `passed` is true because the gate was answered, which is what section 11.5 asks of it.
+    # Both a positive region and a bounded null were registered in advance as publishable, so a
+    # null is a result rather than a gate failure. The verdict is the first key in `measured`
+    # so nobody has to infer the finding from the pass flag.
+    path = write_gate_record(
+        gate="G-7",
+        work_package="wp7",
+        threshold={
+            "criteria": (
+                f"a non-empty region, contiguous and reproducible across at least {MIN_SEEDS} "
+                f"seeds, in which a quantum route reaches cosine >= {QUANTUM_THRESHOLD}, the "
+                f"compute-matched tensor network is below {CLASSICAL_THRESHOLD}, Baseline B "
+                f"does not apply, and the bootstrap confidence intervals do not overlap"
+            ),
+            "both_outcomes_registered_publishable": True,
+            "registered_in": "GATES.md section 11.5",
+        },
+        measured=verdict,
+        passed=True,
+        cases=verdict.get("positive_region") or [],
+        notes=(
+            f"Answered as a {verdict['verdict']}. passed=true records that the gate produced a "
+            f"valid answer, not that a quantum advantage was found. Section 11.5 registered "
+            f"both a positive region and a bounded null as publishable outcomes before the "
+            f"sweep ran, so a null is a result. Read measured.verdict and "
+            f"measured.conditions_failed_by_group_count for what was found."
+        ),
+    )
+    print(f"\nwritten {path}")
     return 0
 
 

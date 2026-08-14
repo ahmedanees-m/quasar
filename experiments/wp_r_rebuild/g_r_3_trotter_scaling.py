@@ -11,7 +11,7 @@ choice of tau rather than the method.
 **B. Convergence.** The finest step size run to a long total time, scored against the
 analytic oracle, which is what the biology actually asks for.
 
-Thresholds and configurations are in GATES.md section 3 and Amendment 3, committed before
+Thresholds and configurations are in GATES.md section 3 and revision 3, committed before
 this ran.
 
     python experiments/wp_r_rebuild/g_r_3_trotter_scaling.py
@@ -39,7 +39,7 @@ COSINE_THRESHOLD = 0.999
 EXPONENT_BOUNDS = (1.8, 2.2)
 R_SQUARED_THRESHOLD = 0.99
 
-# Registered in GATES.md Amendment 3.
+# Registered in GATES.md revision 3.
 MU = 0.30
 TAU_SCALING = 2.0
 DTAUS = [0.25, 0.125, 0.0625, 0.03125, 0.015625, 0.0078125]
@@ -200,7 +200,7 @@ def main() -> int:
                 "bounds": EXPONENT_BOUNDS,
             },
             "fit_quality": {"statistic": "R squared of that fit", "value": R_SQUARED_THRESHOLD},
-            "registered_in": "GATES.md section 3, protocol in Amendment 3",
+            "registered_in": "GATES.md section 3, protocol in revision 3",
         },
         measured=measured,
         passed=passed,

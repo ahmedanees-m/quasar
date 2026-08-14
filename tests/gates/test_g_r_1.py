@@ -1,6 +1,6 @@
 """Gate G-R.1 as an executable acceptance criterion.
 
-The pre-registered thresholds are not aspirational documents. Each one is a test, and a
+The specified thresholds are not aspirational documents. Each one is a test, and a
 failing gate test is a red build. Runs under the `gate` marker, which CI executes nightly
 and at release rather than on every push.
 """

@@ -8,7 +8,7 @@ declared grid ends up in the manifest either scored or excluded with a reason, w
 C27. There is no third state and no silent gap.
 
 **A method that ran out of time must not look like a method that was wrong.** Section 11.3
-denominates the budget in wall-clock seconds, and Amendment 19's second addendum measured
+denominates the budget in wall-clock seconds, and revision 19's second addendum measured
 Baseline C spending ten to twenty times more of it on the dense-operator families than on the
 additive one. So allotted and used seconds are recorded per cell per method, and a method that
 hit its ceiling is marked `budget_exhausted` rather than scored as inaccurate.
@@ -18,7 +18,7 @@ produced and a restart skips what is already there. The alternative, holding eve
 memory and writing at the end, loses a multi-hour run to one exception and quietly tempts
 whoever restarts it to narrow the grid.
 
-**The order parameter must mean the same thing in every cell.** ADR-0017 and Amendment 18:
+**The order parameter must mean the same thing in every cell.** ADR-0017 and revision 18:
 localisation is measured from each instance's own fittest genotype, not from genotype 0,
 because no rugged family keeps its optimum there. The reference genotype and its Hamming
 weight are recorded per cell so the choice is auditable rather than implicit.
@@ -69,9 +69,9 @@ from quasarstack.qsvt.block_encoding import one_norm  # noqa: E402
 from quasarstack.qsvt.filter import filtered_state  # noqa: E402
 from quasarstack.spectral.order_parameter import localisation  # noqa: E402
 
-# Registered in GATES.md section 11.1, with Amendment 18's split of the ruggedness axis.
+# Registered in GATES.md section 11.1, with revision 18's split of the ruggedness axis.
 REGISTERED_GRID = {
-    # Amendment 20: section 11.1's grid is 3108 cells and about 294 hours at measured cost.
+    # revision 20: section 11.1's grid is 3108 cells and about 294 hours at measured cost.
     # This covers the same families and mutation range at 7 points instead of 21, and defers
     # L = 14, for 777 cells and about 27 hours. The seed count meets the registered minimum.
     "sizes": [8, 10, 12],
@@ -101,7 +101,7 @@ SMOKE_GRID = {
 
 # A grid big enough to exercise the boundary-map figure without being the registered sweep.
 # One size, one seed, the full mutation axis, and one family from each of the three axes
-# Amendment 18 separates, so the figure has something with structure in it to draw.
+# revision 18 separates, so the figure has something with structure in it to draw.
 LOCAL_GRID = {
     "sizes": [8],
     "mu_ratios": [0.4, 0.7, 1.0, 1.3, 1.6],
@@ -117,7 +117,7 @@ LOCAL_GRID = {
 BUDGET_SECONDS = {8: 300.0, 10: 300.0, 12: 300.0, 14: 900.0}
 REFERENCE_DENSE_LIMIT = 10
 
-# Registered in Amendment 21. Route A is measured, not assumed, to be unable to finish a
+# Registered in revision 21. Route A is measured, not assumed, to be unable to finish a
 # cell within section 11.3's allotment anywhere on this grid: at L = 6 it used 198 to 235 s
 # of 300, and its cost scales as n_parameters^2 * 2^L with n_parameters = L(L+3), so L = 8 is
 # about ten times that. Running it on all 777 cells would spend 65 hours confirming
@@ -149,7 +149,7 @@ def build_fitness(spec: dict[str, Any], n_sites: int, seed: int) -> np.ndarray:
 
 
 def threshold_for(spec: dict[str, Any], fitness: np.ndarray, n_sites: int) -> float:
-    """mu_c per instance. Amendment 12's addendum defines the non-peak case."""
+    """mu_c per instance. revision 12's addendum defines the non-peak case."""
     if spec["family"] == "single_peak":
         return 1.0 / n_sites
     return float((fitness.max() - fitness.mean()) / n_sites)
@@ -272,7 +272,7 @@ def method_baseline_a(fitness: np.ndarray, mu: float, budget: float) -> dict[str
 
 
 def in_route_a_probe(cell: dict[str, Any]) -> bool:
-    """Is this cell in the declared Route A feasibility probe? See Amendment 21."""
+    """Is this cell in the declared Route A feasibility probe? See revision 21."""
     return (
         cell["L"] == ROUTE_A_PROBE_SIZE
         and cell.get("seed", 0) == ROUTE_A_PROBE_SEED
@@ -429,7 +429,7 @@ def run_cell(cell: dict[str, Any]) -> dict[str, Any]:
         if name == "route_a_varqite" and not in_route_a_probe(cell):
             record["methods"][name] = {
                 "applicable": False,
-                "reason": "outside the declared Route A feasibility probe, Amendment 21",
+                "reason": "outside the declared Route A feasibility probe, revision 21",
             }
             continue
         try:

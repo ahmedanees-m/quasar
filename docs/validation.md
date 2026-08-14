@@ -129,7 +129,7 @@ optimisation that quietly stopped matching the thing it stands in for would inva
 gate, so it is verified rather than trusted.
 
 **Two normalisation mistakes, both found before the recorded run and both disclosed in
-`GATES.md` Amendment 4 rather than quietly fixed.** An epistatic family that fixed the total
+`GATES.md` revision 4 rather than quietly fixed.** An epistatic family that fixed the total
 fitness range made the per-mutation cost near the master scale as 1/L, so selection vanished
 and the exponent varied overall selection strength instead of epistasis. And a pairwise
 coupling held at fixed strength across sizes made the total interaction grow as L squared,
@@ -157,7 +157,7 @@ an arbitrary moment determined by where the gauge drift happened to be, or never
 circuit, so its accuracy is capped by what that circuit can represent. An ansatz too shallow
 to hold the answer fails for reasons unrelated to the method. Depth is a method parameter
 rather than an acceptance threshold, so choosing it adequately is legitimate; choosing it
-invisibly is not. The numbers are in `GATES.md` Amendment 6.
+invisibly is not. The numbers are in `GATES.md` revision 6.
 
 **What the scan found, which is more interesting than the rule it produced.** The ansatz
 depth needed grows faster than the system does. At L = 6, reps = L reaches only 0.998137 on

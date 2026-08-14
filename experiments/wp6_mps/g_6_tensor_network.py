@@ -1,6 +1,6 @@
 """G-6: the matrix-product baseline. WP6 criteria 1, 2 and 4.
 
-Criteria, registered in `GATES.md` section 10 with the sweep in Amendment 19:
+Criteria, registered in `GATES.md` section 10 with the sweep in revision 19:
 
 1. Converges to sparse exact diagonalisation where both run: cosine >= 0.999 at sufficient
    chi, for L in {8, 10, 12, 14} across all families.
@@ -37,7 +37,7 @@ from quasarstack.classical.mps_ite import evolve, step_operator_bond_dimension
 from quasarstack.io.progress import Progress
 from quasarstack.io.store import RESULTS_ROOT, write_gate_record
 
-# Registered in GATES.md section 10 and Amendment 19.
+# Registered in GATES.md section 10 and revision 19.
 COSINE_THRESHOLD = 0.999
 SIZES = [8, 10, 12, 14]
 CHI_SWEEP = [1, 2, 4, 8, 16, 32, 64, 128]
@@ -46,7 +46,7 @@ DTAU_SWEEP = [0.1, 0.05, 0.02]
 DTAU_SUBSET_SIZES = [8, 12]
 MU_RATIOS = [0.4, 0.7, 1.0, 1.3, 1.6]
 SEEDS = [0, 1]
-# One seed at the largest size: see the second addendum to Amendment 19. The cost of a step
+# One seed at the largest size: see the second addendum to revision 19. The cost of a step
 # scales with the operator's bond dimension, which saturates for the dense families.
 SEEDS_AT_LARGEST_SIZE = [0]
 # perron_vector goes dense at or below dense_limit, and a dense 4096 by 4096 solve in the
@@ -56,8 +56,8 @@ SEEDS_AT_LARGEST_SIZE = [0]
 # and tests/unit/test_numerics.py establish.
 REFERENCE_DENSE_LIMIT = 10
 MAX_STEPS = 3000
-# Amendment 23. Section 11.3's per-cell allotment at L >= 14, borrowed for the reason
-# Amendment 22 borrowed the 300 s figure: a limit taken from the measurement it judges
+# revision 23. Section 11.3's per-cell allotment at L >= 14, borrowed for the reason
+# revision 22 borrowed the 300 s figure: a limit taken from the measurement it judges
 # would be circular, and this one was fixed earlier and for another purpose.
 CELL_BUDGET_SECONDS = 900.0
 
@@ -84,7 +84,7 @@ def families(n_sites: int):
 
 
 def threshold_for(label: dict, fitness: np.ndarray, n_sites: int) -> float:
-    """mu_c per instance, as section 11.1 and Amendment 12's addendum define it."""
+    """mu_c per instance, as section 11.1 and revision 12's addendum define it."""
     if label["family"] == "single_peak":
         return 1.0 / n_sites
     return float((fitness.max() - fitness.mean()) / n_sites)
@@ -93,7 +93,7 @@ def threshold_for(label: dict, fitness: np.ndarray, n_sites: int) -> float:
 def budget_for(n_sites: int) -> float | None:
     """Wall clock a single cell may spend climbing the ladder, or None for no limit.
 
-    Registered in Amendment 23 and borrowed rather than chosen: 900 s is what section 11.3
+    Registered in revision 23 and borrowed rather than chosen: 900 s is what section 11.3
     allots a method per cell at `L >= 14`, fixed long before any of this was measured and for
     an unrelated purpose, so it cannot have been fitted to the answer it now judges.
 
@@ -323,7 +323,7 @@ def run() -> tuple[bool, dict, list[dict]]:
                     where = {**label, "L": n_sites, "mu_over_mu_c": ratio}
                     # A cell stopped by the clock has not failed to converge; nothing was
                     # established about it either way. Counting it as a failure would let a
-                    # budget manufacture a physics result. Amendment 23.
+                    # budget manufacture a physics result. revision 23.
                     if case.get("budget_limited"):
                         where["largest_chi_attempted"] = case.get("largest_chi_attempted")
                         where["best_cosine"] = case.get("cosine")
@@ -374,7 +374,7 @@ def run() -> tuple[bool, dict, list[dict]]:
     # Criterion 1 asks whether the method converges where it is given the chance. A cell the
     # clock stopped was not given the chance, so it is reported separately rather than scored
     # as a failure, and criterion 2's map is complete when every cell either has a chi or has
-    # a stated reason it does not. Amendment 23.
+    # a stated reason it does not. revision 23.
     criterion_1 = bool(not unreached)
     criterion_2 = bool(len(reached) + len(budget_limited) == len(cases) and cases)
     criterion_4 = truncation_gaps == 0
@@ -405,7 +405,7 @@ def run() -> tuple[bool, dict, list[dict]]:
                 "The ladder ran out of wall clock before it ran out of chi. Nothing is "
                 "established about whether the tensor network can hold this state: the "
                 "largest chi attempted and the best cosine seen are recorded so the cell "
-                "can be finished later without redoing the rest. Amendment 23."
+                "can be finished later without redoing the rest. revision 23."
             ),
         },
         "criterion_2_bond_dimension_map": {
@@ -439,7 +439,7 @@ def main() -> int:
             f"diagonalisation at sufficient chi, L = {SIZES}",
             "criterion_2": "bond dimension needed, mapped across family, K, mu and L",
             "criterion_4": "truncation error recorded at every step",
-            "registered_in": "GATES.md section 10, sweep in Amendment 19",
+            "registered_in": "GATES.md section 10, sweep in revision 19",
         },
         measured=measured,
         passed=passed,

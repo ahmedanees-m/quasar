@@ -5,7 +5,7 @@ filtering for a Hermitian stoquastic operator, not the nonreversible-Markov-chai
 construction execution plan v4 originally cited. ADR-0010 records that the G-2 thresholds do
 not depend on that choice.
 
-Criteria, registered in `GATES.md` section 6 with configurations in Amendment 13:
+Criteria, registered in `GATES.md` section 6 with configurations in revision 13:
 
 1. Route B reproduces the analytic quasispecies at cosine >= 0.95 for L = 2..6.
 2. The block encoding satisfies its defining property to 1e-10.
@@ -45,7 +45,7 @@ from quasarstack.qsvt.filter import (
 )
 from quasarstack.qsvt.qubitisation import verify_chebyshev
 
-# Registered in GATES.md section 6 and Amendment 13.
+# Registered in GATES.md section 6 and revision 13.
 COSINE_THRESHOLD = 0.95
 BLOCK_ENCODING_TOLERANCE = 1e-10
 DEGREE_AGREEMENT_FACTOR = 2.0
@@ -56,7 +56,7 @@ PEAK_HEIGHTS = [1.0, 2.5]
 EPISTASIS_B = [0.1]
 CHEBYSHEV_DEGREES = [0, 1, 2, 3, 5, 8]
 UNITARITY_CHECK_UP_TO_QUBITS = 11
-# Registered in Amendment 17. Verification costs 2**n statevector simulations of an
+# Registered in revision 17. Verification costs 2**n statevector simulations of an
 # (m + n)-qubit circuit and the cliff is steep: measured at 15 s for 9 qubits, 129 s for
 # 11, and past twenty minutes at 13, which is what stalled the first G-2 run.
 VERIFICATION_QUBIT_BUDGET = 12
@@ -257,13 +257,13 @@ def main() -> int:
             "criterion_2": f"block encoding defining property to {BLOCK_ENCODING_TOLERANCE}",
             "criterion_3": f"derived degree within a factor of {DEGREE_AGREEMENT_FACTOR} of "
             f"the empirically sufficient degree",
-            "registered_in": "GATES.md section 6, configurations in Amendment 13",
+            "registered_in": "GATES.md section 6, configurations in revision 13",
         },
         measured=measured,
         passed=passed,
         cases=cases,
         notes=ASSUMPTION
-        + " Amendment 13 discloses that the first derivation of the degree omitted the "
+        + " revision 13 discloses that the first derivation of the degree omitted the "
         "initial-overlap term and overshot by factors of 3.3 to 7.2; the corrected form is "
         "the standard two-factor eigenstate-filtering cost and contains no fitted constant. "
         "The degree is linear in alpha over the gap, not square root: Chebyshev acceleration "

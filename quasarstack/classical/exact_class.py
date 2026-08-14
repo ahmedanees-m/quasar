@@ -14,19 +14,26 @@ needs in order to mark its cells before it runs rather than after.
 - **Permutation symmetric.** `f` depending on Hamming weight alone reduces the problem to an
   `(L+1)`-dimensional tridiagonal eigenproblem. Cost `O(L)` after the reduction.
 
-A note on attribution, which matters here
-------------------------------------------
+Attribution, settled 2026-08-14
+-------------------------------
 
-Execution plan v4 calls this baseline "Dixit-Srivastava-Vishnoi", after `PRIOR_ART.md` entry
-II.1. **That entry is still flagged `to-verify`**, and the project's own rule is that nothing
-may be cited while flagged. So this module does not claim that the class it implements is
-their class. It implements the class this project can derive and check, and whether the two
-coincide is an open prior-art question that must be settled by reading arXiv:1203.1287 before
-the name appears in the manuscript.
+Execution plan v4 called this baseline "Dixit-Srivastava-Vishnoi". **That label is wrong**, and
+arXiv:1203.1287 says so itself. Read in full, it attributes the `(L+1)`-dimensional reduction
+for class-invariant landscapes to Swetina and Schuster (1982): *"In the case of class-invariant
+fitness landscapes, it is known [SS82] that one only needs to find the leading eigenvector of an
+(L + 1) x (L + 1) matrix."* Their own algorithm, Theorem 3.3, solves a different problem, the
+steady state of a **finite-population** chain, in `O(N^O(L^2))` time, which is not polynomial in
+L and is not what this module computes.
 
-The distinction is not pedantry. If their class is strictly larger, WP7 has classical cells
-it currently believes are hard, and the boundary map would be wrong in the direction that
-flatters the quantum method.
+So the permutation-symmetric branch below is **Swetina-Schuster**, `PRIOR_ART.md` II.1a.
+
+The question the earlier note left open was whether their efficient class is larger than this
+one, because if it were, WP7 would hold cells it believes are classically hard which are not.
+It is not larger, it is a strict subset. Their class invariance means `a_sigma` depends only on
+Hamming weight; the additive branch here handles distinct per-site coefficients, where fitness
+depends on *which* sites carry mutations rather than only how many, and that is outside class
+invariance. The boundary map therefore marks more cells classically easy than that paper alone
+would justify, so any residual error runs against the quantum method rather than in its favour.
 """
 
 from __future__ import annotations
