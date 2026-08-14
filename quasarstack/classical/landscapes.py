@@ -388,7 +388,7 @@ def spin_glass_fitness(
     spread = float(total.std())
     if spread == 0.0:
         return total
-    return amplitude * (total - total.mean()) / spread
+    return np.asarray(amplitude * (total - total.mean()) / spread, dtype=np.float64)
 
 
 def house_of_cards_fitness(n_sites: int, seed: int, amplitude: float = 1.0) -> NDArray[np.float64]:
@@ -402,7 +402,7 @@ def house_of_cards_fitness(n_sites: int, seed: int, amplitude: float = 1.0) -> N
     _check_sites(n_sites)
     rng = np.random.default_rng(seed)
     draws = rng.normal(size=1 << n_sites)
-    return amplitude * (draws - draws.mean()) / float(draws.std())
+    return np.asarray(amplitude * (draws - draws.mean()) / float(draws.std()), dtype=np.float64)
 
 
 def rough_mount_fuji_fitness(
@@ -476,4 +476,4 @@ def block_fitness(
     spread = float(total.std())
     if spread == 0.0:
         return total
-    return amplitude * (total - total.mean()) / spread
+    return np.asarray(amplitude * (total - total.mean()) / spread, dtype=np.float64)

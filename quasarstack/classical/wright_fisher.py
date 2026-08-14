@@ -59,6 +59,8 @@ the un-scaled behaviour is available for anyone who wants to see the trade-off d
 
 from __future__ import annotations
 
+from typing import cast
+
 import numpy as np
 from numpy.typing import NDArray
 
@@ -230,7 +232,7 @@ def sample_stationary(
     return {
         "distribution": pooled,
         "n_seeds": len(seeds),
-        "max_burn_in_drift": max(float(r["burn_in_drift"]) for r in runs),
+        "max_burn_in_drift": max(float(cast(float, r["burn_in_drift"])) for r in runs),
         "mean_pairwise_tv_between_seeds": float(np.mean(pairwise)) if pairwise else 0.0,
         "max_pairwise_tv_between_seeds": float(np.max(pairwise)) if pairwise else 0.0,
         "population": population,
@@ -275,8 +277,10 @@ def time_step_bias(
                 "generations": scaled_generations,
                 "population": scaled_population,
                 "total_variation": 0.5 * float(np.abs(distribution - reference).sum()),
-                "max_burn_in_drift": float(result["max_burn_in_drift"]),
-                "max_pairwise_tv_between_seeds": float(result["max_pairwise_tv_between_seeds"]),
+                "max_burn_in_drift": float(cast(float, result["max_burn_in_drift"])),
+                "max_pairwise_tv_between_seeds": float(
+                    cast(float, result["max_pairwise_tv_between_seeds"])
+                ),
             }
         )
     return rows

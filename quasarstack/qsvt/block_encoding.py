@@ -45,6 +45,7 @@ amplitudes with the ancillas in `|0>`, which costs `2^n` statevector simulations
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Any
 
 import numpy as np
 from numpy.typing import NDArray
@@ -121,7 +122,7 @@ def encoding_qubit_count(operator: SparsePauliOp) -> int:
     """
     coefficients = np.asarray(operator.simplify().coeffs).real
     n_terms = int(np.sum(np.abs(coefficients) > COEFFICIENT_TOLERANCE))
-    return operator.num_qubits + max(1, int(np.ceil(np.log2(max(n_terms, 1)))))
+    return int(operator.num_qubits) + max(1, int(np.ceil(np.log2(max(n_terms, 1)))))
 
 
 def lcu_block_encoding(operator: SparsePauliOp, symmetric: bool = False) -> BlockEncoding:
@@ -200,7 +201,9 @@ def lcu_block_encoding(operator: SparsePauliOp, symmetric: bool = False) -> Bloc
     )
 
 
-def _controlled_pauli(pauli, index: int, n_ancilla: int, n_system: int, sign: float = 1.0):
+def _controlled_pauli(
+    pauli: Any, index: int, n_ancilla: int, n_system: int, sign: float = 1.0
+) -> QuantumCircuit | None:
     """``|index><index|`` on the ancillas, tensor ``sign * Pauli`` on the system.
 
     A positive-signed identity term needs no gate at all, which is worth skipping rather

@@ -229,7 +229,9 @@ def symmetric_sector_holds_lambda2(
     }
 
 
-def _sturm_count_below(diagonal: list, offdiagonal_squared: list, x, tiny) -> int:
+def _sturm_count_below(
+    diagonal: list[Any], offdiagonal_squared: list[Any], x: Any, tiny: Any
+) -> int:
     """Number of eigenvalues strictly below ``x``, by the Sturm sequence.
 
     For a symmetric tridiagonal the sequence ``d_1 = a_1 - x``,
@@ -251,7 +253,7 @@ def _sturm_count_below(diagonal: list, offdiagonal_squared: list, x, tiny) -> in
     return count
 
 
-def class_gap_extended(f_by_class, mu, dps: int = 60):
+def class_gap_extended(f_by_class: Any, mu: Any, dps: int = 60) -> Any:
     """Gap within the symmetric sector at ``dps`` decimal digits, by Sturm bisection.
 
     Returns a ``decimal.Decimal``. Use where float64 cannot be trusted: near the error
@@ -305,10 +307,10 @@ def class_gap_extended(f_by_class, mu, dps: int = 60):
 
 
 def locate_gap_minimum(
-    f_by_class_of,
+    f_by_class_of: Any,
     n_sites: int,
-    mu_low,
-    mu_high,
+    mu_low: Any,
+    mu_high: Any,
     dps: int = 60,
     iterations: int = 220,
 ) -> dict[str, Any]:

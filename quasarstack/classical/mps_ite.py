@@ -65,7 +65,8 @@ def _transverse_matrix(mu: float, dtau: float) -> NDArray[np.float64]:
     """
     theta = mu * dtau
     decay = np.exp(-theta)
-    return decay * np.array([[np.cosh(theta), np.sinh(theta)], [np.sinh(theta), np.cosh(theta)]])
+    kernel = np.array([[np.cosh(theta), np.sinh(theta)], [np.sinh(theta), np.cosh(theta)]])
+    return np.asarray(decay * kernel, dtype=np.float64)
 
 
 def step_operator_bond_dimension(

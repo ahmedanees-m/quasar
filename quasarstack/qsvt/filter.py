@@ -110,13 +110,13 @@ def apply_chebyshev_series(
     """
     previous = np.asarray(vector, dtype=np.complex128)
     if coefficients.size == 1:
-        return coefficients[0] * previous
+        return np.asarray(coefficients[0] * previous, dtype=np.complex128)
     current = matrix @ previous
     total = coefficients[0] * previous + coefficients[1] * current
     for order in range(2, coefficients.size):
         previous, current = current, 2.0 * (matrix @ current) - previous
         total = total + coefficients[order] * current
-    return total
+    return np.asarray(total, dtype=np.complex128)
 
 
 def predicted_degree(gap: float, alpha: float, overlap: float, epsilon: float = 0.0975) -> float:
@@ -183,7 +183,7 @@ def filtered_state(
             "the filter annihilated the initial state; the cut is on the wrong side of the "
             "spectrum or the degree is far too low"
         )
-    return result / norm
+    return np.asarray(result / norm, dtype=np.complex128)
 
 
 def smallest_sufficient_degree(

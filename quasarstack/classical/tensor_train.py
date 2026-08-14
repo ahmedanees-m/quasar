@@ -115,7 +115,8 @@ def _svd(matrix: NDArray[np.float64]) -> tuple[NDArray, NDArray, NDArray]:
     except np.linalg.LinAlgError:
         from scipy.linalg import svd as scipy_svd
 
-        return scipy_svd(matrix, full_matrices=False, lapack_driver="gesvd")
+        left, singular, right = scipy_svd(matrix, full_matrices=False, lapack_driver="gesvd")
+        return np.asarray(left), np.asarray(singular), np.asarray(right)
 
 
 def _rank_to_keep(singular: NDArray[np.float64], max_bond: int | None, tolerance: float) -> int:
