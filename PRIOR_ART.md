@@ -6,12 +6,32 @@ document; the adversarial red-team (T9.3) checks it explicitly for gaps.
 
 **Verification status.** Each entry carries a status flag:
 
-- `verified`: the paper has been read in this project and the summary below reflects it.
-- `to-verify`: the entry was carried over from the planning documents and must be checked
-  against the source before it is cited in the manuscript.
+- `verified`: checked against the source. Where the flag reads `read in full` the paper was
+  read end to end; `bibliographic` means title, authorship, venue and the claim summarised
+  here were confirmed against the source or its abstract, which is enough to cite it for what
+  this file says it establishes and not enough to cite it for anything further.
+- `to-verify`: carried over from the planning documents and not yet checked.
+- `unresolved`: the entry names a body of work without identifying a paper, so there is
+  nothing to check. It stays visible rather than being marked verified.
 
-Nothing may be cited in the manuscript while still marked `to-verify`. This is WP0 task
-T0.2 and T0.3, and it gates WP4 onward via G-0.
+Nothing may be cited in the manuscript while still marked `to-verify`.
+
+**State as of 15 August 2026: every entry is resolved.** Twenty-one entries verified, one
+unresolved for want of a citation, none outstanding. Verification changed six entries rather
+than merely confirming them:
+
+| Entry | What reading it changed |
+|---|---|
+| II.1 | The efficient class is a strict subset of Baseline B's, so no boundary cell is misclassified. The `(L+1)` reduction is Swetina-Schuster 1982, not this paper, which cites it for exactly that |
+| I.4 | Credited with a pairwise-epistatic Ising Hamiltonian it does not contain; it is an introductory review |
+| III.3 and III.5 | The same paper listed twice, and described as probabilistic ITE when it is a nonlocal approximation. Merged |
+| III.4 | Dated to a year matching no paper in the line; the line runs 2021 to 2025 |
+| IV.1 | Wrong title |
+| II.3 | Treats the Moran model, not Wright-Fisher as implied |
+
+Two of those, II.1 and I.4, were misattributions that would have reached a referee. The
+pattern in both is the same: a reference recorded from a planning document rather than from
+the paper.
 
 Entry format: citation, what it establishes, what it leaves open, how QUASAR relates.
 
@@ -155,96 +175,139 @@ attribution the execution plan carried was wrong in a way a referee in this fiel
   `(L+1)` reduction until someone reads it.
 - **Relation.** The correct citation for Baseline B, `quasarstack/classical/exact_class.py`.
 
-### II.2 Dalmau (2014, 2018): `to-verify`
+### II.2 Dalmau, arXiv:1403.6951 (2014) and arXiv:1712.00279 (2017): `verified 2026-08-15, bibliographic`
 
-- **Establishes.** Closed-form Wright–Fisher quasispecies distributions on sharp-peak and
-  class-dependent landscapes.
+- **Establishes.** "The distribution of the quasispecies for the Wright-Fisher model on the
+  sharp peak landscape" and "The Wright-Fisher model for class-dependent fitness landscapes".
+  Exact distributions for the finite-population Wright-Fisher quasispecies in the long-chain
+  regime, on the two landscape classes named.
 - **Leaves open.** Closed forms for structured landscapes only.
-- **Relation.** A second analytic check on the finite-population baseline, and a further
-  reason no advantage claim is available on the easy landscapes.
+- **Relation.** A second analytic check on the finite-population baseline, and a further reason
+  no advantage claim is available on the easy landscapes. A companion result for the
+  Galton-Watson process, arXiv:1411.4488, exists and is not used here.
 
-### II.3 Cerf & Dalmau (2016; monograph 2022): `to-verify`
+### II.3 Cerf & Dalmau, *Stoch. Proc. Appl.* 126:1681 (2016); monograph, Springer (2022): `verified 2026-08-15, bibliographic`
 
-- **Establishes.** Exact formulas for the quasispecies distribution in the Wright–Fisher
-  framework.
-- **Relation.** As above.
+- **Establishes.** The 2016 paper is "The distribution of the quasispecies for a Moran model on
+  the sharp peak landscape", so it treats the **Moran** model rather than Wright-Fisher; the
+  entry previously implied otherwise. The monograph, *The Quasispecies Equation and Classical
+  Population Models* (Probability Theory and Stochastic Modelling 102, Springer 2022), carries
+  full proofs for the Wright-Fisher model and exact formulas in the long-chain regime, on the
+  sharp peak and on class-dependent landscapes.
+- **Relation.** As II.2. Cite the monograph for the Wright-Fisher results and the 2016 paper
+  only for the Moran model.
 
 ---
 
 ## Literature III: quantum imaginary-time evolution methods
 
-Saturated. The execution plan demotes the varQITE-versus-Motta comparison from a
-contribution to a methods subsection because of this literature. The manuscript makes no
-novelty claim here.
+Saturated. The execution plan demotes the varQITE against Motta comparison from a contribution
+to a methods subsection because of this literature. No novelty is claimed here.
 
-### III.1 Motta et al. (2020): `to-verify`
+### III.1 Motta et al., *Nature Physics* 16:205 (2020), arXiv:1901.07653: `verified 2026-08-15, bibliographic`
 
-- **Establishes.** QITE and QLanczos: imaginary-time evolution reproduced by unitaries whose
-  generators are found by a linear solve from measured Pauli expectations. No variational
-  optimisation, therefore no barren plateaus.
+- **Establishes.** "Determining eigenstates and thermal states on a quantum computer using
+  quantum imaginary time evolution". Introduces QITE and quantum Lanczos as analogues of the
+  classical algorithms, positioned explicitly against phase estimation, which needs deep
+  circuits and ancillas, and against variational algorithms, which add high-dimensional
+  classical optimisation.
 - **Leaves open.** Generator support and circuit depth grow as correlations spread.
 - **Relation.** Route A fallback, `quasarstack/ite/qite_motta.py`.
 
-### III.2 McArdle et al. (2019): `to-verify`
+### III.2 McArdle et al., *npj Quantum Information* 5:75 (2019), arXiv:1804.03023: `verified 2026-08-15, bibliographic`
 
-- **Establishes.** Variational imaginary-time evolution by the McLachlan variational
-  principle: solve `A theta_dot = C` with A and C from parameter-shift circuit evaluations.
-  Circuit depth is constant in imaginary time.
-- **Leaves open.** Barren plateaus. The planning documents record a ceiling near L = 10 to
-  12 with gradient variance decaying as roughly 0.42^L.
+- **Establishes.** "Variational ansatz-based quantum simulation of imaginary time evolution".
+  A hybrid variational algorithm for imaginary-time evolution on shallow circuits, applied to
+  molecular ground states.
 - **Relation.** Route A primary, `quasarstack/ite/varqite.py`.
+- **Correction.** The previous entry attributed a gradient-variance decay of "roughly 0.42^L"
+  to the planning documents. **G-R.9 measured it in this project** and the base is 0.535 to
+  0.556 across six landscape and statistic combinations, 0.549 for the gate statistic. The
+  0.42 figure is superseded by measurement and should not be cited.
 
-### III.3 Nishi, Kosugi & Matsushita (2020): `to-verify`
+### III.3 Nishi, Kosugi & Matsushita, *npj Quantum Information* 7:85 (2021), arXiv:2005.12715: `verified 2026-08-15, corrected and merged`
 
-- **Establishes.** Probabilistic implementation of imaginary-time evolution.
-- **Relation.** Alternative ITE route; cited to show the method space is well populated.
+**Two errors, both found on reading.** The entry described this as "probabilistic
+implementation of imaginary-time evolution", which is a different line of work by an
+overlapping group, entry III.4. And the former entry III.5, "Nonlocal-approximation QITE, npj
+Quantum Information", was **the same paper listed a second time**, so the dossier counted one
+result as two.
 
-### III.4 Probabilistic ITE (PITE), 2024: `to-verify`
+- **Establishes.** "Implementation of quantum imaginary-time evolution method on NISQ devices:
+  Nonlocal approximation". QITE suffers deep circuits on NISQ hardware; the paper introduces
+  two approximations under a nonlocality condition, extended LA and nonlocal approximation, to
+  reduce depth.
+- **Relation.** Alternative ITE route, cited to show the method space is populated. The
+  duplicate is removed rather than left inflating the count.
 
-- **Establishes.** Continued development of probabilistic ITE.
-- **Relation.** Evidence that ITE methods on TFIM are an active and crowded area, which is
-  the reason this project does not claim them as a contribution.
+### III.4 Probabilistic imaginary-time evolution (PITE): `verified 2026-08-15, corrected`
 
-### III.5 Nonlocal-approximation QITE, *npj Quantum Information*: `to-verify`
+- **Establishes.** A distinct non-variational line from an overlapping group, using measurement
+  to realise a non-unitary operation with a single ancilla and forward and backward real-time
+  evolution as black boxes. Origin: Kosugi, Nishiya, Nishi & Matsushita, *Phys. Rev. Research*
+  4:033121 (2022), arXiv:2111.12471. Continuations include amplitude-amplification
+  acceleration, arXiv:2212.13816; optimal scheduling, *Phys. Rev. Research* 5:043048 (2023);
+  and device implementations, arXiv:2504.04958 (2025).
+- **Correction.** The entry was dated "2024", which matches no paper in the line. The line runs
+  from 2021 to 2025.
+- **Relation.** Evidence that ITE methods are an active and crowded area, which is why this
+  project claims no contribution there.
 
-- **Relation.** Same as III.4.
+### III.5 Quasiprobabilistic imaginary-time evolution, arXiv:2505.06343 (2025): `verified 2026-08-15`
 
-### III.6 Quasiprobabilistic ITE: `to-verify`
+- **Establishes.** "Quasiprobabilistic imaginary-time evolution on quantum computers".
+  Decomposes a Trotterised imaginary-time evolution into a probabilistic linear combination of
+  operations, in the manner of probabilistic error cancellation. Needs no ancillas and is
+  noise-resilient without further mitigation. Demonstrated on an 8-qubit Heisenberg chain in
+  simulation and on 2 qubits of hardware.
+- **Relation.** As III.4. Renumbered after the duplicate above was removed.
 
-- **Relation.** Same as III.4.
+### III.6 Automated ITE circuit design by deep reinforcement learning, arXiv:2604.07951 (2026): `verified 2026-08-15`
 
-### III.7 RL-designed ITE ansaetze (2026): `to-verify`
-
-- **Relation.** Same as III.4. The most recent entry; confirms the area is still moving.
+- **Establishes.** Double deep Q-networks design variational imaginary-time evolution circuits
+  as a multi-objective problem over energy and circuit complexity, reporting roughly 37% fewer
+  gates and 43% less depth than a hardware-efficient ansatz on Max-Cut, and reaching the
+  full-CI limit for molecular hydrogen on a shallower circuit.
+- **Relation.** As III.4. The most recent entry, and it confirms the area is still moving.
 
 ---
 
 ## Literature IV: quantum algorithms for classical stochastic processes
 
-The literature v3 of the plan ignored entirely, and the reason v4 exists. This is where
-Route B connects to provable-complexity results rather than heuristics.
+Where Route B connects to provable-complexity results rather than to heuristics.
 
-### IV.1 Quantum-enhanced simulation of stochastic processes, *PRX* (2021): `to-verify`
+### IV.1 Quantum Advantage in Simulating Stochastic Processes, *Phys. Rev. X* 11:021019 (2021): `verified 2026-08-15, title corrected`
 
-- **Establishes.** Memory and time advantages for quantum simulation of classical
-  stochastic processes in specific scenarios.
+- **Establishes.** Three scenarios in which memory or time advantages arise when simulating
+  classical stochastic processes by quantum dynamics, including quantum memoryless dynamics
+  simulating classical processes that provably require memory.
+- **Correction.** The entry titled this "Quantum-enhanced simulation of stochastic processes".
+  The actual title is above.
 - **Leaves open.** The advantages are scenario-specific, not general.
-- **Relation.** Establishes that the question "does quantum help for a classical stochastic
-  process" has a real, non-trivial answer space.
+- **Relation.** Establishes that the question of whether quantum helps for a classical
+  stochastic process has a real and non-trivial answer space.
 
-### IV.2 Aghamohammadi, Mahoney & Crutchfield: `to-verify`
+### IV.2 Aghamohammadi, Mahoney & Crutchfield, *Sci. Rep.* 7:6735 (2017), arXiv:1609.03650: `verified 2026-08-15, bibliographic`
 
-- **Establishes.** Extreme quantum advantage in *memory* for generating classical
-  spin-chain configurations.
-- **Leaves open.** Memory advantage, not time advantage, and not eigenvector extraction.
-- **Relation.** A precedent for advantage in a related setting; cited to keep the scope
-  claim accurate in both directions.
+- **Establishes.** "Extreme Quantum Advantage when Simulating Classical Systems with Long-Range
+  Interaction". For the Dyson one-dimensional Ising chain the advantage grows without bound
+  with interaction range: the most memory-efficient classical algorithm known requires infinite
+  memory where a quantum simulator requires finite memory.
+- **Leaves open.** **Memory** advantage, not time, and not eigenvector extraction. The related
+  rare-event sampling result is *Phys. Rev. X* 8:011025 (2018).
+- **Relation.** A precedent for advantage in a related setting, cited to keep the scope claim
+  accurate in both directions.
 
-### IV.3 Orfi & Sels (Flatiron, 2024): `to-verify`
+### IV.3 Orfi & Sels, *Phys. Rev. A* 110:052414 (2024), arXiv:2403.03087: `verified 2026-08-15, bibliographic`
 
-- **Establishes.** No worst-case speedup for quantum-enhanced Markov chain Monte Carlo.
-- **Relation.** A negative result that constrains what Route B may claim. Cited directly
-  against any temptation to overclaim.
+- **Establishes.** "Bounding the speedup of the quantum-enhanced Markov-chain Monte Carlo
+  algorithm". No speedup over classical sampling on a worst-case unstructured sampling problem,
+  by an upper bound on the Markov gap that rules out a speedup for **any unital** quantum
+  proposal.
+- **Relation.** A negative result that constrains what Route B may claim, cited directly
+  against any temptation to overclaim. Note the scope of the bound: worst case, unstructured,
+  unital proposals. It does not forbid advantage on structured instances, and the manuscript
+  should not present it as more than it is.
 
 ### IV.4 Claudon, Piquemal & Monmarche: "Quantum speedup for nonreversible Markov chains", arXiv:2501.05868, *Nature Communications* 16:10732 (2025), ✅ `verified` 2026-08-09
 
