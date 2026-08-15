@@ -9,7 +9,7 @@ quantum-classical boundary.
 [![licence](https://img.shields.io/badge/licence-Apache%202.0-blue.svg)](LICENSE)
 [![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![gates](https://img.shields.io/badge/gates-16%20recorded-brightgreen.svg)](CLAIMS.md)
-[![provenance](https://img.shields.io/badge/provenance-21%2F21-brightgreen.svg)](scripts/check_results_provenance.py)
+[![provenance](https://img.shields.io/badge/provenance-22%2F22-brightgreen.svg)](scripts/check_results_provenance.py)
 
 ## Overview
 

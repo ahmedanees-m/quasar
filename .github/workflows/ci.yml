@@ -14,7 +14,12 @@ jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
+      # Full history, because the provenance check resolves the commit each record names.
+      # The default shallow clone holds one commit, so every record would appear to name a
+      # commit that does not exist and the job would fail for a reason unrelated to evidence.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:

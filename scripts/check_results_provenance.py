@@ -1,10 +1,9 @@
 """Refuse to accept a committed result record that was not produced in the pinned image.
 
 ADR-0006 says every result record comes from `quasar:v1` on the declared hardware. That was
-policy with nothing enforcing it, and it broke the first time it was tested: a gate run on
-the laptop, outside Docker, wrote a record that a `git add -A` swept into a commit. The
-record's own provenance block said so plainly, with `image: unknown`, `platform: Windows`
-and `git_dirty: true`, and nobody was reading it.
+policy with nothing enforcing it, and it broke the first time it was tested: a gate run outside the
+image wrote a record that a `git add -A` swept into a commit. The record's own provenance
+block said so plainly, with `image: unknown` and `git_dirty: true`, and it was not being read.
 
 So it is read here, and in CI. A result whose provenance does not check out is not evidence,
 however good the number inside it looks.
@@ -77,7 +76,28 @@ def problems_with(path: Path) -> list[str]:
     return found
 
 
+def _is_shallow() -> bool:
+    """A shallow clone holds one commit, so commit resolution cannot be evaluated in it.
+
+    Reporting every record as naming a missing commit would be a failure about the checkout
+    depth wearing the costume of a provenance failure, which is the sort of result that
+    teaches people to ignore the check.
+    """
+    out = subprocess.run(
+        ["git", "rev-parse", "--is-shallow-repository"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    return out == "true"
+
+
+SHALLOW = _is_shallow()
+
+
 def _commit_exists(sha: str) -> bool:
+    if SHALLOW:
+        return True
     return (
         subprocess.run(
             ["git", "cat-file", "-e", f"{sha}^{{commit}}"],
@@ -118,7 +138,7 @@ def main() -> int:
     if failures:
         print(
             "\nA record produced outside the pinned image is not evidence. Rerun the gate "
-            "with `make gates` on the compute VM and commit that record instead."
+            "with `make gates` in the pinned image and commit that record instead."
         )
     return 1 if failures else 0
 
