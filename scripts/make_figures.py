@@ -460,6 +460,7 @@ FIGURES_TO_BUILD: dict[str, Callable[[], tuple[str, str]]] = {
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--supplementary", action="store_true", help="build the supplementary set")
     parser.add_argument("--list", action="store_true")
     arguments = parser.parse_args()
 
@@ -470,7 +471,10 @@ def main() -> int:
 
     FIGURES.mkdir(exist_ok=True)
     drawn, skipped = 0, 0
-    for name, builder in FIGURES_TO_BUILD.items():
+    targets = dict(FIGURES_TO_BUILD)
+    if arguments.supplementary:
+        targets = dict(SUPPLEMENTARY)
+    for name, builder in targets.items():
         try:
             status, detail = builder()
         except Exception as error:  # one broken figure must not hide the others
@@ -491,6 +495,136 @@ def main() -> int:
             "produces each one, then re-run this."
         )
     return 0
+
+
+# --- Supplementary figures -------------------------------------------------------------
+# Built by the same rule as the main set: from committed records only, never from a live
+# computation, so a supplementary panel and the number in the text share one source.
+
+
+def figure_s1_gap_conditioning() -> tuple[str, str]:
+    """S1: the spectral gap at the threshold, and the conditioning that follows from it."""
+    record = load("wp1/g_1.json")
+    if record is None:
+        return "skipped", "results/wp1/g_1.json is not present"
+    closing = record["measured"]["gap_map"]["gap_closing_at_threshold"]
+    sizes = [row["L"] for row in closing]
+
+    figure, axes = plt.subplots(1, 2, figsize=(9.5, 4.0))
+    axes[0].semilogy(sizes, [row["min_gap"] for row in closing], "o-", label="arbitrary precision")
+    axes[0].semilogy(
+        sizes,
+        [row["min_gap_off_the_fine_grid"] for row in closing],
+        "s--",
+        alpha=0.7,
+        label="fine grid",
+    )
+    axes[0].set_xlabel("system size $L$")
+    axes[0].set_ylabel("minimum gap at the threshold")
+    axes[0].set_title("Gap closing")
+    axes[0].legend(frameon=False)
+    axes[0].grid(alpha=0.3)
+
+    axes[1].semilogy(
+        sizes, [row["worst_eigenvector_condition"] for row in closing], "o-", color="crimson"
+    )
+    axes[1].set_xlabel("system size $L$")
+    axes[1].set_ylabel("worst eigenvector condition number")
+    axes[1].set_title("Conditioning grows as the gap closes")
+    axes[1].grid(alpha=0.3)
+    return "drawn", _finish(figure, axes, "S1_gap_and_conditioning.png")
+
+
+def figure_s2_barren_plateau() -> tuple[str, str]:
+    """S2: gradient-variance decay for the variational route, every measured combination."""
+    record = load("wp_r/g_r_9.json")
+    if record is None:
+        return "skipped", "results/wp_r/g_r_9.json is not present"
+    series = record["measured"]["variance_series"]
+    fits = record["measured"]["all_fits"]
+
+    figure, axes = plt.subplots(figsize=(6.4, 4.2))
+    for landscape, statistics in series.items():
+        for statistic, values in statistics.items():
+            key = f"{landscape}_{statistic}"
+            axes.semilogy(
+                list(range(2, 2 + len(values))),
+                values,
+                "o-",
+                alpha=0.8,
+                label=f"{key} (base {fits[key]['base']:.3f})",
+            )
+    axes.set_xlabel("system size $L$")
+    axes.set_ylabel("variance of the McLachlan force")
+    axes.set_title("Gradient variance decays exponentially in every combination measured")
+    axes.legend(frameon=False, fontsize=7)
+    axes.grid(alpha=0.3)
+    return "drawn", _finish(figure, axes, "S2_barren_plateau.png")
+
+
+def figure_s3_symmetry_breaking() -> tuple[str, str]:
+    """S3: finite-population symmetry breaking, which puts spin glass at 2^(-1/2)."""
+    path = RESULTS / "wp7" / "sweep_registered.jsonl"
+    if not path.is_file():
+        return "skipped", "the classical sweep is not present"
+    rows = [
+        json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()
+    ]
+    key = "baseline_a_wright_fisher"
+    scores = [
+        (cell["family"], cell["methods"][key]["cosine"])
+        for cell in rows
+        if cell["methods"].get(key, {}).get("applicable") and "cosine" in cell["methods"][key]
+    ]
+    if not scores:
+        return "skipped", "no Wright-Fisher results in the sweep"
+
+    figure, axes = plt.subplots(figsize=(6.4, 4.2))
+    families = sorted({family for family, _ in scores})
+    for index, family in enumerate(families):
+        values = [value for name, value in scores if name == family]
+        axes.scatter([index] * len(values), values, s=12, alpha=0.55)
+    axes.axhline(2.0**-0.5, linestyle=":", color="black", label=r"$2^{-1/2}$, one branch of two")
+    axes.set_xticks(range(len(families)))
+    axes.set_xticklabels(families, rotation=30, ha="right", fontsize=8)
+    axes.set_ylabel("cosine similarity against the exact distribution")
+    axes.set_title("Finite-population sampling settles into one branch of a symmetric pair")
+    axes.legend(frameon=False)
+    axes.grid(alpha=0.3, axis="y")
+    return "drawn", _finish(figure, axes, "S3_symmetry_breaking.png")
+
+
+def figure_s4_state_bond_dimension() -> tuple[str, str]:
+    """S4: the bond dimension the state actually needs, by family and size."""
+    record = load("wp6/g_6.json")
+    if record is None:
+        return "skipped", "results/wp6/g_6.json is not present"
+    cases = [c for c in record["cases"] if c.get("chi_needed") is not None]
+    families = sorted({c["family"] for c in cases})
+
+    figure, axes = plt.subplots(figsize=(7.0, 4.2))
+    for family in families:
+        sizes, needed = [], []
+        for size in sorted({c["L"] for c in cases if c["family"] == family}):
+            at = [c["chi_needed"] for c in cases if c["family"] == family and c["L"] == size]
+            sizes.append(size)
+            needed.append(max(at))
+        axes.plot(sizes, needed, "o-", alpha=0.85, label=family)
+    axes.set_yscale("log", base=2)
+    axes.set_xlabel("system size $L$")
+    axes.set_ylabel(r"largest $\chi$ needed for cosine $\geq 0.999$")
+    axes.set_title("State bond dimension required, by family")
+    axes.legend(frameon=False, fontsize=7)
+    axes.grid(alpha=0.3)
+    return "drawn", _finish(figure, axes, "S4_state_bond_dimension.png")
+
+
+SUPPLEMENTARY = {
+    "S1 gap and conditioning": figure_s1_gap_conditioning,
+    "S2 barren plateau": figure_s2_barren_plateau,
+    "S3 symmetry breaking": figure_s3_symmetry_breaking,
+    "S4 state bond dimension": figure_s4_state_bond_dimension,
+}
 
 
 if __name__ == "__main__":

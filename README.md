@@ -122,6 +122,8 @@ python scripts/compare_reproduction.py
 | `DECISIONS.md` | Architecture decision records |
 | `PRIOR_ART.md` | Prior-art dossier with verification status per entry |
 
+Archival tooling: `scripts/archive_hardware.py` deposits the raw processor measurements, `scripts/rescore_hardware.py` reconstructs the hardware result from them offline, `scripts/make_supplementary.py` generates every supplementary table from records, and `scripts/make_manifest.py` writes and verifies a SHA-256 manifest of a deposit.
+
 ## Gate summary
 
 | Work package | Subject | Status |
