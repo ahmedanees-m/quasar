@@ -238,8 +238,12 @@ def table_s9(out):
         [condition, count]
         for condition, count in measured["conditions_failed_by_group_count"].items()
     ]
-    rows.append(["groups scored", measured["groups_scored"]])
-    rows.append(["groups excluded", measured["groups_excluded"]])
+    # Both fields may be a count or the list itself depending on the scorer version, so the
+    # length is taken when it is a list. Writing the list into a cell produced a single table
+    # cell taller than the page, which is how this was noticed.
+    for label, key in (("groups scored", "groups_scored"), ("groups excluded", "groups_excluded")):
+        value = measured[key]
+        rows.append([label, len(value) if isinstance(value, list) else value])
     return write(
         out,
         "Supplementary_Table_S9_failing_conditions.csv",
