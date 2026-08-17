@@ -21,7 +21,7 @@ DOCKER  := docker run --rm -v "$(CURDIR)":/work -w /work -u $(UID):$(GID) \
              -e QUASAR_IMAGE=$(IMAGE) -e PYTHONPATH=/work \
              -e QUASAR_RESUME=$(QUASAR_RESUME) $(IMAGE)
 
-.PHONY: help setup test test-all gates figures claims lint format docker shell lock sweep disk sync-up sync-down
+.PHONY: help setup test test-all gates claims lint format docker shell lock sweep disk sync-up sync-down
 
 help:
 	@grep -E '^[a-z-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-12s %s\n", $$1, $$2}'
@@ -51,9 +51,6 @@ test-all:  ## everything including slow tests and gates, inside the image
 
 gates:  ## full reproduction: every pre-registered gate, inside the image
 	$(DOCKER) python scripts/run_all_gates.py
-
-figures:  ## regenerate every figure from committed results
-	$(DOCKER) python scripts/make_figures.py
 
 claims:  ## verify every CLAIMS.md entry resolves to an artefact
 	python scripts/check_claims.py

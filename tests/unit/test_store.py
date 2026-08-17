@@ -182,15 +182,11 @@ def test_every_results_writer_uses_the_shared_evidence_guard() -> None:
 
     Read-only consumers are listed explicitly rather than inferred. Guessing read from write
     by pattern-matching would either miss a writer or, as the first version of this test did,
-    flag `make_figures.py` for reading artefacts it never writes to.
+    flag a reader of artefacts it never writes to.
     """
     read_only = {
-        "make_figures.py",
         "check_claims.py",
         "check_results_provenance.py",
-        # Reads records and writes supplementary tables into the submission folder,
-        # never under results/.
-        "make_supplementary.py",
     }
     offenders = []
     for path in (store.REPO_ROOT / "scripts").glob("*.py"):

@@ -89,7 +89,6 @@ Every result is a committed artefact produced by a script that anyone can rerun.
 make setup      # install the pinned environment
 make test       # fast unit and regression suite
 make gates      # run every gate and write its artefact
-make figures    # regenerate every figure from committed artefacts
 make claims     # verify each claim resolves to an artefact
 ```
 
@@ -115,14 +114,13 @@ python scripts/compare_reproduction.py
 | `experiments/` | One gate script per acceptance criterion, each writing a JSON record |
 | `scripts/` | Sweep runner, scorers, figure generation, ledger and provenance checks |
 | `results/` | Committed result records |
-| `figures/` | Figures, regenerated from records only |
 | `tests/` | Unit, regression and gate tests |
 | `GATES.md` | Gate specification: statistics, thresholds, grids, seeds, budgets |
 | `CLAIMS.md` | Claim to artefact ledger |
 | `DECISIONS.md` | Architecture decision records |
 | `PRIOR_ART.md` | Prior-art dossier with verification status per entry |
 
-Archival tooling: `scripts/archive_hardware.py` deposits the raw processor measurements, `scripts/rescore_hardware.py` reconstructs the hardware result from them offline, `scripts/make_supplementary.py` generates every supplementary table from records, and `scripts/make_manifest.py` writes and verifies a SHA-256 manifest of a deposit.
+Archival tooling: `scripts/archive_hardware.py` deposits the raw processor measurements, `scripts/rescore_hardware.py` reconstructs the hardware result from them offline, and `scripts/make_manifest.py` writes and verifies a SHA-256 manifest of a deposit.
 
 ## Gate summary
 
