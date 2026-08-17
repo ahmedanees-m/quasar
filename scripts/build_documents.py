@@ -44,7 +44,10 @@ TITLE = (
     "Quantum simulation of mutation-selection dynamics reveals a structural "
     "obstruction to quantum advantage"
 )
-AUTHORS = "Anees Ahmed Mahaboob Ali, Delhibabu Radhakrishnan, " "Everette Jacob Remington Nelson"
+AUTHORS = (
+    "Anees Ahmed Mahaboob Ali, Everette Jacob Remington Nelson, "
+    "Radhakrishnan Delhibabu"
+)
 AFFILIATION = (
     "Gene Therapy Laboratory, School of Bio Sciences and Technology, and School of Computer "
     "Science and Engineering, Vellore Institute of Technology, Vellore 632014, Tamil Nadu, India"
