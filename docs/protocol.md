@@ -1,39 +1,36 @@
-# GATES.md: Gate specification
+# Protocol
 
-The acceptance criteria for every gate in the project, and the numerical conventions that bind
-all of them. Each gate names the statistic it judges, the threshold it applies, and the artefact
-it must write. The commit hash of this file at the time of a run is recorded in that run's
-result record.
+Thresholds, parameter grids, seeds and time allocations for every check in the project, and the
+numerical conventions they all depend on. Each check names the statistic it judges, the
+threshold it applies, and the record it writes. The hash of this file at the time of a run goes
+into that run's record.
 
-Sections 0 to 12 are the specification. The revisions that follow record criteria that were
-changed or added after a gate was first written, and are kept separate so the original
-statement and its replacement can both be read.
+Thresholds below were set before the corresponding runs. Sections 0 to 12 are the original
+statement; the revisions after them record what changed later, kept separate so both the
+original and its replacement can be read.
 
-Project: QUASAR, quantum algorithms for mutation–selection dynamics
-Execution plan: `QUASAR_FINAL_execution_plan_v4.md` (v4.0)
 Maintainer: Anees Ahmed Mahaboob Ali
 
 ---
 
 ## 0. Standing rules
 
-1. If a method fails a gate, the method is fixed or the failure is reported. A threshold is
-   not lowered to accommodate a result.
-2. Every gate is executable as a test under `tests/gates/` and writes a JSON record to
-   `results/`. A gate with no artefact has not passed.
-3. Every stochastic component takes an explicit seed. Seeds are listed here and recorded in
-   the result record.
-4. Reference validity is declared per cell. A cell whose reference is not trustworthy is
+1. A failing check is fixed, or the failure is reported. Thresholds don't move to accommodate
+   a result.
+2. Every check runs as a test under `tests/gates/` and writes a JSON record to `results/`.
+   No record, no pass.
+3. Every stochastic component takes an explicit seed, listed here and recorded in the result.
+4. Reference validity is declared per cell. A cell whose reference isn't trustworthy is
    excluded and reported as excluded, never scored against a weak reference.
 5. `numpy.random.default_rng(seed)` only. No legacy global RNG.
-6. float64 throughout. Tolerances are declared per gate here, never chosen at run time.
+6. float64 throughout. Tolerances are declared here, never chosen at run time.
 
 ---
 
-## 1. Numerical conventions (binding, project-wide)
+## 1. Numerical conventions
 
-These are not style choices. Each one corresponds to a class of silent, plausible-looking
-error, and two of them correspond to bugs this project has already been bitten by.
+Each of these corresponds to a class of silent, plausible-looking error, and two of them to
+bugs this project has already been bitten by.
 
 | Convention | Rule |
 |---|---|
@@ -47,32 +44,27 @@ error, and two of them correspond to bugs this project has already been bitten b
 
 ---
 
-## 2. Registration note on provenance (2026-08-09)
+## 2. Where the starting values came from (2026-08-09)
 
-An earlier implementation of Phases 1–3 was reported in the planning documents with
-specific measured values. **That implementation could not be located** in any available archive at the time this repository was
-created. No code and no result artefacts survive.
-
-Consequently the values reported in the planning documents are treated here as
-**specified targets to be re-hit by a fresh implementation**, not as inherited
-results. No number from those documents enters the manuscript unless a run in this
-repository reproduces it and writes an artefact. This is recorded in `DECISIONS.md` as
-ADR-0001.
+The planning documents report an earlier implementation with specific measured values. It
+could not be found in any archive when this repository was created: no code, no result files.
+Those values are treated here as targets for a fresh implementation rather than as inherited
+results, and none of them reaches the manuscript unless a run in this repository reproduces it
+and writes a record. See `notes.md`.
 
 ---
 
 ## 3. Work package WP-R: rebuild and re-validate Phases 1–3
 
 Objective: reconstruct the validated stack (analytic oracle, Hamiltonian compiler,
-Trotter circuit, both imaginary-time routes, noise backends) and re-hit the seven gates
+Trotter circuit, both imaginary-time routes, noise backends) and re-hit the seven checks
 that the planning documents record.
 
-Thresholds below are set at or slightly looser than the previously reported values, with
-the reported value noted. Setting them looser is deliberate: a threshold must be
-defensible on its own terms, not reverse-engineered from a target number.
-Where a run beats the threshold, the measured value is reported.
+Thresholds below are set at or slightly looser than the previously reported values, with the
+reported value noted alongside. Where a run beats the threshold, the measured value is
+reported.
 
-| Gate | Statement | Threshold | Previously reported |
+| Check | Statement | Threshold | Previously reported |
 |---|---|---|---|
 | G-R.1 | Analytic Crow–Kimura oracle agrees with brute-force exact diagonalisation, L = 2..10, all landscape configurations in the WP-R set | max abs error < 1e-9 | 3.85e-13 |
 | G-R.2 | Qubit Hamiltonian ground state matches the analytic quasispecies | cosine >= 0.999999 on 40/40 configurations | cosine 1.000000, 40/40 |
@@ -85,7 +77,7 @@ Where a run beats the threshold, the measured value is reported.
 | G-R.9 | Barren-plateau diagnostic: gradient variance decays exponentially in L | fitted decay base in [0.30, 0.55], R^2 >= 0.95, L = 2..8 | var(C) ~ 0.42^L |
 | G-R.10 | Sparse additive+epistasis representation uses fewer Pauli terms than the single-peak projector at L = 12 | ratio >= 50x | 152x |
 
-**Gate G-R (composite).** All of G-R.1 through G-R.10 pass, each with a committed JSON
+**Check G-R (composite).** All of G-R.1 through G-R.10 pass, each with a committed JSON
 artefact under `results/wp_r/`. Binary. No WP1+ run is judged before G-R passes.
 
 **Seeds for WP-R.** Landscape seeds `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`. Optimiser seeds
@@ -95,8 +87,8 @@ artefact under `results/wp_r/`. Binary. No WP1+ run is judged before G-R passes.
 
 ## 4. WP0: specification and prior art
 
-**Gate G-0.** `GATES.md` and `PRIOR_ART.md` both complete and committed before any WP4+
-run. Binary. `PRIOR_ART.md` must cover all four literatures named in the execution plan,
+**Check G-0.** `protocol.md` and `references.md` both complete and committed before any WP4+
+run. Binary. `references.md` must cover all four literatures named in the execution plan,
 with at least the works listed in T0.2, each carrying a one-line statement of what it
 establishes and what it leaves open.
 
@@ -104,7 +96,7 @@ establishes and what it leaves open.
 
 ## 5. WP1: spectral and structural analysis
 
-**Gate G-1.**
+**Check G-1.**
 
 1. The computed spectral gap reproduces the closed form where one exists (single-peak,
    permutation-symmetric) to relative error < 1e-6.
@@ -112,7 +104,7 @@ establishes and what it leaves open.
    the computed gap over the mu sweep lies within 5% of the analytic mu_c, for L = 6, 8, 10.
 3. Every stated property of the operator (Perron–Frobenius structure, stoquasticity,
    reversibility or its absence) is derived in `docs/theory.md` with the derivation
-   referenced from the code docstring. Asserted-but-underived claims fail this gate.
+   referenced from the code docstring. Asserted-but-underived claims fail this check.
 
 **Grid for the WP1 gap map.** Families: single-peak, additive, NK with K in {0,1,2,3,4,6},
 spin-glass. L in {4, 6, 8, 10, 12, 14}. mu on a 41-point grid spanning
@@ -122,7 +114,7 @@ spin-glass. L in {4, 6, 8, 10, 12, 14}. mu on a 41-point grid spanning
 
 ## 6. WP2: Route B, QSVT Perron-vector extraction
 
-**Gate G-2.**
+**Check G-2.**
 
 1. Route B reproduces the analytic quasispecies at cosine >= 0.95 for L = 2..6 in noiseless
    simulation.
@@ -141,7 +133,7 @@ in advance so that the fallback cannot be presented later as a planned success.
 
 ## 7. WP3: landscape families
 
-**Gate G-3.**
+**Check G-3.**
 
 1. Every landscape reproduces exactly from its seed, byte-for-byte, on the declared image.
 2. NK with K = 0 equals the additive family analytically, to 1e-12.
@@ -156,7 +148,7 @@ Rough Mount Fuji, House-of-Cards, Block.
 
 ## 8. WP4: Baseline A, Wright–Fisher
 
-**Gate G-4.**
+**Check G-4.**
 
 1. Reproduces the analytic single-peak quasispecies as population size N and sample budget
    grow: total-variation distance < 0.02 at the largest declared budget, L = 8.
@@ -170,7 +162,7 @@ Declared N sweep: `[1e3, 1e4, 1e5, 1e6]`. Burn-in 20% of generations. Seeds `[0.
 
 ## 9. WP5: Baseline B, Dixit–Srivastava–Vishnoi
 
-**Gate G-5.**
+**Check G-5.**
 
 1. Matches the analytic oracle to <= 1e-6 on every landscape in its declared applicability
    class.
@@ -181,7 +173,7 @@ Declared N sweep: `[1e3, 1e4, 1e5, 1e6]`. Burn-in 20% of generations. Seeds `[0.
 
 ## 10. WP6: Baseline C, tensor-network imaginary time
 
-**Gate G-6.**
+**Check G-6.**
 
 1. Converges to sparse ED where both run: cosine >= 0.999 at sufficient chi, for
    L in {8, 10, 12, 14} across all families.
@@ -197,7 +189,7 @@ chi sweep: `[16, 32, 64, 128, 256, 512, 1024]`. dtau: `[0.1, 0.05, 0.02]`.
 
 ---
 
-## 11. WP7: the grid sweep and the decision gate
+## 11. WP7: the grid sweep and the decision check
 
 ### 11.1 The grid
 
@@ -234,11 +226,11 @@ Cells with no trustworthy reference are excluded and counted in `sweep_manifest.
 ### 11.4 Scoring
 
 Cosine similarity **and** total-variation distance, both reported. TV is the less
-flattering and more conservative metric and is the one used for the decision gate where the
+flattering and more conservative metric and is the one used for the decision check where the
 two disagree. Bootstrap 95% confidence intervals across seeds, 10000 resamples. Seed-to-seed
 spread reported alongside the mean, never only the mean.
 
-### 11.5 Gate G-7: the decision gate
+### 11.5 Check G-7: the decision check
 
 **Positive result.** A non-empty region of the (ruggedness, mu, L) grid, contiguous and
 reproducible across at least 5 of the seeds run, in which:
@@ -260,10 +252,10 @@ experiment.
 
 ## 12. WP8: live QPU
 
-**Gate G-8.** Results are reported as measured. Job IDs, backend name, calibration date,
-transpiled depth, two-qubit gate count, shots, and both raw and mitigated distributions are
+**Check G-8.** Results are reported as measured. Job IDs, backend name, calibration date,
+transpiled depth, two-qubit check count, shots, and both raw and mitigated distributions are
 recorded. No threshold is set on accuracy, because the purpose is feasibility, not
-performance. Framing the result as evidence of advantage fails this gate.
+performance. Framing the result as evidence of advantage fails this check.
 
 ---
 
@@ -277,7 +269,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.1 threshold but named the configurations only as "the WP-R set".
-  That set is now fixed, below, before the gate is executed. This revision adds detail; it
+  That set is now fixed, below, before the check is executed. This revision adds detail; it
   does not change the threshold, which remains max absolute error < 1e-9.
 
   **What is compared.** For every case, the analytic oracle
@@ -285,7 +277,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   brute-force exact diagonalisation (`quasarstack/analytic/exact_diag.py`, which builds the
   full sparse generator and knows nothing about the structure the oracle exploits). The
   statistic is the maximum absolute difference between the two L1-normalised genotype
-  distributions, over all 2^L entries. The gate statistic is the maximum of that over every
+  distributions, over all 2^L entries. The check statistic is the maximum of that over every
   case.
 
   **Sizes.** L = 2, 3, 4, 5, 6, 7, 8, 9, 10.
@@ -299,7 +291,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   2. `additive_uniform`: every a_i equal to a, for a in {0.25, 0.50, 1.00, 2.00}. This
      family is reachable by *both* analytic routes, so it is additionally checked
      closed-form against Hamming-class reduction, making it a three-way agreement. Both
-     comparisons count toward the gate statistic.
+     comparisons count toward the check statistic.
   3. `single_peak`: fitness `height` on the master sequence and zero elsewhere, for
      height in {1.0, 2.0, 5.0}. Solved by the class reduction.
   4. `class_quadratic`: f_d = height * (1 - d/L)^2, height in {1.0, 2.0, 5.0}.
@@ -318,7 +310,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.2 threshold as cosine >= 0.999999 on 40 out of 40 configurations
-  but did not say which forty. They are fixed here, before the gate is executed. The
+  but did not say which forty. They are fixed here, before the check is executed. The
   threshold is unchanged.
 
   **The forty.** Ten landscape configurations, each at four mutation rates.
@@ -339,7 +331,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   Mutation rates: mu in {0.10, 0.30, 0.60, 1.00}. Random coefficients are drawn from
   Uniform(0.25, 2.00) with `default_rng(seed)`, matching revision 1.
 
-  **Gate statistic.** The minimum, over all forty, of the cosine similarity between the
+  **Check statistic.** The minimum, over all forty, of the cosine similarity between the
   ground state of the compiled Pauli operator and the analytic quasispecies. Pass requires
   every one of the forty at or above 0.999999.
 
@@ -353,7 +345,7 @@ performance. Framing the result as evidence of advantage fails this gate.
     than the eigenvector comparison and is the one that would catch an endianness error
     that happened to leave the spectrum intact.
   - Ground-state energy against the analytic mean fitness.
-  - Pauli term count, which feeds gate G-R.10.
+  - Pauli term count, which feeds check G-R.10.
   - For the additive families, the difference between the structured build and the
     Walsh-Hadamard build of the same operator, since both routes must produce it.
 
@@ -368,7 +360,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   `quasarstack/circuit/trotter_ite.py`, symmetric second-order splitting
   S(dtau/2) M(dtau) S(dtau/2), started from the uniform superposition and renormalised each
   step. This is not a hardware-runnable circuit; imaginary-time evolution is non-unitary,
-  and the hardware-faithful routes are gates G-R.6 and G-R.7.
+  and the hardware-faithful routes are checks G-R.6 and G-R.7.
 
   **Sub-experiment A, the splitting-error exponent.** Total time tau = 2.0. Step sizes
   dtau in {0.25, 0.125, 0.0625, 0.03125, 0.015625, 0.0078125}, so the step count runs 8 to
@@ -387,7 +379,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   **Sub-experiment B, convergence to the quasispecies.** dtau = 0.01, tau = 60.0, so 6000
   steps. tau is set from the smallest spectral gap observed in G-R.1, which was 0.1197: at
   tau = 60 the leading contaminating amplitude is suppressed by exp(-7.2), around 7e-4, so
-  the residual is far below the 0.999 cosine threshold and the gate is measuring convergence
+  the residual is far below the 0.999 cosine threshold and the check is measuring convergence
   rather than the choice of tau. Scored by cosine and total variation against the analytic
   oracle.
 
@@ -406,7 +398,7 @@ performance. Framing the result as evidence of advantage fails this gate.
 
   **Diagnostics recorded, not gating.** Per-configuration error at each step size; the
   fitted intercept as well as the slope; total-variation distance alongside cosine; step
-  counts; and, for the additive families, the depth and two-qubit gate count of the
+  counts; and, for the additive families, the depth and two-qubit check count of the
   structural circuit analogue, labelled as such, since that analogue is unitary and does not
   itself perform imaginary-time evolution.
 
@@ -419,7 +411,7 @@ performance. Framing the result as evidence of advantage fails this gate.
 
   **Disclosure.** The sweep range and the landscape normalisation below were chosen after an
   exploratory pass, because a threshold cannot be resolved without knowing roughly where it
-  sits. That pass changed no acceptance criterion. It corrected two normalisation mistakes,
+  sits. That pass changed no threshold. It corrected two normalisation mistakes,
   both recorded here so the reasoning is auditable rather than invisible:
 
   1. An epistatic family that fixed the *total* fitness range made the per-mutation cost near
@@ -433,7 +425,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   when the population sits on the master sequence and 0 when it is uniform over sequence
   space.
 
-  **What is compared for the gate.** The surplus computed from the ground state of the
+  **What is compared for the check.** The surplus computed from the ground state of the
   compiled Pauli Hamiltonian, against the surplus computed from the analytic Hamming-class
   reduction, at every point of the sweep. Statistic: the maximum absolute difference over all
   points, all landscapes and all sizes.
@@ -470,14 +462,14 @@ performance. Framing the result as evidence of advantage fails this gate.
     epistasis lowers it. **The direction is reported whichever way it falls.** It is not a
     pass condition, and no landscape will be dropped from the record for disagreeing.
   - The minimum spectral gap over the sweep and where it sits relative to the threshold,
-    which is WP1 material and also bears on how hard the later imaginary-time gates will
+    which is WP1 material and also bears on how hard the later imaginary-time checks will
     find this region.
 
   *Appended 2026-08-09, before the recorded run.* The gap diagnostic is extended to
   L = 4, 6, 8, 10, 12 for the sharp peak, measured by sparse eigensolves in a narrow window
   around each size's predicted threshold, with a decay rate per site fitted across them.
   Three sizes was too thin to say anything about how the gap closes. This changes no
-  acceptance criterion and the full gap map across all landscapes remains WP1 gate G-1.2.
+  threshold and the full gap map across all landscapes remains WP1 check G-1.2.
 
 - 2026-08-09: **revision 5: the G-R.5 instance set and the NK normalisation, registered
   before the run.** Anees Ahmed Mahaboob Ali.
@@ -489,14 +481,14 @@ performance. Framing the result as evidence of advantage fails this gate.
   **On the instance count.** The registered "10 seeded instances" is read as the seed set,
   seeds 0 through 9. The run sweeps size and connectivity as well, so it tests 100 instances
   rather than 10. That is deliberately a superset: testing more instances against the same
-  per-instance threshold can only make the gate harder, never easier.
+  per-instance threshold can only make the check harder, never easier.
 
-  **What is compared for the gate.** The ground state of the compiled Pauli Hamiltonian
+  **What is compared for the check.** The ground state of the compiled Pauli Hamiltonian
   against brute-force exact diagonalisation of the generator, per instance. These are
   independent code paths: the compiler goes through a Walsh-Hadamard decomposition into
   Pauli terms and back, while the reference assembles the sparse generator directly from the
   fitness vector. On a rugged landscape the decomposition is dense, which is the case the
-  earlier gates did not exercise.
+  earlier checks did not exercise.
 
   **Instances.** L in {6, 8, 10} crossed with K in {1, 2, 4}, plus L = 8 with K = 7, each
   over seeds 0 through 9. 100 instances. Mutation rate mu = 0.25 throughout.
@@ -504,12 +496,12 @@ performance. Framing the result as evidence of advantage fails this gate.
   **NK normalisation.** Fitness is standardised to zero mean and unit standard deviation.
   Raw NK fitness is a mean of L uniform draws, so its spread shrinks as 1/sqrt(L) and grows
   with K; sweeping K on the raw scale would vary selection strength and ruggedness together,
-  and any result would be a mixture. This follows ADR-0011. Neighbourhoods are adjacent and
+  and any result would be a mixture. This follows docs/notes.md. Neighbourhoods are adjacent and
   wrap around, which is deterministic given the seed.
 
   **Diagnostics recorded, not gating.**
 
-  - **Where the optimum sits**, per instance, as ADR-0011 now requires of any ruggedness
+  - **Where the optimum sits**, per instance, as docs/notes.md now requires of any ruggedness
     axis. An NK landscape has **no master sequence**: its global optimum is at a random
     genotype, near Hamming weight L/2. Statements about the error threshold, which is
     defined by delocalisation away from a master sequence, therefore do not carry over to
@@ -535,7 +527,7 @@ performance. Framing the result as evidence of advantage fails this gate.
 
   **Disclosure: the ansatz depth was chosen by a pre-run scan, not guessed.** varQITE holds
   a fixed circuit, so its accuracy is capped by what that circuit can represent, and an
-  ansatz too shallow to hold the answer fails the gate for reasons that have nothing to do
+  ansatz too shallow to hold the answer fails the check for reasons that have nothing to do
   with the method. Ansatz depth is a method parameter, not an acceptance threshold, so
   choosing it adequately is legitimate; choosing it invisibly is not. The scan measured the
   worst cosine over three seeds at tau cap 60:
@@ -576,7 +568,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   | nk, K = 4, seed 0 (L >= 5) | sparse exact diagonalisation |
 
   **Depth criterion.** For every configuration the run is repeated with the tau cap at 2.5
-  and at 20, and the resulting circuits are compared on depth and two-qubit gate count, both
+  and at 20, and the resulting circuits are compared on depth and two-qubit check count, both
   as written and after transpilation to the basis {rz, sx, x, cx} at optimisation level 1
   with a fixed transpiler seed. Comparing the transpiled form matters: a run that left some
   angle near zero could have it optimised away, which would change the depth even though the
@@ -585,7 +577,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   **Diagnostics recorded, not gating.**
 
   - `tau_used`, the imaginary time actually needed, and whether the run converged. This is
-    the budget-needed-for-accuracy half of the fairness protocol in ADR-0013 and is the
+    the budget-needed-for-accuracy half of the fairness protocol in docs/notes.md and is the
     number WP7 will want per cell.
   - Monotonicity of the energy across every step. An ascending energy is one of the three
     failures the planning documents record for the sibling Motta method.
@@ -630,13 +622,13 @@ performance. Framing the result as evidence of advantage fails this gate.
      side: a larger ridge shortens the step. Discretisation, and it disappears.
 
   *Appended 2026-08-09, correcting this revision.* **The earlier scan quoted above was run
-  at mu = 0.25, and the gate runs at mu = 0.20.** The table was presented as the
+  at mu = 0.25, and the check runs at mu = 0.20.** The table was presented as the
   justification for reps = L + 2 without that being stated, and the two sets of numbers are
   therefore not directly comparable. At L = 6 with reps = 4 the scan reported a worst case of
-  0.9913 at mu = 0.25, while the gate's own three-seed diagnostic reports 0.9968 at mu = 0.20.
+  0.9913 at mu = 0.25, while the check's own three-seed diagnostic reports 0.9968 at mu = 0.20.
 
-  The conclusion is unaffected and the rule is unchanged, because the gate's own diagnostic,
-  run at the gate's own mutation rate, reaches the same verdict: reps = 4 does not clear
+  The conclusion is unaffected and the rule is unchanged, because the check's own diagnostic,
+  run at the check's own mutation rate, reaches the same verdict: reps = 4 does not clear
   0.999 on every seed and reps = 6 does, so the registered reps = L + 2 remains conservative.
   But a table quoted as evidence must have been measured under the conditions it is evidence
   for, and this one was not. Recorded rather than quietly re-run, since the mistake is in the
@@ -663,7 +655,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   contributes nothing, and Y-free is precisely what one reaches for when the Hamiltonian is
   built from X and Z. The run records that quantity for both parities per configuration.
 
-  **Disclosure: the support cutoff was chosen by a pre-run scan at the gate's own mutation
+  **Disclosure: the support cutoff was chosen by a pre-run scan at the check's own mutation
   rate of 0.20**, correcting the mistake made in revision 6. Worst cosine over the scanned
   landscapes:
 
@@ -687,11 +679,11 @@ performance. Framing the result as evidence of advantage fails this gate.
   per-step change. A per-step criterion trips sooner at a smaller step purely because each
   step moves less. Measured on this method: accuracy appeared to fall from 0.9999997 to
   0.9999731 as dtau went from 0.1 to 0.01, and the finer run was not worse, it had stopped
-  earlier in tau. Since `tau_used` is the budget-needed-for-accuracy number ADR-0013 asks WP7
+  earlier in tau. Since `tau_used` is the budget-needed-for-accuracy number docs/notes.md asks WP7
   to compare across methods, a step-size-dependent one would be actively misleading.
 
-  This change also affects varQITE, so **gate G-R.6 is re-run under it** and its record
-  replaced, with the change explained, as ADR-0009 requires when a scientific field moves.
+  This change also affects varQITE, so **check G-R.6 is re-run under it** and its record
+  replaced, with the change explained, as docs/notes.md requires when a scientific field moves.
   Its registered thresholds are untouched.
 
   **Diagnostics recorded, not gating.** Accuracy against generator support at L = 5, which is
@@ -702,7 +694,7 @@ performance. Framing the result as evidence of advantage fails this gate.
 - 2026-08-10: **revision 8: G-R.7 failed its first execution. The failure, the diagnosis
   and the fix.** Anees Ahmed Mahaboob Ali.
 
-  Recorded because a gate failure is a scientific event and the run happened. Neither
+  Recorded because a check failure is a scientific event and the run happened. Neither
   acceptance threshold is touched.
 
   **What failed.** Accuracy passed easily, minimum cosine 0.9999969 against 0.95 across all
@@ -726,19 +718,19 @@ performance. Framing the result as evidence of advantage fails this gate.
   **Fix.** The normal equations are solved by truncated SVD with a **relative** singular-value
   cutoff instead of an absolute ridge. That is scale invariant and discards the degenerate
   directions rather than guessing in them. The cutoff is 1e-8, taken from the measured
-  conditioning rather than from what makes the gate pass: below that, directions carry no
+  conditioning rather than from what makes the check pass: below that, directions carry no
   information at double precision. It removes the overshoot at every step size tried, not
   only the registered one, and leaves accuracy unchanged at the seventh decimal. The Gram
   condition number is now recorded per configuration.
 
-  **Second correction, affecting both imaginary-time gates.** The stopping tolerance was
+  **Second correction, affecting both imaginary-time checks.** The stopping tolerance was
   carried across the change from a per-step infidelity to a rate without rescaling, leaving
   it about six orders too strict, and 10 of 14 configurations ran to the tau cap without
   converging. The like-for-like value is derived rather than chosen: infidelity below 1e-9
   corresponds to a step of about 4.5e-5, hence a rate of about 9e-4 at dtau = 0.05. Both
-  gates now register **1e-3**.
+  checks now register **1e-3**.
 
-  Both are method parameters, not acceptance criteria. G-R.6 and G-R.7 are re-run under them.
+  Both are method parameters, not thresholds. G-R.6 and G-R.7 are re-run under them.
 
 - 2026-08-10: **revision 9: the G-R.10 families.**
   Anees Ahmed Mahaboob Ali.
@@ -770,12 +762,12 @@ performance. Framing the result as evidence of advantage fails this gate.
   counterweight to the headline ratio and belongs beside it.
 
 - 2026-08-10: **revision 10: the G-R.8 configuration set, and a decode-boundary finding
-  that changes what the gate measures.** Anees Ahmed Mahaboob Ali.
+  that changes what the check measures.** Anees Ahmed Mahaboob Ali.
 
   Section 3 fixed the G-R.8 threshold as mitigated cosine >= 0.98 at L = 2 to 4 under
   IBM-Heron-like and trapped-ion noise. Unchanged.
 
-  **SIMULATED NOISE ONLY.** Nothing in this gate runs on hardware. Device parameters are
+  **SIMULATED NOISE ONLY.** Nothing in this check runs on hardware. Device parameters are
   representative of the device class, from published typical figures, not a calibration
   snapshot of a named machine on a named date. The live run is WP8 and reports job
   identifiers.
@@ -794,7 +786,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   The squared distribution is non-negative, normalised, peaked on the same genotype, and
   scores 0.987 on cosine. It would have passed an eyeball check and most thresholds while
   being the wrong object, and only total variation exposes it. That is the failure mode this
-  project exists to catch, and it is the reason `GATES.md` section 11.4 already lets total
+  project exists to catch, and it is the reason `protocol.md` section 11.4 already lets total
   variation decide.
 
   **The fix is a decode step**, `decode_from_measurement`: take the element-wise square root
@@ -808,7 +800,7 @@ performance. Framing the result as evidence of advantage fails this gate.
   after decoding. Cosine stays above the threshold; total variation lands around 0.10 to
   0.14 under noise, and both are recorded.
 
-  **What the gate scores.** The mitigated, **decoded** distribution against the analytic
+  **What the check scores.** The mitigated, **decoded** distribution against the analytic
   quasispecies, because that is the object the biology asks for and it is the harder test.
   The easier question, whether mitigation recovered what the ideal circuit would have
   produced, is recorded alongside as a separate number rather than substituted for it.
@@ -840,9 +832,9 @@ decay base in [0.30, 0.55], R squared at least 0.95.
 size. The measured quantity is the variance across draws of one component of the McLachlan
 force `C_i = -<d_i psi|H|psi>`, which is minus half the energy gradient.
 
-**Gate statistic.** The middle component, index `n_parameters // 2`, on the NK K=2 landscape.
+**Check statistic.** The middle component, index `n_parameters // 2`, on the NK K=2 landscape.
 Both other components (first, and the mean over all components) and the single-peak landscape
-are measured and recorded, but they do not decide the gate.
+are measured and recorded, but they do not decide the check.
 
 **Why the middle component.** The first rotation sits at the circuit boundary with the fewest
 entangling layers between it and the state, so it is the least scrambled parameter in the
@@ -858,10 +850,10 @@ mitigations, none of which fully removes the concern:
 
 1. The choice of the middle component was stated, in writing and with its justification,
    before the scan that measured it returned.
-2. All three components on both landscapes are recorded in the gate artefact. Nothing that
+2. All three components on both landscapes are recorded in the check artefact. Nothing that
    was measured is discarded.
 3. The spread is small enough that the choice barely matters to the physics, though it does
-   decide the gate. The exploratory values, all at reps = L + 2, 400 draws:
+   decide the check. The exploratory values, all at reps = L + 2, 400 draws:
 
    | landscape | first | middle | mean over all |
    |---|---|---|---|
@@ -880,7 +872,7 @@ carry forward, and it is the one that bounds Route A's reach.
 
 **A difference from the lost implementation, recorded because it is real.** The planning
 documents report `0.42^L`. This rebuild measures `0.54^L`. The band [0.30, 0.55] was wide
-enough to contain both, which is why the gate can pass while the central value is not
+enough to contain both, which is why the check can pass while the central value is not
 reproduced. At L = 12 the two differ by a factor of about 20 in gradient variance, so the
 rebuilt ansatz plateaus less steeply than whatever the lost implementation used. Its ansatz
 and measured component are unknown and cannot be recovered, so the discrepancy cannot be
@@ -892,7 +884,7 @@ resolved, only recorded.
 Registered before `experiments/wp1_spectral/g_1_gap_map.py` was run, and after the
 exploratory scans whose numbers appear below. Section 5's three criteria are unchanged. This
 revision fixes only what section 5 left ambiguous, and it makes the ambiguity harder on the
-gate rather than easier.
+check rather than easier.
 
 **The ambiguity.** Criterion 2 asks that the gap minimum lie "within 5% of the analytic
 mu_c". Two readings are defensible and they are different numbers at finite L:
@@ -905,7 +897,7 @@ mu_c". Two readings are defensible and they are different numbers at finite L:
   simulation, which makes it "analytically located" in the sense criterion 2 uses. G-R.4
   already validated this locator against the analytic magnetisation.
 
-**Decision: the gate requires both.** Criterion 2 passes only if the gap minimum is within 5%
+**Decision: the check requires both.** Criterion 2 passes only if the gap minimum is within 5%
 of Reading A *and* within 5% of Reading B, at every one of L = 6, 8, 10. This is strictly
 harder than either reading alone, which is the point: having seen the numbers before
 registering, the only choice that cannot be accused of selecting for the answer is the choice
@@ -977,8 +969,8 @@ which has no analytic `mu_c` to compare against; NK enters the gap map only.
 Registered before `experiments/wp2_qsvt/g_2_route_b.py` was run, and after the exploratory
 runs disclosed below. Section 6's three criteria are unchanged.
 
-**Standing assumption.** Route B is built as ADR-0010 option C under ADR-0015: QSVT
-eigenstate filtering for a Hermitian stoquastic operator. ADR-0010 records that the G-2
+**Standing assumption.** Route B is built as option C: QSVT
+eigenstate filtering for a Hermitian stoquastic operator. docs/notes.md records that the G-2
 thresholds do not depend on which QSVT construction is chosen, so this assumption does not
 touch the specification. Every G-2 artefact carries it in its notes.
 
@@ -995,7 +987,7 @@ property to 1e-10, for a block spectral norm not exceeding 1, and, at sizes wher
 operator is affordable, for unitarity of the circuit itself. A block that matches while the
 circuit is not unitary would mean the extraction is wrong rather than the encoding right.
 
-**Supporting check, not part of the gate.** The qubitised walk must produce Chebyshev
+**Supporting check, not part of the check.** The qubitised walk must produce Chebyshev
 polynomials: the top-left block of `W^d` equals `T_d(A / alpha)` to 1e-10 for d in
 {0, 1, 2, 3, 5, 8}. Recorded because it separates two failure modes that otherwise arrive
 together, a wrong walk and a wrong polynomial.
@@ -1054,29 +1046,29 @@ L = 10 and L = 12 for criterion 3, L = 8 and L = 10 for the reproduction hashes.
 
 **Correlation length.** Section 7 asks for "fitness-correlation length", and
 `ruggedness_statistics` reports the nearest-neighbour autocorrelation `rho`. The two are
-related by the standard Weinberger definition, `ell = -1 / ln(rho)`, which the gate computes
+related by the standard Weinberger definition, `ell = -1 / ln(rho)`, which the check computes
 rather than storing, so that no existing artefact changes shape. Where `rho <= 0` the
-landscape has no correlation length and the gate records `0.0` rather than a complex number.
+landscape has no correlation length and the result records `0.0` rather than a complex number.
 
 **What monotone in K means, stated so it cannot be read two ways.** Ruggedness increasing
 means the local-optima count increases and the correlation length decreases. Both are
 required, of the mean over the ten seeds, and both are reported per seed so a family that is
 monotone on average and not per instance is visible.
 
-**Criterion 1, "byte-for-byte".** The gate stores a SHA-256 of each fitness array in the
+**Criterion 1, "byte-for-byte".** The check stores a SHA-256 of each fitness array in the
 artefact. Reproduction within a run is checked by building each landscape twice with the
 global NumPy random state deliberately disturbed in between; reproduction across runs is
 checked by comparing those hashes with the committed record, which is what makes the claim
 mean anything more than "the function is deterministic within one process". This is also the
-check that would have caught ADR-0016 in the landscape layer had the defect been there.
+check that would have caught docs/notes.md in the landscape layer had the defect been there.
 
 **A finding disclosed in advance, because it bears on which family the ruggedness axis
 should use.** Exploratory measurement at L = 8 over ten seeds puts the mean Hamming weight
 of the global optimum at 0.00, 0.10 and 0.50 for Rough Mount Fuji at roughness 0.0, 0.3 and
 1.0, against 3.70 for NK at K = 2 and 4.50 for house-of-cards. Over the same range the RMF
 local-optima count goes from 1.0 to 12.7. Rough Mount Fuji therefore appears to be the family
-that varies ruggedness while leaving the master sequence in place, which is what ADR-0011
-said the project needs and NK does not provide. The gate records the optimum location for
+that varies ruggedness while leaving the master sequence in place, which is what docs/notes.md
+said the project needs and NK does not provide. The result records the optimum location for
 every family and instance so that this can be judged from the artefact rather than from this
 paragraph.
 
@@ -1094,7 +1086,7 @@ cannot be evaluated as written.
 **The time step, which section 8 does not mention and which matters.** Wright-Fisher is
 discrete-generation and Crow-Kimura is continuous-time, so the two agree only as the step
 shrinks. Selection weights are `1 + f dt` and the per-site mutation probability is `mu dt`.
-The gate reports the discretisation bias separately from the sampling error, over
+The check reports the discretisation bias separately from the sampling error, over
 `dt` in `{0.04, 0.02, 0.01, 0.005}`.
 
 **The population must scale with `1 / dt` in that study, and this is registered because
@@ -1104,21 +1096,21 @@ genetic drift is `1 / N` per generation and `1 / (N dt)` per unit of simulated t
 `N = 1e5`, holding simulated time fixed: without scaling the population, the distance to the
 analytic answer plateaus at 0.024, 0.015, 0.016, 0.015 while the equilibration drift climbs
 0.019, 0.030, 0.040, 0.052; with the population scaled as `1 / dt`, the drift holds flat near
-0.020 and the distance falls monotonically 0.024, 0.017, 0.008, 0.006. The gate uses the
+0.020 and the distance falls monotonically 0.024, 0.017, 0.008, 0.006. The check uses the
 scaled form and reports both.
 
-**Criterion 2 is reported as blocked rather than passed.** See ADR-0018. The implementation
+**Criterion 2 is reported as blocked rather than passed.** See docs/notes.md. The implementation
 runs in genotype-count space at `O(L 2^L)` per generation, independent of `N`, while a
 community forward simulator is individual-based at `O(N L)`. At the top of the declared
 sweep the two differ by about three orders of magnitude by construction, so a
 "throughput within 5x" test would pass by a factor of a thousand and establish nothing about
 whether the baseline is well built, which is the only thing it exists to establish. No
-reference implementation is present in the pinned image either, and ADR-0006 forbids
+reference implementation is present in the pinned image either, and installing outside Docker is forbidden
 installing one outside Docker.
 
-The gate therefore records absolute throughput and the measured scaling, so the comparison
+The check therefore records absolute throughput and the measured scaling, so the comparison
 can be completed later without rerunning, and **G-4 as a whole is not claimed as passed**.
-ADR-0018 recommends replacing criterion 2 with time-to-accuracy at matched total variation,
+docs/notes.md recommends replacing criterion 2 with time-to-accuracy at matched total variation,
 which is representation-independent, is what the WP7 boundary map consumes, and can fail.
 
 ---
@@ -1143,17 +1135,17 @@ glass, house of cards, Rough Mount Fuji at roughness 0.5, block at size 2, all a
 9. mu in {0.05, 0.10, 0.20}.
 
 **Criterion 2's coverage map is emitted before the sweep, not after.** Deciding coverage
-afterwards would let it be chosen with the results in view. The gate emits the covered set for
+afterwards would let it be chosen with the results in view. The check emits the covered set for
 the full WP3 family list as part of its artefact.
 
-**Refusal is part of the gate, not an error path.** A baseline that quietly falls back to
+**Refusal is part of the check, not an error path.** A baseline that quietly falls back to
 exact diagonalisation on an out-of-class instance would report itself as covering WP7 cells
 it does not cover, and the boundary map would inherit that in the direction that flatters the
-quantum method. The gate therefore requires every out-of-class configuration to raise.
+quantum method. The check therefore requires every out-of-class configuration to raise.
 
 **Attribution, deliberately left open.** Execution plan v4 names this baseline
-"Dixit-Srivastava-Vishnoi" after `PRIOR_ART.md` entry II.1, which is still flagged
-`to-verify`. The project's rule is that nothing may be cited while flagged, so this gate does
+"Dixit-Srivastava-Vishnoi" after `references.md` entry II.1, which is still flagged
+`to-verify`. The project's rule is that nothing may be cited while flagged, so this check does
 not claim the class it implements is theirs. It implements the class this project can derive
 and check. Whether the two coincide has to be settled by reading arXiv:1203.1287 before the
 name goes in the manuscript, and it is not a formality: **if their class is strictly larger,
@@ -1170,7 +1162,7 @@ not finish.
 
 **What happened.** G-2 was launched over the revision 13 configuration set and was still
 running after more than an hour on the L = 6 single peak. Verification extracts the encoding's
-top-left block by simulating `2^n` statevectors through a circuit of multi-controlled gates,
+top-left block by simulating `2^n` statevectors through a circuit of multi-controlled checks,
 and the cost climbs steeply with the ancilla count. Measured, symmetric form, single-peak
 family unless noted:
 
@@ -1199,7 +1191,7 @@ size-independent property, not coverage of a size-dependent one.
 
 **A family added, because the configuration set was testing the wrong thing.** revision 13
 listed additive and single peak. The single peak enters `diagonal_hamiltonian` as its
-projector form, which is exactly the representation `DECISIONS.md` forbids and G-R.10 exists
+projector form, which is exactly the representation `notes.md` forbids and G-R.10 exists
 to argue against: 4108 Pauli terms at L = 12 against 27 for the sparse form. Verifying the
 encoding of a representation the project has decided not to use is worth doing once as a worst
 case and is not worth doing at every size. The uniform additive-plus-pairwise family at
@@ -1207,10 +1199,10 @@ case and is not worth doing at every size. The uniform additive-plus-pairwise fa
 run on.
 
 **A performance change that was tried and did not work, recorded so it is not tried again.**
-`SELECT` was rewritten to emit one multi-controlled single-target gate per Pauli factor
-instead of one multi-controlled multi-target gate, expecting Qiskit's specialised path for
+`SELECT` was rewritten to emit one multi-controlled single-target check per Pauli factor
+instead of one multi-controlled multi-target check, expecting Qiskit's specialised path for
 controlled Paulis to be cheaper. Measured, it is slower: 21.9 s against 15.0 s on the L = 4
-single peak, because the gate count multiplies by the Pauli string weight. The clearer form
+single peak, because the check count multiplies by the Pauli string weight. The clearer form
 was kept and no speedup is claimed for it.
 
 **note on revision 17, registered at the same time.** The block-encoding property is a
@@ -1227,7 +1219,7 @@ Registered before any WP7 sweep runs. Section 11's grid, reference rules and G-7
 criteria are unchanged. This revision fixes three things WP1, WP3 and WP6 turned up that
 section 11 could not have anticipated when it was written.
 
-**1. The order parameter is measured from each instance's own fittest genotype. ADR-0017.**
+**1. The order parameter is measured from each instance's own fittest genotype. See docs/notes.md.**
 
 Section 11.4 scores against the reference distribution, and the surrounding analysis uses
 `magnetisation`, which measures concentration on genotype 0. That is right for the single peak
@@ -1252,9 +1244,9 @@ in the classical quasispecies literature means delocalisation from a master sequ
 rugged landscape there is no master sequence. A rugged-landscape transition point must not be
 quoted as comparable to the sharp-peak value.
 
-**2. The budget protocol reports both panels. ADR-0013 option 3, proceeding under ADR-0015.**
+**2. The budget protocol reports both panels. reporting both panels, proceeding under the rule in docs/notes.md.**
 
-Section 11.3 fixes wall-clock per cell per method. ADR-0013 showed that an equal-wall-clock
+Section 11.3 fixes wall-clock per cell per method. docs/notes.md records that an equal-wall-clock
 budget systematically disadvantages imaginary time in exactly the rugged near-threshold cells
 WP7 is about, because the imaginary-time budget scales as `1 / gap` and the gap closes there
 at roughly `0.72` per site. The sweep therefore records, per cell per method, both **accuracy
@@ -1263,7 +1255,7 @@ with a stated ceiling beyond which a method is recorded as not having reached it
 
 This is a superset of the alternatives, so whichever the PIs choose the data will already
 exist. G-7's decision criteria are evaluated on the fixed-budget panel as section 11.5 states;
-the second panel is reported alongside and does not move the gate.
+the second panel is reported alongside and does not move the check.
 
 **3. The ruggedness axis is two axes, because the families separate.**
 
@@ -1321,7 +1313,7 @@ and is around 2 to 3 parts in ten thousand in total variation at `dtau = 0.05`, 
 criterion 1's threshold is on cosine and not on total variation.
 
 **Reference.** Sparse `eigsh` through `analytic.exact_diag.perron_vector`, which is section
-11.2's rule and is exact at every size this gate runs.
+11.2's rule and is exact at every size this check runs.
 
 **Disclosure of what was already seen.** The implementation was validated before this
 revision and the numbers are the reason for the downward extension. Bond dimension needed to
@@ -1353,7 +1345,7 @@ now need extra scrutiny rather than less.
 **note on revision 19, registered at the same time.** Section 10 does not fix a seed
 count, so one is chosen here and disclosed: **two seeds** per seeded family, at every size and
 every mutation rate. One would risk a rugged family being represented by an atypical instance;
-ten would put the gate past four hours in the image for a quantity that exploratory runs show
+ten would put the check past four hours in the image for a quantity that exploratory runs show
 is stable across seeds. The reference uses the sparse `eigsh` route from `L = 11` upward
 rather than the default dense cutoff at 12, because a dense 4096 by 4096 solve in the
 single-threaded image costs 37 s against 0.2 s for the sparse path, which would make the
@@ -1385,7 +1377,7 @@ whose budget protocol in section 11.3 is denominated in wall-clock seconds: Base
 spend its budget very unevenly across the ruggedness axis, and a cell where it looks weak may
 be a cell where it ran out of time rather than out of bond dimension.
 
-The gate records the per-cell wall-clock alongside the bond dimension so the two costs are
+The result records the per-cell wall-clock alongside the bond dimension so the two costs are
 separable in the artefact rather than conflated in a single "MPS is cheap" claim.
 
 ---
@@ -1478,7 +1470,7 @@ method's accuracy.
 map is Route B. Route A's exclusion is itself a finding and belongs in the result: the
 variational route, which is the NISQ-runnable one, cannot reach any cell of the declared grid
 inside the declared budget. That is consistent with G-R.9's barren-plateau measurement and
-with the concern ADR-0013 raised about budget protocols disadvantaging imaginary time, and it
+with the concern docs/notes.md raised about budget protocols disadvantaging imaginary time, and it
 should be reported as a limitation of Route A rather than buried as a missing column.
 
 **A hardening that came out of finding this.** `run_cell` catches a method's exception so one
@@ -1516,16 +1508,16 @@ G-4 would not be claimed as passed until a replacement was registered. This is t
 replacement. The withdrawal is not revisited here and the original record stands.
 
 **What stays withdrawn.** "Throughput within 5x of the reference community implementation"
-cannot be evaluated, for the two independent reasons in ADR-0018: the two implementations sit
+cannot be evaluated, for the two independent reasons in docs/notes.md: the two implementations sit
 in different complexity classes by construction, so the test would pass by three orders of
 magnitude without establishing anything, and no reference implementation exists in the pinned
 image to compare against. Neither reason is an outcome anyone measured and disliked. Both
-were visible from the implementation and the environment before the gate ran.
+were visible from the implementation and the environment before the check ran.
 
 **Criterion 2b, time to accuracy.** The baseline must reach total variation `<= 0.02` against
 the analytic single-peak quasispecies at `L = 8`, `mu = 0.10`, within **300 s** of wall clock
 in the pinned image, on the `(N, generations)` ladder already declared for criterion 1. The
-gate reports the cheapest configuration that reaches the target and the wall clock it took.
+check reports the cheapest configuration that reaches the target and the wall clock it took.
 
 Three things make this a criterion rather than a formality.
 
@@ -1549,11 +1541,11 @@ the same target with nothing rerun.
 **What remains blocked, and is recorded as blocked.** The cross-implementation comparison
 itself. Criterion 2b establishes that the baseline is fast enough for the use WP7 puts it to.
 It does not establish that it is as fast as the best available forward simulator, and no
-claim of that kind is made anywhere from this gate. That comparison waits on a reference in
-the image, which is a disk-budget decision under ADR-0006 on a machine with 42 GB free.
+claim of that kind is made anywhere from this check. That comparison waits on a reference in
+the image, which is a disk-budget decision under the rule in docs/notes.md on a machine with 42 GB free.
 
-**Correction to ADR-0018.** That decision record quotes total variation `0.0051` at
-`N = 10^6` from an exploratory run. The gate's own record measures **`0.004664`** on the
+**Correction to docs/notes.md.** That decision record quotes total variation `0.0051` at
+`N = 10^6` from an exploratory run. The check's own record measures **`0.004664`** on the
 registered configuration. The conclusion is unchanged and the recorded value is the one to
 cite.
 
@@ -1580,7 +1572,7 @@ returned chi = 64, the ceiling at that size.
 **Why that is a problem at `L = 14`.** The ceiling there is 128 rather than 64 and the
 dimension is 16384 rather than 4096, and 45 cells are registered. Extrapolating the measured
 step ratio gives roughly 39 minutes a cell, and the rugged cells that climb to 128 would sit
-far above that. Thirty to a hundred hours is the plausible range for one gate.
+far above that. Thirty to a hundred hours is the plausible range for one check.
 
 **What is not being done.** The grid is not cut. No family, size, mutation rate or seed is
 removed, because a reduction chosen after seeing which cells are expensive would quietly
@@ -1616,19 +1608,19 @@ and still missed the threshold. Stopped cells are listed separately, with the ch
 they can be finished later without redoing anything else. Criterion 2's map is complete when
 every cell either carries a chi or carries a stated reason it does not.
 
-This follows ADR-0019, which recommended exactly this shape after the WP7 tensor-network
+This follows docs/notes.md, which recommended exactly this shape after the WP7 tensor-network
 baseline overran its allotment on 37 per cent of `L = 12` cells because it stops on
 convergence and never looks at the clock. The recommendation there was a deadline-aware method
 that hands back what it holds. This applies it.
 
-**Second change, not a criterion: the gate now checkpoints.** It previously built its record
+**Second change, not a criterion: the check now checkpoints.** It previously built its record
 only at the end, so an interruption at nine tenths produced nothing. That turned one LAPACK
 failure into fourteen hours lost and made this very decision cost a whole run rather than its
 remainder. Cells are appended to a gitignored scratch file as they land and reused on restart,
 guarded by a fingerprint of every registered constant so a checkpoint from a different grid is
 refused rather than blended into this one.
 
-**note on revision 23, written after the gate ran.** The limit works and the wording
+**note on revision 23, written after the check ran.** The limit works and the wording
 above overstates it. "Overshoot by at most one rung" is true and hides that a rung is not
 itself bounded: the clock is checked before a rung starts, never inside one, so the real
 ceiling is 900 s plus however long the rung that crosses the line takes. Measured: an
@@ -1718,7 +1710,7 @@ circuits, 51 in all, at 4096 shots each.
 **Transpiled against the device at optimisation level 3**, seeded so the free `--mode isa`
 inspection describes the circuits that are actually submitted:
 
-| L | depth | two-qubit gates |
+| L | depth | two-qubit checks |
 |---|---|---|
 | 2 | 13 | 2 |
 | 3 | 45 | 10 |
@@ -1750,7 +1742,7 @@ down before the device ran, and was not adjusted afterwards.** Measured: 0.99930
 record, so the timing is stated here and nowhere else in this file needs to argue about it.
 
 **Provenance.** The pinned image has no `qiskit-ibm-runtime`, so WP8 runs outside the pinned image and the
-record is written to `results/_local/` as non-evidence under ADR-0012. ADR-0020 records why the
+record is written to `results/_local/` as non-evidence under the rule in docs/notes.md. docs/notes.md records why the
 alternatives were declined. No claim may cite G-8 as reproduced evidence without that qualifier.
 
-**G-8 is a feasibility gate.** No accuracy threshold is set and no advantage is claimed.
+**G-8 is a feasibility check.** No accuracy threshold is set and no advantage is claimed.

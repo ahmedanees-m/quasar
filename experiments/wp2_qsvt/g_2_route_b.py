@@ -1,11 +1,11 @@
 """G-2: Route B, QSVT eigenstate filtering. WP2 tasks T2.2, T2.3, T2.4.
 
-Built under ADR-0015's working assumption that Route B is ADR-0010 option C: eigenstate
+Built under the working assumption that Route B is option C: eigenstate
 filtering for a Hermitian stoquastic operator, not the nonreversible-Markov-chain
-construction execution plan v4 originally cited. ADR-0010 records that the G-2 thresholds do
+construction execution plan v4 originally cited. docs/notes.md records that the G-2 thresholds do
 not depend on that choice.
 
-Criteria, registered in `GATES.md` section 6 with configurations in revision 13:
+Criteria, registered in `docs/protocol.md` section 6 with configurations in revision 13:
 
 1. Route B reproduces the analytic quasispecies at cosine >= 0.95 for L = 2..6.
 2. The block encoding satisfies its defining property to 1e-10.
@@ -45,7 +45,7 @@ from quasarstack.qsvt.filter import (
 )
 from quasarstack.qsvt.qubitisation import verify_chebyshev
 
-# Registered in GATES.md section 6 and revision 13.
+# Registered in docs/protocol.md section 6 and revision 13.
 COSINE_THRESHOLD = 0.95
 BLOCK_ENCODING_TOLERANCE = 1e-10
 DEGREE_AGREEMENT_FACTOR = 2.0
@@ -69,9 +69,9 @@ MAX_DEGREE = 4096
 EPSILON = 1.0 - COSINE_THRESHOLD**2
 
 ASSUMPTION = (
-    "Route B is built as ADR-0010 option C under ADR-0015, a working assumption pending "
+    "Route B is built as option C, a working assumption pending "
     "confirmation by both PIs: QSVT eigenstate filtering for a Hermitian stoquastic "
-    "operator. ADR-0010 records that the G-2 thresholds do not depend on this choice."
+    "operator. docs/notes.md records that the G-2 thresholds do not depend on this choice."
 )
 
 
@@ -257,7 +257,7 @@ def main() -> int:
             "criterion_2": f"block encoding defining property to {BLOCK_ENCODING_TOLERANCE}",
             "criterion_3": f"derived degree within a factor of {DEGREE_AGREEMENT_FACTOR} of "
             f"the empirically sufficient degree",
-            "registered_in": "GATES.md section 6, configurations in revision 13",
+            "registered_in": "docs/protocol.md section 6, configurations in revision 13",
         },
         measured=measured,
         passed=passed,

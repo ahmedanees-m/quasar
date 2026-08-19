@@ -1,7 +1,7 @@
 """SFTP transfer between the compute VM and the Drive archive.
 
 Code moves between machines by git. This module moves everything else: result records,
-figures, image tarballs. rclone is deliberately not used. See DECISIONS.md ADR-0007.
+figures, image tarballs. rclone is deliberately not used. see docs/notes.md.
 
 Credentials come from the environment, never from this file. Populate a gitignored `.env`
 from `.env.example`, or export the variables directly:

@@ -1,7 +1,7 @@
 """Storage ceiling guard for the compute VM.
 
 The VM root filesystem is shared with other projects and is about 91% full. QUASAR is held
-to a hard ceiling so that no other project is ever affected. See DECISIONS.md ADR-0008.
+to a hard ceiling so that no other project is ever affected. See docs/notes.md.
 
 Run this before any sweep. It exits non-zero if the ceiling would be breached, which stops
 the sweep rather than filling the disk.
@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 # Hard ceiling for everything QUASAR occupies on the VM, in gigabytes. Registered in
-# DECISIONS.md ADR-0008. Raising it is a decision, not a convenience.
+# docs/notes.md. Raising it is a decision, not a convenience.
 QUASAR_CEILING_GB = 40.0
 
 # Minimum free space that must remain on the filesystem after QUASAR's footprint, so that

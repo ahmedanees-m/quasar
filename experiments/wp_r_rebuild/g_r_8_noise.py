@@ -13,7 +13,7 @@ cosine similarity is 0.987. Scoring the undecoded measurement would look almost 
 would be measuring the wrong object. The square-root decode in
 `quasarstack.io.conventions.decode_from_measurement` inverts it.
 
-Thresholds and configurations are in GATES.md section 3 and revision 10, committed before
+Thresholds and configurations are in docs/protocol.md section 3 and revision 10, committed before
 this ran.
 
     python experiments/wp_r_rebuild/g_r_8_noise.py
@@ -36,10 +36,10 @@ from quasarstack.io.store import write_gate_record
 from quasarstack.ite.varqite import Ansatz, evolve
 from quasarstack.scoring.metrics import score
 
-# Registered in GATES.md section 3.
+# Registered in docs/protocol.md section 3.
 MITIGATED_COSINE_THRESHOLD = 0.98
 
-# Registered in GATES.md revision 10.
+# Registered in docs/protocol.md revision 10.
 MU = 0.20
 SIZES = [2, 3, 4]
 SHOTS = 40000
@@ -159,7 +159,7 @@ def main() -> int:
             "statistic": "cosine between the mitigated, decoded distribution and the "
             "analytic quasispecies",
             "value": MITIGATED_COSINE_THRESHOLD,
-            "registered_in": "GATES.md section 3, configurations in revision 10",
+            "registered_in": "docs/protocol.md section 3, configurations in revision 10",
         },
         measured=measured,
         passed=passed,

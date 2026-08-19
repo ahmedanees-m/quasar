@@ -1,7 +1,7 @@
 """Scoring metrics, including the case that motivates reporting both.
 
 Cosine is the flattering one and total variation is the conservative one, which is why
-`GATES.md` section 11.4 lets total variation decide where they disagree. That divergence is
+`docs/protocol.md` section 11.4 lets total variation decide where they disagree. That divergence is
 worth a test of its own, so the reason both are carried is visible in the suite and not only
 in a docstring.
 """

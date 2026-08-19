@@ -32,7 +32,7 @@ RESULTS = ROOT / "results"
 
 # Declared execution order. A work package runs only after the ones it depends on.
 # WP-R gates the rest, because nothing downstream is meaningful against an unvalidated
-# stack. See GATES.md section 3.
+# stack. See docs/protocol.md section 3.
 ORDER = [
     "wp_r_rebuild",
     "wp1_spectral",
@@ -53,7 +53,7 @@ def discover(only: str | None) -> list[Path]:
     silence while the runner still printed a pass count and exited zero. Four gates were
     written, committed, launched and reported as a clean run without ever executing: G-3,
     G-4, G-5 and G-6 sat in directories nobody had added to the list. That is the same shape
-    as ADR-0014, a mechanism that fails by doing nothing and says it succeeded.
+    as docs/notes.md sets out, a mechanism that fails by doing nothing and says it succeeded.
 
     `ORDER` now sequences the packages it knows about, and any package holding a `g_*.py`
     that is *not* listed raises rather than being skipped. Adding a work package should
@@ -113,7 +113,9 @@ def main() -> int:
 
     if not scripts:
         print("No gate scripts found yet. WP-R is the first work package to add them; see")
-        print("GATES.md section 3 for the registered thresholds and CLAIMS.md for the")
+        print(
+            "docs/protocol.md section 3 for the registered thresholds and docs/results-index.md for the"
+        )
         print("artefact each gate must write.")
         return 0
 
@@ -174,7 +176,7 @@ def main() -> int:
         print(f"--- {'PASS' if ok else 'FAIL'} in {elapsed:.1f}s", flush=True)
 
     manifest = {"git_sha": sha, "gates": summary, "failed": failed}
-    # `evidence_directory` gained a required `work_package` when ADR-0012's guard was
+    # `evidence_directory` gained a required `work_package` when the evidence guard was
     # consolidated into it, and this call was not updated. It is the last statement of a run
     # that takes twenty hours to reach, so the break stayed invisible through every attempt
     # that a reboot killed earlier: the first run to actually finish every gate is the first

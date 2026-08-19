@@ -1,6 +1,6 @@
 """G-6: the matrix-product baseline. WP6 criteria 1, 2 and 4.
 
-Criteria, registered in `GATES.md` section 10 with the sweep in revision 19:
+Criteria, registered in `docs/protocol.md` section 10 with the sweep in revision 19:
 
 1. Converges to sparse exact diagonalisation where both run: cosine >= 0.999 at sufficient
    chi, for L in {8, 10, 12, 14} across all families.
@@ -37,7 +37,7 @@ from quasarstack.classical.mps_ite import evolve, step_operator_bond_dimension
 from quasarstack.io.progress import Progress
 from quasarstack.io.store import RESULTS_ROOT, write_gate_record
 
-# Registered in GATES.md section 10 and revision 19.
+# Registered in docs/protocol.md section 10 and revision 19.
 COSINE_THRESHOLD = 0.999
 SIZES = [8, 10, 12, 14]
 CHI_SWEEP = [1, 2, 4, 8, 16, 32, 64, 128]
@@ -113,7 +113,7 @@ def smallest_sufficient_chi(
 
     With a budget, the climb stops before starting a rung it cannot afford, and the cell
     reports the largest chi it managed and the best cosine it saw, marked `budget_limited`.
-    This is ADR-0019's own recommendation applied here: a method that runs out of time should
+    This is the recommendation in docs/notes.md applied here: a method that runs out of time should
     hand back what it has, so the record can tell "the tensor network cannot represent this
     state" apart from "the tensor network was not given long enough". Those are different
     findings and only one of them is about physics.
@@ -439,7 +439,7 @@ def main() -> int:
             f"diagonalisation at sufficient chi, L = {SIZES}",
             "criterion_2": "bond dimension needed, mapped across family, K, mu and L",
             "criterion_4": "truncation error recorded at every step",
-            "registered_in": "GATES.md section 10, sweep in revision 19",
+            "registered_in": "docs/protocol.md section 10, sweep in revision 19",
         },
         measured=measured,
         passed=passed,

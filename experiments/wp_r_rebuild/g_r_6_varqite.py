@@ -11,7 +11,7 @@ angle near zero could have that rotation optimised away, which would change the 
 depth even though the ansatz is identical, so comparing only the written circuit would be
 the weaker check.
 
-Thresholds, ansatz rule and configurations are in GATES.md section 3 and revision 6,
+Thresholds, ansatz rule and configurations are in docs/protocol.md section 3 and revision 6,
 committed before this ran.
 
     python experiments/wp_r_rebuild/g_r_6_varqite.py
@@ -37,10 +37,10 @@ from quasarstack.io.store import write_gate_record
 from quasarstack.ite.varqite import Ansatz, evolve, verify_hardware_route
 from quasarstack.scoring.metrics import score
 
-# Registered in GATES.md section 3.
+# Registered in docs/protocol.md section 3.
 COSINE_THRESHOLD = 0.999
 
-# Registered in GATES.md revision 6.
+# Registered in docs/protocol.md revision 6.
 MU = 0.20
 SIZES = [3, 4, 5, 6]
 TAU_CAP = 60.0
@@ -275,7 +275,7 @@ def main() -> int:
                 "tau = 20, before and after transpilation",
                 "value": "identical",
             },
-            "registered_in": "GATES.md section 3, ansatz rule and configurations in revision 6",
+            "registered_in": "docs/protocol.md section 3, ansatz rule and configurations in revision 6",
         },
         measured=measured,
         passed=passed,
@@ -286,7 +286,7 @@ def main() -> int:
             "fails for reasons unrelated to the method. Convergence is judged on the state "
             "rather than the parameters: the ansatz has gauge directions, so parameters "
             "drift long after the state has settled. tau_used is reported per configuration "
-            "as the budget-needed-for-accuracy half of ADR-0013."
+            "as the budget-needed-for-accuracy half of docs/notes.md."
         ),
     )
 

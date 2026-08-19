@@ -1,6 +1,6 @@
 """G-8: the error-threshold sweep on a real QPU, and the dry run that must pass first.
 
-`GATES.md` section 12 registers G-8 as a **feasibility** gate. It sets no accuracy threshold,
+`docs/protocol.md` section 12 registers G-8 as a **feasibility** gate. It sets no accuracy threshold,
 requires job IDs, backend name, calibration date, transpiled depth, two-qubit gate count,
 shots, and both raw and mitigated distributions, and states that framing the result as
 evidence of advantage fails the gate. Nothing here claims advantage.
@@ -656,10 +656,8 @@ def run(
 ) -> tuple[bool, dict[str, Any], list[dict[str, Any]]]:
     """Measure. Everything printed by `main` comes from what this returns.
 
-    The split is not decoration. G-5 renamed keys here and not in its reporting, and printed a
-    summary that disagreed with the artefact it had just written. For a run that spends an
-    irreplaceable budget, a printed summary that does not come from the record is worse than no
-    summary: it is the thing a reader will believe.
+    G-5 renamed keys here and not in its reporting, and printed a summary that disagreed with
+    the record it had just written. The summary is built from the record for that reason.
     """
     started = time.monotonic()
     recovering = recover_id is not None
@@ -738,7 +736,7 @@ def run(
             "qiskit_ibm_runtime": _version("qiskit-ibm-runtime"),
         },
         "what_this_is_not": (
-            "A feasibility and validation result, as GATES.md section 12 registers G-8. No "
+            "A feasibility and validation result, as docs/protocol.md section 12 registers G-8. No "
             "accuracy threshold is set and no advantage is claimed. Route B is absent from "
             "this run because it cannot be run here: 1024 walk-operator queries on 5 to 9 "
             "ancillas is a deep coherent circuit and squarely fault-tolerant territory. That "
@@ -833,7 +831,7 @@ def report(passed: bool, measured: dict[str, Any], cases: list[dict[str, Any]]) 
             "statistic": "feasibility: job ids, backend, calibration date, transpiled depth, "
             "two-qubit count, shots, and both raw and mitigated distributions recorded",
             "accuracy_threshold": None,
-            "registered_in": "GATES.md section 12, revision 25",
+            "registered_in": "docs/protocol.md section 12, revision 25",
         },
         measured=measured,
         passed=passed,

@@ -1,6 +1,6 @@
 """Refuse to accept a committed result record that was not produced in the pinned image.
 
-ADR-0006 says every result record comes from `quasar:v1` on the declared hardware. That was
+docs/notes.md says every result record comes from `quasar:v1` on the declared hardware. That was
 policy with nothing enforcing it, and it broke the first time it was tested: a gate run outside the
 image wrote a record that a `git add -A` swept into a commit. The record's own provenance
 block said so plainly, with `image: unknown` and `git_dirty: true`, and it was not being read.
@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 RESULTS = ROOT / "results"
 
-# The declared execution environment, from DECISIONS.md ADR-0006 and GATES.md section 11.3.
+# The declared execution environment, from docs/notes.md and docs/protocol.md section 11.3.
 REQUIRED_PLATFORM_PREFIX = "Linux"
 FORBIDDEN_IMAGE_VALUES = {"unknown", "", None}
 
@@ -76,27 +76,35 @@ def problems_with(path: Path) -> list[str]:
     return found
 
 
-def _is_shallow() -> bool:
-    """A shallow clone holds one commit, so commit resolution cannot be evaluated in it.
+def _commits_resolvable() -> bool:
+    """Can this tree answer whether a commit exists?
 
-    Reporting every record as naming a missing commit would be a failure about the checkout
-    depth wearing the costume of a provenance failure, which is the sort of result that
-    teaches people to ignore the check.
+    A shallow clone holds one commit, and an export of the released tree holds no `.git` at
+    all. In both cases every record would look like it names a missing commit, which says
+    nothing about the record. The other fields are still checked.
     """
-    out = subprocess.run(
+    inside = subprocess.run(
+        ["git", "rev-parse", "--is-inside-work-tree"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    if inside != "true":
+        return False
+    shallow = subprocess.run(
         ["git", "rev-parse", "--is-shallow-repository"],
         cwd=ROOT,
         capture_output=True,
         text=True,
     ).stdout.strip()
-    return out == "true"
+    return shallow != "true"
 
 
-SHALLOW = _is_shallow()
+COMMITS_RESOLVABLE = _commits_resolvable()
 
 
 def _commit_exists(sha: str) -> bool:
-    if SHALLOW:
+    if not COMMITS_RESOLVABLE:
         return True
     return (
         subprocess.run(

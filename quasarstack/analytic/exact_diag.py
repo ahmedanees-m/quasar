@@ -12,7 +12,7 @@ Perron eigenvector. Being slow and structure-blind is the whole value of it.
 W is symmetric, because a point mutation is as likely to restore a site as to break it in
 this model, so the eigenproblem is a symmetric one and the Perron vector is sign definite.
 
-Solver policy, from `GATES.md` section 1 and `DECISIONS.md` ADR-0004: dense below
+Solver policy, from `docs/protocol.md` section 1 and docs/notes.md: dense below
 L = 12 where it is both fast and maximally accurate, sparse ``eigsh`` at and above it.
 Dense is forbidden outright above L = 12, where the matrix would need 2.1 GB and then 34 GB.
 """

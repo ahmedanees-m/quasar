@@ -12,7 +12,7 @@ failure came from a generator basis of the wrong parity, where Motta's right-han
 quantity for both parities and records both, so the reason the basis is what it is sits in
 the artefact.
 
-Thresholds and configurations are in GATES.md section 3 and revision 7, committed before
+Thresholds and configurations are in docs/protocol.md section 3 and revision 7, committed before
 this ran.
 
     python experiments/wp_r_rebuild/g_r_7_motta.py
@@ -42,11 +42,11 @@ from quasarstack.ite.qite_motta import (
 )
 from quasarstack.scoring.metrics import score
 
-# Registered in GATES.md section 3.
+# Registered in docs/protocol.md section 3.
 COSINE_THRESHOLD = 0.95
 ENERGY_RISE_TOLERANCE = 1e-10
 
-# Registered in GATES.md revision 7. Filled in from the pre-run scan.
+# Registered in docs/protocol.md revision 7. Filled in from the pre-run scan.
 MU = 0.20
 SIZES = [3, 4, 5, 6]
 MAX_WEIGHT = 2
@@ -213,7 +213,7 @@ def main() -> int:
                 "statistic": "no energy increase on any step",
                 "value": ENERGY_RISE_TOLERANCE,
             },
-            "registered_in": "GATES.md section 3, configurations in revision 7",
+            "registered_in": "docs/protocol.md section 3, configurations in revision 7",
         },
         measured=measured,
         passed=passed,

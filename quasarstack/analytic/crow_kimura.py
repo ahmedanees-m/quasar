@@ -17,7 +17,7 @@ where ``f`` is the Malthusian fitness, ``mu`` is the per-site mutation rate, and
 flips site i. The quasispecies is the Perron eigenvector of W, and the equilibrium mean
 fitness is its eigenvalue. W is symmetric here because mutation is symmetric between wild
 type and mutant, so ``-W`` is stoquastic and its ground state is sign definite. That is what
-lets L1 and L2 normalisation pick the same ray. See `DECISIONS.md` ADR-0003.
+lets L1 and L2 normalisation pick the same ray. See docs/notes.md.
 
 Two exactly solvable families
 -----------------------------
@@ -28,7 +28,7 @@ the sum of single-site spectra and the Perron eigenvector is a product state. Ea
 contributes
 
     w_i = [[a_i - mu,      mu   ],
-           [   mu    , -a_i - mu]]
+           [   mu, -a_i - mu]]
 
 with largest eigenvalue ``-mu + sqrt(a_i**2 + mu**2)`` and eigenvector proportional to
 ``(1, r_i)`` where ``r_i = (sqrt(a_i**2 + mu**2) - a_i) / mu``. This is a closed form: no

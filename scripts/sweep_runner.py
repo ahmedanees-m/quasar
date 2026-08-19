@@ -18,7 +18,7 @@ produced and a restart skips what is already there. The alternative, holding eve
 memory and writing at the end, loses a multi-hour run to one exception and quietly tempts
 whoever restarts it to narrow the grid.
 
-**The order parameter must mean the same thing in every cell.** ADR-0017 and revision 18:
+**The order parameter must mean the same thing in every cell.** docs/notes.md and revision 18:
 localisation is measured from each instance's own fittest genotype, not from genotype 0,
 because no rugged family keeps its optimum there. The reference genotype and its Hamming
 weight are recorded per cell so the choice is auditable rather than implicit.
@@ -69,7 +69,7 @@ from quasarstack.qsvt.block_encoding import one_norm  # noqa: E402
 from quasarstack.qsvt.filter import filtered_state  # noqa: E402
 from quasarstack.spectral.order_parameter import localisation  # noqa: E402
 
-# Registered in GATES.md section 11.1, with revision 18's split of the ruggedness axis.
+# Registered in docs/protocol.md section 11.1, with revision 18's split of the ruggedness axis.
 REGISTERED_GRID = {
     # revision 20: section 11.1's grid is 3108 cells and about 294 hours at measured cost.
     # This covers the same families and mutation range at 7 points instead of 21, and defers
@@ -409,7 +409,7 @@ def run_cell(cell: dict[str, Any]) -> dict[str, Any]:
     reference = np.abs(perron_vector(fitness, mu, dense_limit=REFERENCE_DENSE_LIMIT)[0])
     reference = reference / reference.sum()
 
-    # ADR-0017: measured from this instance's own optimum, not from genotype 0.
+    # docs/notes.md: measured from this instance's own optimum, not from genotype 0.
     optimum = int(np.argmax(fitness))
     budget = BUDGET_SECONDS.get(n_sites, 300.0)
 
@@ -494,7 +494,7 @@ def main() -> int:
         print(f"{len(planned)} cells")
         return 0
 
-    # ADR-0012, via the shared guard in quasarstack.io.store. This script had its own copy
+    # docs/notes.md, via the shared guard in quasarstack.io.store. This script had its own copy
     # and the G-7 scorer had none; the helper exists so a third writer cannot forget.
     env = environment()
     directory = evidence_directory(f"wp{arguments.wp}")

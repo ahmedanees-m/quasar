@@ -1,4 +1,4 @@
-# Validation: the gate system, and what each gate is defending against
+# Validation: the check system, and what each check is defending against
 
 ## Why the ruler is built first
 
@@ -36,23 +36,23 @@ failure rather than a plausible-looking plot.
 | Endianness | Every bitstring conversion routes through `quasarstack.io.conventions`, with the Qiskit little-endian reversal isolated in one function and round-tripped by property test. |
 | Dense diagonalisation at a size that will not fit | `assert_dense_allowed` raises immediately rather than letting the machine swap. |
 
-## The gates
+## The checks
 
-Each gate in `GATES.md` is an executable test under `tests/gates/` and writes a JSON record
-under `results/`. A gate with no artefact has not passed. Records carry the commit, the
+Each check in `protocol.md` is an executable test under `tests/gates/` and writes a JSON record
+under `results/`. A check with no artefact has not passed. Records carry the commit, the
 image tag, whether the tree was dirty, the interpreter version, and the SHA-256 of
-`GATES.md` itself, so the claim that a threshold was registered before the run is checkable
+`protocol.md` itself, so the claim that a threshold was registered before the run is checkable
 rather than asserted.
 
 ### G-R.1, the oracle against exact diagonalisation
 
-The first gate, and the one everything else leans on.
+The first check, and the one everything else leans on.
 
 **Two analytic routes, one brute-force reference.** Additive fitness makes the generator a
 sum of commuting single-site operators, so the Perron eigenvector is a product state with a
 per-site closed form and no eigensolver at any L. Permutation-symmetric fitness reduces to
 an (L+1)-dimensional tridiagonal problem on Hamming classes. The two overlap exactly when
-every `a_i` is equal, and on that overlap the gate checks the closed form against the class
+every `a_i` is equal, and on that overlap the check checks the closed form against the class
 reduction as well as against exact diagonalisation, which makes it a three-way agreement
 rather than a pairwise one.
 
@@ -78,7 +78,7 @@ similarity between eigenvectors cannot see an endianness error, because permutin
 computational basis leaves the spectrum untouched and permutes both vectors the same way.
 So the run also compares the compiled operator entry by entry against the generator
 assembled independently in `analytic/exact_diag.py`. That comparison is recorded as a
-diagnostic rather than promoted to the gate, because the threshold was registered in cosine
+diagnostic rather than promoted to the check, because the threshold was registered in cosine
 and thresholds do not move. It agreed to 3.6e-15.
 
 **Why the identity term is carried.** The compiler emits `H = -W` including the `mu L I`
@@ -100,13 +100,13 @@ belongs in the WP1 resource-scaling analysis, where it can be stated properly.
 
 ### G-R.4, the error threshold
 
-The gate asks whether the qubit route sees the localisation-delocalisation transition where
+The check asks whether the qubit route sees the localisation-delocalisation transition where
 the analytic theory puts it. The surplus is computed at every point of a mutation-rate sweep
 from the ground state of the compiled Pauli Hamiltonian and from the analytic Hamming-class
-reduction, and the gate is the maximum disagreement.
+reduction, and the check is the maximum disagreement.
 
 **Where the threshold sits is a diagnostic, not a pass condition.** So is the direction in
-which epistasis moves it. The planning documents state an expected direction, and a gate
+which epistasis moves it. The planning documents state an expected direction, and a check
 that required the expected answer would not be a measurement. That distinction earned its
 keep: one of the two epistasis directions came out disagreeing with the documents, and
 because it was never a pass condition there was no pressure on it.
@@ -126,10 +126,10 @@ At L = 8 that is the difference between summing 256 Pauli terms 300 times and do
 twice. The assembly is checked against a directly compiled operator at one mutation rate per
 case, and the check is recorded in the artefact; it came back at exactly zero. A speed
 optimisation that quietly stopped matching the thing it stands in for would invalidate the
-gate, so it is verified rather than trusted.
+check, so it is verified rather than trusted.
 
 **Two normalisation mistakes, both found before the recorded run and both disclosed in
-`GATES.md` revision 4 rather than quietly fixed.** An epistatic family that fixed the total
+`protocol.md` revision 4 rather than quietly fixed.** An epistatic family that fixed the total
 fitness range made the per-mutation cost near the master scale as 1/L, so selection vanished
 and the exponent varied overall selection strength instead of epistasis. And a pairwise
 coupling held at fixed strength across sizes made the total interaction grow as L squared,
@@ -157,11 +157,11 @@ an arbitrary moment determined by where the gauge drift happened to be, or never
 circuit, so its accuracy is capped by what that circuit can represent. An ansatz too shallow
 to hold the answer fails for reasons unrelated to the method. Depth is a method parameter
 rather than an acceptance threshold, so choosing it adequately is legitimate; choosing it
-invisibly is not. The numbers are in `GATES.md` revision 6.
+invisibly is not. The numbers are in `protocol.md` revision 6.
 
 **What the scan found, which is more interesting than the rule it produced.** The ansatz
 depth needed grows faster than the system does. At L = 6, reps = L reaches only 0.998137 on
-K = 2 instances and reps = L + 2 is required. The gate keeps that as a diagnostic, measuring
+K = 2 instances and reps = L + 2 is required. The check keeps that as a diagnostic, measuring
 accuracy at reps 4, 6 and 8, rather than letting it vanish into a configuration constant. It
 prefigures the barren-plateau ceiling that G-R.9 measures and is directly relevant to how far
 Route A can be pushed.
@@ -171,12 +171,12 @@ differentiating a state vector, which no quantum computer can do. That is only a
 stand-in because the same two objects come from circuit measurements: the McLachlan force is
 the energy gradient via parameter shift, and the metric is the Fubini-Study tensor via
 fidelity shift. `verify_hardware_route` recomputes both that way, touching no derivative
-state, and the gate records the comparison. Without it, the claim would rest on the
+state, and the result records the comparison. Without it, the claim would rest on the
 literature rather than on this code.
 
 ## What reproduction actually showed
 
-Both gates were run more than once, at different commits, inside the same image. Every
+Both checks were run more than once, at different commits, inside the same image. Every
 scientific field came back bit-identical: the same max absolute error to every digit, the
 same cosines, the same term counts. Only `git_sha`, `timestamp`, and the elapsed seconds
 moved.
@@ -184,7 +184,7 @@ moved.
 That is the reproducibility claim in its checkable form, and it is why `make gates` is a
 verification step rather than a step that produces commits. A rerun that changes a
 scientific field is a finding, not noise, and gets committed and explained. See
-`DECISIONS.md` ADR-0009.
+`notes.md`.
 
 ## Running them
 
@@ -199,13 +199,13 @@ python experiments/wp_r_rebuild/g_r_1_oracle_vs_ed.py
 ```
 
 `pytest -m gate` asserts the thresholds. That suite runs nightly and at release rather than
-on every push, because the gates are slow by nature: G-R.1 alone is about 1700 comparisons,
+on every push, because the checks are slow by nature: G-R.1 alone is about 1700 comparisons,
 each of which diagonalises a full generator.
 
-## When a gate fails
+## When a check fails
 
 Open a `validation_failure` issue. The template asks what failed, the measured value against
 the registered threshold, the hypothesis, and whether the threshold was lowered. The answer
 to the last question is always no. If the reasoning behind a threshold turns out to have
-been wrong, that is an amendment appended to `GATES.md` with a dated rationale, and it is a
+been wrong, that is an amendment appended to `protocol.md` with a dated rationale, and it is a
 separate discussion from the failure that exposed it.

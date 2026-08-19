@@ -91,7 +91,7 @@ class Ansatz:
     Real amplitudes are not incidental. The quasispecies is the ground state of a stoquastic
     operator and is sign-definite, so a real ansatz can represent it exactly, and keeping the
     state real is what reduces McLachlan's equations to their simplest form. See
-    `DECISIONS.md` ADR-0003.
+    docs/notes.md.
     """
 
     n_sites: int
@@ -293,7 +293,7 @@ def evolve(
         imaginary time reached would depend on the step size. Measured on Motta-QITE, whose
         stopping rule was the same: accuracy *fell* from 0.9999997 to 0.9999731 as dtau went
         from 0.1 to 0.01, because the finer run stopped earlier in tau rather than because it
-        was worse. Since `tau_used` is the budget-needed-for-accuracy number ADR-0013 asks
+        was worse. Since `tau_used` is the budget-needed-for-accuracy number docs/notes.md asks
         WP7 to compare across methods, a step-size-dependent one would be actively
         misleading.
 
@@ -308,7 +308,7 @@ def evolve(
     parameter-space criterion would either never trigger or trigger at an arbitrary moment
     determined by where the gauge drift happened to be.
 
-    Early stopping is not only a speed measure. ADR-0013 records that a fixed imaginary-time
+    Early stopping is not only a speed measure. docs/notes.md records that a fixed imaginary-time
     budget quietly disadvantages the method on small-gap instances, because the time needed
     scales as one over the spectral gap. Reporting `tau_used` alongside the accuracy is the
     "budget needed for accuracy" half of the fairness protocol recommended there, and it is

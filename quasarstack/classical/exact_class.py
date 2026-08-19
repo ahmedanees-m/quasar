@@ -25,9 +25,9 @@ fitness landscapes, it is known [SS82] that one only needs to find the leading e
 steady state of a **finite-population** chain, in `O(N^O(L^2))` time, which is not polynomial in
 L and is not what this module computes.
 
-So the permutation-symmetric branch below is **Swetina-Schuster**, `PRIOR_ART.md` II.1a.
+So the permutation-symmetric branch below is **Swetina-Schuster**, `docs/references.md` II.1a.
 
-The question the earlier note left open was whether their efficient class is larger than this
+The question docs/notes.md left open was whether their efficient class is larger than this
 one, because if it were, WP7 would hold cells it believes are classically hard which are not.
 It is not larger, it is a strict subset. Their class invariance means `a_sigma` depends only on
 Hamming weight; the additive branch here handles distinct per-site coefficients, where fitness

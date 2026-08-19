@@ -157,7 +157,7 @@ def test_the_imaginary_time_reached_does_not_depend_on_the_step_size() -> None:
     """The stopping rule is a rate, so halving the step must not halve the budget reported.
 
     A per-step criterion trips sooner at a smaller step purely because each step moves less,
-    which would make `tau_used` an artefact of the integrator. That number is what ADR-0013
+    which would make `tau_used` an artefact of the integrator. That number is what docs/notes.md
     asks WP7 to compare across methods, so it has to mean the same thing at every step size.
     """
     a = np.array([1.0, 0.6, 1.3])

@@ -20,8 +20,8 @@ the starting vector.
 
 The project's first engineering principle is that every claim maps to a re-runnable artefact.
 An artefact that re-runs to a different number in its fifteenth digit does not satisfy that,
-and ADR-0009's rule for telling a provenance-only rerun from a real finding cannot work if
-the numbers move on their own. See ADR-0016.
+and the rule in docs/notes.md for telling a provenance-only rerun from a real finding cannot work if
+the numbers move on their own. See docs/notes.md.
 
 A fixed pseudo-random start is used rather than a constant vector such as all-ones. All-ones
 happens to have large overlap with the Perron vector of this particular operator, which would

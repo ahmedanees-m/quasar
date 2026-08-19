@@ -1,26 +1,15 @@
-# PRIOR_ART.md: the four-literature dossier
+# References
 
-This project sits at the intersection of four literatures. Missing any one of them is the
-failure mode that has already forced two repositions of this project. This file is a living
-document; the adversarial red-team (T9.3) checks it explicitly for gaps.
+Notes on the literature this work sits on, grouped by the four areas it draws from: the
+correspondence between mutation-selection dynamics and spin chains, classical algorithms for
+the quasispecies, quantum imaginary-time evolution, quantum algorithms for classical stochastic
+processes, and classical tensor-network simulation. Each entry gives the citation, what the
+paper establishes, what it leaves open, and how this project relates to it.
 
-**Verification status.** Each entry carries a status flag:
+Six entries changed when I went back and read them rather than trusting how they had been
+recorded in the planning documents:
 
-- `verified`: checked against the source. Where the flag reads `read in full` the paper was
-  read end to end; `bibliographic` means title, authorship, venue and the claim summarised
-  here were confirmed against the source or its abstract, which is enough to cite it for what
-  this file says it establishes and not enough to cite it for anything further.
-- `to-verify`: carried over from the planning documents and not yet checked.
-- `unresolved`: the entry names a body of work without identifying a paper, so there is
-  nothing to check. It stays visible rather than being marked verified.
-
-Nothing may be cited in the manuscript while still marked `to-verify`.
-
-**State as of 15 August 2026: every entry is resolved.** Twenty-one entries verified, one
-unresolved for want of a citation, none outstanding. Verification changed six entries rather
-than merely confirming them:
-
-| Entry | What reading it changed |
+| Entry | What changed |
 |---|---|
 | II.1 | The efficient class is a strict subset of Baseline B's, so no boundary cell is misclassified. The `(L+1)` reduction is Swetina-Schuster 1982, not this paper, which cites it for exactly that |
 | I.4 | Credited with a pairwise-epistatic Ising Hamiltonian it does not contain; it is an introductory review |
@@ -29,11 +18,10 @@ than merely confirming them:
 | IV.1 | Wrong title |
 | II.3 | Treats the Moran model, not Wright-Fisher as implied |
 
-Two of those, II.1 and I.4, were misattributions that would have reached a referee. The
-pattern in both is the same: a reference recorded from a planning document rather than from
-the paper.
+Two of those, II.1 and I.4, were misattributions that would have reached a referee. Both came
+from a reference recorded out of a planning document rather than out of the paper.
 
-Entry format: citation, what it establishes, what it leaves open, how QUASAR relates.
+Dates for when each entry was last checked are at the end.
 
 ---
 
@@ -43,7 +31,7 @@ The mathematical bridge the project stands on. This literature is mature. Nothin
 novel here, and the manuscript says so in the introduction rather than in a limitations
 paragraph.
 
-### I.1 Leuthäusser, *J. Chem. Phys.* 84(3):1884 (1986); *J. Stat. Phys.* 48:343 (1987): `verified 2026-08-15, bibliographic`
+### I.1 Leuthäusser, *J. Chem. Phys.* 84(3):1884 (1986); *J. Stat. Phys.* 48:343 (1987)
 
 - **Establishes.** "An exact correspondence between Eigen's evolution model and a
   two-dimensional Ising system". For point mutations, Eigen's model maps onto a
@@ -57,7 +45,7 @@ paragraph.
   classical correspondence and are not the same object, so the citation must not be used to
   support a statement about the quantum chain.
 
-### I.2 Baake, Baake & Wagner, *Phys. Rev. Lett.* 78:559 (1997), erratum PRL 79:1782: `verified 2026-08-15, bibliographic`
+### I.2 Baake, Baake & Wagner, *Phys. Rev. Lett.* 78:559 (1997), erratum PRL 79:1782
 
 - **Establishes.** "Ising quantum chain is equivalent to a model of biological evolution".
   A sequence-space model of mutation and selection is equivalent to an Ising quantum chain,
@@ -67,7 +55,7 @@ paragraph.
 - **Relation.** The specific correspondence QUASAR implements. Erratum PRL 79:1782 confirmed
   to exist and must be consulted before any convention is copied from the original.
 
-### I.3 Saakian & Hu, *Phys. Rev. E* 69:021913 and 69:046121 (2004), arXiv:cond-mat/0402212: `verified 2026-08-15, bibliographic`
+### I.3 Saakian & Hu, *Phys. Rev. E* 69:021913 and 69:046121 (2004), arXiv:cond-mat/0402212
 
 - **Establishes.** "Eigen model as a quantum spin chain: exact dynamics" maps the Eigen model
   onto a one-dimensional quantum spin model and derives exact relaxation behaviour using the
@@ -80,7 +68,7 @@ paragraph.
   stoquastic Hermitian `H = -W` whose Perron vector is sign-definite. Results are not
   transferable term by term without checking which operator is meant.
 
-### I.4 Jain & Krug, arXiv:q-bio/0508008 (2005): `verified 2026-08-15, corrected`
+### I.4 Jain & Krug, arXiv:q-bio/0508008 (2005)
 
 **The previous entry in this file was wrong and the correction matters.** It recorded this as
 writing "mutation-selection with pairwise epistasis explicitly as a transverse-field Ising
@@ -98,7 +86,7 @@ Hamiltonian the entry attributed to it.
   the compiler's epistatic term is validated against exact diagonalisation by G-R.2 rather than
   taken on authority from a reference.
 
-### I.5 Park & Deem, *J. Stat. Phys.*, arXiv:q-bio/0607012 (2006): `verified 2026-08-15, bibliographic`
+### I.5 Park & Deem, *J. Stat. Phys.*, arXiv:q-bio/0607012 (2006)
 
 - **Establishes.** "Schwinger Boson Formulation and Solution of the Crow-Kimura and Eigen Models
   of Quasispecies Theory". Spin coherent-state functional integrals by the Schwinger boson
@@ -115,7 +103,7 @@ Hamiltonian the entry attributed to it.
 The most dangerous literature for this project, because it contains results that solve the
 target problem outright. The manuscript leads with these rather than burying them.
 
-### II.1 Dixit, Srivastava & Vishnoi, arXiv:1203.1287 (2012): `verified 2026-08-14`
+### II.1 Dixit, Srivastava & Vishnoi, arXiv:1203.1287 (2012)
 
 Read in full from the arXiv PDF. This entry was the one substantive prior-art risk in the file,
 because if this paper's efficient class were larger than Baseline B's, WP7 would contain cells it
@@ -164,7 +152,7 @@ attribution the execution plan carried was wrong in a way a referee in this fiel
   relevant to WP4 rather than to Baseline B. Do **not** describe Baseline B as
   "Dixit-Srivastava-Vishnoi": the plan's label was wrong.
 
-### II.1a Swetina & Schuster, *Biophys. Chem.* 16:329-345 (1982): `verified 2026-08-14 by citation`
+### II.1a Swetina & Schuster, *Biophys. Chem.* 16:329-345 (1982)
 
 - **Establishes.** For class-invariant landscapes the quasispecies is the leading eigenvector of
   an `(L+1) x (L+1)` matrix rather than a `2^L x 2^L` one. This is the reduction Baseline B's
@@ -175,7 +163,7 @@ attribution the execution plan carried was wrong in a way a referee in this fiel
   `(L+1)` reduction until someone reads it.
 - **Relation.** The correct citation for Baseline B, `quasarstack/classical/exact_class.py`.
 
-### II.2 Dalmau, arXiv:1403.6951 (2014) and arXiv:1712.00279 (2017): `verified 2026-08-15, bibliographic`
+### II.2 Dalmau, arXiv:1403.6951 (2014) and arXiv:1712.00279 (2017)
 
 - **Establishes.** "The distribution of the quasispecies for the Wright-Fisher model on the
   sharp peak landscape" and "The Wright-Fisher model for class-dependent fitness landscapes".
@@ -186,7 +174,7 @@ attribution the execution plan carried was wrong in a way a referee in this fiel
   no advantage claim is available on the easy landscapes. A companion result for the
   Galton-Watson process, arXiv:1411.4488, exists and is not used here.
 
-### II.3 Cerf & Dalmau, *Stoch. Proc. Appl.* 126:1681 (2016); monograph, Springer (2022): `verified 2026-08-15, bibliographic`
+### II.3 Cerf & Dalmau, *Stoch. Proc. Appl.* 126:1681 (2016); monograph, Springer (2022)
 
 - **Establishes.** The 2016 paper is "The distribution of the quasispecies for a Moran model on
   the sharp peak landscape", so it treats the **Moran** model rather than Wright-Fisher; the
@@ -204,7 +192,7 @@ attribution the execution plan carried was wrong in a way a referee in this fiel
 Saturated. The execution plan demotes the varQITE against Motta comparison from a contribution
 to a methods subsection because of this literature. No novelty is claimed here.
 
-### III.1 Motta et al., *Nature Physics* 16:205 (2020), arXiv:1901.07653: `verified 2026-08-15, bibliographic`
+### III.1 Motta et al., *Nature Physics* 16:205 (2020), arXiv:1901.07653
 
 - **Establishes.** "Determining eigenstates and thermal states on a quantum computer using
   quantum imaginary time evolution". Introduces QITE and quantum Lanczos as analogues of the
@@ -214,7 +202,7 @@ to a methods subsection because of this literature. No novelty is claimed here.
 - **Leaves open.** Generator support and circuit depth grow as correlations spread.
 - **Relation.** Route A fallback, `quasarstack/ite/qite_motta.py`.
 
-### III.2 McArdle et al., *npj Quantum Information* 5:75 (2019), arXiv:1804.03023: `verified 2026-08-15, bibliographic`
+### III.2 McArdle et al., *npj Quantum Information* 5:75 (2019), arXiv:1804.03023
 
 - **Establishes.** "Variational ansatz-based quantum simulation of imaginary time evolution".
   A hybrid variational algorithm for imaginary-time evolution on shallow circuits, applied to
@@ -222,10 +210,10 @@ to a methods subsection because of this literature. No novelty is claimed here.
 - **Relation.** Route A primary, `quasarstack/ite/varqite.py`.
 - **Correction.** The previous entry attributed a gradient-variance decay of "roughly 0.42^L"
   to the planning documents. **G-R.9 measured it in this project** and the base is 0.535 to
-  0.556 across six landscape and statistic combinations, 0.549 for the gate statistic. The
+  0.556 across six landscape and statistic combinations, 0.549 for the check statistic. The
   0.42 figure is superseded by measurement and should not be cited.
 
-### III.3 Nishi, Kosugi & Matsushita, *npj Quantum Information* 7:85 (2021), arXiv:2005.12715: `verified 2026-08-15, corrected and merged`
+### III.3 Nishi, Kosugi & Matsushita, *npj Quantum Information* 7:85 (2021), arXiv:2005.12715
 
 **Two errors, both found on reading.** The entry described this as "probabilistic
 implementation of imaginary-time evolution", which is a different line of work by an
@@ -240,7 +228,7 @@ result as two.
 - **Relation.** Alternative ITE route, cited to show the method space is populated. The
   duplicate is removed rather than left inflating the count.
 
-### III.4 Probabilistic imaginary-time evolution (PITE): `verified 2026-08-15, corrected`
+### III.4 Kosugi, Nishiya, Nishi & Matsushita, probabilistic imaginary-time evolution, *Phys. Rev. Research* 4:033121 (2022), arXiv:2111.12471
 
 - **Establishes.** A distinct non-variational line from an overlapping group, using measurement
   to realise a non-unitary operation with a single ancilla and forward and backward real-time
@@ -253,7 +241,7 @@ result as two.
 - **Relation.** Evidence that ITE methods are an active and crowded area, which is why this
   project claims no contribution there.
 
-### III.5 Quasiprobabilistic imaginary-time evolution, arXiv:2505.06343 (2025): `verified 2026-08-15`
+### III.5 Ray et al., quasiprobabilistic imaginary-time evolution, *Quantum Inf. Comput.* 26(1):89 (2026), arXiv:2505.06343
 
 - **Establishes.** "Quasiprobabilistic imaginary-time evolution on quantum computers".
   Decomposes a Trotterised imaginary-time evolution into a probabilistic linear combination of
@@ -262,11 +250,11 @@ result as two.
   simulation and on 2 qubits of hardware.
 - **Relation.** As III.4. Renumbered after the duplicate above was removed.
 
-### III.6 Automated ITE circuit design by deep reinforcement learning, arXiv:2604.07951 (2026): `verified 2026-08-15`
+### III.6 Suzuki & Watabe, automated ITE circuit design by deep reinforcement learning, arXiv:2604.07951 (2026)
 
 - **Establishes.** Double deep Q-networks design variational imaginary-time evolution circuits
   as a multi-objective problem over energy and circuit complexity, reporting roughly 37% fewer
-  gates and 43% less depth than a hardware-efficient ansatz on Max-Cut, and reaching the
+  checks and 43% less depth than a hardware-efficient ansatz on Max-Cut, and reaching the
   full-CI limit for molecular hydrogen on a shallower circuit.
 - **Relation.** As III.4. The most recent entry, and it confirms the area is still moving.
 
@@ -276,7 +264,7 @@ result as two.
 
 Where Route B connects to provable-complexity results rather than to heuristics.
 
-### IV.1 Quantum Advantage in Simulating Stochastic Processes, *Phys. Rev. X* 11:021019 (2021): `verified 2026-08-15, title corrected`
+### IV.1 Korzekwa & Lostaglio, *Phys. Rev. X* 11:021019 (2021), arXiv:2005.02403
 
 - **Establishes.** Three scenarios in which memory or time advantages arise when simulating
   classical stochastic processes by quantum dynamics, including quantum memoryless dynamics
@@ -287,7 +275,7 @@ Where Route B connects to provable-complexity results rather than to heuristics.
 - **Relation.** Establishes that the question of whether quantum helps for a classical
   stochastic process has a real and non-trivial answer space.
 
-### IV.2 Aghamohammadi, Mahoney & Crutchfield, *Sci. Rep.* 7:6735 (2017), arXiv:1609.03650: `verified 2026-08-15, bibliographic`
+### IV.2 Aghamohammadi, Mahoney & Crutchfield, *Sci. Rep.* 7:6735 (2017), arXiv:1609.03650
 
 - **Establishes.** "Extreme Quantum Advantage when Simulating Classical Systems with Long-Range
   Interaction". For the Dyson one-dimensional Ising chain the advantage grows without bound
@@ -298,7 +286,7 @@ Where Route B connects to provable-complexity results rather than to heuristics.
 - **Relation.** A precedent for advantage in a related setting, cited to keep the scope claim
   accurate in both directions.
 
-### IV.3 Orfi & Sels, *Phys. Rev. A* 110:052414 (2024), arXiv:2403.03087: `verified 2026-08-15, bibliographic`
+### IV.3 Orfi & Sels, *Phys. Rev. A* 110:052414 (2024), arXiv:2403.03087
 
 - **Establishes.** "Bounding the speedup of the quantum-enhanced Markov-chain Monte Carlo
   algorithm". No speedup over classical sampling on a worst-case unstructured sampling problem,
@@ -309,7 +297,7 @@ Where Route B connects to provable-complexity results rather than to heuristics.
   unital proposals. It does not forbid advantage on structured instances, and the manuscript
   should not present it as more than it is.
 
-### IV.4 Claudon, Piquemal & Monmarche: "Quantum speedup for nonreversible Markov chains", arXiv:2501.05868, *Nature Communications* 16:10732 (2025), ✅ `verified` 2026-08-09
+### IV.4 Claudon, Piquemal & Monmarché, *Nature Communications* 16:10732 (2025), arXiv:2501.05868
 
 - **Establishes.** Two quantum methods for sampling the stationary distribution of a
   **row-stochastic Markov kernel**. A generalised quantum singular value transform of the
@@ -364,7 +352,7 @@ Where Route B connects to provable-complexity results rather than to heuristics.
   rate then factorises into direction times context and that product cancels out of
   Kolmogorov's cycle condition. Both were measured; the control is in the artefact.
 
-- **Consequence for Route B.** See `DECISIONS.md` ADR-0010. Route B is not dead, but it
+- **Consequence for Route B.** See `notes.md`. Route B is not dead, but it
   cannot be built on this reference as planned, and the plan's framing needs correcting
   before WP2 starts.
 
@@ -375,7 +363,7 @@ Where Route B connects to provable-complexity results rather than to heuristics.
 Not one of the four named literatures, but it sets the bar the boundary map is measured
 against, so it belongs in this dossier.
 
-### V.1 Tindall, Fishman, Stoudenmire & Sels, *PRX Quantum* 5:010308 (2024), arXiv:2306.14887: `verified 2026-08-15, bibliographic`
+### V.1 Tindall, Fishman, Stoudenmire & Sels, *PRX Quantum* 5:010308 (2024), arXiv:2306.14887
 
 - **Establishes.** "Efficient Tensor Network Simulation of IBM's Eagle Kicked Ising
   Experiment". A tensor network whose geometry follows the device lattice, contracted
@@ -391,7 +379,7 @@ against, so it belongs in this dossier.
   stating: bespoke methods of this kind have repeatedly closed claimed advantage gaps, so the
   classical side of any comparison scoped as ours is a lower bound on classical capability.
 
-### V.2 MPO-based spin-glass methods: `unresolved, no citation`
+### V.2 MPO-based spin-glass methods
 
 - **Status.** This entry names a body of work without identifying a paper, so there is nothing
   to verify. It is left open rather than marked verified, because marking a placeholder as
@@ -407,3 +395,36 @@ Where the red-team or a reviewer identifies a literature this file misses, it is
 here with the date, so the history of what was missed and when is visible.
 
 *(No entries yet.)*
+
+---
+
+## When each entry was last checked
+
+`bibliographic` means title, authorship, venue and the claim summarised here were
+confirmed against the source or its abstract. `read in full` means the paper was read
+end to end. One entry names a body of work without identifying a paper, so there is
+nothing to check against.
+
+| Entry | Checked |
+|---|---|
+| I.1 | verified 2026-08-15, bibliographic |
+| I.2 | verified 2026-08-15, bibliographic |
+| I.3 | verified 2026-08-15, bibliographic |
+| I.4 | verified 2026-08-15, corrected |
+| I.5 | verified 2026-08-15, bibliographic |
+| II.1 | verified 2026-08-14 |
+| II.1a | verified 2026-08-14 by citation |
+| II.2 | verified 2026-08-15, bibliographic |
+| II.3 | verified 2026-08-15, bibliographic |
+| III.1 | verified 2026-08-15, bibliographic |
+| III.2 | verified 2026-08-15, bibliographic |
+| III.3 | verified 2026-08-15, corrected and merged |
+| III.4 | verified 2026-08-15, corrected |
+| III.5 | verified 2026-08-15 |
+| III.6 | verified 2026-08-15 |
+| IV.1 | verified 2026-08-15, title corrected |
+| IV.2 | verified 2026-08-15, bibliographic |
+| IV.3 | verified 2026-08-15, bibliographic |
+| IV.4 | verified 2026-08-09 |
+| V.1 | verified 2026-08-15, bibliographic |
+| V.2 | unresolved, no citation |

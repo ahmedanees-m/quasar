@@ -1,4 +1,4 @@
-"""Verify that every entry in CLAIMS.md resolves.
+"""Verify that every entry in docs/results-index.md resolves.
 
 A claim without a resolvable artefact does not go in the paper. This script parses the
 ledger and checks, for each row, that the named script exists and that the named artefact
@@ -20,13 +20,12 @@ from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LEDGER = ROOT / "CLAIMS.md"
+LEDGER = ROOT / "docs/results-index.md"
 
 # Identifiers may carry a letter suffix, as C4b and C5b do, for a claim that belongs to the
-# same gate as its parent. An earlier form of this pattern required digits only, so those
-# rows matched nothing and were skipped in silence: they sat in the ledger looking checked
-# and were not. A checker that quietly ignores what it cannot parse is worse than no checker,
-# so unparsed rows are now also counted and reported.
+# same run as its parent. An earlier form of this pattern required digits only, so those rows
+# matched nothing and were skipped: they sat in the index looking checked and were not.
+# Unparsed rows are counted and reported now.
 ROW = re.compile(r"^\|\s*(C\d+[a-z]*)\s*\|(.+)\|\s*$")
 CLAIM_LIKE = re.compile(r"^\|\s*(C\S*)\s*\|")
 CODE = re.compile(r"`([^`]+)`")
@@ -78,8 +77,29 @@ def parse_ledger(text: str) -> tuple[list[Claim], list[str]]:
     return claims, unparsed
 
 
+def _in_git_checkout() -> bool:
+    """Is there a repository here to ask about tracked files?
+
+    An export of the released tree carries no `.git`, so every file would look untracked.
+    """
+    return (
+        subprocess.run(
+            ["git", "rev-parse", "--is-inside-work-tree"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        == "true"
+    )
+
+
+IN_GIT_CHECKOUT = _in_git_checkout()
+
+
 def _is_tracked(path: Path) -> bool:
     """Is this file committed, rather than merely present on disk?"""
+    if not IN_GIT_CHECKOUT:
+        return True
     return (
         subprocess.run(
             ["git", "ls-files", "--error-unmatch", str(path)],
@@ -138,12 +158,12 @@ def main() -> int:
     args = parser.parse_args()
 
     if not LEDGER.is_file():
-        print(f"CLAIMS.md not found at {LEDGER}")
+        print(f"docs/results-index.md not found at {LEDGER}")
         return 1
 
     claims, unparsed = parse_ledger(LEDGER.read_text(encoding="utf-8"))
     if not claims:
-        print("CLAIMS.md parsed but contained no claim rows")
+        print("docs/results-index.md parsed but contained no claim rows")
         return 1
 
     problems = check(claims, allow_planned=args.allow_planned)

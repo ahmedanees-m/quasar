@@ -19,7 +19,7 @@ independently at rate `mu`.
 The Crow-Kimura (parallel mutation-selection) dynamics on the vector of genotype frequencies
 `x` is
 
-    dx/dt  =  W x  -  <f> x ,        W  =  diag(f)  +  mu * sum_i (X_i - I)
+    dx/dt  =  W x  -  <f> x,        W  =  diag(f)  +  mu * sum_i (X_i - I)
 
 where `X_i` is the bit-flip on site `i` and `<f> = f . x` keeps the total normalised. The
 nonlinear term is a scalar multiple of `x`, so it changes the norm and nothing else. The
@@ -47,7 +47,7 @@ operator, not a Markov generator, and results stated for stochastic matrices or 
 generators do not transfer without an argument.
 
 *Checked by* `tests/unit/test_perron.py`, and this is one of the two independent reasons
-recorded in ADR-0010 that the Claudon-Piquemal-Monmarche construction does not apply here.
+recorded in docs/notes.md that the Claudon-Piquemal-Monmarche construction does not apply here.
 
 ---
 
@@ -100,7 +100,7 @@ product measure and the operator is reversible, though no longer symmetric.
 off-diagonal entries. `diag(f)` is diagonal. So no landscape, however rugged, however
 epistatic, can make `W` nonreversible. Ruggedness is not a route to nonreversibility.
 
-This closes off the tempting repair to ADR-0010. If ruggedness could buy nonreversibility,
+This closes off the tempting repair to docs/notes.md. If ruggedness could buy nonreversibility,
 Route B's stated foundation could be recovered by choosing a harder landscape family, and the
 project could carry on as planned. It cannot: reversibility is fixed entirely by the mutation
 model. Measured across six landscapes, including one with fitness entries spanning fifteen
@@ -121,7 +121,7 @@ exactly `0` for every symmetric and every asymmetric-but-context-free case.
 **Why this matters more than it looks.** Execution plan v4 rests Route B on a speedup that
 comes *from* nonreversibility. Our operator is reversible by construction, and S7 says the
 biology cannot be adjusted to change that. Combined with S1, the stated foundation of the
-project's novelty core does not hold. This is ADR-0010, and it is open for both PIs.
+project's novelty core does not hold. This is in docs/notes.md, and it is open for both PIs.
 
 ---
 
@@ -166,7 +166,7 @@ as a low-degree function of Hamming distance it is sparse. At `L = 12` the two f
 `4108` and `27` terms, a ratio of **152.1**, and the ratio grows with `L`: 1.8, 4.7, 13.9,
 45.0, 152.1 at `L = 4, 6, 8, 10, 12`.
 
-This is why `DECISIONS.md` fixes the spin convention `a_i Z_i`, `b_ij Z_i Z_j` and forbids the
+This is why `notes.md` fixes the spin convention `a_i Z_i`, `b_ij Z_i Z_j` and forbids the
 projector form. The rule reads like style and is a factor of 152 at the size we care about.
 
 **S11. Permutation symmetry is not what makes a landscape cheap.** Two permutation-symmetric
@@ -234,14 +234,14 @@ digits.
 
 For the single peak of height `h`, the gap minimised over `mu` sits at
 
-    mu* L  ->  h ,   with a 1/L correction of coefficient about 1.
+    mu* L  ->  h,   with a 1/L correction of coefficient about 1.
 
 The collapse across heights is exact: `mu* L / h` agrees to five digits between `h = 1.0` and
 `h = 2.5` at every `L` tested from 8 to 1024.
 
 At that point the gap **closes exponentially in `L`**. Exploratory measurement puts the base
 near `0.71`, meaning the gap at the threshold falls by roughly a factor of 2 for every two
-extra sites. The number is registered and measured properly by gate G-1; it is quoted here as
+extra sites. The number is registered and measured properly by check G-1; it is quoted here as
 exploratory and should be read from the artefact, not from this sentence.
 
 ---

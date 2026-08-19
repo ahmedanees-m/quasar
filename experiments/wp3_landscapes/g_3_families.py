@@ -1,13 +1,13 @@
 """G-3: the landscape families, their reproducibility, and the ruggedness axis. WP3.
 
-Criteria, registered in `GATES.md` section 7 with parameters in revision 14:
+Criteria, registered in `docs/protocol.md` section 7 with parameters in revision 14:
 
 1. Every landscape reproduces exactly from its seed, byte-for-byte.
 2. NK with K = 0 equals the additive family analytically, to 1e-12.
 3. Ruggedness increases monotonically in K over seeds 0 to 9 at L = 10 and L = 12, of the
    seed mean, with per-seed values reported.
 
-The gate also answers a question ADR-0011 left open. That ADR withdrew a claim because a
+The gate also answers a question docs/notes.md left open. That ADR withdrew a claim because a
 family had been varying ruggedness and silently relocating the fitness optimum at the same
 time, and it required every family to report where its optimum sits. This gate reports that
 for all seven, which turns "which family should the ruggedness axis use" from a preference
@@ -39,7 +39,7 @@ from quasarstack.classical.landscapes import (
 from quasarstack.hamiltonian.builder import diagonal_hamiltonian, pauli_term_count
 from quasarstack.io.store import write_gate_record
 
-# Registered in GATES.md section 7 and revision 14.
+# Registered in docs/protocol.md section 7 and revision 14.
 ADDITIVE_TOLERANCE = 1e-12
 NK_K = [0, 1, 2, 3, 4, 6]
 RMF_ROUGHNESS = [0.0, 0.1, 0.3, 1.0, 3.0]
@@ -119,7 +119,7 @@ def criterion_one() -> tuple[bool, dict, list[dict]]:
         for label, build in families(n_sites):
             for seed in SEEDS:
                 first = build(seed)
-                # Disturb the global state, which is what ADR-0016 showed can leak in.
+                # Disturb the global state, which is what docs/notes.md showed can leak in.
                 np.random.seed(seed + 7919)  # noqa: NPY002
                 np.random.random(1000)  # noqa: NPY002
                 second = build(seed)
@@ -232,7 +232,7 @@ def criterion_three() -> tuple[bool, dict, list[dict]]:
 def optimum_survey() -> tuple[dict, list[dict]]:
     """Where does each family put its optimum, and what does it cost to compile?
 
-    The ADR-0011 requirement, applied to every family at once. A family whose optimum stays
+    The docs/notes.md requirement, applied to every family at once. A family whose optimum stays
     at the master sequence while ruggedness varies is usable for error-threshold statements;
     one whose optimum wanders is not, whatever else it has to recommend it.
     """
@@ -320,13 +320,13 @@ def main() -> int:
             "criterion_2": f"NK at K = 0 equals additive to {ADDITIVE_TOLERANCE}",
             "criterion_3": "local optima rise and correlation length falls with K, in the "
             "seed mean, at L = 10 and L = 12",
-            "registered_in": "GATES.md section 7, parameters in revision 14",
+            "registered_in": "docs/protocol.md section 7, parameters in revision 14",
         },
         measured=measured,
         passed=passed,
         cases=cases,
         notes=(
-            "The optimum survey is the ADR-0011 requirement applied to all seven families. "
+            "The optimum survey is that requirement applied to all seven families. "
             "A family whose global optimum wanders away from the master sequence as "
             "ruggedness rises cannot carry an error-threshold statement, because the "
             "threshold is defined by delocalisation away from that sequence."

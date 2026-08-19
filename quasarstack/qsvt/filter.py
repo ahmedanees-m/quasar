@@ -1,6 +1,6 @@
 """Eigenstate filtering: the polynomial that turns a block encoding into a quasispecies.
 
-WP2 tasks T2.3 and T2.4, built on ADR-0015's working assumption that Route B is ADR-0010
+WP2 tasks T2.3 and T2.4, built on the working assumption that Route B is in docs/notes.md
 option C: QSVT eigenstate filtering for a Hermitian stoquastic operator, not the
 nonreversible-Markov-chain construction the execution plan originally cited.
 
@@ -143,7 +143,7 @@ def predicted_degree(gap: float, alpha: float, overlap: float, epsilon: float = 
 
     An earlier version of this function omitted the overlap entirely and used a fixed
     ``epsilon = 1e-3``. It overestimated the measured degree by factors of 3.3 to 7.2, which
-    is what surfaced the omission. See `GATES.md` revision 13 for the disclosure.
+    is what surfaced the omission. See `docs/protocol.md` revision 13 for the disclosure.
     """
     if gap <= 0.0:
         return float("inf")

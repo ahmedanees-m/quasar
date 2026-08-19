@@ -8,13 +8,13 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 ### Added
 
 - Repository skeleton per `QUASAR_engineering_standards.md`.
-- `GATES.md`, the kept as a running record specification, with thresholds for WP-R through WP8, the
+- `docs/protocol.md`, the kept as a running record specification, with thresholds for WP-R through WP8, the
   full WP7 grid, seed lists, the compute-budget protocol, and the G-7 decision rule.
-- `PRIOR_ART.md`, the four-literature dossier, with a per-entry verification flag. Nothing
+- `docs/references.md`, the four-literature dossier, with a per-entry verification flag. Nothing
   may be cited in the manuscript while still marked to-verify.
-- `CLAIMS.md`, the claims ledger, and `scripts/check_claims.py` to verify every entry
+- `docs/results-index.md`, the claims ledger, and `scripts/check_claims.py` to verify every entry
   resolves to an artefact and a script.
-- `DECISIONS.md` with ADR-0001 through ADR-0008, covering the rebuild decision, the three
+- `docs/notes.md` with docs/notes.md, covering the rebuild decision, the three
   numerical conventions that correspond to known silent-failure modes, the Docker-only
   execution policy, the git-for-code and transfer-for-artefacts split, and the working storage ceiling.
 - `Dockerfile` and `requirements.in` for the pinned execution image, with BLAS thread
@@ -25,7 +25,7 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
   and `infra/disk_guard.py` to hold QUASAR inside its declared storage ceiling on the
   shared host.
 - CI on every push: lint, format check, types, fast tests, claims-ledger check, and a
-  full-history secrets scan. Nightly runs slow tests, gates, and regression.
+  full-history secrets scan. Nightly runs slow tests, checks, and regression.
 
 - The analytic ruler: `quasarstack/analytic/crow_kimura.py` with two exactly solvable
   families, neither of which ever forms the 2^L generator, and
@@ -34,15 +34,15 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 - `quasarstack/classical/landscapes.py` with the WP-R subset of families, in the spin
   convention only.
 - `quasarstack/io/store.py`, which writes result records carrying the commit, the image
-  tag, the interpreter, whether the tree was dirty, and the SHA-256 of `GATES.md`, so that
+  tag, the interpreter, whether the tree was dirty, and the SHA-256 of `docs/protocol.md`, so that
   "the threshold was registered before the run" is checkable rather than asserted.
 - `quasarstack/hamiltonian/builder.py`, compiling landscapes into Pauli operators by two
   independent routes, and `quasarstack/scoring/metrics.py` with cosine and total variation
   always reported together.
-- `GATES.md` Amendments 1 and 2: the G-R.1 case set and the G-R.2 configuration set, each
-  appended before the gate it governs was executed.
+- `docs/protocol.md` Amendments 1 and 2: the G-R.1 case set and the G-R.2 configuration set, each
+  appended before the check it governs was executed.
 
-### Gates passed
+### Checks passed
 
 - **G-R.1**, oracle against exact diagonalisation: max absolute error 2.4e-15 against a
   1e-9 threshold, over 1701 comparisons.
@@ -59,7 +59,7 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 - **G-R.5**, rugged NK landscapes: cosine 1.000000 across 100 instances against a 0.99999
   threshold, zero failing, including the maximally rugged K = 7 case where the Pauli
   decomposition saturates at 2^L + L terms. Ruggedness is monotone in K. The Trotterised
-  diagnostic exposed the budget fairness problem recorded in ADR-0013.
+  diagnostic exposed the budget fairness problem recorded in docs/notes.md.
 
 - **G-R.6**, varQITE: cosine 0.9999741 against a 0.999 threshold across 14 configurations,
   with circuit depth identical at τ = 2.5 and τ = 20 on every one. The McLachlan quantities
@@ -71,7 +71,7 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 
 - "Antagonistic epistasis lowers the error threshold", from the planning documents, is not
   supported and is dropped. Negative uniform coupling relocates the fitness optimum off the
-  master sequence, so the question is ill-posed in that family. ADR-0011 makes reporting the
+  master sequence, so the question is ill-posed in that family. docs/notes.md makes reporting the
   optimum's location a requirement on every ruggedness axis, which matters because WP7
   sweeps ruggedness as its main axis.
 
@@ -80,14 +80,14 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 - `scripts/check_results_provenance.py`, run in CI, rejects any committed result record that
   cannot show it came from the pinned image on a clean tree. Added after an out-of-image
   record reached a commit. `write_gate_record` now also redirects records from outside the
-  image into a gitignored directory so the situation cannot arise. ADR-0012.
+  image into a gitignored directory so the situation cannot arise. See docs/notes.md.
 
 ### Prior art
 
 - Entry IV.4, Claudon, Piquemal and Monmarché (2025), verified ahead of schedule and found
   **not to apply**. The generator is non-conservative but reversible, while their speedup is
   bought by nonreversibility and their theorems are stated for row-stochastic kernels. Route
-  B needs a different foundation; options in ADR-0010. Also adds
+  B needs a different foundation; options in docs/notes.md. Also adds
   `quasarstack/spectral/perron.py` and its reversibility diagnostics.
 - `docs/validation.md`, mapping each of the three historical failure modes to the
   convention that now locks it out.
@@ -95,5 +95,5 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 ### Notes
 
 Values reported in the planning documents belong to an earlier implementation that could not
-be located, and are registered in `GATES.md` section 3 as targets for the rebuild rather
-than carried over as results. See `DECISIONS.md` ADR-0001.
+be located, and are registered in `docs/protocol.md` section 3 as targets for the rebuild rather
+than carried over as results. See docs/notes.md.

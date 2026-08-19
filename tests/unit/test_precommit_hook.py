@@ -4,7 +4,7 @@ Hooks that check less than CI give false confidence: they pass, you push, CI fai
 loop the hooks exist to close stays open. That open loop is the single most repeated defect in
 this project. CI's claims step failed for a fortnight while `UNRESOLVED` in its output read
 like a status word rather than a failure; `black --check` was red for a day after the wrong
-formatter was used; and a laptop-produced record reached a commit because ADR-0006 was policy
+formatter was used; and a laptop-produced record reached a commit because it was policy
 with nothing enforcing it.
 
 The specific gap this test was written to catch: `.pre-commit-config.yaml` ran black, ruff and

@@ -15,7 +15,7 @@ state ``|0>`` is wild type and ``|1>`` is mutated.
 
 The projector form ``a_i (I + Z_i) / 2`` is *not* used. Mixing the two is silent: the
 resulting quasispecies is a plausible-looking distribution that is simply wrong. See
-`DECISIONS.md` ADR-0002.
+docs/notes.md.
 
 Genotype indexing follows `quasarstack.io.conventions`: the fitness vector returned by
 these functions has length ``2**L``, and entry j is the fitness of the genotype whose site
@@ -216,7 +216,7 @@ def nk_fitness(
 
     Notes
     -----
-    The standardisation is deliberate and follows the lesson of `DECISIONS.md` ADR-0011.
+    The standardisation is deliberate and follows the lesson of docs/notes.md.
     Raw NK fitness is a mean of L uniform draws, so its spread shrinks as ``1/sqrt(L)`` and
     grows with K. Sweeping K on the raw scale would therefore vary selection strength at the
     same time as ruggedness, and any result would be a mixture of the two. Fixing the spread
@@ -262,7 +262,7 @@ def nk_fitness(
 
 
 def ruggedness_statistics(fitness: NDArray[np.float64]) -> dict[str, float | int]:
-    """Structure of a landscape, as WP3 task T3.3 requires and ADR-0011 now insists on.
+    """Structure of a landscape, as WP3 task T3.3 requires and docs/notes.md now insists on.
 
     Returns
     -------
@@ -271,7 +271,7 @@ def ruggedness_statistics(fitness: NDArray[np.float64]) -> dict[str, float | int
         neighbour. ``autocorrelation`` is the correlation of fitness across single-mutation
         neighbour pairs, which falls toward zero as the landscape becomes rugged.
         ``optimum_index`` and ``optimum_hamming_weight`` say where the global optimum sits,
-        which is the ADR-0011 requirement: a family that silently relocates its optimum is
+        which is that requirement: a family that silently relocates its optimum is
         not varying ruggedness alone.
     """
     fitness = np.asarray(fitness, dtype=np.float64)
@@ -365,7 +365,7 @@ def spin_glass_fitness(
         at a random genotype and whose optimum is degenerate under global spin flip: every
         configuration and its complement have the same fitness. A non-zero field breaks that
         symmetry. `ruggedness_statistics` reports where the optimum lands either way, which
-        ADR-0011 requires of every family.
+        docs/notes.md requires of every family.
 
     Notes
     -----
@@ -412,7 +412,7 @@ def rough_mount_fuji_fitness(
 
     The Rough Mount Fuji model, and the family WP3 should prefer for the ruggedness axis,
     because it is the one that varies ruggedness **without moving the optimum**, which is
-    exactly what ADR-0011 was written about. The additive part points at the all-wild-type
+    exactly what docs/notes.md was written about. The additive part points at the all-wild-type
     genotype at every roughness, so the master sequence stays where the error threshold is
     defined relative to, and only the amount of local structure changes.
 

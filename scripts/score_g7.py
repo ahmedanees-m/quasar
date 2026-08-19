@@ -1,4 +1,4 @@
-"""Score the WP7 decision gate against `GATES.md` section 11.5.
+"""Score the WP7 decision gate against `docs/protocol.md` section 11.5.
 
 The gate asks a single question with four conjunctive conditions, and the answer is either a
 region of the grid that satisfies all four or a null reported as a delimitation. Both were
@@ -117,7 +117,7 @@ def score(cells: list[dict]) -> dict[str, Any]:
         groups.setdefault(key, []).append(cell)
 
     regions, excluded = [], []
-    # ADR-0019: how much of the grid the budget rule removed, per size. Exclusion takes out
+    # docs/notes.md: how much of the grid the budget rule removed, per size. Exclusion takes out
     # exactly the cells where the classical reference is most strained, which is the subset
     # most likely to hold a crossover, so a null that comes with no exclusion count is not a
     # null anyone can weigh. Counted here whether or not it changes the verdict.
@@ -303,7 +303,7 @@ def main() -> int:
     print(f"\nverdict: {verdict['verdict'].upper()}")
     print(f"groups scored   {verdict['groups_scored']}")
     print(f"groups excluded {len(verdict['groups_excluded'])}")
-    print("\ncells excluded by size (ADR-0019):")
+    print("\ncells excluded by size:")
     for row in verdict["excluded_cells_by_size"]:
         print(
             f"   L={row['L']}  {row['cells_excluded']} of {row['cells']} "
@@ -332,7 +332,7 @@ def main() -> int:
     # could have been produced anywhere by any version of the code with nothing recording
     # otherwise, while every other gate in the tree carried full provenance. CI's provenance
     # check rejected it from the moment it was committed, and nobody read that either.
-    # ADR-0012 exists for exactly this.
+    # docs/notes.md exists for exactly this.
     #
     # `passed` is true because the gate was answered, which is what section 11.5 asks of it.
     # Both a positive region and a bounded null were registered in advance as publishable, so a
@@ -349,7 +349,7 @@ def main() -> int:
                 f"does not apply, and the bootstrap confidence intervals do not overlap"
             ),
             "both_outcomes_registered_publishable": True,
-            "registered_in": "GATES.md section 11.5",
+            "registered_in": "docs/protocol.md section 11.5",
         },
         measured=verdict,
         passed=True,

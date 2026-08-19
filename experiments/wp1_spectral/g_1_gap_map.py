@@ -2,9 +2,9 @@
 
 The gap governs convergence for every eigenvector-extraction method, quantum or classical, so
 this map is the object that says where a quantum method could possibly help. It is also the
-input to the WP7 budget protocol (ADR-0013) and to the WP2 resource estimate.
+input to the WP7 budget protocol and to the WP2 resource estimate.
 
-The three criteria are registered in `GATES.md` section 5; revision 12 fixes what section 5
+The three criteria are registered in `docs/protocol.md` section 5; revision 12 fixes what section 5
 left ambiguous and discloses the exploratory scans that preceded it.
 
 1. Every closed form that exists is reproduced to relative error < 1e-6.
@@ -48,7 +48,7 @@ from quasarstack.spectral.order_parameter import locate_threshold, magnetisation
 
 ROOT = Path(__file__).resolve().parents[2]
 
-# Registered in GATES.md section 5 and revision 12.
+# Registered in docs/protocol.md section 5 and revision 12.
 CLOSED_FORM_TOLERANCE = 1e-6
 THRESHOLD_TOLERANCE = 0.05
 CRITERION_2_SIZES = [6, 8, 10]
@@ -492,7 +492,7 @@ def main() -> int:
             f"mu_c under both readings, at L = {CRITERION_2_SIZES}",
             "criterion_3": "every operator-structure claim derived in docs/theory.md and "
             "resolving to a test or artefact",
-            "registered_in": "GATES.md section 5, readings and grid in revision 12",
+            "registered_in": "docs/protocol.md section 5, readings and grid in revision 12",
         },
         measured=measured,
         passed=passed,

@@ -14,7 +14,7 @@ def gate_result():
     """One run of the gate, shared by every test in this file.
 
     Each test used to call ``run`` itself, so the gate executed once per test. It is
-    deterministic, ADR-0016 having pinned the eigensolver's start vector, so the repeats
+    deterministic, the eigensolver start vector having been pinned, so the repeats
     produced identical numbers at full price. This gate is the slowest in the project and
     was running three times: on its own it held the suite for the better part of an hour,
     which is how a suite stops being one anybody waits for.

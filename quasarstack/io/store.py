@@ -2,7 +2,7 @@
 
 Every number that reaches the manuscript has to trace back to exact code in an exact
 environment. So no result is written as a bare value: each record carries the git commit,
-the image tag, the interpreter version, and the seeds, and `GATES.md` is hashed into the
+the image tag, the interpreter version, and the seeds, and `docs/protocol.md` is hashed into the
 record so it is provable that the threshold was registered before the run rather than after
 it.
 
@@ -81,7 +81,7 @@ def environment() -> dict[str, Any]:
         "image": os.environ.get("QUASAR_IMAGE", "unknown"),
         "python": sys.version.split()[0],
         "platform": platform.platform(),
-        "gates_md_sha256": file_sha256(REPO_ROOT / "GATES.md"),
+        "protocol_sha256": file_sha256(REPO_ROOT / "docs" / "protocol.md"),
     }
 
 
@@ -94,7 +94,7 @@ def in_pinned_image() -> bool:
 def evidence_directory(work_package: str, announce: bool = True) -> Path:
     """Where this run may write: the evidence tree inside the image, ``_local`` outside it.
 
-    ADR-0012 built this redirection so a laptop run cannot leave a file where committed
+    docs/notes.md built this redirection so a laptop run cannot leave a file where committed
     evidence lives. It was implemented inside `write_gate_record` and nowhere else, and every
     later writer had to remember to re-implement it. Two did not: the WP7 sweep runner and
     the G-7 scorer both wrote straight into `results/` on their first version.
@@ -130,11 +130,11 @@ def write_gate_record(
     Parameters
     ----------
     gate
-        Gate identifier as written in `GATES.md`, for example ``"G-R.1"``.
+        Gate identifier as written in `docs/protocol.md`, for example ``"G-R.1"``.
     work_package
         Directory under ``results/``, for example ``"wp_r"``.
     threshold
-        The registered acceptance criterion, copied verbatim from `GATES.md`.
+        The registered acceptance criterion, copied verbatim from `docs/protocol.md`.
     measured
         What the run actually produced.
     passed
@@ -146,7 +146,7 @@ def write_gate_record(
     """
     env = environment()
 
-    # ADR-0012's redirection, obtained from `evidence_directory` rather than reimplemented.
+    # the evidence redirection, obtained from `evidence_directory` rather than reimplemented.
     # This function used to carry its own copy of the rule, which is how the guard came to
     # exist in two places at once: the very duplication that consolidating it into
     # `evidence_directory` was supposed to end. Keeping a second copy here also meant a script

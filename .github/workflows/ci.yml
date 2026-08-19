@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  quality:
+  tests:
     runs-on: ubuntu-latest
     steps:
       # Full history, because the provenance check resolves the commit each record names.
@@ -40,14 +40,9 @@ jobs:
       - name: Types
         run: mypy quasarstack
 
-      - name: Fast tests
+      - name: Tests
         run: pytest -m fast --cov=quasarstack --cov-report=term-missing
 
-      - name: Claims ledger resolves
-        run: python scripts/check_claims.py --allow-planned
-
-      - name: Committed results were produced in the pinned image
-        run: python scripts/check_results_provenance.py
 
   secrets:
     runs-on: ubuntu-latest

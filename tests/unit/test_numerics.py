@@ -2,7 +2,7 @@
 
 `scipy.sparse.linalg.eigsh` starts from NumPy's global random state unless told otherwise,
 so every process starts somewhere different and stops at a slightly different point. These
-tests fail if any `eigsh` call in `quasarstack` stops passing a fixed start. See ADR-0016.
+tests fail if any `eigsh` call in `quasarstack` stops passing a fixed start. See docs/notes.md.
 """
 
 from __future__ import annotations
@@ -34,8 +34,8 @@ def test_start_vector_is_the_same_every_call() -> None:
 def test_sparse_gap_is_bit_identical_across_global_rng_states(n_sites: int) -> None:
     """The failure this catches: G-R.4's measured gap decay moved from
     ...588269 to ...588261 between two runs of identical code, because ARPACK had started
-    somewhere else. A fifteenth-digit wobble is not a rounding detail here; it is the
-    difference between ADR-0009 classifying a rerun as provenance-only and as a finding."""
+        somewhere else. A fifteenth-digit wobble is not a rounding detail here; it is the
+        difference between docs/notes.md classifying a rerun as provenance-only and as a finding."""
     fitness = nk_fitness(n_sites, 2, seed=0)
 
     np.random.seed(1)  # noqa: NPY002

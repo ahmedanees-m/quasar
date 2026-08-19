@@ -1,6 +1,6 @@
 """G-4: the Wright-Fisher finite-population baseline. WP4.
 
-Criteria, registered in `GATES.md` section 8 with configurations in revision 15:
+Criteria, registered in `docs/protocol.md` section 8 with configurations in revision 15:
 
 1. Reproduces the analytic single-peak quasispecies as population size and sample budget
    grow: total variation < 0.02 at the largest declared budget, L = 8.
@@ -15,7 +15,7 @@ individual-based at `O(N L)`. At the top of the declared sweep the two differ by
 orders of magnitude by construction, so the test would pass by a factor of a thousand while
 establishing nothing. No reference implementation is present in the pinned image either. The
 gate still records absolute throughput and the measured scaling, so the comparison can be
-completed later without rerunning anything. ADR-0018 has the reasoning.
+completed later without rerunning anything. docs/notes.md has the reasoning.
 
 **What replaced it.** Time to a fixed accuracy, which is invariant to whether the state is
 carried as counts or as individuals, and which can fail: nothing guarantees the target is
@@ -38,7 +38,7 @@ from quasarstack.analytic.crow_kimura import single_peak_quasispecies
 from quasarstack.classical.wright_fisher import sample_stationary, time_step_bias
 from quasarstack.io.store import write_gate_record
 
-# Registered in GATES.md section 8 and revision 15.
+# Registered in docs/protocol.md section 8 and revision 15.
 TV_THRESHOLD = 0.02
 N_SITES = 8
 MU = 0.10
@@ -60,7 +60,7 @@ CRITERION_2_STATUS = (
     "differ by about three orders of magnitude by construction, so a throughput-within-5x "
     "test would pass by a factor of a thousand and establish nothing about whether the "
     "baseline is well built. No reference implementation is present in the pinned image, and "
-    "ADR-0006 forbids installing one outside Docker. See ADR-0018 for the recommended "
+    "docs/notes.md forbids installing one outside Docker. See docs/notes.md for the recommended "
     "replacement: time-to-accuracy at matched total variation."
 )
 
@@ -186,7 +186,7 @@ def run() -> tuple[bool, dict, list[dict]]:
             "cheapest_sufficient_population": cheapest["population"] if cheapest else None,
             "seconds_to_reach_target": cheapest["seconds"] if cheapest else None,
             "total_variation_reached": cheapest["total_variation"] if cheapest else None,
-            "registered_in": "GATES.md revision 22",
+            "registered_in": "docs/protocol.md revision 22",
             "what_this_does_not_establish": (
                 "That the baseline is as fast as the best available forward simulator. No "
                 "reference implementation is present in the pinned image, so the "
@@ -221,12 +221,12 @@ def main() -> int:
         threshold={
             "criterion_1": f"total variation < {TV_THRESHOLD} against the analytic "
             f"quasispecies at N = {POPULATIONS[-1]}, L = {N_SITES}",
-            "criterion_2": "WITHDRAWN as unexecutable, see revision 15 and ADR-0018: "
+            "criterion_2": "WITHDRAWN as unexecutable, see revision 15 and docs/notes.md: "
             "throughput within 5x of the reference community implementation",
             "criterion_2b": f"reaches total variation <= {TV_THRESHOLD} at L = {N_SITES} "
             f"within the {WP7_BUDGET_SECONDS:.0f} s that section 11.3 allots a method per "
             f"WP7 cell",
-            "registered_in": "GATES.md section 8, configurations in revision 15, "
+            "registered_in": "docs/protocol.md section 8, configurations in revision 15, "
             "criterion 2b in revision 22",
         },
         measured=measured,

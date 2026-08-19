@@ -2,7 +2,7 @@
 
 Section 11.3 gives each method a per-cell allotment, 300 s at `L <= 12`, and `score_g7.py`
 excludes any cell where a method overran it, on the reasoning that a method which won on 1.7
-times the allotted time has not won. ADR-0019 measured the consequence and it is large: the
+times the allotted time has not won. docs/notes.md records the consequence and it is large: the
 tensor network overruns on **64.1% of `L = 12` cells**, so roughly two thirds of the largest
 size carries no budget-valid classical reference.
 
@@ -147,7 +147,7 @@ def main() -> int:
         threshold={
             "statistic": "condition 1 of G-7 evaluated with and without the budget exclusion",
             "value": measured["threshold"],
-            "registered_in": "GATES.md section 11.3, ADR-0019",
+            "registered_in": "docs/protocol.md section 11.3, docs/notes.md",
         },
         measured=measured,
         passed=survives,

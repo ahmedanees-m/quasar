@@ -3,7 +3,7 @@
 Written in numpy rather than through quimb, for two reasons. The pinned image has quimb but
 the authoring machine does not, so a quimb implementation could not be validated anywhere
 before it ran on the compute VM, and this project has already lost one six-minute gate run to
-an unverified assumption about what the image contains (ADR-0016 and the mpmath failure).
+an unverified assumption about what the image contains.
 And the operator here is a diagonal function of the bits plus a transverse field, which needs
 so little of a general tensor-network library that the dependency would carry more risk than
 it removes.

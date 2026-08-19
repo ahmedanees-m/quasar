@@ -7,8 +7,8 @@ manufactures an advantage while one that is too strict manufactures a null. Both
 look like a plausible answer.
 
 The cases below fix the four conditions of section 11.5 in place, one test per way of
-failing them, plus the budget rule from ADR-0019 and the recomputation of `over_budget` that
-ADR-0013's amendment introduced after a method reported its own budget state incorrectly.
+failing them, plus the budget rule from docs/notes.md and the recomputation of `over_budget` that
+the amendment introduced after a method reported its own budget state incorrectly.
 """
 
 from __future__ import annotations
@@ -140,7 +140,7 @@ class TestTheBudgetRule:
         assert by_size[12]["by_reason"] == {"over budget": 1}
 
     def test_over_budget_is_recomputed_rather_than_trusted(self) -> None:
-        """A method that overran and says otherwise must still be excluded. ADR-0013."""
+        """A method that overran and says otherwise must still be excluded. See docs/notes.md."""
         over = cell(9, tensor_seconds=985.0)
         over["methods"][scorer.TENSOR_NETWORK]["over_budget"] = False
         over["methods"][scorer.TENSOR_NETWORK]["budget_exhausted"] = False

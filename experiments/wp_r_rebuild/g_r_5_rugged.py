@@ -14,7 +14,7 @@ diagnostic. It is the first test of whether imaginary time actually converges on
 landscape at a fixed budget, and it is deliberately not a pass condition: an instance with a
 small gap may fail to converge, and that is a finding for G-R.6, G-R.7 and WP7, not a defect.
 
-Thresholds and instances are in GATES.md section 3 and revision 5, committed before this
+Thresholds and instances are in docs/protocol.md section 3 and revision 5, committed before this
 ran.
 
     python experiments/wp_r_rebuild/g_r_5_rugged.py
@@ -34,10 +34,10 @@ from quasarstack.hamiltonian.builder import diagonal_hamiltonian, ground_state, 
 from quasarstack.io.store import write_gate_record
 from quasarstack.scoring.metrics import score
 
-# Registered in GATES.md section 3.
+# Registered in docs/protocol.md section 3.
 THRESHOLD = 0.99999
 
-# Registered in GATES.md revision 5.
+# Registered in docs/protocol.md revision 5.
 MU = 0.25
 SEEDS = list(range(10))
 CELLS = [(6, 1), (6, 2), (6, 4), (8, 1), (8, 2), (8, 4), (8, 7), (10, 1), (10, 2), (10, 4)]
@@ -147,14 +147,14 @@ def main() -> int:
             "statistic": "cosine between the compiled Pauli Hamiltonian's ground state and "
             "brute-force exact diagonalisation, on every NK instance",
             "value": THRESHOLD,
-            "registered_in": "GATES.md section 3, instance set in revision 5",
+            "registered_in": "docs/protocol.md section 3, instance set in revision 5",
         },
         measured=measured,
         passed=passed,
         cases=cases,
         notes=(
             "NK landscapes have no master sequence: the global optimum sits at a random "
-            "genotype near Hamming weight L/2, which is recorded per instance as ADR-0011 "
+            "genotype near Hamming weight L/2, which is recorded per instance as docs/notes.md sets out "
             "requires. Statements about the error threshold do not carry over to this "
             "family unchanged. The Trotterised route is a diagnostic and not a pass "
             "condition, because a rugged instance with a small gap may legitimately fail to "

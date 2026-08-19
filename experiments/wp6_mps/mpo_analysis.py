@@ -1,6 +1,6 @@
 """G-6.3: MPO bond dimension per landscape family. WP6 task T6.3, claim C25.
 
-`GATES.md` section 10 criterion 3 asks that MPO bond dimension be reported per family, that
+`docs/protocol.md` section 10 criterion 3 asks that MPO bond dimension be reported per family, that
 at least two site orderings be tested on the non-local families with the better one used, and
 that **where MPS is structurally disadvantaged the disadvantage is stated in the results, not
 exploited**. This answers all three exactly and cheaply, because for a diagonal operator the
@@ -154,7 +154,7 @@ def main() -> int:
         threshold={
             "statistic": "MPO bond dimension reported per family, at least two site "
             "orderings on the non-local families, structural disadvantage stated",
-            "registered_in": "GATES.md section 10 criterion 3",
+            "registered_in": "docs/protocol.md section 10 criterion 3",
         },
         measured=measured,
         passed=passed,

@@ -109,7 +109,7 @@ def hamming_class_collapse(distribution: NDArray[np.float64], n_sites: int) -> N
 
     The storage policy stores this collapsed form for every cell and the full distribution
     only for L <= 12 and designated representative cells, which is what keeps the result set
-    small enough to archive. See `DECISIONS.md` ADR-0008.
+    small enough to archive. See docs/notes.md.
 
     Parameters
     ----------
@@ -142,8 +142,8 @@ def normalise_l1(vector: NDArray[np.float64]) -> NDArray[np.float64]:
     downstream is a biological probability distribution. The absolute value is safe here
     only because the target is the ground state of the stoquastic operator
     ``-(H_sel + H_mut)``, whose Perron vector is sign-definite, so taking the modulus
-    recovers the intended ray rather than destroying sign information. See `DECISIONS.md`
-    ADR-0003.
+    recovers the intended ray rather than destroying sign information. See `docs/notes.md`
+    docs/notes.md.
     """
     magnitude = np.abs(vector).astype(np.float64)
     total = float(magnitude.sum())
@@ -170,7 +170,7 @@ def decode_from_measurement(
     answer looks right. The squared distribution is non-negative, normalised, and peaked on
     the same genotype, and its cosine similarity to the quasispecies is 0.987, which passes
     an eyeball check and most thresholds. Total variation is what exposes it, which is why
-    `quasarstack.scoring.metrics` reports both and why `GATES.md` section 11.4 lets total
+    `quasarstack.scoring.metrics` reports both and why `docs/protocol.md` section 11.4 lets total
     variation decide.
 
     Taking the square root inverts it exactly in the infinite-shot limit, and improves the
@@ -208,7 +208,7 @@ def assert_dense_allowed(n_sites: int, limit: int = 12) -> None:
 
     Dense float64 at L = 14 is about 2.1 GB and at L = 16 about 34 GB. The compute VM has
     62 GB of RAM shared with other work, so this is a guard rail rather than a suggestion.
-    See `GATES.md` section 1 and `DECISIONS.md` ADR-0004.
+    See `docs/protocol.md` section 1 and docs/notes.md.
     """
     if n_sites > limit:
         size_gb = (1 << (2 * n_sites)) * 8 / 1024**3

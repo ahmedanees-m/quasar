@@ -69,7 +69,7 @@ def test_epistatic_coupling_reaches_the_operator() -> None:
 def test_hamiltonian_is_stoquastic() -> None:
     """Every off-diagonal entry non-positive. This is what makes the ground state sign
     definite, which is the whole justification for the L1 decode. If it ever fails, the
-    normalisation argument in ADR-0003 fails with it."""
+    normalisation argument in docs/notes.md fails with it."""
     rng = np.random.default_rng(2)
     a = rng.uniform(-1.0, 2.0, size=4)
     matrix = np.asarray(additive_hamiltonian(a, 0.4).to_matrix()).real

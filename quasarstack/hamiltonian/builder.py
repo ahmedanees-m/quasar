@@ -14,7 +14,7 @@ eigenvectors, so what this module returns is the negated operator
 
 whose ground state is the same vector. H is stoquastic: every off-diagonal entry is
 ``-mu <= 0``, so by Perron-Frobenius its ground state is sign definite, which is what lets
-L1 and L2 normalisation select the same ray. See `DECISIONS.md` ADR-0003. The identity term
+L1 and L2 normalisation select the same ray. See docs/notes.md. The identity term
 is carried rather than dropped, so that the operator matches the generator entry for entry
 and not merely up to a shift.
 

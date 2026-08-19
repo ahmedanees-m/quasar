@@ -4,12 +4,12 @@
 
 1. Every claim in the paper maps to a committed, re-runnable artefact. If a script cannot
    regenerate it, it does not go in the paper.
-2. Specify, then run. Thresholds and protocols live in `GATES.md` and are committed, so a
+2. Specify, then run. Thresholds and protocols live in `docs/protocol.md` and are committed, so a
    result is judged against a written criterion rather than one chosen to fit it.
 3. The ruler comes first. Validation infrastructure is built before the thing it validates.
 4. Complete reporting is a first-class output. Nulls, failures, and scope limits are committed
    artefacts, not omissions.
-5. Reproducibility is binary. A clean clone plus one command reproduces every gate, or the
+5. Reproducibility is binary. A clean clone plus one command reproduces every check, or the
    project is not done.
 
 ## Workflow
@@ -37,7 +37,7 @@ Conventional Commits with project-specific types:
 ```
 feat(qsvt): add LCU block encoding for sparse epistatic Hamiltonians
 fix(ite): correct Motta generator linear system
-gate(wp7): record G-7 decision-gate outcome
+run(wp7): record the G-7 boundary-sweep outcome
 exp(wp1): spectral gap sweep across NK K=0..6
 docs(prior-art): add quantum stochastic process literature
 test(regression): freeze golden outputs for varQITE L=2-4
@@ -67,15 +67,15 @@ Four layers, and a change is not done until the relevant ones exist:
 
 - `tests/unit/` fast, isolated, deterministic. Runs on every push.
 - `tests/integration/` cross-module pipelines.
-- `tests/gates/` the specified acceptance criteria, one test per gate in `GATES.md`.
-  A failing gate test is a red build.
+- `tests/gates/` the specified thresholds, one test per check in `docs/protocol.md`.
+  A failing check test is a red build.
 - `tests/regression/` golden outputs. Any change that shifts a golden file must be
-  explained in the pull request and logged in `DECISIONS.md`.
+  explained in the pull request and logged in `docs/notes.md`.
 
 Markers: `fast`, `slow`, `gate`, `hardware`. CI on push runs `fast`. Nightly runs
 `slow` and `gate`. `hardware` never runs in CI.
 
-## When a gate fails
+## When a check fails
 
 Open a `validation_failure` issue. The template asks what failed, measured against
 threshold, the hypothesis, and whether the threshold was lowered. The answer to the last

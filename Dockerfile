@@ -1,7 +1,7 @@
 # QUASAR execution environment.
 #
 # Everything that produces a result record runs inside this image. Nothing is installed
-# onto the VM host. See DECISIONS.md ADR-0006.
+# onto the VM host. See docs/notes.md ADR-0006.
 #
 # The image is CPU-first: this workload is sparse linear algebra and RAM bound. GPU
 # acceleration is only relevant to the Wright-Fisher baseline and is added as a separate

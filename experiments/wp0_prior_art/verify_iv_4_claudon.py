@@ -147,7 +147,7 @@ def main() -> int:
             "statistic": "classification, not a numerical threshold",
             "question": "does the Claudon-Piquemal-Monmarche (2025) construction apply to "
             "the mutation-selection generator as execution plan v4 assumes",
-            "registered_in": "GATES.md section 4 (G-0), PRIOR_ART.md entry IV.4",
+            "registered_in": "docs/protocol.md section 4 (G-0), docs/references.md entry IV.4",
         },
         measured=measured,
         passed=decided,

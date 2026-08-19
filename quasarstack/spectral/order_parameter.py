@@ -60,7 +60,7 @@ def localisation(probs: NDArray[np.float64], reference: int, n_sites: int | None
     Passing the instance's own fittest genotype as ``reference`` makes the order parameter
     mean the same thing at every ruggedness: how concentrated the quasispecies is on the
     fittest sequence. It reduces to `magnetisation` exactly when that sequence is genotype 0.
-    See ADR-0017.
+    See docs/notes.md.
     """
     probs = np.asarray(probs, dtype=np.float64)
     if n_sites is None:

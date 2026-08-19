@@ -6,7 +6,7 @@ something that shares none of its assumptions. Exact diagonalisation is that som
 assembles the full 2^L generator and takes its Perron eigenvector, knowing nothing about
 product states or Hamming classes.
 
-Threshold and case set are registered in GATES.md section 3 and revision 1, both committed
+Threshold and case set are registered in docs/protocol.md section 3 and revision 1, both committed
 before this script was run.
 
     python experiments/wp_r_rebuild/g_r_1_oracle_vs_ed.py
@@ -33,10 +33,10 @@ from quasarstack.classical.landscapes import (
 )
 from quasarstack.io.store import write_gate_record
 
-# Registered in GATES.md section 3.
+# Registered in docs/protocol.md section 3.
 THRESHOLD = 1e-9
 
-# Registered in GATES.md revision 1.
+# Registered in docs/protocol.md revision 1.
 SIZES = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 MUS = [0.05, 0.10, 0.20, 0.35, 0.50, 0.75, 1.00]
 ADDITIVE_SEEDS = list(range(10))
@@ -159,7 +159,7 @@ def main() -> int:
             "statistic": "max absolute difference between oracle and exact-diagonalisation "
             "genotype distributions, over every case",
             "value": THRESHOLD,
-            "registered_in": "GATES.md section 3, case set in revision 1",
+            "registered_in": "docs/protocol.md section 3, case set in revision 1",
         },
         measured=measured,
         passed=passed,

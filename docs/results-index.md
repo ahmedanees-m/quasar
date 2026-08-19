@@ -1,19 +1,19 @@
-# CLAIMS.md: the claims ledger
+# results-index.md: the claims ledger
 
 Every claim the manuscript will make maps to a re-runnable artefact. `make claims` runs
 `scripts/check_claims.py`, which verifies that each row below resolves to an artefact that
 exists and to a script that produces it. **A claim without a resolvable artefact does not go
 in the paper.**
 
-Status values: `planned` (specified, not yet run), `pass` (artefact exists and the gate
-passed), `fail` (run performed, gate not met, reported as such), `dropped` (claim withdrawn,
+Status values: `planned` (specified, not yet run), `pass` (artefact exists and the check
+passed), `fail` (run performed, check not met, reported as such), `dropped` (claim withdrawn,
 with a reason).
 
 ---
 
 ## Rebuild of Phases 1–3 (WP-R)
 
-| # | Claim as it will appear | Gate | Evidence artefact | Script | Status |
+| # | Claim as it will appear | Check | Evidence artefact | Script | Status |
 |---|---|---|---|---|---|
 | C1 | The analytic Crow–Kimura oracle agrees with brute-force exact diagonalisation to machine precision, with maximum absolute error 2.4×10⁻¹⁵ over 1701 comparisons | G-R.1 | `results/wp_r/g_r_1.json` | `experiments/wp_r_rebuild/g_r_1_oracle_vs_ed.py` | pass |
 | C2 | The compiled qubit Hamiltonian's ground state is the analytic quasispecies, at cosine 1.000000 on 40 of 40 registered configurations, with the operator matching the independently assembled generator to 3.6×10⁻¹⁵ | G-R.2 | `results/wp_r/g_r_2.json` | `experiments/wp_r_rebuild/g_r_2_hamiltonian_vs_oracle.py` | pass |
@@ -44,18 +44,18 @@ as new.
 
 ## WP0: specification and prior art
 
-| # | Claim | Gate | Artefact | Script | Status |
+| # | Claim | Check | Artefact | Script | Status |
 |---|---|---|---|---|---|
 | C30 | The mutation–selection generator is non-conservative but reversible, so the nonreversible-Markov-chain speedup of Claudon, Piquemal and Monmarché (2025) does not apply to it; nonreversibility within this problem class requires direction-specific context-dependent mutation | G-0 | `results/wp0/prior_art_iv_4.json` | `experiments/wp0_prior_art/verify_iv_4_claudon.py` | pass |
 | C31 | Reversibility is a property of the mutation operator alone: detailed balance constrains off-diagonal entries and selection is diagonal, so no fitness landscape, however rugged, changes it | G-0 | `results/wp0/prior_art_iv_4.json` | `experiments/wp0_prior_art/verify_iv_4_claudon.py` | pass |
 
 C30 and C31 were not in the original plan. They exist because verification of prior-art
 entry IV.4 was pulled forward ahead of WP1, on the grounds that WP2 is the novelty core and
-rests entirely on that one reference. See `DECISIONS.md` ADR-0010.
+rests entirely on that one reference. See `docs/notes.md`.
 
 ## WP1: structural and spectral analysis
 
-| # | Claim | Gate | Artefact | Script | Status |
+| # | Claim | Check | Artefact | Script | Status |
 |---|---|---|---|---|---|
 | C12 | The mutation-selection generator is a non-conservative linear operator whose Perron eigenvector is the quasispecies, with the structural properties derived, not asserted | G-1.3 | `docs/theory.md` | none | pass |
 | C13 | The spectral gap of the generator is mapped across ruggedness, mutation rate and system size, and closes at the error threshold | G-1.1, G-1.2 | `results/wp1/g_1.json` | `experiments/wp1_spectral/g_1_gap_map.py` | pass |
@@ -70,11 +70,11 @@ rests entirely on that one reference. See `DECISIONS.md` ADR-0010.
 
 ## WP2: Route B, QSVT
 
-| # | Claim | Gate | Artefact | Script | Status |
+| # | Claim | Check | Artefact | Script | Status |
 |---|---|---|---|---|---|
 | C16 | A block encoding of the shifted mutation-selection operator is constructed and satisfies its defining property. Measured as G-2 criterion 2: worst max abs error 1.70e-12 against a 1e-10 tolerance, zero unitarity failures, across 23 configurations verified inside the 12-qubit budget revision 17 registered | G-2.2 | `results/wp2/g_2.json` | `experiments/wp2_qsvt/g_2_route_b.py` | pass |
 | C17 | A QSVT eigenvalue transform amplifies the dominant eigenvector and reproduces the analytic quasispecies at small system size. Measured as G-2 criterion 1: worst cosine 0.95024 against a 0.95 threshold, zero configurations failing to reach it, with the Chebyshev series itself accurate to 3.82e-13 | G-2.1 | `results/wp2/g_2.json` | `experiments/wp2_qsvt/g_2_route_b.py` | pass |
-| C18 | Route B resource scaling is derived as a function of the measured spectral gap and matches the empirical requirement. **Registered failure, and the failure is the result.** Measured: the predicted QSVT degree overshoots the empirical requirement by up to 3.40 times against an allowed factor of 2.0, on 4 of the configurations tested. The cost model is loose, and loose in the safe direction: it asks for more degree than is needed, so a resource estimate built on it overstates rather than understates. Criteria 1 and 2 of the same gate pass, at worst cosine 0.9502 against 0.95 and block-encoding error 1.7e-12 against 1e-10 | G-2.3 | `results/wp2/g_2.json` | `experiments/wp2_qsvt/g_2_route_b.py` | fail |
+| C18 | Route B resource scaling is derived as a function of the measured spectral gap and matches the empirical requirement. **Registered failure, and the failure is the result.** Measured: the predicted QSVT degree overshoots the empirical requirement by up to 3.40 times against an allowed factor of 2.0, on 4 of the configurations tested. The cost model is loose, and loose in the safe direction: it asks for more degree than is needed, so a resource estimate built on it overstates rather than understates. Criteria 1 and 2 of the same check pass, at worst cosine 0.9502 against 0.95 and block-encoding error 1.7e-12 against 1e-10 | G-2.3 | `results/wp2/g_2.json` | `experiments/wp2_qsvt/g_2_route_b.py` | fail |
 | C19 | Route A and Route B are compared head to head on the same landscapes at the same accuracy target. Measured on the 27 cells where both ran: Route B reaches min cosine 0.99973 against Route A's 0.97580, is more accurate on 19 of 27, and is **1129 times faster** at 0.43 s against 480.6 s. Route A exceeds its compute allotment on **27 of 27** cells and Route B on none. The comparison lives in the WP7 quantum sweep rather than the separate script the plan named, because the sweep already runs both routes per cell | G-2 | `results/wp7/sweep_registered_quantum.jsonl` | `scripts/sweep_runner.py` | pass |
 
 | C36 | Route B's polynomial degree is **linear in α/Δ and not square root**, because the target eigenvalue lies inside the encoded spectrum by construction and Chebyshev acceleration needs it outside | G-2.3 | `results/wp2/g_2.json` | `experiments/wp2_qsvt/g_2_route_b.py` | pass |
@@ -84,10 +84,10 @@ rests entirely on that one reference. See `DECISIONS.md` ADR-0010.
 
 ## WP3 to WP6: landscapes and classical baselines
 
-| # | Claim | Gate | Artefact | Script | Status |
+| # | Claim | Check | Artefact | Script | Status |
 |---|---|---|---|---|---|
 | C20 | Seven landscape families are implemented, reproduce exactly from seed, and ruggedness increases monotonically with K. Measured: 360 of 360 landscapes reproduce bit-identically, NK at K = 0 equals additive to 4.0e-15 against a 1e-12 tolerance, and strict local optima rise 1.0 to 98.7 while correlation length falls 5.49 to 1.13 across K at L = 12 | G-3 | `results/wp3/g_3.json` | `experiments/wp3_landscapes/g_3_families.py` | pass |
-| C21 | The Wright-Fisher baseline converges to the analytic quasispecies, and reaches the accuracy WP7 needs inside the budget WP7 grants. Measured: total variation 0.004664 at N = 1e6 against a 0.02 threshold, and 0.02 reached in 28.04 s against a 300 s allotment. **The competitiveness half of the original claim is withdrawn, not met**: it compared two different complexity classes and no reference implementation exists in the pinned image. See revision 15, revision 22 and ADR-0018 | G-4 | `results/wp4/g_4.json` | `experiments/wp4_wright_fisher/g_4_wright_fisher.py` | pass |
+| C21 | The Wright-Fisher baseline converges to the analytic quasispecies, and reaches the accuracy WP7 needs inside the budget WP7 grants. Measured: total variation 0.004664 at N = 1e6 against a 0.02 threshold, and 0.02 reached in 28.04 s against a 300 s allotment. **The competitiveness half of the original claim is withdrawn, not met**: it compared two different complexity classes and no reference implementation exists in the pinned image. See revision 15, revision 22 and docs/notes.md | G-4 | `results/wp4/g_4.json` | `experiments/wp4_wright_fisher/g_4_wright_fisher.py` | pass |
 | C22 | The polynomial-time baseline matches the analytic oracle where it applies, refuses where it does not, and its applicability boundary is an explicit predicate. Measured: worst error 1.375e-10 against a 1e-6 tolerance over 442 cases, zero in-class refusals, zero out-of-class solves; 58 of 326 instances are in the class. **The Dixit-Srivastava-Vishnoi attribution is not claimed** and remains flagged in PRIOR_ART entry II.1 | G-5 | `results/wp5/g_5.json` | `experiments/wp5_exact_class/g_5_exact_class.py` | pass |
 | C23 | Tensor-network imaginary-time evolution converges to exact diagonalisation where both run. Measured: cosine >= 0.999 on **285 of 285** configurations that were given the full ladder, zero failures to converge. Eight cells at L = 14 were stopped by revision 23's wall-clock limit and are reported as stopped, with the largest chi tried and the best cosine seen, rather than as failures | G-6.1 | `results/wp6/g_6.json` | `experiments/wp6_mps/g_6_tensor_network.py` | pass |
 | C24 | The bond dimension required to hold fixed accuracy is mapped across ruggedness, mutation rate and system size. Measured: the requirement **rises with mutation rate and plateaus above the threshold**, max chi of 16, 16, 64, 64, 64 at mu/mu_c of 0.4, 0.7, 1.0, 1.3, 1.6, against a median of 4 throughout. It does not peak at mu_c | G-6.2 | `results/wp6/g_6.json` | `experiments/wp6_mps/g_6_tensor_network.py` | pass |
@@ -99,19 +99,19 @@ rests entirely on that one reference. See `DECISIONS.md` ADR-0010.
 
 ## WP7: the boundary map
 
-| # | Claim | Gate | Artefact | Script | Status |
+| # | Claim | Check | Artefact | Script | Status |
 |---|---|---|---|---|---|
 | C26 | The compute-budget protocol was fixed before the sweep and applied to every method, including QUASAR's classical optimisation time. Measured: every method record carries `seconds_used` beside `seconds_allotted`, `over_budget` is recomputed from the measurement rather than trusted, and **198 cells were excluded for overrunning**, 27 of them Route A and 171 the tensor network. The protocol bit the methods it was written to constrain, including the classical reference | G-7 | `results/wp7/sweep_manifest_registered.json`, `results/wp7/g_7.json` | `scripts/sweep_runner.py` | pass |
-| C27 | Every grid cell is either scored or explicitly excluded, with the exclusion reason recorded, and the excluded share is reported per size rather than folded into a total. Measured: 777 of 777 classical and 777 of 777 quantum cells recorded, 152 groups scored, 67 excluded, every exclusion carrying the reason `over budget`. ADR-0019 | G-7 | `results/wp7/sweep_manifest_registered.json`, `results/wp7/g_7.json` | `scripts/sweep_runner.py`, `scripts/score_g7.py` | pass |
-| C28 | The quantum-classical boundary for mutation-selection dynamics is mapped, with the decision gate answered as a **registered null** carrying an explicit bound and a tally of which condition each group failed. Measured: **all 152 scored groups fail condition 2**, the compute-matched tensor network never falling below 0.80, so no quantum result could have produced a positive. The null is bounded at L = 12, the largest size holding a valid reference | G-7 | `results/wp7/g_7.json` | `scripts/score_g7.py` | pass |
+| C27 | Every grid cell is either scored or explicitly excluded, with the exclusion reason recorded, and the excluded share is reported per size rather than folded into a total. Measured: 777 of 777 classical and 777 of 777 quantum cells recorded, 152 groups scored, 67 excluded, every exclusion carrying the reason `over budget`. docs/notes.md | G-7 | `results/wp7/sweep_manifest_registered.json`, `results/wp7/g_7.json` | `scripts/sweep_runner.py`, `scripts/score_g7.py` | pass |
+| C28 | The quantum-classical boundary for mutation-selection dynamics is mapped, with the decision check answered as a **registered null** carrying an explicit bound and a tally of which condition each group failed. Measured: **all 152 scored groups fail condition 2**, the compute-matched tensor network never falling below 0.80, so no quantum result could have produced a positive. The null is bounded at L = 12, the largest size holding a valid reference | G-7 | `results/wp7/g_7.json` | `scripts/score_g7.py` | pass |
 
 ---
 
 ## WP8: live QPU
 
-| # | Claim | Gate | Artefact | Script | Status |
+| # | Claim | Check | Artefact | Script | Status |
 |---|---|---|---|---|---|
-| C29 | Validated circuits were executed on a live quantum processor, with job identifiers, backend, calibration timestamp, transpiled depth, two-qubit counts and both raw and mitigated distributions reported as measured. **Not reproduced evidence:** the pinned image has no `qiskit-ibm-runtime`, so under ADR-0012 the record is written to `results/_local/` and ADR-0020 requires that qualifier to travel with any claim citing it. Feasibility only, no advantage claimed | G-8 | `experiments/wp8_live_qpu/qpu_sweep.py` | `experiments/wp8_live_qpu/qpu_sweep.py` | planned |
+| C29 | Validated circuits were executed on a live quantum processor, with job identifiers, backend, calibration timestamp, transpiled depth, two-qubit counts and both raw and mitigated distributions reported as measured. **Not reproduced evidence:** the pinned image has no `qiskit-ibm-runtime`, so under the rule in docs/notes.md the record is written to `results/_local/` and docs/notes.md requires that qualifier to travel with any claim citing it. Feasibility only, no advantage claimed | G-8 | `experiments/wp8_live_qpu/qpu_sweep.py` | `experiments/wp8_live_qpu/qpu_sweep.py` | planned |
 
 ---
 
@@ -122,9 +122,9 @@ record, and removing it silently is how a project ends up only reporting what wo
 
 | Claim, as the planning documents state it | What was measured | Status |
 | C30 | The G-7 null does not depend on the budget exclusion rule. The tensor network overruns its allotment on 64.1% of `L = 12` cells, and the rule removes exactly the cells where the classical reference is most strained. Scored both ways: with exclusions the worst tensor-network cosine is 0.999981, without them it is 0.875797, and **zero** cells fall below the 0.80 threshold either way | G-7 | `results/wp7/g_7_budget_sensitivity.json` | `scripts/budget_sensitivity.py` | pass |
-| C31 | Baseline B's polynomial-time class is a strict superset of the class-invariant class of arXiv:1203.1287, so no WP7 cell is believed classically hard while being covered by that prior work. Additive landscapes with distinct per-site coefficients lie outside class invariance and inside Baseline B. The `(L+1)`-dimensional reduction is attributable to Swetina and Schuster (1982), which arXiv:1203.1287 itself cites for it, not to that paper | none | `PRIOR_ART.md` II.1 and II.1a | `quasarstack/classical/exact_class.py` | pass |
+| C31 | Baseline B's polynomial-time class is a strict superset of the class-invariant class of arXiv:1203.1287, so no WP7 cell is believed classically hard while being covered by that prior work. Additive landscapes with distinct per-site coefficients lie outside class invariance and inside Baseline B. The `(L+1)`-dimensional reduction is attributable to Swetina and Schuster (1982), which arXiv:1203.1287 itself cites for it, not to that paper | none | `docs/references.md` II.1 and II.1a | `quasarstack/classical/exact_class.py` | pass |
 |---|---|---|
-| "Antagonistic epistasis lowers the error threshold" | Not supported in the uniform pairwise family. Negative uniform coupling moves the fitness optimum off the master sequence to Hamming class 1, 2 and 2 at L = 4, 6 and 8, with multiplicities 4, 15 and 28, so there is no master sequence to delocalise from and the question is ill-posed rather than merely noisy. Testing it needs a family that keeps the master optimal while varying curvature, which is WP3 work. Artefact `results/wp_r/g_r_4.json`, reasoning in `DECISIONS.md` ADR-0011 | **dropped** |
+| "Antagonistic epistasis lowers the error threshold" | Not supported in the uniform pairwise family. Negative uniform coupling moves the fitness optimum off the master sequence to Hamming class 1, 2 and 2 at L = 4, 6 and 8, with multiplicities 4, 15 and 28, so there is no master sequence to delocalise from and the question is ill-posed rather than merely noisy. Testing it needs a family that keeps the master optimal while varying curvature, which is WP3 work. Artefact `results/wp_r/g_r_4.json`, reasoning in `docs/notes.md` | **dropped** |
 
 The companion claim, that synergistic epistasis raises the threshold, **is** supported:
 the half-surplus crossover rises from 0.388 to 0.859 to 1.325 as coupling grows at L = 8,

@@ -19,18 +19,18 @@ pytestmark = pytest.mark.fast
 
 def test_environment_block_has_every_provenance_field() -> None:
     env = store.environment()
-    for field in ("git_sha", "git_dirty", "image", "python", "platform", "gates_md_sha256"):
+    for field in ("git_sha", "git_dirty", "image", "python", "platform", "protocol_sha256"):
         assert field in env, f"provenance field {field} missing from the record"
     assert isinstance(env["git_dirty"], bool)
 
 
-def test_gates_md_is_hashed_into_every_record() -> None:
+def test_protocol_is_hashed_into_every_record() -> None:
     """The hash is what makes 'the threshold was registered first' checkable rather than
-    asserted. A record whose GATES.md hash does not appear in the repository history was
+    asserted. A record whose docs/protocol.md hash does not appear in the repository history was
     judged against a threshold nobody can produce."""
     env = store.environment()
-    assert env["gates_md_sha256"] != "missing"
-    assert len(env["gates_md_sha256"]) == 64
+    assert env["protocol_sha256"] != "missing"
+    assert len(env["protocol_sha256"]) == 64
 
 
 def test_dirty_flag_ignores_the_results_tree(tmp_path, monkeypatch) -> None:
@@ -106,7 +106,7 @@ def _linux_env() -> dict:
         "image": "quasar:v1",
         "python": "3.12.13",
         "platform": "Linux-6.8.0-generic-x86_64",
-        "gates_md_sha256": "0" * 64,
+        "protocol_sha256": "0" * 64,
     }
 
 
@@ -139,7 +139,7 @@ def test_make_gates_runs_the_container_so_that_records_count_as_evidence() -> No
     the mounted working tree. Neither was in the Makefile: every gate that has passed so
     far was run with both supplied by hand, so the documented one-command reproduction
     would have written nothing committable and said so only in a line of console output
-    nobody reads twice. This test is the reason that cannot recur silently. See ADR-0014.
+    nobody reads twice. This test is the reason that cannot recur silently. See docs/notes.md.
     """
     makefile = (store.REPO_ROOT / "Makefile").read_text(encoding="utf-8")
     # Fold escaped line continuations so the DOCKER definition reads as one string.
@@ -158,7 +158,7 @@ def test_make_gates_runs_the_container_so_that_records_count_as_evidence() -> No
 
 
 def test_the_sweep_runner_also_redirects_out_of_the_evidence_tree() -> None:
-    """ADR-0012 applies to every writer, not only to `write_gate_record`.
+    """The rule in docs/notes.md applies to every writer, not only to `write_gate_record`.
 
     The sweep writes its own JSONL stream rather than going through the gate-record path, so
     it needs its own copy of the redirection. It was written without one, caught before it
@@ -173,7 +173,7 @@ def test_the_sweep_runner_also_redirects_out_of_the_evidence_tree() -> None:
 
 
 def test_every_results_writer_uses_the_shared_evidence_guard() -> None:
-    """ADR-0012's redirection was re-implemented per writer, and twice forgotten.
+    """the evidence redirection was re-implemented per writer, and twice forgotten.
 
     `write_gate_record` had it, the WP7 sweep runner had its own copy, and the G-7 scorer had
     none: both wrote straight into `results/` on their first version. Three occurrences of one
@@ -214,7 +214,7 @@ def test_every_results_writer_uses_the_shared_evidence_guard() -> None:
     body = store_source[store_source.index("def write_gate_record") :]
     assert "evidence_directory(" in body, (
         "write_gate_record no longer calls evidence_directory, so scripts that rely on it "
-        "for ADR-0012's redirection are unguarded and the exemption above is unsound."
+        "for the evidence redirection are unguarded and the exemption above is unsound."
     )
 
     # And the read-only list must not go stale: a script named there that starts writing

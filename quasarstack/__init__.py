@@ -3,8 +3,8 @@
 The package is organised so that physics and algorithms live here and experiment scripts
 only orchestrate. An experiment script should read as a protocol, not contain physics.
 
-Binding conventions, enforced by tests rather than by habit, are listed in `GATES.md`
-section 1 and justified in `DECISIONS.md`:
+Binding conventions, enforced by tests rather than by habit, are listed in `docs/protocol.md`
+section 1 and justified in `docs/notes.md`:
 
 - fitness in the spin convention, `a_i Z_i` and `b_ij Z_i Z_j`, never the projector form
 - quasispecies distributions L1-normalised and non-negative

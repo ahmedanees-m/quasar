@@ -1,13 +1,10 @@
-"""The claims-ledger checker, which had been skipping rows in silence.
+"""The results index and the checker that reads it.
 
-`CLAIMS.md` is one of the four documents carrying scientific weight, and this script is what
-makes it more than a table. It was accepting identifiers of the form C12 only, so rows like
-C4b and C5b, added for a second claim belonging to the same gate, matched nothing and were
-passed over without a word. Three claims sat in the ledger looking checked and were not.
-
-A checker that quietly ignores what it cannot parse is worse than no checker, because it
-produces a green tick that means nothing. These tests pin both halves of the fix: suffixed
-identifiers parse, and anything claim-shaped that still fails to parse is reported.
+`docs/results-index.md` maps each number in the paper to the record it came from. The checker
+was accepting identifiers of the form C12 only, so rows like C4b and C5b, added for a second
+claim on the same run, matched nothing and were passed over. Three claims sat in the index
+looking checked and were not. These tests pin both halves of the fix: suffixed identifiers
+parse, and anything claim-shaped that still fails to parse is reported.
 """
 
 from __future__ import annotations
@@ -72,7 +69,7 @@ def test_the_table_separator_is_not_mistaken_for_a_claim() -> None:
 def test_the_real_ledger_parses_completely() -> None:
     """No row in the project's own ledger may go unchecked."""
     claims, unparsed = parse_ledger(LEDGER.read_text(encoding="utf-8"))
-    assert not unparsed, f"unparsed claim rows in CLAIMS.md: {unparsed}"
+    assert not unparsed, f"unparsed claim rows in docs/results-index.md: {unparsed}"
     assert len(claims) > 30
     assert any(
         c.ident.endswith("b") for c in claims
@@ -85,3 +82,11 @@ def test_a_pass_row_without_its_artefact_fails_even_in_ci_mode() -> None:
     claims, _ = parse_ledger(text)
     problems = check(claims, allow_planned=True)
     assert any("missing" in p for p in problems)
+
+
+def test_every_claim_in_the_index_resolves_to_a_file() -> None:
+    """A claim naming a file that isn't there is a broken claim."""
+    claims, unparsed = parse_ledger(LEDGER.read_text(encoding="utf-8"))
+    assert not unparsed, f"unparsed rows: {unparsed}"
+    problems = [p for p in check(claims, allow_planned=True) if "missing" in p]
+    assert not problems, "claims naming missing files: " + "; ".join(problems)

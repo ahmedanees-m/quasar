@@ -1,7 +1,7 @@
 """NK landscapes and the ruggedness statistics that describe them.
 
 Two things are being defended. That K varies ruggedness and nothing else, which is what the
-standardisation is for and what ADR-0011 was written about. And that the statistics
+standardisation is for and what docs/notes.md was written about. And that the statistics
 reporting where the optimum sits actually work, since that report is now a requirement on
 every ruggedness axis the project uses.
 """
@@ -33,7 +33,7 @@ def test_landscape_reproduces_exactly_from_its_seed() -> None:
 def test_standardisation_fixes_the_selection_strength() -> None:
     """K must vary ruggedness alone. Raw NK spread shrinks as 1/sqrt(L) and grows with K, so
     an unstandardised sweep would vary selection strength at the same time, and any result
-    would be a mixture of the two. This is the ADR-0011 lesson applied in advance."""
+    would be a mixture of the two. This is that lesson applied in advance."""
     for n_sites in (6, 8):
         for k in (0, 2, 5):
             fitness = nk_fitness(n_sites, k, seed=1, amplitude=2.5)
@@ -80,7 +80,7 @@ def test_k_zero_has_a_single_local_optimum() -> None:
 
 
 def test_nk_landscapes_have_no_master_sequence() -> None:
-    """The ADR-0011 report, and the reason it matters here.
+    """That survey, and the reason it matters here.
 
     An NK optimum sits at a random genotype, near Hamming weight L/2, not at all-wild-type.
     So this family has no master sequence, and statements about the error threshold, which is

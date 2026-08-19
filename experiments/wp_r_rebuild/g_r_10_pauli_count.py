@@ -11,7 +11,7 @@ like, a few site effects and a few interactions, and it needs a number of terms 
 plus one per coupling. The claim is that the realistic case is exponentially cheaper than
 the textbook one, not that a compiler found a clever encoding.
 
-Thresholds are in GATES.md section 3 and revision 9, committed before this ran.
+Thresholds are in docs/protocol.md section 3 and revision 9, committed before this ran.
 
     python experiments/wp_r_rebuild/g_r_10_pauli_count.py
 """
@@ -35,11 +35,11 @@ from quasarstack.hamiltonian.builder import (
 )
 from quasarstack.io.store import write_gate_record
 
-# Registered in GATES.md section 3.
+# Registered in docs/protocol.md section 3.
 RATIO_THRESHOLD = 50.0
 GATE_SIZE = 12
 
-# Registered in GATES.md revision 9.
+# Registered in docs/protocol.md revision 9.
 MU = 0.20
 SIZES = [4, 6, 8, 10, 12]
 N_COUPLINGS = 2
@@ -135,7 +135,7 @@ def main() -> int:
             "statistic": "ratio of Pauli terms, single-peak projector against the sparse "
             f"additive-plus-epistasis form, at L = {GATE_SIZE}",
             "value": RATIO_THRESHOLD,
-            "registered_in": "GATES.md section 3, families in revision 9",
+            "registered_in": "docs/protocol.md section 3, families in revision 9",
         },
         measured=measured,
         passed=passed,

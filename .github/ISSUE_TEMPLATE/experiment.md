@@ -16,7 +16,7 @@ the run, not after.
 
 **Specified threshold.** The number that decides pass or fail, and why that number.
 
-**Expected artefact.** Path under `results/` and the `CLAIMS.md` row it backs.
+**Expected artefact.** Path under `results/` and the `docs/results-index.md` row it backs.
 
 **Compute budget.** Allotted wall-clock per cell, worker count, image tag.
 

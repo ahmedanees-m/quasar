@@ -43,14 +43,14 @@ repos:
   # failing for a fortnight without anyone noticing. C16 and C17 were marked `pass` while
   # pointing at files that never existed, and the checker said so on every push; `UNRESOLVED`
   # in its output reads like a status word rather than a failure. The manuscript will cite
-  # numbers out of CLAIMS.md, so the ledger being trustworthy is not housekeeping.
+  # numbers out of docs/results-index.md, so the ledger being trustworthy is not housekeeping.
   #
   # `always_run` with `pass_filenames: false` because both inspect the whole tree, not the
   # staged subset: a claim can be broken by deleting an artefact that is not itself staged.
   - repo: local
     hooks:
       - id: check-claims
-        name: every CLAIMS.md row resolves to an artefact that exists
+        name: every docs/results-index.md row resolves to an artefact that exists
         entry: python scripts/check_claims.py --allow-planned
         language: system
         pass_filenames: false

@@ -10,7 +10,7 @@ magnitude.
 
 **Total-variation distance** is the conservative one. It is the largest probability any
 event can disagree by, so it notices the tail. Where the two metrics disagree about a
-result, `GATES.md` section 11.4 makes total variation the one that decides.
+result, `docs/protocol.md` section 11.4 makes total variation the one that decides.
 
 Reporting only cosine would be the flattering choice, which is why both are returned by
 the same call and both go into every record.

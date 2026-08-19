@@ -125,7 +125,7 @@ def test_selection_cannot_change_reversibility(landscape: str, mutation: str) ->
     Detailed balance constrains only off-diagonal entries, and selection is diagonal.
     So no landscape, however rugged, however epistatic, however badly scaled, can move
     the reversibility defect of the generator. This matters because it closes off the
-    tempting repair to ADR-0010: if ruggedness could buy nonreversibility, Route B's
+    tempting repair to docs/notes.md: if ruggedness could buy nonreversibility, Route B's
     stated foundation could be recovered by choosing a harder landscape family. It
     cannot. The property is fixed entirely by the mutation model.
 
@@ -164,6 +164,6 @@ def test_selection_cannot_change_reversibility(landscape: str, mutation: str) ->
     assert after["is_reversible"] == before["is_reversible"]
     assert after["reversibility_defect"] == pytest.approx(before["reversibility_defect"], abs=1e-12)
     # And the two properties really are independent: adding fitness destroys conservation
-    # while leaving reversibility untouched, which is the distinction ADR-0010 turns on.
+    # while leaving reversibility untouched, which is the distinction docs/notes.md turns on.
     if landscape != "flat":
         assert not after["is_conservative"]

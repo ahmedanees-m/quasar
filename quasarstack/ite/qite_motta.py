@@ -253,7 +253,7 @@ def evolve(
     purely because each step moves less, which makes the imaginary time reached depend on the
     step size. This method is where that showed up: accuracy appeared to *fall* from 0.9999997
     to 0.9999731 as dtau went from 0.1 to 0.01, and the finer run was not worse, it had simply
-    stopped earlier in tau. Since `tau_used` is the number ADR-0013 asks WP7 to compare across
+    stopped earlier in tau. Since `tau_used` is the number docs/notes.md asks WP7 to compare across
     methods, a step-size-dependent one would be actively misleading.
     """
     ratio = tau / dtau

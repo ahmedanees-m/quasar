@@ -1,6 +1,6 @@
-"""The four landscape families WP3 added, and the property ADR-0011 asks of each.
+"""The four landscape families WP3 added, and the property docs/notes.md asks of each.
 
-ADR-0011 withdrew a claim because a family had been varying ruggedness and relocating the
+docs/notes.md withdrew a claim because a family had been varying ruggedness and relocating the
 fitness optimum at the same time. Every family here is therefore tested for where its
 optimum sits, not only for whether it is rugged.
 """
@@ -78,7 +78,7 @@ def test_rough_mount_fuji_keeps_the_master_sequence_while_it_is_barely_rugged(
     It does **not** hold beyond that: 62 percent at roughness 0.5 and 25 percent at 1.0,
     at L = 12, and retention worsens with L. Since the landscape only has 1.4 local optima
     at roughness 0.3, there is no setting that is both rugged and anchored. That conflict
-    is ADR-0017, and it is why the order parameter now measures from the instance's own
+    is in docs/notes.md, and it is why the order parameter now measures from the instance's own
     optimum instead.
     """
     weights = [
@@ -91,7 +91,7 @@ def test_rough_mount_fuji_keeps_the_master_sequence_while_it_is_barely_rugged(
 
 
 def test_no_family_is_both_rugged_and_anchored() -> None:
-    """The finding ADR-0017 rests on, pinned so it cannot quietly stop being true.
+    """The finding docs/notes.md rests on, pinned so it cannot quietly stop being true.
 
     Any family with more than a handful of local optima has its optimum away from genotype
     0. If some future family breaks this, that is a discovery and this test should fail so
@@ -159,7 +159,7 @@ def test_block_size_one_is_additive_and_block_size_l_is_house_of_cards() -> None
 @pytest.mark.parametrize("name", ["spin_glass", "house_of_cards", "block"])
 def test_standardised_families_have_unit_spread(name: str) -> None:
     """Standardisation is what keeps a ruggedness sweep from also being a selection-strength
-    sweep, which is the lesson of ADR-0011 applied to scale rather than to location."""
+    sweep, which is the lesson of docs/notes.md applied to scale rather than to location."""
     values = BUILDERS[name](8, 0)
     assert float(values.std()) == pytest.approx(1.0, abs=1e-12)
     assert float(values.mean()) == pytest.approx(0.0, abs=1e-12)

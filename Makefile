@@ -1,23 +1,23 @@
 # QUASAR - one-word entry points.
 #
 # Targets that produce result records run inside the pinned Docker image. Targets that only
-# read or lint run wherever you are. See DECISIONS.md ADR-0006.
+# read or lint run wherever you are. see docs/notes.md.
 
 IMAGE   ?= quasar:v1
-UID     := $(shell id -u 2>/dev/null || echo 1000)
-GID     := $(shell id -g 2>/dev/null || echo 1000)
+UID:= $(shell id -u 2>/dev/null || echo 1000)
+GID:= $(shell id -g 2>/dev/null || echo 1000)
 
 # QUASAR_IMAGE is what `quasarstack.io.store` reads to decide whether a run counts as
 # evidence; PYTHONPATH is what lets a gate script import quasarstack, which is mounted at
 # /work rather than installed into the image. Both were previously supplied by hand on each
 # invocation, which meant `make gates` - the documented one-command reproduction - wrote
 # every record to the gitignored results/_local and produced no evidence at all. See
-# DECISIONS.md ADR-0014.
+# docs/notes.md the earlier note.
 # Set to 1 by the reproduction script on a resumed attempt, so run_all_gates.py skips gates it
 # has already run at this commit. Empty means a fresh full run, which is the default.
 QUASAR_RESUME ?=
 
-DOCKER  := docker run --rm -v "$(CURDIR)":/work -w /work -u $(UID):$(GID) \
+DOCKER:= docker run --rm -v "$(CURDIR)":/work -w /work -u $(UID):$(GID) \
              -e QUASAR_IMAGE=$(IMAGE) -e PYTHONPATH=/work \
              -e QUASAR_RESUME=$(QUASAR_RESUME) $(IMAGE)
 
@@ -52,7 +52,7 @@ test-all:  ## everything including slow tests and gates, inside the image
 gates:  ## full reproduction: every pre-registered gate, inside the image
 	$(DOCKER) python scripts/run_all_gates.py
 
-claims:  ## verify every CLAIMS.md entry resolves to an artefact
+claims:  ## verify every docs/results-index.md entry resolves to an artefact
 	python scripts/check_claims.py
 
 provenance:  ## verify every committed result record came from the pinned image
