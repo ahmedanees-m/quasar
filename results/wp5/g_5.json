@@ -4989,7 +4989,7 @@
   ],
   "notes": "Execution plan v4 names this baseline Dixit-Srivastava-Vishnoi after PRIOR_ART entry II.1, which is still flagged to-verify. This gate does not claim the class it implements is theirs. If their class is strictly larger, WP7 has cells it currently believes are classically hard, and the boundary map would be wrong in the direction that favours the quantum method.",
   "env": {
-    "git_sha": "c405fa197b40f6c8d5d4869bd386380fdc509436",
+    "git_sha": "3738c26a57473c165a187c17e5014043109302eb",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

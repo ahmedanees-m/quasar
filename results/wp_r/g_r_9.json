@@ -251,7 +251,7 @@
   ],
   "notes": "Which gradient component is measured is a methodological choice and all three are recorded. The registered band was reverse-engineered from the lost implementation's 0.42^L, whose ansatz and measured component are unknown, so a value outside it is a disagreement about a numerical band inherited from code that no longer exists, not about whether the variance decays exponentially.",
   "env": {
-    "git_sha": "c405fa197b40f6c8d5d4869bd386380fdc509436",
+    "git_sha": "3738c26a57473c165a187c17e5014043109302eb",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

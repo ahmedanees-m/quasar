@@ -250,7 +250,7 @@
   ],
   "notes": "Criterion 2 stays withdrawn and unscored, and is still reported so the record shows what was asked for and why it went unanswered. The gate is scored on criterion 1 and on criterion 2b, its registered replacement. BLOCKED, not passed. This implementation is O(L 2^L) per generation and independent of N; a community forward simulator is individual-based at O(N L). At N = 1e6 the two differ by about three orders of magnitude by construction, so a throughput-within-5x test would pass by a factor of a thousand and establish nothing about whether the baseline is well built. No reference implementation is present in the pinned image, and ADR-0006 forbids installing one outside Docker. See ADR-0018 for the recommended replacement: time-to-accuracy at matched total variation.",
   "env": {
-    "git_sha": "c405fa197b40f6c8d5d4869bd386380fdc509436",
+    "git_sha": "3738c26a57473c165a187c17e5014043109302eb",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

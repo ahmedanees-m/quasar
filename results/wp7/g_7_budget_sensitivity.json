@@ -82,7 +82,7 @@
   ],
   "notes": "The exclusion rule removes 64.1% of L = 12 cells, and it removes exactly the cells where the classical reference is most strained: the single worst tensor network cosine in the whole sweep, 0.875797, belongs to a cell the rule excludes. Putting every excluded cell back therefore moves the worst case from 0.999981 to 0.875797, a large move, and still leaves zero cells below 0.80. The null does not rest on the exclusion rule. The tensor network would have to be a further 8.7% worse on its worst cell before condition 1 fired.",
   "env": {
-    "git_sha": "26f79fb919b55b6471a3991be8e4782ade59f3ce",
+    "git_sha": "544374be62a662e0c6792561846b7457d561c338",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

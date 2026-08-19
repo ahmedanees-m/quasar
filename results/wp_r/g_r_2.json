@@ -557,7 +557,7 @@
   ],
   "notes": "The registered criterion is the cosine, but the operator-level comparison against the independently assembled generator is the stricter check and is recorded per configuration: an endianness error permutes the basis and can leave the spectrum intact, so a spectral check alone would not catch it. Pauli term counts are recorded here and feed G-R.10.",
   "env": {
-    "git_sha": "c405fa197b40f6c8d5d4869bd386380fdc509436",
+    "git_sha": "3738c26a57473c165a187c17e5014043109302eb",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

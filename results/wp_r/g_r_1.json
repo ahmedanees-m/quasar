@@ -17040,7 +17040,7 @@
   ],
   "notes": "The oracle never forms the 2^L generator and exact diagonalisation never uses the structure the oracle exploits, so agreement is evidence about both. The additive_uniform family is checked by both analytic routes as well as against exact diagonalisation. Spectral gaps are recorded for every case and no case was excluded on the basis of its gap.",
   "env": {
-    "git_sha": "c405fa197b40f6c8d5d4869bd386380fdc509436",
+    "git_sha": "3738c26a57473c165a187c17e5014043109302eb",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

@@ -134,7 +134,7 @@
   ],
   "notes": "The two forms describe different landscapes rather than two encodings of one. The projector has no structure and needs every Z subset; the sparse form is what a real biological landscape looks like. The claim is that the realistic case is exponentially cheaper than the textbook one. The NK diagnostic shows what happens as structure is removed, which is the honest counterweight.",
   "env": {
-    "git_sha": "c405fa197b40f6c8d5d4869bd386380fdc509436",
+    "git_sha": "3738c26a57473c165a187c17e5014043109302eb",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

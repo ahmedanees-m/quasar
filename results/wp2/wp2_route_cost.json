@@ -929,7 +929,7 @@
   ],
   "notes": "The simulator ratio and the quantum resource counts answer different questions and must be quoted together. On the simulator Route B wins by three orders of magnitude, because a state-vector simulator charges for 2^L arithmetic and Route B touches the state far fewer times. That says nothing about hardware. Route A buys its accuracy with a very large number of shallow, ancilla-free circuit repetitions driven by a classical optimiser, which is the near-term shape. Route B buys its accuracy with one deep coherent circuit of walk-operator queries plus encoding ancillas, which is the fault-tolerant shape. Neither number dominates the other; the repetition and depth figures are models computed from recorded reps, steps and degree, not measurements.",
   "env": {
-    "git_sha": "c4c410b854c71c32955e100948a668263815b29f",
+    "git_sha": "48ae840853ca8441308b9c2a5d4cc506a8852276",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",

@@ -453,7 +453,7 @@
   ],
   "notes": "SIMULATED NOISE ONLY. Nothing here ran on hardware; the live run is WP8. Scoring is done in the decoded domain against the analytic quasispecies, because the circuit holds the distribution in its amplitudes and a computational-basis measurement returns it squared. Total variation is reported beside cosine throughout, and it is much the less flattering of the two here, because the square-root decode amplifies the noise floor in the tail.",
   "env": {
-    "git_sha": "c405fa197b40f6c8d5d4869bd386380fdc509436",
+    "git_sha": "3738c26a57473c165a187c17e5014043109302eb",
     "git_dirty": false,
     "image": "quasar:v1",
     "python": "3.12.13",
