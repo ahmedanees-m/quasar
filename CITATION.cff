@@ -1,28 +1,35 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
-title: "QUASAR: quantum algorithms for mutation-selection dynamics"
-abstract: >-
-  A quantum-algorithmic treatment of mutation-selection dynamics. Formalises the
-  Crow-Kimura and Eigen generator as a target for quantum eigenvector extraction, compares
-  a heuristic near-term imaginary-time route against a QSVT Perron-vector route, and maps
-  the quantum-classical boundary against three classical baselines including the
-  Dixit-Srivastava-Vishnoi polynomial-time algorithm. No quantum advantage is claimed.
+message: "If you use this software or data, please cite the article and this deposit."
+title: "quasar: quantum simulation of mutation-selection dynamics"
+version: 1.0.0
 type: software
+license: Apache-2.0
+repository-code: "https://github.com/ahmedanees-m/quasar"
+abstract: >-
+  Code, protocol, result records and raw quantum-processor measurements for a study of whether
+  quantum algorithms help compute the quasispecies distribution of molecular evolution. Two
+  quantum routes are benchmarked against three compute-matched classical baselines across 777
+  problem instances, and the error-threshold sweep is executed on a superconducting processor.
+  No advantage is found at the sizes tested, and the obstruction is shown to be structural.
+keywords:
+  - quantum algorithms
+  - quasispecies
+  - mutation-selection dynamics
+  - imaginary-time evolution
+  - tensor networks
+  - quantum-classical boundary
+  - reproducible research
+  - negative result
 authors:
   - family-names: "Mahaboob Ali"
     given-names: "Anees Ahmed"
-    email: ahmedaneesm@gmail.com
-    affiliation: "Gene Therapy Laboratory, Vellore Institute of Technology, Vellore, India"
-repository-code: "https://github.com/ahmedanees-m/quasar"
-license: Apache-2.0
-version: 0.1.0
-keywords:
-  - quantum computing
-  - quantum algorithms
-  - quantum singular value transformation
-  - imaginary time evolution
-  - population genetics
-  - quasispecies
-  - error threshold
-  - tensor networks
-  - reproducible research
+    orcid: "https://orcid.org/0000-0002-2135-0865"
+    affiliation: "School of Bio Sciences and Technology, Vellore Institute of Technology, Vellore, India"
+  - family-names: "Nelson"
+    given-names: "Everette Jacob Remington"
+    orcid: "https://orcid.org/0000-0002-9781-526X"
+    affiliation: "School of Bio Sciences and Technology, Vellore Institute of Technology, Vellore, India"
+  - family-names: "Delhibabu"
+    given-names: "Radhakrishnan"
+    orcid: "https://orcid.org/0000-0001-6591-184X"
+    affiliation: "School of Computer Science and Engineering, Vellore Institute of Technology, Vellore, India"
