@@ -21,8 +21,6 @@ recorded in the planning documents:
 Two of those, II.1 and I.4, were misattributions that would have reached a referee. Both came
 from a reference recorded out of a planning document rather than out of the paper.
 
-Dates for when each entry was last checked are at the end.
-
 ---
 
 ## Literature group I: the evolution to spin-chain correspondence
@@ -386,45 +384,3 @@ against, so it belongs in this dossier.
   checked is worse than leaving it visibly incomplete.
 - **Needed.** Either a specific citation, or removal. The scope limit it was intended to
   support is already carried by V.1.
-
----
-
-## Gap log
-
-Where the red-team or a reviewer identifies a literature this file misses, it is recorded
-here with the date, so the history of what was missed and when is visible.
-
-*(No entries yet.)*
-
----
-
-## When each entry was last checked
-
-`bibliographic` means title, authorship, venue and the claim summarised here were
-confirmed against the source or its abstract. `read in full` means the paper was read
-end to end. One entry names a body of work without identifying a paper, so there is
-nothing to check against.
-
-| Entry | Checked |
-|---|---|
-| I.1 | verified 2026-08-15, bibliographic |
-| I.2 | verified 2026-08-15, bibliographic |
-| I.3 | verified 2026-08-15, bibliographic |
-| I.4 | verified 2026-08-15, corrected |
-| I.5 | verified 2026-08-15, bibliographic |
-| II.1 | verified 2026-08-14 |
-| II.1a | verified 2026-08-14 by citation |
-| II.2 | verified 2026-08-15, bibliographic |
-| II.3 | verified 2026-08-15, bibliographic |
-| III.1 | verified 2026-08-15, bibliographic |
-| III.2 | verified 2026-08-15, bibliographic |
-| III.3 | verified 2026-08-15, corrected and merged |
-| III.4 | verified 2026-08-15, corrected |
-| III.5 | verified 2026-08-15 |
-| III.6 | verified 2026-08-15 |
-| IV.1 | verified 2026-08-15, title corrected |
-| IV.2 | verified 2026-08-15, bibliographic |
-| IV.3 | verified 2026-08-15, bibliographic |
-| IV.4 | verified 2026-08-09 |
-| V.1 | verified 2026-08-15, bibliographic |
-| V.2 | unresolved, no citation |

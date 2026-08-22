@@ -8,13 +8,12 @@ Keep a Changelog format. Semantic versioning. Release tags follow the execution 
 ### Added
 
 - Repository skeleton per `QUASAR_engineering_standards.md`.
-- `docs/protocol.md`, the kept as a running record specification, with thresholds for WP-R through WP8, the
+- `docs/protocol.md`, with thresholds for WP-R through WP8, the
   full WP7 grid, seed lists, the compute-budget protocol, and the G-7 decision rule.
-- `docs/references.md`, the four-literature dossier, with a per-entry verification flag. Nothing
-  may be cited in the manuscript while still marked to-verify.
+- `docs/references.md`, notes on the literature the project draws from.
 - `docs/results-index.md`, the claims ledger, and `scripts/check_claims.py` to verify every entry
   resolves to an artefact and a script.
-- `docs/notes.md` with docs/notes.md, covering the rebuild decision, the three
+- `docs/notes.md`, covering the rebuild decision, the three
   numerical conventions that correspond to known silent-failure modes, the Docker-only
   execution policy, the git-for-code and transfer-for-artefacts split, and the working storage ceiling.
 - `Dockerfile` and `requirements.in` for the pinned execution image, with BLAS thread

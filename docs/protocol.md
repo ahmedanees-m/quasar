@@ -1143,11 +1143,11 @@ exact diagonalisation on an out-of-class instance would report itself as coverin
 it does not cover, and the boundary map would inherit that in the direction that flatters the
 quantum method. The check therefore requires every out-of-class configuration to raise.
 
-**Attribution, deliberately left open.** Execution plan v4 names this baseline
-"Dixit-Srivastava-Vishnoi" after `references.md` entry II.1, which is still flagged
-`to-verify`. The project's rule is that nothing may be cited while flagged, so this check does
-not claim the class it implements is theirs. It implements the class this project can derive
-and check. Whether the two coincide has to be settled by reading arXiv:1203.1287 before the
+**Attribution.** Execution plan v4 named this baseline "Dixit-Srivastava-Vishnoi" after
+`references.md` entry II.1. Reading that paper settled it: the `(L+1)` reduction is Swetina
+and Schuster (1982), which Dixit et al. cite for exactly that, and this baseline's class is a
+strict superset of theirs. The check does not claim the class it implements is theirs; it
+implements the class this project can derive and check. Whether the two coincide has to be settled by reading arXiv:1203.1287 before the
 name goes in the manuscript, and it is not a formality: **if their class is strictly larger,
 WP7 has cells it currently believes are classically hard and the boundary map is wrong in the
 direction that favours the quantum method.**
