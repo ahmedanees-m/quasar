@@ -1,0 +1,256 @@
+{
+  "gate": "G-4",
+  "work_package": "wp4",
+  "passed": true,
+  "threshold": {
+    "criterion_1": "total variation < 0.02 against the analytic quasispecies at N = 1000000, L = 8",
+    "criterion_2": "reaches total variation <= 0.02 at L = 8 within 300 s",
+    "defined_in": "docs/protocol.md, G-4"
+  },
+  "measured": {
+    "criterion_1_accuracy": {
+      "passed": true,
+      "total_variation_at_largest_budget": 0.0046641244990745625,
+      "threshold": 0.02,
+      "largest_population": 1000000,
+      "convergence_exponent_in_N": -0.6171495496168377,
+      "expected_exponent": -0.5,
+      "local_slopes_between_adjacent_populations": [
+        {
+          "from_population": 1000,
+          "to_population": 10000,
+          "slope": -1.0367439482336827
+        },
+        {
+          "from_population": 10000,
+          "to_population": 100000,
+          "slope": -0.5085957088620617
+        },
+        {
+          "from_population": 100000,
+          "to_population": 1000000,
+          "slope": -0.34229360533969305
+        }
+      ],
+      "exponent_note": "The local slopes run from about -1.0 at the smallest populations, where the distribution is not yet resolved, to about -0.34 at the largest, where the remaining error is a finite-generation floor rather than sampling noise."
+    },
+    "criterion_2_time_to_accuracy": {
+      "passed": true,
+      "target_total_variation": 0.02,
+      "budget_seconds": 300.0,
+      "cheapest_sufficient_population": 100000,
+      "seconds_to_reach_target": 27.52,
+      "total_variation_reached": 0.010258024685227948
+    },
+    "throughput": {
+      "seconds_per_1000_generations_by_population": {
+        "1000": 0.4597,
+        "10000": 0.576,
+        "100000": 0.688,
+        "1000000": 0.9157
+      },
+      "cost_model": "O(L * 2**L) per generation, independent of N"
+    },
+    "time_step_study": {
+      "population_scaled_with_inverse_dt": [
+        {
+          "dt": 0.04,
+          "generations": 2000,
+          "population": 100000,
+          "total_variation": 0.023823520930181148,
+          "max_burn_in_drift": 0.0192571125,
+          "max_pairwise_tv_between_seeds": 0.018964006249999995
+        },
+        {
+          "dt": 0.02,
+          "generations": 4000,
+          "population": 200000,
+          "total_variation": 0.01729261659077214,
+          "max_burn_in_drift": 0.022380018750000008,
+          "max_pairwise_tv_between_seeds": 0.016133607812499992
+        },
+        {
+          "dt": 0.01,
+          "generations": 8000,
+          "population": 400000,
+          "total_variation": 0.008004254068847218,
+          "max_burn_in_drift": 0.019790714062499992,
+          "max_pairwise_tv_between_seeds": 0.01552297734375001
+        },
+        {
+          "dt": 0.005,
+          "generations": 16000,
+          "population": 800000,
+          "total_variation": 0.0064393892742103664,
+          "max_burn_in_drift": 0.020129718750000004,
+          "max_pairwise_tv_between_seeds": 0.013084381152343753
+        }
+      ],
+      "population_held_fixed": [
+        {
+          "dt": 0.04,
+          "generations": 2000,
+          "population": 100000,
+          "total_variation": 0.023823520930181148,
+          "max_burn_in_drift": 0.0192571125,
+          "max_pairwise_tv_between_seeds": 0.018964006249999995
+        },
+        {
+          "dt": 0.02,
+          "generations": 4000,
+          "population": 100000,
+          "total_variation": 0.014919118694781778,
+          "max_burn_in_drift": 0.029873743750000008,
+          "max_pairwise_tv_between_seeds": 0.02314334374999999
+        },
+        {
+          "dt": 0.01,
+          "generations": 8000,
+          "population": 100000,
+          "total_variation": 0.016437527175177415,
+          "max_burn_in_drift": 0.03957811562500001,
+          "max_pairwise_tv_between_seeds": 0.030882092187499988
+        },
+        {
+          "dt": 0.005,
+          "generations": 16000,
+          "population": 100000,
+          "total_variation": 0.015292715459906094,
+          "max_burn_in_drift": 0.052484785937500014,
+          "max_pairwise_tv_between_seeds": 0.04432380937500001
+        }
+      ],
+      "note": "Genetic drift is 1/N per generation, so 1/(N dt) per unit simulated time. Shrinking dt at fixed N halves the discretisation bias and doubles the drift, so the fixed-population rows plateau while their equilibration drift climbs."
+    },
+    "seconds": 238.88
+  },
+  "n_cases": 12,
+  "cases": [
+    {
+      "criterion": 1,
+      "population": 1000,
+      "generations": 4000,
+      "dt": 0.01,
+      "total_variation": 0.3600836456330837,
+      "max_pairwise_tv_between_seeds": 0.7487578125000001,
+      "max_burn_in_drift": 0.766265625,
+      "seconds": 18.39,
+      "generations_per_second": 2175.6
+    },
+    {
+      "criterion": 1,
+      "population": 10000,
+      "generations": 4000,
+      "dt": 0.01,
+      "total_variation": 0.03308715673333511,
+      "max_pairwise_tv_between_seeds": 0.23182412499999996,
+      "max_burn_in_drift": 0.2190946875,
+      "seconds": 23.04,
+      "generations_per_second": 1736.3
+    },
+    {
+      "criterion": 1,
+      "population": 100000,
+      "generations": 4000,
+      "dt": 0.01,
+      "total_variation": 0.010258024685227948,
+      "max_pairwise_tv_between_seeds": 0.053922474999999984,
+      "max_burn_in_drift": 0.09027725000000002,
+      "seconds": 27.52,
+      "generations_per_second": 1453.4
+    },
+    {
+      "criterion": 1,
+      "population": 1000000,
+      "generations": 4000,
+      "dt": 0.01,
+      "total_variation": 0.0046641244990745625,
+      "max_pairwise_tv_between_seeds": 0.015242652187499994,
+      "max_burn_in_drift": 0.02507465687499999,
+      "seconds": 36.63,
+      "generations_per_second": 1092.1
+    },
+    {
+      "study": "time_step_population_scaled",
+      "dt": 0.04,
+      "generations": 2000,
+      "population": 100000,
+      "total_variation": 0.023823520930181148,
+      "max_burn_in_drift": 0.0192571125,
+      "max_pairwise_tv_between_seeds": 0.018964006249999995
+    },
+    {
+      "study": "time_step_population_scaled",
+      "dt": 0.02,
+      "generations": 4000,
+      "population": 200000,
+      "total_variation": 0.01729261659077214,
+      "max_burn_in_drift": 0.022380018750000008,
+      "max_pairwise_tv_between_seeds": 0.016133607812499992
+    },
+    {
+      "study": "time_step_population_scaled",
+      "dt": 0.01,
+      "generations": 8000,
+      "population": 400000,
+      "total_variation": 0.008004254068847218,
+      "max_burn_in_drift": 0.019790714062499992,
+      "max_pairwise_tv_between_seeds": 0.01552297734375001
+    },
+    {
+      "study": "time_step_population_scaled",
+      "dt": 0.005,
+      "generations": 16000,
+      "population": 800000,
+      "total_variation": 0.0064393892742103664,
+      "max_burn_in_drift": 0.020129718750000004,
+      "max_pairwise_tv_between_seeds": 0.013084381152343753
+    },
+    {
+      "study": "time_step_population_fixed",
+      "dt": 0.04,
+      "generations": 2000,
+      "population": 100000,
+      "total_variation": 0.023823520930181148,
+      "max_burn_in_drift": 0.0192571125,
+      "max_pairwise_tv_between_seeds": 0.018964006249999995
+    },
+    {
+      "study": "time_step_population_fixed",
+      "dt": 0.02,
+      "generations": 4000,
+      "population": 100000,
+      "total_variation": 0.014919118694781778,
+      "max_burn_in_drift": 0.029873743750000008,
+      "max_pairwise_tv_between_seeds": 0.02314334374999999
+    },
+    {
+      "study": "time_step_population_fixed",
+      "dt": 0.01,
+      "generations": 8000,
+      "population": 100000,
+      "total_variation": 0.016437527175177415,
+      "max_burn_in_drift": 0.03957811562500001,
+      "max_pairwise_tv_between_seeds": 0.030882092187499988
+    },
+    {
+      "study": "time_step_population_fixed",
+      "dt": 0.005,
+      "generations": 16000,
+      "population": 100000,
+      "total_variation": 0.015292715459906094,
+      "max_burn_in_drift": 0.052484785937500014,
+      "max_pairwise_tv_between_seeds": 0.04432380937500001
+    }
+  ],
+  "notes": "The implementation runs in genotype-count space at O(L 2^L) per generation, independent of N. Throughput is recorded in measured.throughput.",
+  "env": {
+    "git_sha": "fb807c0c97ef157630b7e6a98e2c76a55760ea7a",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.36",
+    "protocol_sha256": "2f2a540a1e32425ba263506052f018d17a0c78c1ad951201d80c8e9f576d853c"
+  },
+  "timestamp": "2026-09-15T21:33:34.299429+00:00"
+}

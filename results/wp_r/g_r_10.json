@@ -1,0 +1,145 @@
+{
+  "gate": "G-R.10",
+  "work_package": "wp_r",
+  "passed": true,
+  "threshold": {
+    "statistic": "ratio of Pauli terms, single-peak projector against the sparse additive-plus-epistasis form, at L = 12",
+    "value": 50.0,
+    "defined_in": "docs/protocol.md, G-R.10"
+  },
+  "measured": {
+    "gate_size": 12,
+    "sparse_terms_at_gate_size": 27,
+    "projector_terms_at_gate_size": 4108,
+    "ratio_at_gate_size": 152.14814814814815,
+    "ratio_by_size": {
+      "4": 1.8181818181818181,
+      "6": 4.666666666666667,
+      "8": 13.894736842105264,
+      "10": 44.95652173913044,
+      "12": 152.14814814814815
+    },
+    "nk_term_counts": [
+      {
+        "L": 4,
+        "K": 0,
+        "terms": 9,
+        "fraction_of_projector": 0.45
+      },
+      {
+        "L": 4,
+        "K": 1,
+        "terms": 13,
+        "fraction_of_projector": 0.65
+      },
+      {
+        "L": 4,
+        "K": 2,
+        "terms": 19,
+        "fraction_of_projector": 0.95
+      },
+      {
+        "L": 6,
+        "K": 0,
+        "terms": 13,
+        "fraction_of_projector": 0.18571428571428572
+      },
+      {
+        "L": 6,
+        "K": 1,
+        "terms": 19,
+        "fraction_of_projector": 0.2714285714285714
+      },
+      {
+        "L": 6,
+        "K": 2,
+        "terms": 31,
+        "fraction_of_projector": 0.44285714285714284
+      },
+      {
+        "L": 6,
+        "K": 4,
+        "terms": 69,
+        "fraction_of_projector": 0.9857142857142858
+      },
+      {
+        "L": 8,
+        "K": 0,
+        "terms": 17,
+        "fraction_of_projector": 0.06439393939393939
+      },
+      {
+        "L": 8,
+        "K": 1,
+        "terms": 25,
+        "fraction_of_projector": 0.0946969696969697
+      },
+      {
+        "L": 8,
+        "K": 2,
+        "terms": 41,
+        "fraction_of_projector": 0.1553030303030303
+      },
+      {
+        "L": 8,
+        "K": 4,
+        "terms": 133,
+        "fraction_of_projector": 0.5037878787878788
+      }
+    ],
+    "seconds": 0.07
+  },
+  "n_cases": 5,
+  "cases": [
+    {
+      "L": 4,
+      "mu": 0.2,
+      "sparse_terms": 11,
+      "projector_terms": 20,
+      "ratio": 1.8181818181818181,
+      "projector_count_verified_by_construction": true
+    },
+    {
+      "L": 6,
+      "mu": 0.2,
+      "sparse_terms": 15,
+      "projector_terms": 70,
+      "ratio": 4.666666666666667,
+      "projector_count_verified_by_construction": true
+    },
+    {
+      "L": 8,
+      "mu": 0.2,
+      "sparse_terms": 19,
+      "projector_terms": 264,
+      "ratio": 13.894736842105264,
+      "projector_count_verified_by_construction": true
+    },
+    {
+      "L": 10,
+      "mu": 0.2,
+      "sparse_terms": 23,
+      "projector_terms": 1034,
+      "ratio": 44.95652173913044,
+      "projector_count_verified_by_construction": false
+    },
+    {
+      "L": 12,
+      "mu": 0.2,
+      "sparse_terms": 27,
+      "projector_terms": 4108,
+      "ratio": 152.14814814814815,
+      "projector_count_verified_by_construction": false
+    }
+  ],
+  "notes": "The two forms describe different landscapes. The projector needs every Z subset; the sparse form needs site terms and one term per coupling. NK term counts show the growth as K increases.",
+  "env": {
+    "git_sha": "fb807c0c97ef157630b7e6a98e2c76a55760ea7a",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.36",
+    "protocol_sha256": "2f2a540a1e32425ba263506052f018d17a0c78c1ad951201d80c8e9f576d853c"
+  },
+  "timestamp": "2026-09-15T13:36:27.053616+00:00"
+}

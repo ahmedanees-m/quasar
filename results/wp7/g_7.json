@@ -1,0 +1,340 @@
+{
+  "gate": "G-7",
+  "work_package": "wp7",
+  "passed": true,
+  "threshold": {
+    "criteria": "a non-empty region, contiguous and reproducible across at least 5 seeds, in which a quantum route reaches cosine >= 0.9, the compute-matched tensor network is below 0.8, Baseline B does not apply, and the bootstrap confidence intervals do not overlap",
+    "defined_in": "docs/protocol.md, G-7"
+  },
+  "measured": {
+    "verdict": "null",
+    "groups_scored": 183,
+    "groups_excluded": [
+      {
+        "family": "additive_pairwise",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "additive_pairwise",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "additive_pairwise",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "block",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "block",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "block",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "house_of_cards",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 1,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 1,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 1,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 2,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "nk",
+        "K": 4,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "rough_mount_fuji",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "single_peak",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "single_peak",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "single_peak",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 0.4,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.0,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      },
+      {
+        "family": "spin_glass",
+        "K": null,
+        "L": 8,
+        "mu_over_mu_c": 1.6,
+        "cells_dropped": 1,
+        "reasons": [
+          "over budget"
+        ]
+      }
+    ],
+    "excluded_cells_by_size": [
+      {
+        "L": 8,
+        "cells": 259,
+        "cells_excluded": 27,
+        "share_excluded": 0.10424710424710425,
+        "by_reason": {
+          "over budget": 27
+        }
+      },
+      {
+        "L": 10,
+        "cells": 259,
+        "cells_excluded": 0,
+        "share_excluded": 0.0,
+        "by_reason": {}
+      },
+      {
+        "L": 12,
+        "cells": 259,
+        "cells_excluded": 0,
+        "share_excluded": 0.0,
+        "by_reason": {}
+      }
+    ],
+    "conditions_failed_by_group_count": {
+      "the tensor network stays at or above 0.8": 183,
+      "the bootstrap intervals overlap": 183,
+      "fewer than 5 seeds": 57,
+      "baseline B applies": 36,
+      "no quantum route reaches 0.9": 1
+    },
+    "positive_region": [],
+    "null_bound": {
+      "largest_L_with_a_valid_reference": 12,
+      "statement": "No region satisfies all four conditions at the sizes swept. The crossover, if it exists, lies beyond the largest L at which this sweep held a valid reference."
+    },
+    "conditions": {
+      "quantum_cosine_at_least": 0.9,
+      "tensor_network_below": 0.8,
+      "minimum_seeds": 5,
+      "bootstrap_resamples": 10000
+    }
+  },
+  "n_cases": 0,
+  "cases": [],
+  "notes": "Verdict: null. passed=true records that the criterion was evaluated. measured.conditions_failed_by_group_count lists the conditions each group failed.",
+  "env": {
+    "git_sha": "fb807c0c97ef157630b7e6a98e2c76a55760ea7a",
+    "git_dirty": false,
+    "image": "quasar:v1",
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.36",
+    "protocol_sha256": "2f2a540a1e32425ba263506052f018d17a0c78c1ad951201d80c8e9f576d853c"
+  },
+  "timestamp": "2026-09-17T17:11:07.715165+00:00"
+}
