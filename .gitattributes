@@ -1,0 +1,11 @@
+# LF line endings in the repository and in working trees.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.pdf binary
+*.npy binary
+*.npz binary
+*.parquet binary
+*.tar binary
+*.gz binary

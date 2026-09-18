@@ -1,0 +1,49 @@
+# credentials
+.env
+*.token
+*token*.txt
+.qiskit/
+~/.qiskit/
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# large intermediates
+scratch/
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.tar
+*.tar.gz
+
+# results: records are committed, bulk output is not
+results/**/*.parquet
+results/**/raw/
+results/**/scratch/
+results/gate_run_manifest.json
+
+# records written outside the Docker image
+results/_local/
+
+# os
+.DS_Store
+Thumbs.db
+desktop.ini
+
+.quasar_repro_completed.json
